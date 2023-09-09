@@ -11,6 +11,6 @@ public class DemoController {
 	@ResponseBody
 	@GetMapping
 	public String demo() {
-		return "ban test";
+		return "Đây là dự án tốt nghiệp";
 	}
 }
