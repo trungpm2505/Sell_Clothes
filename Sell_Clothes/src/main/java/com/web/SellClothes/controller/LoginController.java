@@ -12,6 +12,6 @@ public class LoginController {
 	@ResponseBody
 	@GetMapping
 	public String login() {
-		return"Đây là trang login!";
+		return"Đây là trang login nè!";
 	}
 }
