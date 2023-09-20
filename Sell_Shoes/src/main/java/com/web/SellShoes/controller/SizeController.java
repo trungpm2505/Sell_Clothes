@@ -1,5 +1,10 @@
 package com.web.SellShoes.controller;
 
-public class SizeController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class SizeController {
+	public String view() {
+		return"";
+	}
 }
