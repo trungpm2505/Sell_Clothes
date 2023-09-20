@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SizeController {
-	@GetMapping("ODer")
+	@GetMapping("ODer123")
 	
 	public String view() {
 		return"/view";
