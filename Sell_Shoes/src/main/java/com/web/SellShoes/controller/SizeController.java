@@ -8,6 +8,6 @@ public class SizeController {
 	@GetMapping("ODer123")
 	
 	public String view() {
-		return"/view";
+		return"/view/index";
 	}
 }
