@@ -1,5 +1,9 @@
 package com.web.SellShoes.service;
 
-public interface RoleService {
+import java.util.Optional;
 
+import com.web.SellShoes.entity.Role;
+
+public interface RoleService {
+	public Optional<Role> getRoleByName(String name);
 }
