@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.web.SellShoes.jwt.JwtAuthenticationFilter;
 import com.web.SellShoes.serviceImpl.UserServiceImpl;
@@ -31,8 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
-
-           
+			"/add",
+			"/css/**",
+			"/js/**" ,
+			"/plugins/**" ,
+			"/adminview/**"       
 	};
 	
 

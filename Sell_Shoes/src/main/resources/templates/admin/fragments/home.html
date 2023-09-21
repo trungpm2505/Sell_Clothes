@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- theme meta -->
+    <meta name="theme-name" content="quixlab" />
+  
+    <title>Quixlab - Bootstrap Admin Dashboard Template</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Pignose Calender -->
+    <link href="/adminview/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="/adminview/plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="/adminview/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="/adminview/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <!--Preloader start-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+  
+    <div id="main-wrapper">
+
+        <!--Nav header start-->
+      <div th:replace="admin/fragments/header::header">
+       </div>
+      <div th:replace="admin/fragments/nav::nav">
+       </div>
+     
+
+        <!--Content body start-->
+       
+         <div class="content-body" >
+            <div class="container mt-3" layout:fragment="content"></div>
+            
+        </div>
+        <!--Content body end*-->
+        
+        
+        <!--Footer start-->
+         <div th:replace="admin/fragments/footer::footer">
+       </div>
+        <!--Footer end-->
+    </div>
+    <!-- Main wrapper end-->
+
+    <!-- Scripts-->
+    <script src="/adminview/plugins/common/common.min.js"></script>
+    <script src="/adminview/js/custom.min.js"></script>
+    <script src="/adminview/js/settings.js"></script>
+    <script src="/adminview/js/gleek.js"></script>
+    <script src="/adminview/js/styleSwitcher.js"></script>
+
+    <!-- Chartjs -->
+    <script src="/adminview/plugins/chart.js/Chart.bundle.min.js"></script>
+    <!-- Circle progress -->
+    <script src="/adminview/plugins/circle-progress/circle-progress.min.js"></script>
+    <!-- Datamap -->
+    <script src="/adminview/plugins/d3v3/index.js"></script>
+    <script src="/adminview/plugins/topojson/topojson.min.js"></script>
+    <script src="/adminview/plugins/datamaps/datamaps.world.min.js"></script>
+    <!-- Morrisjs -->
+    <script src="/adminview/plugins/raphael/raphael.min.js"></script>
+    <script src="/adminview/plugins/morris/morris.min.js"></script>
+    <!-- Pignose Calender -->
+    <script src="/adminview/plugins/moment/moment.min.js"></script>
+    <script src="/adminview/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <!-- ChartistJS -->
+    <script src="/adminview/plugins/chartist/js/chartist.min.js"></script>
+    <script src="/adminview/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+
+
+    <script src="/adminview/js/dashboard/dashboard-1.js"></script>
+
+</body>
+
+</html>
