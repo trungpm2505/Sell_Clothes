@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class CartController {
-	public void view() {
-		return;
+	public String view() {
+		return"/views";
 	}
 }
