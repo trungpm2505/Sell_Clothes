@@ -1,5 +1,10 @@
 package com.web.SellShoes.controller;
 
-public class CartController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class CartController {
+	public void view() {
+		
+	}
 }

@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UserRequestDto {
-	@Size(min = 4, max = 50,message="Username cannot be empty and must be between 4 and 50 characters long")
-	private String username;
 	
 	@Size(min = 6, max = 30,message="Password cannot be empty and must be between 6 and 30 characters long")
 	private String password;
