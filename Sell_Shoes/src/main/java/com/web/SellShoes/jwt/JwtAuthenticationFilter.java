@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.web.SellShoes.service.UserService;
-import com.web.SellShoes.serviceImpl.UserServiceImpl;
+import com.web.SellShoes.service.AccountService;
+import com.web.SellShoes.serviceImpl.AccountServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-
-
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
 
-    private final UserServiceImpl customUserDetailsService;
-    private final UserService userService;
+    private final AccountServiceImpl customUserDetailsService;
+    private final AccountService accountService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -45,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Integer userId = tokenProvider.getUserIdFromJWT(jwt);
 
                 // Lấy thông tin người dùng từ id
-                UserDetails userDetails = new CustomUserDetails(userService.getUser(userId)) ;
+                UserDetails userDetails = new CustomUserDetails(accountService.getAccount(userId)) ;
                 if(userDetails != null) {
 
                     // Nếu người dùng hợp lệ, set thông tin cho Seturity Context

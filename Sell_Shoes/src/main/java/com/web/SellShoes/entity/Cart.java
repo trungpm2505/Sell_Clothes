@@ -31,17 +31,20 @@ public class Cart {
 
 	@Column(nullable = false, length = 20)
 	private String size;
+	
+	@Column(nullable = false, length = 20)
+	private String color;
 
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime updatedAt = LocalDateTime.now();
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	@JoinColumn(name = "variant_id", nullable = false)
+	private Variant variant;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@JoinColumn(name = "account_id", nullable = false)
+	private Account account;
 
 }

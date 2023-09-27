@@ -48,6 +48,6 @@ public class Feedback {
     private LocalDate createAt = LocalDate.now();
     
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = true)
-	private User user;
+	@JoinColumn(name = "account_id", nullable = true)
+	private Account account;
 }

@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "users")
-public class User {
+@Table( name = "accounts")
+public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -31,7 +31,7 @@ public class User {
 	@Column(nullable = false, length = 50)
 	private String fullName;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String password;
 	
 	@Column(nullable = false, length = 50)

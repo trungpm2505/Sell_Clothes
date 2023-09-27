@@ -34,11 +34,14 @@ public class OrderDetail {
 	@Column(nullable = false, length = 20)
 	private String size;
 	
+	@Column(nullable = false, length = 20)
+	private String color;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false,referencedColumnName = "id")
     private Order order;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
-    private Product product;
+    @JoinColumn(name = "variant_id", nullable = false, referencedColumnName = "id")
+    private Variant variant;
 }

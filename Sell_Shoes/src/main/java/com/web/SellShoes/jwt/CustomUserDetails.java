@@ -11,7 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.web.SellShoes.entity.Role;
-import com.web.SellShoes.entity.User;
+import com.web.SellShoes.entity.Account;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 public class CustomUserDetails implements UserDetails{
 
-	private final User user;
+	private final Account account;
 //  Role roles = user.getRole();
 //  GrantedAuthority authorities = new SimpleGrantedAuthority(roles.getRoleName());
 //  return Collections.singleton(authorities);
@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        Role role = user.getRole();
+        Role role = account.getRole();
         authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
      
         return authorities;
@@ -40,12 +40,12 @@ public class CustomUserDetails implements UserDetails{
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return account.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return account.getEmail();
     }
 
     @Override
