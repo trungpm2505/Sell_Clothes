@@ -1,7 +1,6 @@
 package com.web.SellShoes.config;
 
 import javax.servlet.Filter;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.web.SellShoes.jwt.JwtAuthenticationFilter;
-import com.web.SellShoes.serviceImpl.UserServiceImpl;
+import com.web.SellShoes.serviceImpl.AccountServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,15 +26,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private final UserServiceImpl userService;
+	private final AccountServiceImpl userService;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
 			"/add",
-			"/css/**",
-			"/js/**" ,
+			"/login/**",
+			"/register/**",
+			"/image/**",
 			"/plugins/**" ,
-			"/adminview/**"       
+			"/adminview/**",
+			"/registers/**",
+			"/logins/**",
 	};
 	
 
@@ -95,18 +96,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
             .and()
+            .rememberMe()
+            .key("lodaaaaaa") 
+            .tokenValiditySeconds(86400)
+            .userDetailsService(userService)
+            .and()
             .logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
                 .logoutSuccessHandler((request, response, authentication) -> {
-                    HttpSession session = request.getSession(false);
-                    if (session != null) {
-                        session.removeAttribute("fullname");
-                        session.removeAttribute("email");
-                    }
-                    response.sendRedirect("/product/user-home");
+                   // HttpSession session = request.getSession(false);
                 });
         // Thêm một lớp Filter kiểm tra jwt
         http.addFilterBefore((Filter) jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

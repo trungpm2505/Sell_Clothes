@@ -25,16 +25,16 @@ public class ConfirmationToken {
 
 	    private String token;
 	    
-	    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-	    @JoinColumn(nullable = false, name = "user_id")
-	    private User user;
+	    @OneToOne(targetEntity = Account.class, fetch = FetchType.EAGER)
+	    @JoinColumn(nullable = false, name = "account_id")
+	    private Account account;
 
 	    private LocalDateTime expiryDate;
 
-		public ConfirmationToken(String token, User user, LocalDateTime expiryDate) {
+		public ConfirmationToken(String token, Account account, LocalDateTime expiryDate) {
 			super();
 			this.token = token;
-			this.user = user;
+			this.account = account;
 			this.expiryDate = expiryDate;
 		}
 }

@@ -14,21 +14,21 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class Size {
+public class Color {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
 	@Column(nullable = false, length = 20)
-	private String size;
+	private String color;
 	
-	@OneToMany(mappedBy = "size", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "color", cascade = CascadeType.ALL)
 	private List<Variant> variants = new ArrayList<>();
+	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
 //	private Product product;

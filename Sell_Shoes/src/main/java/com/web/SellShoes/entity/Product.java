@@ -28,15 +28,6 @@ public class Product {
 	@Column(nullable = false, length = 200)
 	private String title;
 	
-	@Column(nullable = false)
-	private Float price;
-	
-	@Column(nullable = true)
-	private Float currentPrice;
-	
-	@Column(nullable = true)
-	private int quantity;
-	
 	@Column(nullable = false, length = 1500)
 	private String discription;
 	

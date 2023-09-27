@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.SellShoes.dto.requestDto.MailInfoDto;
 import com.web.SellShoes.entity.ConfirmationToken;
-import com.web.SellShoes.entity.User;
+import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.service.ConfirmationTokenService;
 import com.web.SellShoes.service.MailerService;
 
@@ -35,12 +35,12 @@ public class MailerSericeImpl implements MailerService {
 	Random random = new Random();
 
 	@Override
-	public void sendEmailToConfirmAccount(User user) {
+	public void sendEmailToConfirmAccount(Account user) {
 		ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString(), user,
 				LocalDateTime.now().plusMinutes(2));
 		confirmationTokenService.save(confirmationToken);
 		MailInfoDto mailInfoDto = new MailInfoDto(user.getEmail(), "Verify Your Account",
-				"Thank you for signing up for our service. To ensure the security of your account, please verify your email address by clicking on the link below:"
+				"Thank you for signing up for our service. To ensure the security of your account, please verify your email address by clicking on the link below:\n"
 				+ "http://localhost:8080/register/confirm-account?token=" + confirmationToken.getToken()+ "\n\nBest regards!!");
 		send(mailInfoDto);
 	}
