@@ -1,5 +1,6 @@
 package com.web.SellShoes.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +28,16 @@ public class Color {
 	
 	@Column(nullable = false, length = 20)
 	private String color;
+	
+	@Column(nullable = false)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate createAt = LocalDate.now();
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate updateAt;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate deleteAt;
 	
 	@OneToMany(mappedBy = "color", cascade = CascadeType.ALL)
 	private List<Variant> variants = new ArrayList<>();

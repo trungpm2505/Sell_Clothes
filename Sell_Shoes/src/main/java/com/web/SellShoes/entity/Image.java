@@ -32,6 +32,6 @@ public class Image {
 	private Boolean isDefault = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "variant_id", nullable = false, referencedColumnName = "id")
-	private Variant variant;
+    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
+    private Product product;
 }

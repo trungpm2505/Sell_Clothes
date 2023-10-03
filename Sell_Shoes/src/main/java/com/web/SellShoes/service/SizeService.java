@@ -1,5 +1,9 @@
 package com.web.SellShoes.service;
 
-public interface SizeService {
+import java.util.List;
 
+import com.web.SellShoes.entity.Size;
+
+public interface SizeService {
+	public List<Size> getAll();
 }
