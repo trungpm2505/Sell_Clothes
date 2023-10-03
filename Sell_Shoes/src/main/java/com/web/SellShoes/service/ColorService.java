@@ -1,5 +1,9 @@
 package com.web.SellShoes.service;
 
-public interface ColorService {
+import java.util.List;
 
+import com.web.SellShoes.entity.Color;
+
+public interface ColorService {
+	public List<Color> getAll();
 }

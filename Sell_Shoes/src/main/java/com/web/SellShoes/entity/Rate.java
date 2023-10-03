@@ -48,8 +48,8 @@ public class Rate {
     @JoinColumn(name = "account_id",nullable = false, referencedColumnName = "id")
     private Account account;
 	
-    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Image> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	private List<Image> images = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "id")

@@ -29,7 +29,7 @@ public class Brand {
 	@Column(nullable = false, length = 200)
 	private String thumbnail;
 
-	@Column(nullable = false, length = 200)
+	@Column(nullable = true, length = 200)
 	private String description;
 	
 	@Column(nullable = false)

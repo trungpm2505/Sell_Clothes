@@ -1,5 +1,18 @@
 package com.web.SellShoes.repository;
 
-public interface ProductRepository {
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.web.SellShoes.entity.Product;
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>{
+	@Query("SELECT p FROM Product p WHERE p.deleteAt is null AND p.title = :title")
+	public Optional<Product> getProductByTitle(String title);
+	
+	@Query("SELECT p FROM Product p WHERE p.deleteAt is null AND p.id = :productId")
+	public Optional<Product> getProductById(Integer productId);
 
 }
