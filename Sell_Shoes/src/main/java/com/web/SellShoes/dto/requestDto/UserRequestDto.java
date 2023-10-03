@@ -17,7 +17,6 @@ public class UserRequestDto {
 	@Size(min = 6, max = 30,message="Password cannot be empty and must be between 6 and 30 characters long")
 	private String password;
 	
-	
 	private String confirmPassword;
 	
 	@NotBlank(message="Fullname cannot be empty")
@@ -28,7 +27,7 @@ public class UserRequestDto {
 	@Size( max = 100,message="Address must not exceed 100 characters")
 	private String address;
 	
-	@NotBlank(message="Phone cannot be empty")
+	//@NotBlank(message="Phone cannot be empty")
 	@Pattern(regexp = "^\\+?[0-9]{10,12}$", message = "Phone can not empty and should be between 10 to 12 digits")
 	private String phone;
 	

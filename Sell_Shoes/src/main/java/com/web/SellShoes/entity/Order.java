@@ -55,8 +55,8 @@ public class Order {
 	private float totalMoney;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = true, referencedColumnName = "id")
-	private User user;
+	@JoinColumn(name = "account_id", nullable = true, referencedColumnName = "id")
+	private Account account;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<OrderDetail> orderDetailsSet = new ArrayList<>();

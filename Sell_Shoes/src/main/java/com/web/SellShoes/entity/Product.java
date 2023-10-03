@@ -1,16 +1,22 @@
 package com.web.SellShoes.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,15 +33,6 @@ public class Product {
 
 	@Column(nullable = false, length = 200)
 	private String title;
-	
-	@Column(nullable = false)
-	private Float price;
-	
-	@Column(nullable = true)
-	private Float currentPrice;
-	
-	@Column(nullable = true)
-	private int quantity;
 	
 	@Column(nullable = false, length = 1500)
 	private String discription;
@@ -57,4 +54,7 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "brand_id", nullable = false, referencedColumnName = "id")
 	private Brand brand;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Image> images = new ArrayList<>();
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+<link type="text/css" rel="stylesheet" th:href="@{/logins/css/login.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+	    <form th:id="userLogin" class="user" th:action="@{/login/checkLogin}" method="POST"
+		 th:object="${loginRequestDto}">
+	      <h2>Login</h2>
+	      <div class="input-field">
+	        <input type="email" id="mailInput" th:id="email-input" th:field="*{email}">
+	        <label>Enter your Email</label>
+	      </div>
+	      <small th:id="email-error" id="helpId"></small>
+	      <div class="input-field">
+	        <input type="password" id="passwordInput" th:id="password-input" th:field="*{password}">
+	        <span id="showPassword" class="fa fa-eye move-right" onclick="togglePasswordVisibility()"></span>
+	        <label>Enter your Password</label>
+	      </div>
+	      <small th:id="password-error" id="helpId"></small>
+	      <div class="forget">
+	        <label for="rememberMe">
+ 	          <input type="checkbox" id="rememberMe" name="rememberMe">
+	          <p>Remember me</p> 
+	        </label>
+	        <a href="#">Forgot password?</a>
+	      </div>
+	      <button type="submit">Log In</button>
+	      <div class="register">
+	        <p>Don't have an account? <a href="register.html"><u>Register</u></a></p>
+	      </div>
+	    </form>
+  </div>
+  <script th:src="@{/logins/js/login.js}"></script>
+</body>
+</html>
