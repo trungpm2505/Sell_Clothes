@@ -60,4 +60,8 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<OrderDetail> orderDetailsSet = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "promotion_id", nullable = true, referencedColumnName = "id")
+	private Promotion promotion;
 }

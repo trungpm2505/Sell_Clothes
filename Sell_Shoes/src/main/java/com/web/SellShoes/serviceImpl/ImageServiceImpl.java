@@ -91,4 +91,33 @@ public class ImageServiceImpl implements ImageService{
 		}
 	}
 
+	@Override
+	public void uploadFileList(List<String> fileNames, int defaultFileIndex, Product product) {
+	    for (int i = 0; i < fileNames.size(); i++) {
+	        String fileName = fileNames.get(i);
+	        String nameForShow = fileName;
+
+	        try {
+	            // Đọc dữ liệu tệp từ thư mục tạm thời
+	            Path path = Paths.get(UPLOADED_FOLDER + fileName);
+	            byte[] bytes = Files.readAllBytes(path);
+
+	            // Tạo đối tượng Image và lưu xuống cơ sở dữ liệu
+	            Image image = new Image();
+	            image.setInmageForShow(nameForShow);
+	            image.setInmageForSave(fileName);
+	            if (i == defaultFileIndex) {
+	                image.setIsDefault(true);
+	            }
+	            
+	            image.setProduct(product);
+
+	            save(image);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
 }

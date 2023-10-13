@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login/**",
 			"/register/**",
 			"/image/**",
+			"/upload/**",
 			"/plugins/**" ,
 			"/adminview/**",
 			"/registers/**",
