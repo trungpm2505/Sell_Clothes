@@ -85,9 +85,9 @@ public class ProductController {
 
 	@GetMapping(value = "/getProductPage")
 	@ResponseBody
-	public ResponseEntity<ProductPageResponseDto> getProductPage(@RequestParam(defaultValue = "8") int size,
+	public ResponseEntity<ProductPageResponseDto> getProductPage(@RequestParam(defaultValue = "7") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
-
+		
 		Page<Product> productPage = null;
 		if (keyword.equals("")) {
 			productPage = productService.getAllProduct(page, size);
@@ -182,9 +182,8 @@ public class ProductController {
 
 		List<Variant> variants = variantService.getVariantsByProductId(productId);
 		if (!variants.isEmpty()) {
-			// Nếu có liên kết, trả về phản hồi lỗi
 			return ResponseEntity.badRequest().body(
-					"The product cannot be deleted as it has active associations with variants. Please remove the associated variants before deleting the product");
+					"There are designs in the product that cannot be erased!!");
 		}
 
 		productService.deleteProduct(productById.get());

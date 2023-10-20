@@ -22,9 +22,9 @@ public class ColorController {
 	
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<?> getAllColor() {
-		List<Color> color = colorService.getAll();
+		List<Color> colors = colorService.getAll();
 		
-		List<ColorResponseDto> colorResponseDtos = color.stream()
+		List<ColorResponseDto> colorResponseDtos = colors.stream()
 				.map(size -> new ColorResponseDto(size.getId(),
 						size.getColor()))
 				.collect(Collectors.toList());

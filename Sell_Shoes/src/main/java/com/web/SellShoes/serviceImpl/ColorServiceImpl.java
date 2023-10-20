@@ -1,6 +1,7 @@
 package com.web.SellShoes.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,12 @@ public class ColorServiceImpl implements ColorService {
 	public List<Color> getAll() {
 		List<Color> colors = colorRepository.findAll();
 		return colors;
+	}
+
+	@Override
+	public Optional<Color> getColor(Integer colorId) {
+		Optional<Color> color = colorRepository.getColorById(colorId);
+		return color;
 	}
 
 }
