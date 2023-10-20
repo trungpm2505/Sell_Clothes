@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.web.SellShoes.dto.responseDto.CategoryPageResponseDto;
 import com.web.SellShoes.dto.responseDto.CategoryResponseDto;
 import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.service.CategoryService;
@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/category")
 public class CategoryController {
 	private final CategoryService categoryService;
-	
+
 	@GetMapping()
 	public String list(Model model) {
 
@@ -48,83 +48,80 @@ public class CategoryController {
 	public ResponseEntity<?> getAllCategory(Model model) {
 		List<Category> categories = categoryService.getAll();
 		List<CategoryResponseDto> categoryResponseDtos = categories.stream()
-				.map(category -> new CategoryResponseDto(category.getId(),
-						category.getCategoryName()))
+				.map(category -> new CategoryResponseDto(category.getId(), category.getCategoryName(),
+						category.getCreateAt(),category.getDeleteAt(),category.getUpdateAt()))
 				.collect(Collectors.toList());
-		
+
 		return ResponseEntity.ok(categoryResponseDtos);
 	}
-//@GetMapping("/getCategories")
-//public ResponseEntity<List<Category>>getCategories(ModelMap model){
-//	List<Category>listCotegory=categoryService.findAll();
-//	return new ResponseEntity<>(listCotegory,HttpStatus.OK);
-//}
-//	 @GetMapping("/getCategories")
-//	    public ResponseEntity<Page<Category>> getCategories(Pageable pageable) {
-//	        Page<Category> categoryPage = categoryService.findCategoryPage(pageable);
-//	        return new ResponseEntity<>(categoryPage, HttpStatus.OK);
-//	    }
-	@GetMapping("/getCategories")
-	public ResponseEntity<Page<Category>> getCategories(@RequestParam(required = false) String keyword, Pageable pageable) {
-	    Page<Category> categoryPage;
 
-	    if (keyword != null && !keyword.isEmpty()) {
-	        // Nếu có keyword, thực hiện tìm kiếm theo keyword
-	        categoryPage = categoryService.getCategoryByKey(pageable.getPageNumber(), pageable.getPageSize(), keyword);
-	    } else {
-	        // Nếu không có keyword, lấy tất cả danh mục
-	        categoryPage = categoryService.getAllCategory(pageable.getPageNumber(), pageable.getPageSize());
-	    }
-
-	    return new ResponseEntity<>(categoryPage, HttpStatus.OK);
+	@GetMapping("/getCategoryPage")
+	public ResponseEntity<CategoryPageResponseDto> getCategoryPage(@RequestParam(defaultValue = "5") int size,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số page từ URL
+			) {
+		
+		  Page<Category> categoryPage = null;
+		    if (keyword == null || keyword.isEmpty()) {
+		        categoryPage = categoryService.getAllCategory(page, size);
+		    } else {
+		        categoryPage = categoryService.getCategoryByKey(page, size, keyword);
+		    }
+		List<CategoryResponseDto> categoryResponseDtos = categoryPage.stream()
+				.map(category -> new CategoryResponseDto(category.getId(), category.getCategoryName(),
+						category.getCreateAt(),category.getDeleteAt(),category.getUpdateAt()))
+				.collect(Collectors.toList());
+      CategoryPageResponseDto categoryPageResponseDto=new CategoryPageResponseDto(categoryPage.getTotalPages(),
+    		  categoryPage.getNumber(), categoryPage.getSize(),categoryResponseDtos);
+		return  ResponseEntity.ok(categoryPageResponseDto);
 	}
 
-	
 	@RequestMapping("/saveCategory")
-	public ResponseEntity<String> comment(
-			@RequestParam(name = "categoryName") String categoryName, ModelMap model) {	
-		System.out.println("----");
-		Category category = new Category();			
+	public ResponseEntity<String> saveCategory(@RequestParam(name = "categoryName") String categoryName,
+			ModelMap model) {
+		Optional<Category> existingCategory = categoryService.findByCategoryName(categoryName);
+
+		if (existingCategory.isPresent()) {
+			return ResponseEntity.badRequest().body("Category name already exists");
+		}
+
+		Category category = new Category();
 		category.setCategoryName(categoryName);
 		categoryService.save(category);
+
 		return ResponseEntity.ok("Success");
 	}
+
 	@GetMapping("/deleteCategory")
-	public ResponseEntity<String>deleteCategory(ModelMap model,@RequestParam("idCategory")int idCategory){
-		
-		Optional<Category> entity=categoryService.findById(idCategory);
+	public ResponseEntity<String> deleteCategory(ModelMap model, @RequestParam("idCategory") int idCategory) {
+
+		Optional<Category> entity = categoryService.findById(idCategory);
 		if (entity.isPresent()) {
-			Category category=entity.get();
+			Category category = entity.get();
 			categoryService.delete(category);
 			categoryService.save(category);
 		}
 
 		return ResponseEntity.ok("Success");
 	}
-   @PostMapping("/editCategory")
-   public ResponseEntity<String>editCategory(ModelMap model,@RequestParam("idCategory")int idCategory,
-		   @RequestParam("categoryName")String categoryName){
 
-	   LocalDate currentDate = LocalDate.now();
-	   // Tìm danh mục dựa trên id
-	    Optional<Category> categoryToUpdate = categoryService.findById(idCategory);
-	    System.out.println("_-----------"+idCategory);
-	    if(categoryToUpdate.isPresent()) {
-	    	Category entity=categoryToUpdate.get();
-	    	entity.setId(idCategory);
-	    	entity.setCategoryName(categoryName);
-	    	entity.setUpdateAt(currentDate);
-	    categoryService.save(entity);
-	    	
-	    }
+	@PostMapping("/editCategory")
+	public ResponseEntity<String> editCategory(ModelMap model, @RequestParam("idCategory") int idCategory,
+			@RequestParam("categoryName") String categoryName) {
+
+		LocalDate currentDate = LocalDate.now();
+		// Tìm danh mục dựa trên id
+		Optional<Category> categoryToUpdate = categoryService.findById(idCategory);
+		System.out.println("_-----------" + idCategory);
+		if (categoryToUpdate.isPresent()) {
+			Category entity = categoryToUpdate.get();
+			entity.setId(idCategory);
+			entity.setCategoryName(categoryName);
+			entity.setUpdateAt(currentDate);
+			categoryService.save(entity);
+
+		}
 		return ResponseEntity.ok("Success");
 
-}
-//   @GetMapping("/searchCategory")
-//   public ResponseEntity<List<Category>>searchCategory(ModelMap model,@RequestParam("categoryName")String categoryName)
-//   {
-//   	List<Category>categories=categoryService.findBycategoryName(categoryName);
-//   	return new ResponseEntity<>(categories,HttpStatus.OK);  
-//   	}
-//   
+	}
+
 }

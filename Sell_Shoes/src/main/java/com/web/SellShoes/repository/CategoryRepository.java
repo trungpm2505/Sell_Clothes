@@ -19,8 +19,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	@Query("SELECT c FROM Category c WHERE c.deleteAt is null AND c.id = :categoryId")
 	public Optional<Category> getCategoryById(Integer categoryId);
 	@Query("SELECT c FROM Category c WHERE c.deleteAt is null")
-	Page<Category>findCategoryPage(Pageable pageable);
+	Page<Category> findCategoryPage(Pageable pageable);
 	@Query("SELECT c FROM Category c WHERE c.deleteAt is null AND c.categoryName LIKE %:keyword%" )
 	Page<Category>findByKeyWord(Pageable pageable,String keyword);
-
+	
+	 Optional<Category> findByCategoryName(String categoryName);
 }

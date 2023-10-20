@@ -50,7 +50,7 @@ public class Mapper {
 		
 		//set Brand
 		Optional<Brand> brand = brandService.getBrand(productRequestDto.getBrand());
-		product.setCategory(category.get());
+		product.setBrand(brand.get());
 
 		// set discription
 		product.setDiscription(productRequestDto.getDiscription());

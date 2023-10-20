@@ -49,4 +49,5 @@ public interface CategoryService {
 	Page<Category> findCategoryPage(Pageable pageable);
 	 Page<Category>getAllCategory(int pagenumber,int size);
 	 Page<Category>getCategoryByKey(int pagenumber,int size,String keyWord);
+	Optional<Category> findByCategoryName(String categoryName);
 }

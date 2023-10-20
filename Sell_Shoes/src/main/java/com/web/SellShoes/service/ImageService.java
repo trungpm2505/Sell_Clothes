@@ -13,6 +13,8 @@ public interface ImageService {
 	public void save(Image image);
 
 	public void uploadFile(MultipartFile[] files, int defaultFileIndex, Product product);
+	
+	public void uploadFileList(List<String> files, int defaultFileIndex, Product product);
 
 	public List<ImageResponseDto> getImageByProduct(Product product);
 
