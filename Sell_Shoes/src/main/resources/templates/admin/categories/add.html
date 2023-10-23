@@ -82,6 +82,7 @@ function searchCategories() {
 	         totalPages = response.totalPages;
 	         size = response.size;
 	        createPagination("#paging",pagination,currentPage,totalPages,keyword);
+	     
          },
          error: function (error) {
              console.error(error);
@@ -168,6 +169,7 @@ function addCategory() {
             success: function (response) {
                 console.log("Thêm thành công");
                 getlistCategories(0, '');
+                toastr.success(response.message);
                 $("#addcategoryName").val("");
                 // Đóng modal sau khi chỉnh sửa thành công
                 $("#addCategoryModal").modal("hide");
@@ -273,10 +275,10 @@ function editCategory(id, categoryName) {
             <div class="col">
 <form action="" id="searchForm">
     <div class="form-inline float-right">
-        <label for="searchCategoryName">Tìm theo tên danh mục:</label>
-        <input type="text" class="form-control ml-2" name="categoryName" id="searchcategoryName" placeholder="Tên danh mục">
-        <button class="btn btn-outline-info ml-2" type="button" onclick="searchCategories()"><i class="fa fa-search"></i> Tìm kiếm</button>
-        <button class="btn btn-outline-secondary ml-2" type="button" onclick="getAllCategories()"><i class="fa fa-list"></i> Tất cả</button>
+        <label for="searchCategoryName">Search by category name:</label>
+        <input type="text" class="form-control ml-2" name="categoryName" id="searchcategoryName" placeholder="Seacrh Categories">
+        <button class="btn btn-outline-info ml-2" type="button" onclick="searchCategories()"><i class="fa fa-search"></i> Search</button>
+        <button class="btn btn-outline-secondary ml-2" type="button" onclick="getAllCategories()"><i class="fa fa-list"></i> All Categories</button>
     </div>
 </form>
 
@@ -324,38 +326,6 @@ function editCategory(id, categoryName) {
 
 
 
-<!-- Modal -->
- <!--   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
-   
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-        <form  >
-    <div class="form-group" >
-        <label for="inputId">ID:</label>
-        <input  type="text" class="form-control" id="id" name="id" placeholder="Enter ID">
-    </div>
-    <div class="form-group">
-        <label for="inputName">Name:</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Enter Name">
-    </div>
-     <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="ss()">Save changes</button>
-            </div>
-</form>
-
-            </div>
-           
-        </div>
-    </div>
-</div> -->
             </div>
         </div>
 	<table id="categoryTable">
@@ -427,20 +397,6 @@ function editCategory(id, categoryName) {
 </div>
 
 </div>
-<!-- <div class="card-footer">
-<div id="pagination"
-		style="text-align: right; ">
-<ul class="pagination justify-content-end">
-	<li class="page-item" id="prevPage"><a class="page-link"
-		href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-	</a></li>
-	Các nút trang sẽ được thêm vào đây
-			<li class="page-item" id="nextPage"><a class="page-link"
-				href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-			</a></li>
-		</ul>
-	</div>
-</div> -->
 
 <div class="card-footer">
 <nav class="float-right" th:id="paging"></nav>

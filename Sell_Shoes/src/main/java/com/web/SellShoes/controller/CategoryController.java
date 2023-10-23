@@ -73,6 +73,7 @@ public class CategoryController {
       CategoryPageResponseDto categoryPageResponseDto=new CategoryPageResponseDto(categoryPage.getTotalPages(),
     		  categoryPage.getNumber(), categoryPage.getSize(),categoryResponseDtos);
 		return  ResponseEntity.ok(categoryPageResponseDto);
+    //  return ResponseEntity.ok().body("{\"message\": \"Add product successfully\"}"); 
 	}
 
 	@RequestMapping("/saveCategory")
@@ -88,7 +89,8 @@ public class CategoryController {
 		category.setCategoryName(categoryName);
 		categoryService.save(category);
 
-		return ResponseEntity.ok("Success");
+		//return ResponseEntity.ok("Success");
+		return ResponseEntity.ok().body("{\"message\": \"Add categories successfully\"}"); 
 	}
 
 	@GetMapping("/deleteCategory")
