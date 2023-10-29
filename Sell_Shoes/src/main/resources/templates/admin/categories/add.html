@@ -4,32 +4,107 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="/adminview/admincategories/css/admincategories.css" rel="stylesheet">
-  <!--  <script src="/adminview/admincategories/js/crudcategory.js"></script> -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
+</head>
+<body>
+    
+     <div   layout:fragment="content">
+    <section class="row mt-4">
+    <div class="col mt-4">
+      
+        <div class="card">
+            <div class="card-header">
+                <h2>LIST OF CATEGORY</h2>
+              </div>
+    
+              <div class="card-body">
+        <div class="row mt-2 mb-2">
+            <div class="col">
+<form action="" id="searchForm">
+    <div class="form-inline float-right">
+        <label for="searchCategoryName">Search by category name:</label>
+        <input type="text" class="form-control ml-2" name="categoryName" id="searchcategoryName" placeholder="Seacrh Categories">
+        <button class="btn btn-outline-info ml-2" type="button" onclick="searchCategories()"><i class="fa fa-search"></i> Search</button>
+        <button class="btn btn-outline-secondary ml-2" type="button" onclick="getAllCategories()"><i class="fa fa-list"></i> All Categories</button>
+    </div>
+</form>
+
+
+
+          
+
+
+<button type="button" class="btn btn-outline-info float-left" onclick="addCategory()">
+    <i class="fa fa-plus-square-o"></i> Add new categories
+</button>
+
+            </div>
+        </div>
+	<table id="categoryTable" class="table table-striper">
+    <thead>
+        <tr>
+            <!-- <th>Category ID</th> -->
+            <th>Name</th>
+            <th>Create Date</th>
+            <th>Edit Date</th>
+           <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
+    </tbody>
+</table>
+
+<!-- modal edit category -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">Chỉnh sửa danh mục</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
+                    <form id="editCategoryForm">
+        <div class="form-group d-none">
+            <label for="editCategoryId">ID:</label>
+            <input type="text" class="form-control" id="editCategoryId" name="idCategory" readonly>
+        </div>
+        <div class="form-group">
+            <label for="editCategoryName">Category Name:</label>
+            <input type="text" class="form-control" id="editCategoryName" name="categoryName">
+                 <div th:id="categoryName-error" class="text-danger form-text "></div>
+            
+        </div>
+    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveCategoryChanges">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="card-footer">
+<nav class="float-right" th:id="paging"></nav>
+</div>
+
+
+
+</div>
+      </div>
+  </section>
+  <script>
 /**
  * 
  */
  
 
 
-/*  var searchButton = document.getElementById("searchButton");
- var  keyInput = document.getElementById("key");
- searchButton.addEventListener("click", function() {
-	 var key="";
-		
-	 if(keyInput.value !== ""){
-		
-		 key = keyInput.value;
-		 
-	 }
-	 loadData(0,key);
-}); */
 document.addEventListener("DOMContentLoaded", function() {
     // Gọi hàm để lấy danh sách categories khi trang web được tải
     getlistCategories(0, '');
@@ -68,15 +143,16 @@ function searchCategories() {
                          '<td>' + category.createAt + '</td>' +
                          '<td>' + (category.updateAt ? category.updateAt : '-') + '</td>' +
                          '<td>' +
-                         '<i class="fa fa-trash-o" style="color: red;"></i><span onclick="deleteCategory(' + category.id + ', \'' + category.categoryName + '\')"  style="color: red;">Delete</span>' +
+                         '<span onclick="deleteCategory(' + category.id + ', \'' + category.categoryName + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
                          '</td>' +
                          '<td>' +
-                         '<i class="fa fa-pencil"></i><span onclick="editCategory(' + category.id + ', \'' + category.categoryName + '\')" >Edit</span>' +
+                         '<span onclick="editCategory(' + category.id + ', \'' + category.categoryName + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
                          '</td>' +
                          '</tr>';
                      $("#categoryTable tbody").append(row);
                  }
              }
+
              pagination = '';
 	         currentPage = response.currentPage;
 	         totalPages = response.totalPages;
@@ -150,37 +226,65 @@ function searchCategories() {
 			});
 }
 */
+function clearEditCategoryForm() {
+	  // Lấy tham chiếu đến các phần tử trong biểu mẫu
+	  var editCategoryId = document.getElementById("editCategoryId");
+	  var editCategoryName = document.getElementById("editCategoryName");
+	  var categoryNameError = document.getElementById("categoryName-error");
+
+	  // Xóa giá trị trong các trường nhập liệu
+	  editCategoryId.value = "";
+	  editCategoryName.value = "";
+	  
+	  // Xóa bất kỳ thông báo lỗi nào
+	  categoryNameError.innerText = "";
+	}
 function addCategory() {
-    
+	clearEditCategoryForm();
     // Hiển thị modal chỉnh sửa danh mục
-    $("#addCategoryModal").modal("show");
-   // var categoryName = document.getElementById("addcategoryName").value;
-  // $("#editCategoryName").val(categoryName);
+    $("#editCategoryModal").modal("show");
+/*     var categoryName = document.getElementById("addcategoryName").value;
+ */
+ // $("#editCategoryName").val(categoryName);
     // Thiết lập sự kiện cho nút "Lưu thay đổi"
-    $("#saveAddCategoryChanges").off("click").on("click", function () {
-    	 var addcategoryName = $("#addcategoryName").val();
+    $("#saveCategoryChanges").off("click").on("click", function () {
+    	 var categoryName = document.getElementById("editCategoryName").value;
         // Gửi AJAX request để cập nhật danh mục (sử dụng newCategoryId và newCategoryName)
         $.ajax({
             type: 'post',
             url : '/category/saveCategory',
-            data: {           	
-            	categoryName : addcategoryName
-            },
+            contentType : 'application/json',
+            data : JSON.stringify({
+            	categoryName : categoryName
+			}),
             success: function (response) {
-                console.log("Thêm thành công");
                 getlistCategories(0, '');
-                toastr.success(response.message);
-                $("#addcategoryName").val("");
+                toastr.success(response);
+                $("#categoryName").val("");
+                $("#categoryName-error").text("");
                 // Đóng modal sau khi chỉnh sửa thành công
-                $("#addCategoryModal").modal("hide");
+                $("#editCategoryModal").modal("hide");
             },
-            error: function (xhr, status, error) {
-                console.log("Lỗi khi thêm danh mục");
-                console.log(error);
-                console.log(status);
-              alert("Categories này đã tồn tại mời bạn nhập lại")
-               
-            }
+            error: function(jqXHR, textStatus, errorMessage) {
+	        	console.log(jqXHR.status);
+	            if (jqXHR.status === 400) {
+	                var errors = jqXHR.responseJSON;
+	                if (errors.hasOwnProperty("bindingErrors")) {
+	                    var bindingErrors = errors["bindingErrors"];
+	                    for (var i = 0; i < bindingErrors.length; i++) {
+	                        var error = bindingErrors[i];
+	                        // Hiá»n thá» thÃ´ng bÃ¡o lá»i trong cÃ¡c tháº» cÃ³ ID ÄÃ£ táº¡o trÆ°á»c ÄÃ³.
+	                        $("#" + error.field + "-error").text(error.defaultMessage);
+	                    }
+	                }
+	                if(errors.hasOwnProperty("nameDuplicate")){
+	                	var editnameError = errors["nameDuplicate"];
+	                	$("#categoryName-error").text(editnameError);
+	                }
+	            } else {
+	                alert("Sorry! The system has errors!"); // Hiá»n thá» thÃ´ng bÃ¡o lá»i náº¿u request khÃ´ng thÃ nh cÃ´ng vá»i mÃ£ lá»i khÃ¡c 400.
+	            }
+	        }
         });
     });
     
@@ -189,66 +293,103 @@ function addCategory() {
 
 function deleteCategory(id,categoryName) {
     // Hiển thị modal xác nhận xóa
-    $("#confirmDeleteModal").modal("show");
-$("#categoryIdToDelete").text(categoryName);
+	$("#categoryIdToDelete").text(categoryName);
     // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
-    $("#confirmDeleteButton").off("click").on("click", function () {
-        $.ajax({
-            type: 'get',
-            url: 'category/deleteCategory',
-            data: {
-                idCategory: id,
-            },
-            success: function (response) {
-                console.log("Xóa thành công");
-                getlistCategories(0, '');
-                // Đóng modal sau khi xóa thành công
-                $("#confirmDeleteModal").modal("hide");
-            },
-            error: function (xhr, status, error) {
-                console.log("Lỗi khi xóa bình luận");
-                console.log(error);
-                console.log(status);
-                // Đóng modal nếu xóa thất bại
-                $("#confirmDeleteModal").modal("hide");
-            }
-        });
-    });
+    	 Swal.fire({
+      	   title: 'Are you sure you want to delete?',
+      	   text: 'This action cannot be undone!',
+      	   icon: 'warning',
+      	   showCancelButton: true,
+      	   confirmButtonText: 'Yes',
+      	   cancelButtonText: 'No'
+      	 }).then((result) => {
+      	   if (result.isConfirmed) {
+      		 $.ajax({
+                 type: 'get',
+                 url: 'category/deleteCategory',
+                 data: {
+                     idCategory: id,
+                 },
+                 success: function (response) {
+                     console.log("Xóa thành công");
+                     getlistCategories(0, '');
+                     // Đóng modal sau khi xóa thành công
+                     $("#confirmDeleteModal").modal("hide");
+                     toastr.success(response);
+                 },
+                 error: function(jqXHR, textStatus, errorThrown){
+     	            if (jqXHR.status === 400) {
+     	                var error = jqXHR.responseJSON || jqXHR.responseText;
+     	                $("#confirmDeleteModal").modal("hide");
+     	                toastr.warning(error);
+     	                
+     	            }
+     	        }
+              
+             });
+      	   } else if (result.dismiss === Swal.DismissReason.cancel) {
+      	     Swal.fire('Canceled!', '', 'error');
+      	   }
+      	 });
+    	
+    	
+       
 }
 
 function editCategory(id, categoryName) {
+	clearEditCategoryForm();
     // Điền giá trị của id và categoryName vào các trường input
-    $("#editCategoryId").val(id);
-    $("#editCategoryName").val(categoryName);
-
     // Hiển thị modal chỉnh sửa danh mục
     $("#editCategoryModal").modal("show");
+    $("#editCategoryName-error").text("");
+    $("#editCategoryId").val(id);
     $("#editCategoryName").val(categoryName);
     // Thiết lập sự kiện cho nút "Lưu thay đổi"
     $("#saveCategoryChanges").off("click").on("click", function () {
+    	  var newIdCategory = document.getElementById("editCategoryId").value;
+          var categoryName = document.getElementById("editCategoryName").value;
         // Lấy giá trị mới từ các trường input (nếu bạn muốn cập nhật)
-        var newCategoryName = $("#editCategoryName").val();
-        var newIdCategory = $("#editCategoryId").val();
+      //  var newCategoryName = $("#editCategoryName").val();
+       // var newIdCategory = $("#editCategoryId").val();
+      
+
         // Gửi AJAX request để cập nhật danh mục (sử dụng newCategoryId và newCategoryName)
         $.ajax({
             type: 'post',
             url: 'category/editCategory',
-            data: {
-            	idCategory:newIdCategory,
-                categoryName: newCategoryName
-            },
+            contentType : 'application/json',
+            data : JSON.stringify({
+            	id : id ,
+            	categoryName : categoryName
+			}),
             success: function (response) {
                 console.log("Chỉnh sửa thành công");
+                console.log(categoryName);
+                toastr.success(response);
                 getlistCategories(0, '');
                 // Đóng modal sau khi chỉnh sửa thành công
                 $("#editCategoryModal").modal("hide");
             },
-            error: function (xhr, status, error) {
-                console.log("Lỗi khi chỉnh sửa danh mục");
-                console.log(error);
-                console.log(status);
-                // Đóng modal nếu chỉnh sửa thất bại
-                $("#editCategoryModal").modal("hide");
+            error: function(jqXHR, textStatus, errorMessage) {
+                console.log(jqXHR.status);
+                if (jqXHR.status === 400) {
+                    var errors = jqXHR.responseJSON;
+                    if (errors.hasOwnProperty("bindingErrors")) {
+                        var bindingErrors = errors["bindingErrors"];
+                        for (var i = 0; i < bindingErrors.length; i++) {
+                            var error = bindingErrors[i];
+                            // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
+                            $("#" + error.field + "-error").text(error.defaultMessage);
+                        }
+                    }
+                    if (errors.hasOwnProperty("nameDuplicate")) {
+                        var nameError = errors["nameDuplicate"];
+                        $("#categoryName-error").text(nameError);
+                    }
+                } else {
+                    // Hiển thị thông báo lỗi khác nếu request không thành công với mã lỗi 400.
+                    alert("Sorry! The system has errors!");
+                }
             }
         });
     });
@@ -257,156 +398,6 @@ function editCategory(id, categoryName) {
 
 
 </script>
-</head>
-
-<body>
-    
-     <div   layout:fragment="content">
-    <section class="row mt-4">
-    <div class="col mt-4">
-      
-        <div class="card">
-            <div class="card-header">
-                <h2>LIST OF CATEGORY</h2>
-              </div>
-    
-              <div class="card-body">
-        <div class="row mt-2 mb-2">
-            <div class="col">
-<form action="" id="searchForm">
-    <div class="form-inline float-right">
-        <label for="searchCategoryName">Search by category name:</label>
-        <input type="text" class="form-control ml-2" name="categoryName" id="searchcategoryName" placeholder="Seacrh Categories">
-        <button class="btn btn-outline-info ml-2" type="button" onclick="searchCategories()"><i class="fa fa-search"></i> Search</button>
-        <button class="btn btn-outline-secondary ml-2" type="button" onclick="getAllCategories()"><i class="fa fa-list"></i> All Categories</button>
-    </div>
-</form>
-
-
-
-          
-
-<!-- <button type="button" class="btn btn-outline-info float-left" data-toggle="modal" data-target="#exampleModalCenter">
-       <i class="fa fa-plus-square-o"></i> Add new categories
-</button> -->
-<!-- Nút để hiển thị modal -->
-<button type="button" class="btn btn-outline-info float-left" onclick="addCategory()">
-    <i class="fa fa-plus-square-o"></i> Add new categories
-</button>
-<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addCategoryModalLabel">Chỉnh sửa danh mục</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
-                    <form id="addCategoryForm">
-        <div class="form-group">
-            <label for="CategoryId">ID:</label>
-            <input type="text" class="form-control" id="CategoryId" name="idCategory" >
-        </div>
-        <div class="form-group">
-        <label for="inputName">Name:</label>
-        <input type="text" class="form-control" id="addcategoryName" name="categoryName" placeholder="Enter Name">
-    </div>
-
-    </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="saveAddCategoryChanges">Lưu thay đổi</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-            </div>
-        </div>
-	<table id="categoryTable">
-    <thead>
-        <tr>
-            <!-- <th>Category ID</th> -->
-            <th>Name</th>
-            <th>Create Date</th>
-            <th>Edit Date</th>
-           <th colspan="2">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
-    </tbody>
-</table>
-
-
-<!-- Modal xác nhận xóa -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xóa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                 Bạn có chắc chắn muốn xóa category có tên là <span id="categoryIdToDelete"></span>?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Xóa</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal edit category -->
-<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryModalLabel">Chỉnh sửa danh mục</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
-                    <form id="editCategoryForm">
-        <div class="form-group">
-            <label for="editCategoryId">ID:</label>
-            <input type="text" class="form-control" id="editCategoryId" name="idCategory" readonly>
-        </div>
-        <div class="form-group">
-            <label for="editCategoryName">Tên danh mục:</label>
-            <input type="text" class="form-control" id="editCategoryName" name="categoryName">
-        </div>
-    </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="saveCategoryChanges">Lưu thay đổi</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-<div class="card-footer">
-<nav class="float-right" th:id="paging"></nav>
-</div>
-
-
-
-</div>
-      </div>
-  </section>
         </div>
 </body>
 
