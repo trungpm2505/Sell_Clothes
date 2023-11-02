@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.web.SellShoes.dto.requestDto.ProductRequestDto;
+import com.web.SellShoes.dto.requestDto.PromotionRequestDto;
 import com.web.SellShoes.dto.requestDto.UserRequestDto;
 import com.web.SellShoes.dto.requestDto.VariantRequestDto;
 import com.web.SellShoes.entity.Account;
@@ -12,6 +13,7 @@ import com.web.SellShoes.entity.Brand;
 import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Color;
 import com.web.SellShoes.entity.Product;
+import com.web.SellShoes.entity.Promotion;
 import com.web.SellShoes.entity.Size;
 import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.service.BrandService;
@@ -92,6 +94,29 @@ public class Mapper {
 		}
 
 		return variant;
+
+	}
+
+	public Promotion promotionRequestDtoToPromotion(PromotionRequestDto promotionRequestDto) {
+		Promotion promotion = new Promotion();
+		if (promotionRequestDto.getId() != null) {
+			promotion.setId(promotionRequestDto.getId());
+		}
+
+		promotion.setCouponCode(promotionRequestDto.getCouponCode());
+		promotion.setName(promotionRequestDto.getName());
+		promotion.setActive(promotionRequestDto.isActive());
+		promotion.setPublic(promotionRequestDto.isPublic());
+		promotion.setExpiredAt(promotionRequestDto.getExpiredDate());
+		promotion.setDiscountType(promotionRequestDto.getDiscountType());
+		promotion.setDiscountValue(promotionRequestDto.getDiscountValue());
+		if (promotionRequestDto.getDiscountType() == 1) {
+			promotion.setMaximumDiscountValue(promotionRequestDto.getMaxValue());
+		} else {
+			promotion.setMaximumDiscountValue(promotionRequestDto.getDiscountValue());
+		}
+
+		return promotion;
 
 	}
 }

@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/fragments/home.html}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<style>
+.discount-exactly {
+	display: none;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 16px;
+	width: 16px;
+	left: 2px;
+	bottom: 2px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked+.slider {
+	background-color: #2196F3;
+}
+
+input:focus+.slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px);
+}
+
+.slider.round {
+	border-radius: 20px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.switch label {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	margin-left: 50px;
+}
+</style>
+		<div class="container-fluid">
+			<div class="card mb-4">
+				<!-- <div class="card-header py-3">
+            <h2 class="m-0 font-weight-bold text-primary">Product</h2>
+          </div> -->
+				<div class="card-body">
+					<div class="row justify-content-between">
+						<div class="col-4">
+							<h2>Add Promotion</h2>
+							<div class="pad promotion-box">
+							<input th:id="id" type="text" class="d-none">
+								<div class="form-group">
+									<div>
+										<span style="color: red">(Mã kích hoạt chỉ bao gồm ký
+											tự viết hoa từ A-Z và số từ 0-9 và dấu gạch ngang (độ dài từ
+											4 - 16 ký tự)]</span> <br> <label class="required-label"
+											for="code">Mã code</label>
+
+									</div>
+									<input type="text" class="form-control" id="couponCode">
+									<div th:id="couponCode-error" class="text-danger form-text "></div>
+								</div>
+								<div class="form-group">
+									<div>
+										<label class="required-label" for="name">Tên chương
+											trình</label>
+									</div>
+									<input type="text" class="form-control" id="name">
+									<div th:id="name-error" class="text-danger form-text "></div>
+								</div>
+
+								<div class="form-group">
+									<label for="discount-type" class="required-label">Khuyến
+										mãi theo</label> <select class="form-control" id="discount-type"
+										onchange="toggleDiscountInput()">
+										
+										<option value="2">Khoản tiền trực tiếp</option>
+										<option value="1">Phần trăm (%)</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<div>
+										<label class="required-label" for="discount-value">Mức
+											giảm</label> <span class="invalid-feedback"
+											id="invalid-feedback-discount-value"></span>
+									</div>
+									<input type="text" min="1" class="form-control"
+										id="discountValue">
+									<div th:id="discountValue-error" class="text-danger form-text "></div>
+								</div>
+
+								<div class="form-group discount-exactly">
+									<div>
+										<label class="required-label" for="max-value">Mức giảm
+											tối đa</label>
+									</div>
+									<input type="text" min="1" class="form-control"
+										id="maxValue">
+									<div th:id="maxValue-error" class="text-danger form-text "></div>
+								</div>
+								<div class="form-group">
+									<div>
+										<label class="required-label" for="expired-date">Ngày
+											hết hạn</label>
+									</div>
+									<input type="date" class="form-control" id="expiredDate">
+									<div th:id="expiredDate-error" class="text-danger form-text "></div>
+								</div>
+								<div class="form-group">
+									<label class="switch"> <input type="checkbox"
+										id="active" checked> <span class="slider round"></span>
+									</label> <label for="active">Kích hoạt khuyến mãi</label>
+								</div>
+								<div class="form-group">
+									<label class="switch"> <input type="checkbox"
+										id="ispublic" checked> <span class="slider round"></span>
+									</label> <label for="ispublic">Công khai khuyến mãi</label>
+								</div>
+								<button type="submit" class="btn btn-primary"
+									th:id="save-promotion-value" onclick="savePromotion()">Save changes</button>
+								<button type="button" class="btn btn-danger" onclick="clearFrom()">Clear</button>
+							</div>
+
+
+						</div>
+
+						<div class="col-8">
+							<div class="row">
+								<div class="col-7"></div>
+								<div class="col-md-5">
+									<div class="input-group">
+										<input id="key" type="text" name="keyword5" value=""
+											class="form-control" placeholder="Search by promotion name">
+										<div class="input-group-append">
+											<button id="searchButton" class="btn btn-secondary">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<table class="table table-striped" th:id="promotion-table">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Coupon_Code</th>
+											<th scope="col">Promotion Name</th>
+											<th scope="col">Discount value</th>
+											<th scope="col">Visible</th>
+											<th scope="col">Status</th>
+											<th scope="col">CreateAt</th>
+											<th scope="col">UpdateAt</th>
+											<th scope="col">Expired</th>
+											<th scope="col"></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>5YWWJP</td>
+											<td>20/10</td>
+											<td>30.000</td>
+											<td><span class="badge badge-success">Công khai</span></td>
+											<td><span class="badge badge-success">Kích hoạt</span></td>
+											<td></td>
+											<td>21-10-2023</td>
+											<td>
+												<button class="btn btn-warning">Edit</button>
+												<button class="btn btn-danger">Delete</button>
+											</td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+							<nav class="float-right" th:id="paging"></nav>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script>
+			function toggleDiscountInput() {
+				var discountType = document.getElementById("discount-type");
+				var discountInput = document.querySelector(".discount-exactly");
+
+				if (discountType.value === "1") {
+					discountInput.style.display = "block";
+				} else {
+					discountInput.style.display = "none";
+				}
+			}
+
+			function numberWithCommas(x) {
+			    // Xóa tất cả các ký tự không phải số trong chuỗi x
+			    x = x.replace(/\D/g, '');
+
+			    // Thêm dấu chấm phân tách hàng nghìn vào số x
+			    x = x.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+			    return x; 
+			}
+
+			$(document).on('input', '#discountValue', function(){
+			    var value = numberWithCommas($(this).val());
+			    $(this).val(value);
+			});
+			
+			$(document).on('input', '#maxValue', function(){
+			    var value = numberWithCommas($(this).val());
+			    $(this).val(value);
+			});
+			// Gọi hàm khi trang được tải để kiểm tra giá trị mặc định
+			toggleDiscountInput();
+			
+			var inputList = [ 'couponCode', 'name', 'expiredDate', 'discountValue','maxValue' ];
+
+			 inputList.forEach(function(inputName) {
+				var input = document.getElementById(inputName);
+				var error = document.getElementById(inputName + '-error');
+
+				if (input) { // Kiểm tra xem phần tử input có tồn tại không
+					input.addEventListener("focus", function() {
+						error.textContent = '';
+					});
+				} else {
+					console.error("Element with id '" + inputName
+							+ "' not found in the page.");
+				}
+			}); 
+			 clearFrom();
+			 function clearFrom() {
+					 url1 = "/promotion/add";
+					 type1 = "POST";
+					 $('#save-promotion-value').text('Save Changes');
+					 
+				    var inputId = ['couponCode', 'name', 'expiredDate', 'discountValue','maxValue'];
+				    inputId.forEach(function (input) {
+				        document.getElementById(input).value = '';
+				    });
+
+
+				    var inputList = ['couponCode', 'name', 'expiredDate', 'discountValue','maxValue'];
+				    inputList.forEach(function (error) {
+				        var error = document.getElementById(error + '-error');
+				        if (error !== null) {
+				        	error.textContent = '';
+				        }
+				    });
+				    
+				    document.getElementById('ispublic').checked = true;
+				    document.getElementById('active').checked = true;
+
+				}
+			 
+			var csrfToken;
+			function savePromotion(){
+				
+				var code = document.getElementById('couponCode').value.trim();
+				var name = document.getElementById("name").value;
+				var discountType = parseInt(document.getElementById("discount-type").value);
+				var discountValue = document.getElementById("discountValue").value;
+				var maxValue = document.getElementById("maxValue").value;
+				var expiredDate = document.getElementById("expiredDate").value;
+				var isPublic = document.getElementById('ispublic').checked;
+				var active = document.getElementById('active').checked;
+				
+				console.log("public",isPublic);
+				console.log("active",active);
+				
+				 // Tạo đối tượng FormData để chứa dữ liệu
+			    var formData = new FormData();
+			 	// Thêm dữ liệu vào đối tượng FormData
+			   if (url1 == "/promotion/update") {
+			        formData.append('id', parseInt(document.getElementById('id').value)); 
+			    }
+			    formData.append('couponCode', code);
+			    formData.append('name', name);
+			    formData.append('discountType', discountType);
+			    formData.append('discountValue', discountValue);
+			    formData.append('maxValue', maxValue);
+			    formData.append('expiredDate', expiredDate);
+			    formData.append('public', isPublic);
+			    formData.append('active', active);
+			    
+			     csrfToken = Cookies.get('XSRF-TOKEN');
+			     $.ajax({
+			    	 	url: url1,
+			    	    type: type1,
+			    	    contentType: false,
+				        processData: false,
+				        data: formData,
+				        dataType: 'json',
+				        headers: {
+						    'X-XSRF-TOKEN': csrfToken
+						  },
+				        cache: false,
+				        success: function(data) {
+				        	toastr.success(data.message); // Hiển thị thông báo thành công khi request thành công.
+				            clearFrom(); 
+				            
+				            loadData(0, ""); 
+				        },
+				        error: function(jqXHR, textStatus, errorMessage) {
+				            // Xử lý lỗi khi request không thành công.
+				            if (jqXHR.status === 400) {
+				                var errors = jqXHR.responseJSON;
+				                if (errors.hasOwnProperty("bindingErrors")) {
+				                    var bindingErrors = errors["bindingErrors"];
+				                    for (var i = 0; i < bindingErrors.length; i++) {
+				                        var error = bindingErrors[i];
+				                       
+				                        $("#" + error.field + "-error").text(error.defaultMessage);
+				                    }
+				                }
+				                 if (errors.hasOwnProperty("couponDuplicate")) {
+				                    var couponError = errors["couponDuplicate"];
+				                    $("#couponCode-error").text(couponError); 
+				                }
+				                if (errors.hasOwnProperty("expiredDate")) {
+				                    var expiredDateError = errors["expiredDate"];
+				                    $("#expiredDate-error").text(expiredDateError); 
+				                } 
+				                if (errors.hasOwnProperty("discountValue")) {
+				                    var discountValueError = errors["discountValue"];
+				                    $("#discountValue-error").text(discountValueError); 
+				                } 
+				                if (errors.hasOwnProperty("maxValue")) {
+				                    var maxValueError = errors["maxValue"];
+				                    $("#maxValue-error").text(maxValueError); 
+				                }
+				                
+				            } else {
+				            	console.log("er:",errorMessage);
+				            	console.log(jqXHR.status);
+				                alert("Sorry! The system has errors!"); 
+				            }
+				        }
+				    });
+			}
+			
+			function editPromotion(promotionId) {
+				clearFrom();
+			    // Chọn hàng bảng với variantId cụ thể
+			    var promotionRow = $('tr').find('.id:contains(' + promotionId + ')').closest('tr');
+
+			    var couponcode = promotionRow.find('.couponCode').text();
+			    var name = promotionRow.find('.name').text();
+			    var discountValue = promotionRow.find('.discountValue').text();
+			    
+			    // Đọc giá trị boolean cho trạng thái và công khai từ ô bảng
+			    var ispublic = promotionRow.find('.public').text() === 'true';
+			    var active = promotionRow.find('.active').text() === 'true';
+
+			    var discountType = parseInt(promotionRow.find('.discountType').text());
+			    var maxValue = promotionRow.find('.maxValue').text();
+			    var expiredDate = promotionRow.find('.expiredDate').text();
+			    
+			    console.log(active);
+			    console.log(ispublic);
+
+			    $('#save-promotion-value').text('Update');
+
+			    url1 = "/promotion/update";
+			    type1 = "PUT";
+			    
+			    document.getElementById('id').value = promotionId;
+			    document.getElementById('couponCode').value = couponcode;
+			    document.getElementById('name').value = name;
+			    document.getElementById('discountValue').value = discountValue;
+			    document.getElementById('discount-type').value = discountType;
+			    
+			    // Đặt giá trị cho checkbox "Công khai" và "Kích hoạt"
+			    document.getElementById('ispublic').checked = ispublic;
+			    document.getElementById('active').checked = active;
+				if(discountType === 1){
+					document.getElementById('maxValue').value = maxValue;
+				}
+			    
+			    document.getElementById('expiredDate').value = expiredDate;
+			    toggleDiscountInput();
+			}
+
+			
+			loadData(0,"");
+			function loadData(page, keyword) {
+				var table = "#promotion-table tbody";
+			    $.ajax({
+			      url: '/promotion/getProductPage',
+			      type: 'GET',
+			      dataType: 'json',
+			      data: {page : page, keyword : keyword},
+			      success: function(data) {
+			        //clear table
+			        $(table).empty();
+			
+			        //add record
+			        $.each(data.promotionResponseDtos, function(index, promotion) {
+			        	var row = $('<tr>');
+			            row.append($('<td>').text(data.currentPage * data.size + index+1));
+			            
+					  row.append($('<td>').text(promotion.id).addClass('id').css({
+					    'display': 'none'
+					  }));
+			           row.append($('<td>').text(promotion.couponCode).addClass('couponCode'));
+			           row.append($('<td>').text(promotion.name).addClass('name'));
+			           row.append($('<td>').text(promotion.discountValue).addClass('discountValue'));
+			            
+			           var publicText = promotion.public ? 'Công khai' : 'Ẩn';
+			           var publicColorClass = promotion.public ? 'badge badge-primary' : 'badge badge-danger';
+
+			           var publicCell = $('<td>');
+			           var publicSpan = $('<span>').text(publicText).addClass(publicColorClass);
+
+			           publicCell.append(publicSpan);
+			           row.append(publicCell);
+
+			           var activeText = promotion.active ? 'Kích hoạt' : 'Vô hiệu hóa';
+			           var colorClass = promotion.active ? 'badge badge-success' : 'badge badge-danger';
+
+			           var activeCell = $('<td>');
+			           var activeSpan = $('<span>').text(activeText).addClass(colorClass);
+
+			           activeCell.append(activeSpan);
+			           row.append(activeCell);
+			           row.append($('<td>').text(promotion.public).addClass('public d-none'));
+			           row.append($('<td>').text(promotion.active).addClass('active d-none'));
+			           row.append($('<td>').text(promotion.discountType).addClass('discountType d-none'));
+			           row.append($('<td>').text(promotion.maxValue).addClass('maxValue d-none'));
+			            row.append($('<td>').text(promotion.createAt).addClass('createAt'));
+			            row.append($('<td>').text(promotion.updateAt).addClass('updateAt'));
+			            row.append($('<td>').text(promotion.expiredDate).addClass('expiredDate'));
+			            
+			            row.append($('<td>').attr({
+				        	   'onclick': 'editPromotion(' + promotion.id + ')'
+				           }).html('<i class="fas fa-pencil-alt"></i> Edit'));
+
+			            row.append($('<td>').attr({
+			            	'data-id' : promotion.id
+			            }).addClass('text-danger delete-promotion').html('<i class="fas fa-trash"></i> Delete'));
+			            
+			            $(table).append(row);
+			        });
+			         pagination = '';
+			         currentPage = data.currentPage;
+			         totalPages = data.totalPages;
+			         size = data.size;
+			        //create pagination 
+			        createPagination("#paging",pagination,currentPage,totalPages,keyword);
+			      },
+			      error: function(){}})
+			  } 
+			 function createPagination(navId, pagination, currentPage, totalPages, keyWord ){
+		    	  $(navId).empty();//xoa toan bo noi dung trong html có id navId(paging)
+		          
+		          pagination += '<ul class="pagination">';//tao danh sach 
+		          //Thêm một nút điều hướng cho trang trước vào biến pagination nếu currentPage >0
+		          pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadData(' + (currentPage - 1) +',\''+keyWord+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
+
+		              var startPage = currentPage > 2 ? currentPage - 2 : 0;
+		              var endPage = currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1;
+						
+		              for (var i = startPage; i <= endPage; i++) {
+		                  pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadData(' + i +',\''+keyWord+'\')">' + (i + 1) + '</a></li>';
+		              }
+		              
+		             //Nếu có quá nhiều trang (totalPages > 5) và trang hiện tại (currentPage) nhỏ hơn totalPages-3, hàm sẽ thêm một nút chấm ...
+		              if ((totalPages > 5) &&  (currentPage < totalPages - 3)) {
+		                  pagination += '<li class="page-item disabled"><a class="page-link" >...</a></li>';
+		              }
+		             //Nếu không phải là trang cuối cùng (totalPages-1 != currentPage) và trang hiện tại (currentPage) không phải là trang thứ hai từ cuối (totalPages-2 != currentPage) và trang hiện tại (currentPage) nhỏ hơn totalPages-3, hàm sẽ thêm nút điều hướng đến trang cuối cùng.
+		              if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
+		                  pagination += '<li><a class="page-link" onclick="loadData(' + (totalPages - 1) +',\''+keyWord+'\')" >' + totalPages + '</a></li>';
+		              }
+					
+		          pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadData(' + (currentPage + 1)+',\''+keyWord +'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
+		          pagination += '</ul>';
+		           
+		           $(navId).append(pagination);
+		      }
+			 
+			 $(document).on('click', '.delete-promotion', function() {
+		           let promotionId = $(this).data("id");
+
+		           Swal.fire({
+		        	   title: 'Are you sure you want to delete?',
+		        	   text: 'This action cannot be undone!',
+		        	   icon: 'warning',
+		        	   showCancelButton: true,
+		        	   confirmButtonText: 'Yes',
+		        	   cancelButtonText: 'No'
+		        	 }).then((result) => {
+		        	   if (result.isConfirmed) {
+		        		   $.ajax({
+						        url: '/promotion/delete?promotionId=' + promotionId,
+						        type: 'DELETE',
+						        success: function(data) {
+					        	     Swal.fire(data, '', 'success');
+						        	loadData(0,"");
+						        },
+						        error: function(jqXHR, textStatus, errorThrown){
+						            if (jqXHR.status === 400) {
+						                var error = jqXHR.responseJSON || jqXHR.responseText;
+						                toastr.warning(error);
+						            } else {
+						                // Xử lý lỗi khác
+						                console.log(textStatus);
+						                console.log(errorThrown);
+						            }
+						        }
+						    });
+		        	   } else if (result.dismiss === Swal.DismissReason.cancel) {
+		        	     Swal.fire('Canceled!', '', 'error');
+		        	   }
+		        	 });
+		       	})
+		       	
+		     var searchButton = document.getElementById("searchButton");
+			 var  keyInput = document.getElementById("key");
+			 searchButton.addEventListener("click", function() {
+				 var key="";
+					
+				 if(keyInput.value !== ""){
+					
+					 key = keyInput.value;
+					 
+				 }
+				 loadData(0,key);
+			});
+			 
+			
+		</script>
+
+	</div>
+
+</body>
+</html>
