@@ -2,7 +2,7 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
@@ -20,18 +20,29 @@
     <!-- Custom Stylesheet -->
     <link href="/adminview/css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.css" rel="stylesheet"/>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bao gồm jQuery -->
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- Bao gồm Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    
 </head>
 
 <body>
 
     <!--Preloader start-->
-    <div id="preloader">
+ <!--    <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
             </svg>
         </div>
-    </div>
+    </div> -->
   
     <div id="main-wrapper">
 
@@ -83,10 +94,7 @@
     <script src="/adminview/plugins/chartist/js/chartist.min.js"></script>
     <script src="/adminview/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
-
-
-    <script src="/adminview/js/dashboard/dashboard-1.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
 </body>
 
 </html>

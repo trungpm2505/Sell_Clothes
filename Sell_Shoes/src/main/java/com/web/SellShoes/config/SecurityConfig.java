@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
+			"/variant/**",
 			"/color/**",
 			"/size/**",
 			"/category/**",
@@ -38,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login/**",
 			"/register/**",
 			"/image/**",
+			"/upload/**",
 			"/plugins/**" ,
 			"/adminview/**",
 			"/registers/**",
