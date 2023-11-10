@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="shopview/assets/img/l.png">
+
+<!-- all css here -->
+<link rel="stylesheet" href="/shopview/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/shopview/assets/css/plugin.css">
+<link rel="stylesheet" href="/shopview/assets/css/bundle.css">
+<link rel="stylesheet" href="/shopview/assets/css/style.css">
+<link rel="stylesheet" href="/shopview/assets/css/responsive.css">
+<script src="/shopview/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+<!--
+    - favicon
+  -->
+<link rel="shortcut icon"
+	href="/shopview/assets/images/logo/favicon.ico" type="image/x-icon">
+
+<!--
+    - custom css link
+  -->
+<link rel="stylesheet" href="/shopview/assets/css/style-prefix.css">
+
+</head>
+<body>
+	<div th:replace="shop/fragments/header::header"></div>
+	<div class="container">
+		<div class="breadcrumbs_area">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<ul>
+							<li><a href="index.html">home</a></li>
+							<li><i class="fa fa-angle-right"></i></li>
+							<li>checkout</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--breadcrumbs area end-->
+
+
+		<!--Checkout page section-->
+		<div class="Checkout_section">
+			<div class="row">
+				<div class="col-12"></div>
+			</div>
+			<div class="checkout_form">
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<form action="#">
+							<h3>Billing Details</h3>
+							<div class="row">
+								<div class="col-lg-6 mb-30">
+									<label>Full Name <span>*</span></label> <input type="text"
+										class="form-control" />
+								</div>
+								<div class="col-lg-6 mb-30">
+									<label> Phone <span>*</span></label> <input
+										class="form-control" type="text" />
+								</div>
+								<div class="col-lg-12 mb-30">
+									<label> Email Address <span>*</span></label> <input
+										class="form-control" type="text" />
+								</div>
+								<div class="col-lg-4 mb-30">
+									<label>Tỉnh/Thành Phố<span>*</span></label> <select name=""
+										id="province">
+										<option value="">chọn tỉnh</option>
+									</select>
+								</div>
+								<div class="col-lg-4 mb-30">
+									<label>Quận/Huyện<span>*</span></label> <select id="district">
+										<option value="">chọn quận</option>
+									</select>
+								</div>
+								<div class="col-lg-4 mb-30">
+									<label>Phường/Xã <span>*</span></label> <select id="ward">
+										<option value="">chọn phường</option>
+									</select>
+								</div>
+
+
+
+
+								<div class="col-12 mb-30">
+									<label>Street address <span>*</span></label> <input
+										class="form-control" placeholder="" type="text" />
+								</div>
+								<div class="col-12 mb-30">
+									<label>Notes <span>*</span></label>
+									<textarea class="form-control" placeholder="" rows="3" cols="4">
+                                            </textarea>
+
+								</div>
+
+
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<form action="#">
+							<h3>Your order</h3>
+
+							<div class="order_table table-responsive mb-30">
+								<table>
+									<thead>
+										<tr>
+											<th>Tên giày</th>
+											<th>Màu sắc</th>
+											<th>Size giày</th>
+											<th>Số lượng</th>
+											<th>Giá</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><img src="/shopview/assets/img/brand/brand1.png"
+												alt="" width="80" height="60" /> Nike Air Max</td>
+											<td>Đen</td>
+											<td>42</td>
+											<td>2</td>
+											<td>200 USD</td>
+										</tr>
+										<tr>
+											<td><img src="/shopview/assets/img/brand/brand1.png"
+												alt="" width="80" height="60" /> Adidas Superstar</td>
+											<td>Trắng</td>
+											<td>41</td>
+											<td>1</td>
+											<td>100 USD</td>
+										</tr>
+										<!-- Thêm các dòng khác tương tự cho các sản phẩm khác -->
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="5">
+												<div class="coupon">
+													<label for="coupon_code">Do you have a discount
+														code? Please enter here</label>
+													<div class="coupon-input">
+														<input type="text" id="coupon_code" name="coupon_code"
+															placeholder="Enter your coupon code" />
+														<button type="submit" class="apply_coupon">Apply
+															Coupon</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>Discount code</th>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><strong>2%</strong></td>
+										</tr>
+										<tr>
+											<th>Order Total</th>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><strong>$220.00</strong></td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+
+
+
+							<div class="payment_method">
+								<!-- Thêm mã giảm giá ở đây -->
+								<div class="panel-default">
+									<div id="method" class="collapse one" data-parent="#accordion">
+										<div class="card-body1">
+											<p>Please send a check to Store Name, Store Street, Store
+												Town, Store State / County, Store Postcode.</p>
+										</div>
+									</div>
+								</div>
+								<div class="panel-default">
+									<input id="payment_defult" name="check_method" type="radio"
+										data-target="createp_account" /> <label for="payment_defult"
+										data-toggle="collapse" data-target="#collapsedefult"
+										aria-controls="collapsedefult">PayPal <img
+										src="/shopview/assets/img/visha/papyel.png" alt="" /></label>
+									<div id="collapsedefult" class="collapse one"
+										data-parent="#accordion">
+										<div class="card-body1">
+											<p>Pay via PayPal; you can pay with your credit card if
+												you don’t have a PayPal account.</p>
+										</div>
+									</div>
+								</div>
+								<div class="panel-default">
+									<input id="payment_defult" name="check_method" type="radio"
+										data-target="createp_account" /> <label for="payment_defult">Payment
+										on delivery</label>
+								</div>
+								<div class="order_button">
+									<button type="submit">Complete the Order</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="shop/fragments/footer::footer"></div>
+	<script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="/shopview/assets/js/popper.js"></script>
+    <script src="/shopview/assets/js/bootstrap.min.js"></script>
+    <script src="/shopview/assets/js/ajax-mail.js"></script>
+    <script src="/shopview/assets/js/plugins.js"></script>
+
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+		integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>
+        const host = "https://provinces.open-api.vn/api/";
+        var callAPI = (api) => {
+            return axios.get(api).then((response) => {
+                renderData(response.data, "province");
+            });
+        };
+        callAPI("https://provinces.open-api.vn/api/?depth=1");
+
+        var callApiDistrict = (api) => {
+            return axios.get(api).then((response) => {
+                renderData(response.data.districts, "district");
+            });
+        };
+        var callApiWard = (api) => {
+            return axios.get(api).then((response) => {
+                renderData(response.data.wards, "ward");
+            });
+        };
+
+        var renderData = (array, select) => {
+            let row = ' <option disable value="">chọn</option>';
+            array.forEach((element) => {
+                row += `<option value="${element.code}">${element.name}</option>`;
+            });
+            document.querySelector("#" + select).innerHTML = row;
+        };
+
+        $("#province").change(() => {
+            callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+        });
+        $("#district").change(() => {
+            callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+        });
+    </script>
+
+
+
+</body>
+</html>
