@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="shopview/assets/img/l.png">
+
+<!-- all css here -->
+<link rel="stylesheet" href="/shopview/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/shopview/assets/css/plugin.css">
+<link rel="stylesheet" href="/shopview/assets/css/bundle.css">
+<link rel="stylesheet" href="/shopview/assets/css/style.css">
+<link rel="stylesheet" href="/shopview/assets/css/responsive.css">
+<script src="/shopview/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+<!--
+    - favicon
+  -->
+<link rel="shortcut icon"
+	href="/shopview/assets/images/logo/favicon.ico" type="image/x-icon">
+
+<!--
+    - custom css link
+  -->
+<link rel="stylesheet" href="/shopview/assets/css/style-prefix.css">
+
+</head>
+<body>
+	<div th:replace="shop/fragments/header::header"></div>
+	<div class="container">
+		<div class="breadcrumbs_area">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<ul>
+							<li><a href="index.html">home</a></li>
+							<li><i class="fa fa-angle-right"></i></li>
+							<li>shop</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--breadcrumbs area end-->
+
+		<!--pos home section-->
+		<div class=" pos_home_section">
+			<div class="row pos_home">
+				<div class="col-lg-3 col-md-12">
+					<!--layere categorie"-->
+					<div class="sidebar_widget shop_c">
+						<div class="categorie__titile">
+							<h4>Categories</h4>
+							<div class="form-group">
+								<label for="exampleFormControlSelect2"> </label> <select
+									class="form-select" size="3" aria-label="Size 3 select example">
+									<option selected>Open this select menu</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+									<option value="4">One</option>
+									<option value="5">Two</option>
+									<option value="6">Three</option>
+								</select>
+							</div>
+						</div>
+						<div class="layere_categorie">
+							<div>
+								<h4>Brand</h4>
+							</div>
+							<ul>
+								<li><input id="Reebok" type="checkbox"> <label
+									for="Reebok">Reebok<span>(10)</span></label></li>
+								<li><input id="Adidas" type="checkbox"> <label
+									for="Adidas">Adidas <span>(2)</span></label></li>
+								<li><input id="Nike" type="checkbox"> <label
+									for="Nike">Nike<span>(3)</span></label></li>
+								<li><input id="Puma" type="checkbox"> <label
+									for="Puma">Puma<span>(4)</span></label></li>
+								<li><input id="Converse" type="checkbox"> <label
+									for="Converse">Converse<span>(4)</span></label></li>
+								<li><input id="Alexander Mqueen" type="checkbox"> <label
+									for="Alexander Mqueen">Alexander Mqueen<span>(4)</span></label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--layere categorie end-->
+
+					<!--color area start-->
+					<div class="sidebar_widget color">
+						<h2>Color</h2>
+						<div class="widget_color">
+							<ul>
+
+								<li><a href="#">Black <span>(10)</span></a></li>
+
+								<li><a href="#">Orange <span>(12)</span></a></li>
+
+								<li><a href="#">Blue <span>(14)</span></a></li>
+
+								<li><a href="#">Yellow <span>(15)</span></a></li>
+
+								<li><a href="#">pink <span>(16)</span></a></li>
+
+								<li><a href="#">green <span>(11)</span></a></li>
+
+							</ul>
+						</div>
+					</div>
+					<!--color area end-->
+					<!-- size start -->
+					<div class="sidebar_widget shop_c">
+						<div class="layere_categorie">
+							<div>
+								<h4>Size</h4>
+							</div>
+							<ul>
+								<li><input id="36" type="checkbox"> <label for="36">36</label>
+								</li>
+								<li><input id="37" type="checkbox"> <label for="37">37</label>
+								</li>
+								<li><input id="38" type="checkbox"> <label for="38">38</label>
+								</li>
+								<li><input id="39" type="checkbox"> <label for="39">39</label>
+								</li>
+								<li><input id="40" type="checkbox"> <label for="40">40</label>
+								</li>
+								<li><input id="41" type="checkbox"> <label for="41">41</label>
+								</li>
+								<li><input id="42" type="checkbox"> <label for="42">42</label>
+								</li>
+								<li><input id="43" type="checkbox"> <label for="43">43</label>
+								</li>
+								<li><input id="44" type="checkbox"> <label for="44">44</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- size and -->
+					<!--price slider start-->
+					<div class="sidebar_widget price">
+						<h2>Price</h2>
+						<div class="ca_search_filters">
+							<input type="text" name="text" id="amount">
+							<div id="slider-range"></div>
+						</div>
+					</div>
+					<!--price slider end-->
+				</div>
+				<div class="col-lg-9 col-md-12">
+					<!--banner slider start-->
+					<!-- <div class="banner_slider mb-35">
+                                            <img src="/shopview/assets/img/banner/bannershop.png" alt="">
+                                        </div>  -->
+					<!--banner slider start-->
+
+					<!--shop toolbar start-->
+					<div class="shop_toolbar mb-35">
+
+						<div class="list_button">
+							<ul class="nav" role="tablist">
+								<li><a class="active" data-toggle="tab" href="#large"
+									role="tab" aria-controls="large" aria-selected="true"><i
+										class="fa fa-th-large"></i></a></li>
+
+							</ul>
+						</div>
+						<div class="page_amount">
+							<p>Showing 1–9 of 21 results</p>
+						</div>
+
+						<div class="select_option">
+							<form action="#">
+								<label>Sort By</label> <select name="orderby" id="short">
+									<option selected="" value="1">All</option>
+									<option value="1">Price: Lowest</option>
+									<option value="1">Price: Highest</option>
+									<option value="1">Product Name:A</option>
+									<option value="1">Product Name: Z</option>
+								</select>
+							</form>
+						</div>
+					</div>
+					<!--shop toolbar end-->
+
+					<!--shop tab product-->
+					<div class="shop_tab_product">
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="large" role="tabpanel">
+								<div class="row">
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/adidas1.jpg" alt=""></a>
+												<div class="img_icone">
+													<img src="/shopview/assets/img/cart/span-new.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$50.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">ULTRABOOST LIGHT PARLEY
+														NON DYED</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/adidas2.jpg" alt=""></a>
+												<div class="hot_img">
+													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$40.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">ULTRABOOST LIGHT CLOUD
+														WHITE / SOLAR RED</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/adidas3.jpg" alt=""></a>
+												<div class="img_icone">
+													<img src="/shopview/assets/img/cart/span-new.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$60.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">ULTRABOOST LIGHT PARLEY
+														CORE BLACK</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/nike1.jpg" alt=""></a>
+												<div class="hot_img">
+													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$65.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">AIR JORDAN 1 LOW NAVY
+														(2004)</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/nike2.jpg" alt=""></a>
+												<div class="img_icone">
+													<img src="/shopview/assets/img/cart/span-new.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$50.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">AIR JORDAN 1 LOW SHADOW
+														BROWN</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/nike3.jpg" alt=""></a>
+												<div class="hot_img">
+													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$40.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">AIR JORDAN 1 LOW LUCKY
+														GREEN/AQUATONE</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/nike4.jpg" alt=""></a>
+												<div class="img_icone">
+													<img src="/shopview/assets/img/cart/span-new.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$60.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">ULTRABOOST LIGHT WHITE
+														GREEN</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/nike5.jpg" alt=""></a>
+												<div class="hot_img">
+													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$65.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">AIR JORDAN 1 LOW SE
+														MIGHTY SWOOSHERS</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="single_product">
+											<div class="product_thumb">
+												<a href="single-product.html"><img
+													src="/shopview/assets/img/product/adidas4.jpg" alt=""></a>
+												<div class="img_icone">
+													<img src="/shopview/assets/img/cart/span-new.png" alt="">
+												</div>
+
+											</div>
+											<div class="product_content">
+												<span class="product_price">$50.00</span>
+												<h3 class="product_title">
+													<a href="single-product.html">ULTRABOOST LIGHT CLOUD
+														WHITE / SOLAR RED</a>
+												</h3>
+											</div>
+											<div class="product_info">
+												<ul>
+													<li><a href="/shop/product" title=" Add to Wishlist ">View
+															Detail</a></li>
+													<li><a href="#" data-toggle="modal"
+														data-target="#modal_box" title="Quick view">Add to
+															cart</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+					<!--shop tab product end-->
+
+					<!--pagination style start-->
+					<div class="pagination_style">
+						<div class="item_page">
+							<form action="#">
+								<label for="page_select">show</label> <select id="page_select">
+									<option value="1">6</option>
+									<option value="2">9</option>
+									<option value="3">12</option>
+									<option value="3">15</option>
+								</select> <span>Products by page</span>
+							</form>
+						</div>
+						<div class="page_number">
+							<span>Pages: </span>
+							<ul>
+								<li>«</li>
+								<li class="current_number">1</li>
+								<li><a href="#">2</a></li>
+								<li>»</li>
+							</ul>
+						</div>
+					</div>
+					<!--pagination style end-->
+					<!--brand logo strat-->
+					<div class="brand_logo mb-60">
+						<div class="block_title">
+							<h3>Brands</h3>
+						</div>
+						<div class="row">
+							<div class="brand_active owl-carousel">
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand8.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand1.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand2.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand3.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand4.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand5.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="single_brand">
+										<a href="#"><img
+											src="/shopview/assets/img/brand/brand6.jpg" alt=""></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--brand logo end-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="shop/fragments/footer::footer"></div>
+	   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+
+</body>
+</html>
