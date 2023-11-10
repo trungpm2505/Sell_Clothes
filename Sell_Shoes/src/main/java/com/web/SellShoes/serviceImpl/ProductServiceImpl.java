@@ -1,6 +1,7 @@
 package com.web.SellShoes.serviceImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -58,6 +59,11 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProduct(Product product) {
 		product.setDeleteAt(LocalDate.now());
 		productRepository.save(product);
+	}
+
+	@Override
+	public List<Product> getAll() {
+		return productRepository.findAll();
 	}
 
 

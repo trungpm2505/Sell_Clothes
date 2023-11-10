@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <style type="text/css">
+    .card-img-top{
+    	width: 200px;
+    }
+    .card{
+    width: 50px;
+    }
+    
+    </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="card-deck">
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            content.
+            This content is a little bit longer.</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            content.
+            This card has even longer content than the first to show that equal height action.</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    <script type="text/javascript">
+    loadData();
+
+    function loadData() {		
+        $.ajax({
+            url: '/product/getProductView',
+            type: 'GET',
+            //dataType: 'json',
+            success: function(data) {
+                //clear table
+                $('.card-deck').empty();
+                
+                //add record
+                $.each(data.productResponseDtos, function(index, product) {
+                    var card = $('<div>').addClass('card');
+                    
+                    //add id
+                    card.append($('<div>').text(product.id).hide().addClass('id'));
+                    
+                    //add image
+                    $.each(product.images, function(i, image) {
+                        if (product.images[i].isDefault == true) {
+                            card.append(
+                                $('<img>').attr('src', "../upload/" + image.inmageForSave).addClass('card-img-top')
+                            );
+                        }
+                    });
+
+                    card.append($('<h5>').text(product.title).addClass('card-title'));
+
+                    $.each(product.variantResponseDtos, function(i, variant) {
+                    	if(i === 0){
+                    		console.log(product.variantResponseDtos[0]);
+                        	card.append($('<del>').text(product.variantResponseDtos[0].price).addClass('card-text'))
+                        	card.append($('<div>').text(product.variantResponseDtos[0].currentPrice).addClass('card-text'))
+                    	}
+                    });
+                    var addedSizes = {};
+                    var addedColors = {};
+
+                    var variantInfo = $('<div>').addClass('variant-info');
+
+                    var addedSizeLabel = false;
+                    var addedColorsLabel = false;
+
+                    // Xử lý "Size"
+                    $.each(product.variantResponseDtos, function(i, variant) {
+                        if (!addedSizeLabel) {
+                            variantInfo.append($('<label>').text('Size: '));
+                            addedSizeLabel = true;
+                        }
+
+                        if (!addedSizes[variant.size]) {
+                            var sizeRadio = $('<input>').attr({
+                                type: 'radio',
+                                name: 'size_' + product.id, 
+                                value: variant.size,
+                                id: 'size_' + product.id + '_' + i 
+                            });
+
+                            variantInfo.append(sizeRadio).append($('<span>').text(variant.size + ' '));
+                            addedSizes[variant.size] = true;
+                        }
+                    });
+                    variantInfo.append($('<span>').text(' '));
+
+                    variantInfo.append($('<br>'));
+
+                    // Xử lý "Color"
+                    $.each(product.variantResponseDtos, function(i, variant) {
+                        if (!addedColorsLabel) {
+                            variantInfo.append($('<label>').text('Color: '));
+                            addedColorsLabel = true;
+                        }
+
+                        if (!addedColors[variant.color]) {
+                            var colorRadio = $('<input>').attr({
+                                type: 'radio',
+                                name: 'color_' + product.id,
+                                value: variant.color,
+                                id: 'color_' + product.id + '_' + i 
+                            });
+
+                            variantInfo.append(colorRadio).append($('<span>').text(variant.color + ' '));
+                            addedColors[variant.color] = true;
+                        }
+
+                    });
+
+                    card.append(variantInfo);
+
+                    $('.card-deck').append(card);
+
+                });
+            },
+            error: function() {
+                // Handle errors here
+            }
+        });
+    }
+
+    </script>
+</body>
+
+</html>

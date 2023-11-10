@@ -1,5 +1,6 @@
 package com.web.SellShoes.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -23,5 +24,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query("SELECT c FROM Product c WHERE c.deleteAt is null AND c.title LIKE %:keyword%")
 	Page<Product> findByKeyword(Pageable pageable, String keyword);
+	
+	@Query("SELECT c FROM Product c WHERE c.deleteAt is null")
+	List<Product> findAll();
 
 }

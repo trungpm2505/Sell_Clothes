@@ -1,5 +1,5 @@
 package com.web.SellShoes.service;
 
-public interface OderDetailService {
+public interface OrderDetailService {
 
 }

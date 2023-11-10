@@ -5,12 +5,15 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
+import com.web.SellShoes.dto.responseDto.VariantResponseDto;
 import com.web.SellShoes.entity.Color;
+import com.web.SellShoes.entity.Product;
 import com.web.SellShoes.entity.Size;
 import com.web.SellShoes.entity.Variant;
 
 public interface VariantService {
 	public List<Variant> getVariantsByProductId(Integer productId);
+	public List<VariantResponseDto> getVariantByProduct(Product product);
 
 	public void save(Variant variant);
 

@@ -1,5 +1,6 @@
 package com.web.SellShoes.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -13,4 +14,5 @@ public interface ProductService {
 	public Page<Product> getAllProduct(int pageNumber, int size);
 	public Page<Product> getProductByKey(int pageNumber, int size,String keyWord);
 	public void deleteProduct(Product product);
+	public List<Product> getAll();
 }

@@ -7,9 +7,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class VariantResponseDto {
+	public VariantResponseDto(Integer id, Integer productId, Integer sizeId, Integer colorId, String size, String color,
+			Float price, Float currentPrice, int quantity, int buyCount) {
+		super();
+		this.id = id;
+		this.productId = productId;
+		this.sizeId = sizeId;
+		this.colorId = colorId;
+		this.size = size;
+		this.color = color;
+		this.price = price;
+		this.currentPrice = currentPrice;
+		this.quantity = quantity;
+		this.buyCount = buyCount;
+	}
+
 	private Integer id;
 
 	private Integer productId;

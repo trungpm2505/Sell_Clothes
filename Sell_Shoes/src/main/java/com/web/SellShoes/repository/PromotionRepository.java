@@ -21,6 +21,6 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer>{
 	@Query("SELECT c FROM Promotion c WHERE c.deleteAt is null")
 	Page<Promotion> findPromotionPage(Pageable pageable);
 
-	@Query("SELECT c FROM Promotion c WHERE c.deleteAt is null AND c.name LIKE %:keyword%")
+	@Query("SELECT c FROM Promotion c WHERE c.deleteAt is null AND c.name LIKE %:keyword% or c.couponCode LIKE %:keyword% or c.maximumDiscountValue LIKE %:keyword%")
 	Page<Promotion> findByKeyword(Pageable pageable, String keyword);
 }
