@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Adela Shoes</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="shopview/assets/img/l.png">
+
+    <!-- all css here -->
+   <link rel="stylesheet" href="/shopview/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/shopview/assets/css/plugin.css">
+    <link rel="stylesheet" href="/shopview/assets/css/bundle.css">
+    <link rel="stylesheet" href="/shopview/assets/css/style.css">
+    <link rel="stylesheet" href="/shopview/assets/css/responsive.css">
+    <script src="/shopview/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+    <!--
+    - favicon
+  -->
+    <link rel="shortcut icon" href="/shopview/assets/images/logo/favicon.ico" type="image/x-icon">
+
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/shopview/assets/css/style-prefix.css">
+
+    <!--
+    - google font link
+  -->
+   <!--  <link rel="preconnect" href="https:/fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"> -->
+</head>
+
+<body> 
+    <!--pos page start-->
+    <div class="pos_page">
+        <div class="container">
+            <!--pos page inner-->
+            <div class="pos_page_inner">
+                <!--header area -->
+           
+  <!--    đây là header  -->
+        <div th:replace="shop/fragments/header::header">
+       </div>
+
+              <div layout:fragment="content"></div>  
+            </div>
+            <!--pos page inner end-->
+        </div>
+    </div>
+    <!--pos page end-->
+  <div th:replace="shop/fragments/footer::footer">
+       </div>
+   
+
+    <!-- modal area start -->
+    
+
+    <!-- modal area end -->
+
+
+
+
+    <!-- all js here -->
+   
+    <script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="/shopview/assets/js/popper.js"></script>
+    <script src="/shopview/assets/js/bootstrap.min.js"></script>
+    <script src="/shopview/assets/js/ajax-mail.js"></script>
+    <script src="/shopview/assets/js/plugins.js"></script>
+    <script src="/shopview/assets/js/main.js"></script> 
+    <script src="/shopview/assets/js/index.js"></script>
+    <!-- <script src="/shopview/assets/js/script.js"></script> -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!--
+    - ionicon link
+  -->
+   
+</body>
+
+</html>
