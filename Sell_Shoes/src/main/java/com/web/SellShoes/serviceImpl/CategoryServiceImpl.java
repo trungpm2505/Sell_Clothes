@@ -169,14 +169,14 @@ public class CategoryServiceImpl implements CategoryService{
 	public Page<Category> getAllCategory(int pagenumber, int size) {
 	    PageRequest categoryPageable = PageRequest.of(pagenumber, size, Sort.by(Sort.Direction.ASC, "categoryName"));
 
-	   Page<Category>     categoryPage = categoryRepository.findCategoryPage(categoryPageable);
+	   Page<Category> categoryPage = categoryRepository.findCategoryPage(categoryPageable);
 	
 	    return categoryPage;
 	}
 
 	@Override
 	public Page<Category> getCategoryByKey(int pagenumber, int size, String keyWord) {
-		PageRequest categoryPageable=PageRequest.of(pagenumber, size,Sort.by(Sort.Direction.ASC,"categoryName"));
+		PageRequest categoryPageable = PageRequest.of(pagenumber, size,Sort.by(Sort.Direction.ASC,"categoryName"));
 
 		return categoryRepository.findByKeyWord(categoryPageable, keyWord);
 	}
