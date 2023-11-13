@@ -635,7 +635,17 @@ margin-left: 10px
 			    }
 			    
 			    formData.append('discription', discription);
-			    
+			    if (selectedFilesEdit.length > 0) {
+			        selectedFiles = selectedFilesEdit;
+			    }
+			    var defaultFileIndex = 0; // Giả định mặc định là 0
+			    if (selectedFiles.length > 0) {
+			        defaultFileIndex = 0; // Nếu có ảnh được chọn, đặt giá trị thành 0
+			    }
+
+			    // Gắn giá trị mặc định cho defaultFileIndex
+			    formData.append('defaultFileIndex', defaultFileIndex);
+
 			 	// Thêm các file được chọn vào đối tượng FormData
 			     for (let i = 0; i < selectedFiles.length; i++) {
 				    if (typeof selectedFiles[i] === 'string') {
@@ -643,14 +653,7 @@ margin-left: 10px
 				    } else {
 				        formData.append('file', selectedFiles[i]);
 				    }
-				}
-
-			  	// Kiểm tra xem có ảnh được chọn hay không
-			     if (selectedFiles.length === 0 || selectedFiles.length > 0) {
-			         // Gắn giá trị mặc định cho defaultFileIndex
-			         formData.append('defaultFileIndex', 0);
-			     }
-			  	
+				}			  	
 			  	
 			     csrfToken = Cookies.get('XSRF-TOKEN');
 			     $.ajax({
@@ -668,7 +671,8 @@ margin-left: 10px
 				        	toastr.success(data.message); // Hiển thị thông báo thành công khi request thành công.
 				            clearFrom(); 
 				            
-				            loadData(0, ""); 
+				            loadData(0, "");
+				            loadDataVariant(0,0,0,"");
 				        },
 				        error: function(jqXHR, textStatus, errorMessage) {
 				            // Xử lý lỗi khi request không thành công.
@@ -803,6 +807,7 @@ margin-left: 10px
 			    	            	 for (let i = 0; i < inmageForSaveArray.length; i++) {
 			    	            		 selectedFilesEdit.push(inmageForSaveArray[i]);
 			 					    }
+			    	            	
 			    	            	// Hàm hiển thị ảnh
 			    	            	function displayImages(imageList) {
 								    selectedImagesContainer.innerHTML = '';

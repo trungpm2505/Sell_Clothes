@@ -411,7 +411,7 @@
 	font-weight: bold;
 	font-size: 18px;
 	padding: 7px 0;
-	display: block;
+	display: inline-block;
 }
 .product_content h3 a:hover{
     color: #15a7b4;
@@ -5962,11 +5962,6 @@
 	 * #REUSED STYLE 
 	 */
   
-	.container {
-	  max-width: 750px;
-	  margin: auto;
-	}
-  
   
 	
 	/**
@@ -6150,9 +6145,6 @@
 	/**
 	 * #REUSED STYLE 
 	 */
-  
-	.container { max-width: 980px; }
-  
   
   
 	/**
@@ -6689,9 +6681,6 @@
 	 * #REUSED STYLE 
 	 */
   
-	.container { max-width: 1200px; }
-  
-  
   
 	/**
 	 * #HEADER
@@ -6817,7 +6806,7 @@
 	 * #REUSED STYLE 
 	 */
   
-	.container { max-width: 1350px; }
+	.container { max-width: 1450px; }
   
   
   

@@ -60,7 +60,7 @@ public class CategoryController {
 	}
 
 	@GetMapping("/getCategoryPage")
-	public ResponseEntity<CategoryPageResponseDto> getCategoryPage(@RequestParam(defaultValue = "5") int size,
+	public ResponseEntity<CategoryPageResponseDto> getCategoryPage(@RequestParam(defaultValue = "8") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {
@@ -156,7 +156,7 @@ public class CategoryController {
 		entity.setCategoryName(categoryRequesDto.getCategoryName());
 		entity.setUpdateAt(LocalDate.now());
 		categoryService.save(entity);
-		
+
 		return ResponseEntity.ok("Edit categories successfully");
 	}
 

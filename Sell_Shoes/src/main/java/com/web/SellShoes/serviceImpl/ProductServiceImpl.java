@@ -9,7 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.SellShoes.entity.Brand;
+import com.web.SellShoes.entity.Category;
+import com.web.SellShoes.entity.Color;
 import com.web.SellShoes.entity.Product;
+import com.web.SellShoes.entity.Size;
 import com.web.SellShoes.repository.ProductRepository;
 import com.web.SellShoes.service.ProductService;
 
@@ -36,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 	public void save(Product product) {
 		productRepository.save(product);
 	}
-	
+
 	@Override
 	public Page<Product> getAllProduct(int pageNumber, int size) {
 		// phân trang dữ liệu: số trang, kich thước, sắp xếp
@@ -54,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
 		return productRepository.findByKeyword(productPageable, keyWord);
 	}
-	
+
 	@Override
 	public void deleteProduct(Product product) {
 		product.setDeleteAt(LocalDate.now());
@@ -66,5 +70,13 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findAll();
 	}
 
+	@Override
+	public Page<Product> searchProduct(int pageNumber, int size, Category category, Brand brand, Size size2,
+			Color color, String keyword) {
+		PageRequest productPageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "id"));
+		Page<Product> productPage = productRepository.searchProduct(productPageable, category, brand, size2, color,
+				keyword);
+		return productPage;
+	}
 
 }

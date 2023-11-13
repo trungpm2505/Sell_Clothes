@@ -16,6 +16,8 @@ import com.web.SellShoes.entity.Variant;
 
 @Repository
 public interface VariantRepository extends JpaRepository<Variant, Integer> {
+	
+	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product.id = :productId")
 	List<Variant> findByProductId(Integer productId);
 	
 	@Query("SELECT p FROM Variant p WHERE p.deleteAt is null AND p.id = :variantId")
