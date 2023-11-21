@@ -24,6 +24,9 @@ public interface VariantService {
 
 	public Optional<Variant> getVariantBySizeAndColor(Integer productId, Integer sizeId, Integer colorId);
 
+	
+	public List<Variant> getListVariantsById(Integer variantId);
+	
 	public void deleteVariant(Variant variant);
 	
 	public List<Variant> getVariantsByProductIdAndSizeIdColorId(Integer productId, Size size, Color color);

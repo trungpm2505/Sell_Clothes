@@ -2,11 +2,14 @@ package com.web.SellShoes.dto.responseDto;
 
 import java.time.LocalDate;
 
+import com.web.SellShoes.entity.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class VariantResponseDto {
 	public VariantResponseDto(Integer id, Integer productId, Integer sizeId, Integer colorId, String size, String color,
