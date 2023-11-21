@@ -8,6 +8,7 @@ import com.web.SellShoes.dto.requestDto.ProductRequestDto;
 import com.web.SellShoes.dto.requestDto.PromotionRequestDto;
 import com.web.SellShoes.dto.requestDto.UserRequestDto;
 import com.web.SellShoes.dto.requestDto.VariantRequestDto;
+import com.web.SellShoes.dto.responseDto.ProductResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Brand;
 import com.web.SellShoes.entity.Category;
@@ -19,8 +20,10 @@ import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.service.BrandService;
 import com.web.SellShoes.service.CategoryService;
 import com.web.SellShoes.service.ColorService;
+import com.web.SellShoes.service.ImageService;
 import com.web.SellShoes.service.ProductService;
 import com.web.SellShoes.service.SizeService;
+import com.web.SellShoes.service.VariantService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +35,8 @@ public class Mapper {
 	private final BrandService brandService;
 	private final ColorService colorService;
 	private final SizeService sizeService;
+	private final ImageService imageService;
+	private final VariantService variantService;
 
 	public Account userRquestDtoMapToUser(UserRequestDto userRequestDto) {
 		Account user = new Account();
@@ -117,6 +122,34 @@ public class Mapper {
 		}
 
 		return promotion;
+
+	}
+	
+	public ProductResponseDto productToProductResponese(Product product) {
+		ProductResponseDto productResponse = new ProductResponseDto();
+
+		productResponse.setId(product.getId());
+
+		// set title
+		productResponse.setTitle(product.getTitle());
+		
+		//set description
+		productResponse.setDiscription(product.getDiscription());
+
+		// set category
+		Optional<Category> category = categoryService.getCategory(product.getCategory().getId());
+		productResponse.setCategoryName(category.get().getCategoryName());
+		
+		Optional<Brand> brand = brandService.getBrand(product.getBrand().getId());		
+		productResponse.setBrandName(brand.get().getName());
+		
+		//set variant
+		productResponse.setVariantResponseDtos(variantService.getVariantByProduct(product));
+		
+		// set images
+		productResponse.setImages(imageService.getImageByProduct(product));
+
+		return productResponse;
 
 	}
 }

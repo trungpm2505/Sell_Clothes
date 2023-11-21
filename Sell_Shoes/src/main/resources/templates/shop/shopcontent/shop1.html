@@ -80,6 +80,7 @@
     border-radius: 5px; /* Bo tròn góc */
 }
 
+
 </style>
 <!--
     - favicon
@@ -133,26 +134,6 @@
 								</select>
 							</div>
 						</div>
-						<!-- <div class="layere_categorie">
-							<div>
-								<h4>Brand</h4>
-							</div>
-							<ul>
-								<li><input id="Reebok" type="checkbox"> <label
-									for="Reebok">Reebok<span>(10)</span></label></li>
-								<li><input id="Adidas" type="checkbox"> <label
-									for="Adidas">Adidas <span>(2)</span></label></li>
-								<li><input id="Nike" type="checkbox"> <label
-									for="Nike">Nike<span>(3)</span></label></li>
-								<li><input id="Puma" type="checkbox"> <label
-									for="Puma">Puma<span>(4)</span></label></li>
-								<li><input id="Converse" type="checkbox"> <label
-									for="Converse">Converse<span>(4)</span></label></li>
-								<li><input id="Alexander Mqueen" type="checkbox"> <label
-									for="Alexander Mqueen">Alexander Mqueen<span>(4)</span></label>
-								</li>
-							</ul>
-						</div> -->
 					</div>
 					<!--layere categorie end-->
 
@@ -162,6 +143,7 @@
 					        <div>
 					            <h4>Color</h4>
 					        </div>
+					        
 					        <ul id="colorContainer">
 					           
 					        </ul>
@@ -183,49 +165,17 @@
 					<!-- size and -->
 					<!--price slider start-->
 					<div class="sidebar_widget price">
+					<div class="layere_categorie">
 						<h2>Price</h2>
 						<div class="ca_search_filters">
-							<input type="text" name="text" id="amount">
+							<input class="form-control" type="text" name="text" id="amount">
 							<div id="slider-range"></div>
+						</div>
 						</div>
 					</div>
 					<!--price slider end-->
 				</div>
 				<div class="col-lg-10 col-md-10">
-					<!--banner slider start-->
-					<!-- <div class="banner_slider mb-35">
-                                            <img src="/shopview/assets/img/banner/bannershop.png" alt="">
-                                        </div>  -->
-					<!--banner slider start-->
-
-					<!--shop toolbar start-->
-					<!-- <div class="shop_toolbar mb-35">
-
-						<div class="list_button">
-							<ul class="nav" role="tablist">
-								<li><a class="active" data-toggle="tab" href="#large"
-									role="tab" aria-controls="large" aria-selected="true"><i
-										class="fa fa-th-large"></i></a></li>
-
-							</ul>
-						</div>
-						<div class="page_amount">
-							<p>Showing 1–9 of 21 results</p>
-						</div>
-
-						<div class="select_option">
-							<form action="#">
-								<label>Sort By</label> <select name="orderby" id="short">
-									<option selected="" value="1">All</option>
-									<option value="1">Price: Lowest</option>
-									<option value="1">Price: Highest</option>
-									<option value="1">Product Name:A</option>
-									<option value="1">Product Name: Z</option>
-								</select>
-							</form>
-						</div>
-					</div> -->
-					<!--shop toolbar end-->
 
 					<!--shop tab product-->
 					<div class="shop_tab_product">
@@ -313,7 +263,13 @@
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+	<script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="/shopview/assets/js/popper.js"></script>
+    <script src="/shopview/assets/js/ajax-mail.js"></script>
+    <script src="/shopview/assets/js/plugins.js"></script>
+    <!-- <script src="/shopview/assets/js/script.js"></script> -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<script>
     loadCategory();
     function loadCategory() {
@@ -474,14 +430,14 @@
 
 
 
-    loadAllProduct(0, 0, 0, 0, 0, "");
-    function loadAllProduct(page, categoryId, brandId, sizeId, colorId,keyword) {
+    loadAllProduct(0, 0, 0, 0, 0,null, null, "");
+    function loadAllProduct(page, categoryId, brandId, sizeId, colorId, minPrice, maxPrice, keyword) {
       $.ajax({
         url: '/product/getProductView',
         type: 'GET',
         dataType: 'json',
         data: {
-          page: page,categoryId: categoryId,brandId: brandId,sizeId: sizeId,colorId: colorId,keyword: keyword
+          page: page,categoryId: categoryId,brandId: brandId,sizeId: sizeId,colorId: colorId, minPrice : minPrice, maxPrice : maxPrice, keyword: keyword
         },
         success: function (data) {
           $('.productAll').empty();
@@ -498,7 +454,7 @@
                 product.images,function (i,image) {
                   if (product.images[i].isDefault == true) {
                     product_thumb.append($('<a>',{
-                          href: '/shop/product'}).append($('<img>').attr('src',"../upload/" + image.inmageForSave).addClass('card-img-top')));
+                          href: '/product/details?productId='+product.id}).append($('<img>').attr('src',"../upload/" + image.inmageForSave).addClass('card-img-top')));
                   }
                 });
 
@@ -518,13 +474,14 @@
 
                   }
                 });
+            product_content.append($('<div>').text(product.id).hide().addClass('id'));
             product_content.append($('<h3>').append($('<a>',{
-                      href: '/shop/product',
+                      href: '/product/details?productId='+product.id,
                       text: product.title
                     }).addClass('product_title')));
             product_info.append($('<ul>').append(
             	  $('<li>').append($('<a>',{
-                         href: '/shop/product',
+                         href: '/product/details?productId='+product.id,
                          text: 'View Detail',
                        })),
                   $('<li>').append($('<a>',{
@@ -546,23 +503,23 @@
 	         totalPages = data.totalPages;
 	         size = data.size;
 	        //create pagination 
-		     createPagination("#paging",pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId, keyword );
+		     createPagination("#paging",pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId,minPrice, maxPrice, keyword );
         }
       });
     }
     
-    function createPagination(navId,pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId, keyword ){
+    function createPagination(navId,pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId,minPrice,maxPrice, keyword ){
   	  $(navId).empty();
         
         pagination += '<ul class="pagination">';
-        pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadAllProduct(' + (currentPage - 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +',\''+keyword+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
+        pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadAllProduct(' + (currentPage - 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
 
        
             var startPage = currentPage > 2 ? currentPage - 2 : 0;
             var endPage = currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1;
 
             for (var i = startPage; i <= endPage; i++) {
-                pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +',\''+keyword+'\')">' + (i + 1) + '</a></li>';
+                pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')">' + (i + 1) + '</a></li>';
             }
            //${page.totalPages > 5 && page.number < page.totalPages - 3}
             if ((totalPages > 5) &&  (currentPage < totalPages-3)) {
@@ -570,10 +527,10 @@
             }
            
             if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
-                pagination += '<li><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +',\''+keyword+'\')">';
+                pagination += '<li><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')">';
             }
 
-        pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadAllProduct(' + (currentPage + 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +',\''+keyword+'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
+        pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadAllProduct(' + (currentPage + 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
         pagination += '</ul>';
          
         $(navId).append(pagination);
@@ -581,14 +538,83 @@
     
     //var searchButton = document.getElementById("searchButton");
 	// var  keyInput = document.getElementById("key");
-	  var selectedColorId;
-	  var selectedSizeId;
-      function searchButtonClick() {
-		  var key = "";
-		  var categoryId = document.getElementById("category").value;
-			
-		  loadAllProduct(0, categoryId, 0, selectedSizeId, selectedColorId, key);
-	  }
+	 
+      
+    	      /*--------------------------
+    	     ScrollUp
+    	    ---------------------------- */
+    	    $.scrollUp({
+    	        scrollText: '<i class="fa fa-angle-double-up"></i>',
+    	        easingType: 'linear',
+    	        scrollSpeed: 900,
+    	        animation: 'fade'
+    	    });
+    		
+    	    
+    	     /* brand activation */
+    	    $('.brand_active').owlCarousel({
+    	        animateOut: 'fadeOut',
+    			loop: true,
+    	        nav: true,
+    	        autoplay: false,
+    	        autoplayTimeout: 8000,
+    	        items: 6,
+    	        dots:true,
+    	        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+    	        responsiveClass:true,
+    			responsive:{
+    				0:{
+    					items:1,
+    				},
+    	            480:{
+    					items:3,
+    				},
+    	            992:{
+    					items:4,
+    				},
+    	            1200:{
+    					items:6,
+    				},
+
+    			  }
+    	    });
+    	    
+    	    
+    	    $("#slider-range").slider({
+    	        range: true,
+    	        min: 0,
+    	        max: 2000000,
+    	        step: 10000,
+    	        values: [0, 10000],
+    	        slide: function (event, ui) {
+    	        	minPrice = ui.values[0];
+    	            maxPrice = ui.values[1];
+    	            $("#amount").val(ui.values[0].toLocaleString('vi-VN') + "đ" + " - " + ui.values[1].toLocaleString('vi-VN') + "đ");
+    	        },
+    	        change: function(event, ui) {
+    	            searchButtonClick();
+    	        }
+    	    });
+
+    	    // Đặt giá trị mặc định của input khi trang web được tải
+    	    $("#amount").val(
+    	        $( "#slider-range" ).slider("values", 0).toLocaleString('vi-VN') + "đ" +
+    	        " - " +
+    	        $( "#slider-range" ).slider("values", 1).toLocaleString('vi-VN') + "đ"
+    	    );
+
+    	      
+
+    	     var selectedColorId;
+    		  var selectedSizeId;
+    		  var minPrice;
+    		  var maxPrice;
+    	      function searchButtonClick() {
+    			  var key = "";
+    			  var categoryId = document.getElementById("category").value;
+    			  loadAllProduct(0, categoryId, 0, selectedSizeId, selectedColorId, minPrice,maxPrice, key);
+    		  }
+
   </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.web.SellShoes.controller.user;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping(value = "product")
 public class ProductUserController {
+	private final Mapper mapper;
 	private final ProductService productService;
 	private final CategoryService categoryService;
 	private final BrandService brandService;
@@ -46,14 +49,15 @@ public class ProductUserController {
 	private final VariantService variantService;
 
 	@GetMapping("/getProductView")
-	public ResponseEntity<ProductPageResponseDto> getProductView(@RequestParam(defaultValue = "9") int size,
+	public ResponseEntity<ProductPageResponseDto> getProductView(@RequestParam(defaultValue = "12") int size,
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "0") Integer categoryId,
 			@RequestParam(required = false, defaultValue = "0") Integer brandId,
 			@RequestParam(required = false, defaultValue = "0") Integer sizeId,
 			@RequestParam(required = false, defaultValue = "0") Integer colorId,
+			@RequestParam(required = false) Float minPrice, // Thêm tham số minPrice
+	        @RequestParam(required = false) Float maxPrice,
 			@RequestParam(required = false) String keyword) {
-		keyword = "";
 		Page<Product> productPage = null;
 		Category category = null;
 		Brand brand = null;
@@ -73,7 +77,7 @@ public class ProductUserController {
 			color = colorService.getColor(colorId).get();
 		}
 		
-		productPage = productService.searchProduct(page, size, category, brand, size2, color, keyword);
+		productPage = productService.searchProduct(page, size, category, brand, size2, color,minPrice, maxPrice, keyword);
 
 		List<ProductResponseDto> productResponseDtos = new ArrayList<>();
 
@@ -94,6 +98,39 @@ public class ProductUserController {
 	public String getAllProduct(HttpSession session, Model model) {
 		return "shop/shopcontent/shop1";
 	}
+
+	@GetMapping(value = "/details")
+	public String getProductDetailsView(@RequestParam Integer productId, Model model) {
+
+		Optional<Product> product = productService.getProductById(productId);
+
+		if (product.isEmpty()) {
+			model.addAttribute("error", "Product is not exist!");
+		}
+
+		 ProductResponseDto productResponse = mapper.productToProductResponese(product.get());
+		 model.addAttribute("productResponse", productResponse);
+
+//		 model.addAttribute("cartRequestDto",new CartRequestDto());
+
+		return "shop/shopcontent/product";
+	}
+	
+	@GetMapping(value = "/get")
+	@ResponseBody
+	public ResponseEntity<?> getProductById(@RequestParam Integer productId) {
+		Optional<Product> product = productService.getProductById(productId);
+		
+		if (product.isEmpty()) {
+			return ResponseEntity.badRequest().body("Product is not exist!");
+		}
+		
+		ProductResponseDto productResponse = mapper.productToProductResponese(product.get());
+		
+		return ResponseEntity.ok(productResponse);
+
+	}
+
 	@GetMapping("/all-product1")
 	public String checkout() {
 		// test từng trang thay đường dẫn

@@ -34,5 +34,11 @@ public interface VariantRepository extends JpaRepository<Variant, Integer> {
 
 	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product = :product")
 	public List<Variant> getVariantByProduct(Product product);
+	
+	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product.id = :productId AND (:size IS NULL OR v.size = :size) AND (:color IS NULL OR v.color = :color)")
+	List<Variant> findVariantBySizeIdAndColorId(Integer productId,  Size size, Color color);
+	
+	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product.id = :productId AND v.size.id = :sizeId AND v.color.id = :colorId")
+	public Optional<Variant> findVariantBySizeAndColor(Integer productId, Integer sizeId, Integer colorId);
 
 }

@@ -872,7 +872,7 @@
 	-webkit-transform: translatey(-50%);
 	transform: translatey(-50%);
 }
-.categorie__titile h2,.sidebar_widget.color h2,.sidebar_widget.price h2 {
+.categorie__titile h2,.sidebar_widget.color h2{
 	font-size: 18px;
 	color: #333333;
 	text-transform: uppercase;
@@ -1306,7 +1306,7 @@
     visibility: visible;
     top: 50%
 }
-.product_details .sidebar_widget.color h2 {
+.product_details {
 	font-size: 15px;
 }
 .view_img a {
@@ -1375,7 +1375,6 @@
 	height: 35px;
 	border: 1px solid #ddd;
 	background: none;
-	margin-left: 10px;
 	border-radius: 5px;
 }
 .box_quantity {
@@ -1416,6 +1415,7 @@
 }
 .product_d_right .widget_color ul li {
 	display: inline-block;
+	padding-left: 10px;
 }
 .product_d_right .widget_color ul li button::before {
 	border-radius: 50%;
@@ -3400,70 +3400,88 @@
 }
 .modal_size h2 {
 	font-size: 16px;
-	color: #222222;
+	font-size: 18px;
+	color: #333333;
+	text-transform: uppercase;
 	font-weight: 700;
-	text-transform: uppercase;
-	margin-bottom: 16px;
+	line-height: 18px;
 }
-.modal_size ul li, .modal_social ul li {
-	display: inline-block;
-	margin-right: 3px;
-}
-.modal_size ul li a, .modal_social ul li a {
-	text-transform: uppercase;
-	display: inline-block;
-	border: 1px solid #ddd;
-	width: 32px;
-	height: 32px;
-	text-align: center;
-	line-height: 32px;
-	border-radius: 50%;
-	font-size: 12px;
-	color: #222222;
-	font-weight: 600;
-}
-.modal_size ul li a:hover,.modal_social ul li a:hover{
-    background: #00FFFF;
-    color: #fff;
-}
-/* Styles for the .modal_color section */
-.modal_color {
-    margin-bottom: 15px;
-}
-
-.modal_color h2 {
-    font-size: 16px;
-    color: #222222;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-}
-
-.modal_color ul {
+.modal_size ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.modal_color ul li {
+.modal_size ul li {
     display: inline-block;
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px; /* Khoảng cách giữa các nút radio */
 }
 
-/* Styles for the color buttons */
-.color-button {
-    background-color: #fff; /* Set the initial background color */
-    color: #222222;
-    border: 1px solid #ddd;
-    border-radius: 4px; /* Adjust the border radius as needed */
-    padding: 5px 10px; /* Adjust the padding as needed */
+.modal_size ul li input {
+    display: none; /* Ẩn input để tạo custom style */
+}
+
+.modal_size ul li label {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border: 2px solid #15a7b4;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #15a7b4;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.color-button:hover {
-    background-color: #00FFFF; /* Change the background color on hover */
-    color: #fff; /* Change the text color on hover */
+.modal_size ul li input:checked + label {
+    background-color: #ff0000;
+    color: #fff;
 }
+
+.modal_size ul li input:hover + label {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+/* Styles for the .modal_color section */
+.widget_color {
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.color-button {
+  display: none;
+}
+
+.color-button + label {
+  display: inline-block;
+  padding: 5px 12px;
+  cursor: pointer;
+  border: 2px solid #15a7b4;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.color-button:checked + label {
+  background: #ff0000;
+  color: #fff;
+}
+
+/* Optional: Add hover effect */
+.color-button + label:hover {
+  background: #ff0000;
+}
+
 /* ket thuc */
 
 .modal_add_to_cart form input {
@@ -3493,9 +3511,9 @@
 	cursor: pointer;
 }
 .modal_add_to_cart form button:hover{
-    background: #00FFFF;
+    background: #ff0000;
     color: #fff;
-    border-color: #00FFFF;
+    border-color: #ff0000;
 }
 .modal_body {
 	padding: 0 6px 30px;
@@ -3632,11 +3650,11 @@
 		overscroll-behavior: contain;
   }
   
-  input {
+ /*  input {
 	display: block;
 	width: 100%;
 	font: inherit;
-  }
+  } */
   
   input::-webkit-input-placeholder { font: inherit; }
   
@@ -8497,6 +8515,85 @@
   
   }
 
+  .product_slider_nav {
+	position: absolute;
+	width: 30px;
+	height: 70px;
+	background: #d3d3d6;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+	z-index: 2;
+	cursor: pointer;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.product_slider_container:hover .product_slider_nav {
+	visibility: visible;
+	opacity: 1;
+}
+
+.product_slider_nav i {
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+.product_slider_nav_left {
+	top: 50%;
+	left: 0;
+}
+
+.product_slider_nav_right {
+	top: 50%;
+	right: 0;
+}
+
+/* CSS cho ảnh nhỏ trong trình chiếu */
+.product_slider_item img {
+	width: 100px;
+	/* Điều chỉnh chiều rộng ảnh nhỏ tùy ý */
+	height: 100px;
+	/* Điều chỉnh chiều cao ảnh nhỏ tùy ý */
+	border: 1px solid transparent;
+	/* Thêm border với độ rộng 1px và màu trong suốt ban đầu */
+	transition: border 0.3s ease-in-out;
+	/* Thêm hiệu ứng chuyển đổi khi hover */
+	cursor: pointer;
+	/* Thêm kiểu con trỏ bàn tay khi hover */
+	margin: 3px;
+}
+
+/* Hiệu ứng border và bàn tay khi hover */
+.product_slider_item img:hover {
+	border: 1px solid red;
+	/* Thay đổi màu border khi hover */
+}
+
+/* CSS để căn giữa ảnh và ẩn phần nằm ngoài giới hạn của div */
+.single_product_image {
+	position: relative;
+	overflow: hidden;
+}
+
+.main-image {
+	display: block;
+	margin: 0 auto;
+}
+
+/* CSS cho ảnh lớn */
+.single_product_image_background img {
+	width: 500px;
+	/* Tùy chỉnh kích thước của ảnh lớn theo ý muốn */
+	height: auto;
+}
 
 
  /* review 		 */

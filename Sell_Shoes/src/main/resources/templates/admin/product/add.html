@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/fragments/home.html}">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -1209,6 +1209,11 @@ margin-left: 10px
 			                        // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
 			                        $("#" + error.field + "-error").text(error.defaultMessage);
 			                    }
+			                }
+			                
+			                if (errors.hasOwnProperty("variantDuplicate")) {
+			                    var variantDuplicate = errors["variantDuplicate"];
+			                    toastr.warning(variantDuplicate); 
 			                }
 			            } else {
 			                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.

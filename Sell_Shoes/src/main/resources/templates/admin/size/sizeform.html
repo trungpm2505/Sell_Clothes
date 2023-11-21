@@ -9,8 +9,7 @@
 <body>
 
 	<div layout:fragment="content">
-		<section class="row mt-4">
-			<div class="col mt-4">
+		<section class="container-fluid">
 
 				<div class="card">
 					<div class="card-header">
@@ -43,14 +42,14 @@
 
 							</div>
 						</div>
-						<table id="sizeTable" class="table table-striper">
+						<table id="sizeTable" class="table table-striped">
 							<thead>
 								<tr>
-									<!-- <th>Category ID</th> -->
+									<th>#</th> 
 									<th>Name</th>
-									<th>Create Date</th>
-									<th>Edit Date</th>
-									<th colspan="2">Action</th>
+									<th>CreateAt</th>
+									<th>UpdateAt</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -104,7 +103,6 @@
 						<nav class="float-right" th:id="paging"></nav>
 					</div>
 				</div>
-			</div>
 		</section>
 		<script>
 /**
@@ -147,15 +145,17 @@ function searchSize() {
                      var size = sizes[i];
 
                      var row = '<tr>' +
+                     	 '<td>' + (i+1) + '</td>' +
                          '<td>' + size.name + '</td>' +
                          '<td>' + size.createAt + '</td>' +
                          '<td>' + (size.updateAt ? size.updateAt : '-') + '</td>' +
                          '<td>' +
-                         '<span onclick="deleteSize(' + size.id + ', \'' + size.name + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
-                         '</td>' +
-                         '<td>' +
                          '<span onclick="editSize(' + size.id + ', \'' + size.name + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
                          '</td>' +
+                         '<td>' +
+                         '<span onclick="deleteSize(' + size.id + ', \'' + size.name + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
+                         '</td>' +
+                         
                          '</tr>';
                      $("#sizeTable tbody").append(row);
                  }

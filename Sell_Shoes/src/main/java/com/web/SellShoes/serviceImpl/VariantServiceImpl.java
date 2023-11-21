@@ -67,4 +67,16 @@ public class VariantServiceImpl implements VariantService {
 		return variantResponseDto;
 	}
 
+	@Override
+	public Optional<Variant> getVariantBySizeAndColor(Integer productId ,Integer sizeId, Integer colorId) {
+		Optional<Variant> variant = variantRepository.findVariantBySizeAndColor(productId,sizeId, colorId);
+		return variant;
+	}
+
+	@Override
+	public List<Variant> getVariantsByProductIdAndSizeIdColorId(Integer productId, Size size, Color color) {
+		return variantRepository.findVariantBySizeIdAndColorId(productId, size, color);
+	}
+
+
 }

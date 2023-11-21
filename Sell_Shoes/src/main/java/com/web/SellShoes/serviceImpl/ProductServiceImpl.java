@@ -72,10 +72,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> searchProduct(int pageNumber, int size, Category category, Brand brand, Size size2,
-			Color color, String keyword) {
+			Color color, Float minPrice, Float maxPrice, String keyword) {
 		PageRequest productPageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "id"));
 		Page<Product> productPage = productRepository.searchProduct(productPageable, category, brand, size2, color,
-				keyword);
+				minPrice, maxPrice, keyword);
 		return productPage;
 	}
 

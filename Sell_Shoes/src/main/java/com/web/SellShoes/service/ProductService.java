@@ -27,5 +27,5 @@ public interface ProductService {
 	public List<Product> getAll();
 
 	public Page<Product> searchProduct(int pageNumber, int size, Category category, Brand brand, Size size2,
-			Color color, String keyword);
+			Color color, Float minPrice, Float maxPrice, String keyword);
 }
