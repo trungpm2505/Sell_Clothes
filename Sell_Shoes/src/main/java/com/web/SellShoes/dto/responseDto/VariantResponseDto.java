@@ -2,6 +2,8 @@ package com.web.SellShoes.dto.responseDto;
 
 import java.time.LocalDate;
 
+import com.web.SellShoes.entity.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

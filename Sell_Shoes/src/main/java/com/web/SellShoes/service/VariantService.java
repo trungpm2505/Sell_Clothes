@@ -18,5 +18,7 @@ public interface VariantService {
 	
 	public Optional<Variant> getVariantById(Integer variantId);
 	
+	public List<Variant> getListVariantsById(Integer variantId);
+	
 	public void deleteVariant(Variant variant);
 }

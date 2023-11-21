@@ -1855,12 +1855,30 @@
 }
 .table_desc table thead tr th.product_remove, .table_desc table thead tr th.product-price, .table_desc table thead tr th.product_total {
     min-width: 159px;
+    font-weight: bold;
+	color: #070707;
 }
 .table_desc table thead tr th.product_name {
-    min-width: 300px;
+     min-width: 250px;
+	font-weight: bold;
+	color: #070707;
 }
+ /* chỉnh sửa mới về cart size color  */
+.table_desc table thead tr th.product_size {
+    min-width: 30px;
+	font-weight: bold;
+	color: #070707;
+}
+.table_desc table thead tr th.product_color {
+    min-width: 30px;
+	font-weight: bold;
+	color: #070707;
+}
+ /*kết thúc chỉnh sửa mới về cart size color  */
 .table_desc table thead tr th.product_thumb, .table_desc table thead tr th.product_quantity {
-	min-width: 195px;
+	min-width: 175px;
+	font-weight: bold;
+	color: #070707;
 }
 .cart_page table thead tr:last-child th,.table_desc table tbody tr td:last-child{
     border-right: 0;
@@ -1880,6 +1898,19 @@
 	font-size: 14px;
 	font-weight: 700;
 }
+/* chỉnh sửa mới size color */
+.table_desc table tbody tr td.product_size a {
+	color: #333;
+	text-transform: capitalize;
+	font-size: 14px;
+	font-weight: 700;
+}
+.table_desc table tbody tr td.product_color a {
+	color: #333;
+	text-transform: capitalize;
+	font-size: 14px;
+	font-weight: 700;
+}
 .table_desc table tbody tr td.product_name a:hover,.table_desc table tbody tr td.product_remove a:hover{
     color:  #e84c3d;
 }
@@ -1888,13 +1919,57 @@
 	font-size: 18px;
 	font-weight: 600;
 }
+.table_desc table tbody tr td.product-price, .table_desc table tbody tr td.product_total {
+	color: #15a7b4;
+	font-size: 18px;
+	font-weight: 600;
+}
+/* chỉnh sửa mới quantity */
 .table_desc table tbody tr td.product_quantity input {
+	width: 60px;
+	height: 40px;
+	padding: 5px 10px;
+	background: none;
+	border: 1px solid #ddd;
+	box-sizing: border-box; /* Đảm bảo rằng padding không làm tăng kích thước thực của ô */
+	border-radius: 5px; /* Bo góc ô nhập số */
+  }
+  .decreaseQty,
+.increaseQty {
+	margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 38px; /* Căn giữa theo chiều cao của ô nhập số */
+  background: #f8fafa; /* Màu nền */
+  border: 1px solid #0bd4cd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border 0.3s; /* Thêm border vào transition */
+}
+
+.decreaseQty:hover,
+.increaseQty:hover {
+  background-color: #10b7b7; /* Màu nền khi hover */
+}
+
+
+
+/* Định dạng ô nhập số trong input-group */
+.form-control {
+  width: calc(100% - 80px); /* 100% trừ đi chiều rộng của 2 nút */
+  height: 40px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+/* .table_desc table tbody tr td.product_quantity input {
 	width: 60px;
 	height: 40px;
 	padding: 0 5px 0 10px;
 	background: none;
 	border: 1px solid #ddd;
-}
+} */
 .table_desc table tbody tr td.product_remove a {
 	font-size: 20px;
 	color: #15a7b4;
@@ -1961,15 +2036,17 @@
 }
 .cart_subtotal p {
 	color: #333;
-	font-weight: 700;
-	font-size: 14px;
+	font-weight: bold;
+	font-size: 20px;
 }
 .cart_subtotal p.cart_amount {
 	font-size: 18px;
-	font-weight: 500;
+	font-weight: 800;
 }
 .cart_subtotal p span {
 	margin-right: 30px;
+	font-size: 18px;
+	font-weight: 800;
 }
 .coupon_inner a {
 	display: block;

@@ -52,4 +52,10 @@ public class VariantServiceImpl implements VariantService {
 		variantRepository.save(variant);
 	}
 
+	@Override
+	public List<Variant> getListVariantsById(Integer variantId) {
+		List<Variant> variants = variantRepository.getListVariantById(variantId);
+		return variants;
+	}
+
 }
