@@ -309,14 +309,13 @@ input:checked+.slider:before {
 				var code = document.getElementById('couponCode').value.trim();
 				var name = document.getElementById("name").value;
 				var discountType = parseInt(document.getElementById("discount-type").value);
-				var discountValue = document.getElementById("discountValue").value;
+				var discountValue = parseFloat(document.getElementById("discountValue").value.replace(".", ""));
+
 				var maxValue = document.getElementById("maxValue").value;
 				var expiredDate = document.getElementById("expiredDate").value;
 				var isPublic = document.getElementById('ispublic').checked;
 				var active = document.getElementById('active').checked;
 				
-				console.log("public",isPublic);
-				console.log("active",active);
 				
 				 // Tạo đối tượng FormData để chứa dữ liệu
 			    var formData = new FormData();

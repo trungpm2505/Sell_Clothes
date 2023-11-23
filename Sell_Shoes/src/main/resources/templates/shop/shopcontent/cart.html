@@ -31,7 +31,7 @@
 
 						<div class="table_desc">
 							<div class="cart_page table-responsive">
-								<table>
+								<table class="table-striped">
 									<thead>
 										<tr>
 											<th><input type="checkbox" id="selectAllCheckbox"
@@ -59,19 +59,16 @@
 
 											<div class="cart_subtotal">
 											
-												<p>Sản phẩm đã chọn</p>
 												<p class="cart_amount">
-													<span id="selectedProducts">0</span>
+													<span id="selectedProducts"></span>
 												</p>
 											</div>
-											<a href="#">Calculate shipping</a>
 
 											<div class="cart_subtotal">
-												<div id="totalCostDisplay"
-													style="font-weight: bold; font-size: 1.5em;">Tổng giá
-													tiền đã chọn:</div>
+												<div class="text-danger" id="totalCostDisplay"
+													style="font-weight: bold; font-size: 1.5em;">Total Money:</div>
 												<p class="cart_amount">
-													<span id="totalCostAmount">0</span>VNĐ
+													<span class="text-danger" id="totalCostAmount">0</span>
 												</p>
 											</div>
 
@@ -79,18 +76,17 @@
 
 									</div>
 								</div>
-							</div>
+							</div> 
 
 
 							<div class="cart_submit">
 
 								<button onclick="deleteAllCart()">Delete All Cart</button>
-								<button id="selectAllItemsButton" onclick="selectAllItems()">Select
-									All</button>
+								<!-- <button id="selectAllItemsButton" onclick="selectAllItems()">Select
+									All</button> -->
 									
 								<!-- Thêm nút để xóa các mục đã chọn -->
-								<button class="checkout_btn" onclick="">Mua Sản Phẩm Đã
-									Chọn</button>
+								<button class="checkout_btn" onclick="">Checkout</button>
 
 							</div>
 						</div>
@@ -120,7 +116,8 @@
                 	    loadCartData();
                 	 
                 	});
-
+                  var quantityInput;
+                  
                 	function loadCartData() {
                 	    $.ajax({
                 	        url: '/cart/findAll', // Đường dẫn của endpoint Spring Boot
@@ -133,19 +130,22 @@
                 	            $.each(data, function (index, item) {
                 	                var imagesHtml = "";
                 	                $.each(item.productResponseDto.images, function (imgIndex, image) {
-                	                    imagesHtml += `<a href="#"><img src="../upload/${image.inmageForSave}?v=1" alt=""></a>`;
+                	                	if (item.productResponseDto.images[imgIndex].isDefault == true) {
+                	                    	imagesHtml += `<a href="#"><img src="../upload/${image.inmageForSave}?v=1" alt=""></a>`;
+                	                	}
                 	                });
-                	                var quantityInput = item.quantity;
+                	                quantityInput = item.quantity;
                 	                var row = `
                 	                    <tr>
                 	                        <td class="product_checkbox">
                 	                            <input type="checkbox" class="itemCheckbox" data-cart-id="${item.cartId}">
                 	                        </td>
                 	                        <td class="product_thumb">${imagesHtml}</td>
+                	                        <td class="quantity d-none"><a href="#">${item.productResponseDto.quantity}</a></td>
                 	                        <td class="product_name"><a href="#">${item.productResponseDto.title}</a></td>
                 	                        <td class="product_size"><a href="#">${item.variantResponseDto.size}</a></td>
                 	                        <td class="product_color"><a href="#">${item.variantResponseDto.color}</a></td>
-                	                        <td class="product-price">${item.variantResponseDto.currentPrice != null ? item.variantResponseDto.currentPrice : item.variantResponseDto.price}</td>
+                	                        <td class="product-price">${item.variantResponseDto.currentPrice != null ? (item.variantResponseDto.currentPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : (item.variantResponseDto.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                 	                        <td class="product_quantity">
                 	                            <div class="col-md-2 text-center">
                 	                                <div class="input-group">
@@ -159,7 +159,7 @@
                 	                                </div>
                 	                            </div>
                 	                        </td>
-                	                        <td class="product_total">${item.total}</td>
+                	                        <td class="product_total">${(item.total).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                 	                        <td class="product_remove">
                 	                            <a href="#" onclick="deleteCartItem(${item.cartId})"><i class="fa fa-trash-o"></i></a>
                 	                        </td>
@@ -168,13 +168,16 @@
                 	                if (quantityInput === item.variantResponseDto.quantity) {
                 	                    $('[data-cart-id="' + item.cartId + '"]').closest('.input-group').find('.increaseQty').prop('disabled', true);
                 	                }
+                	                 if(item.variantResponseDto.quantity < item.quantity){
+                	                	updateQuantity(item.cartId, item.variantResponseDto.quantity);
+                	                } 
                 	            });
 
                 	            $('.increaseQty').on('click', function() {
                 	                var cartId = $(this).data('cart-id');
                 	                var quantityInput = $(this).closest('.input-group').find('.quantity-input');
                 	                var currentQuantity = parseInt(quantityInput.val());
-                	                quantityInput.val(currentQuantity + 1);
+                	                quantityInput.val(currentQuantity + 1); 
                 	                updateQuantity(cartId, currentQuantity + 1);
                 	            });
 
@@ -205,8 +208,10 @@
                 	        }
                 	    });
                 	}
+                  
+                  console.log("qt: ", quantityInput);
 
-                	function calculateTotalCost() {
+                	 function calculateTotalCost() {
                 	    var checkboxes = document.getElementsByClassName('itemCheckbox');
                 	    var totalCostSelected = 0;
                 	    var totalCostAll = 0;
@@ -215,23 +220,22 @@
                 	    for (var i = 0; i < checkboxes.length; i++) {
                 	        var checkbox = checkboxes[i];
                 	        var row = checkbox.closest('tr');
-                	        var price = parseFloat(row.querySelector('.product-price').innerText);
+                	        var priceElement = row.querySelector('.product-price');
+                	        var priceText = priceElement.innerText.replace(/\D/g, ''); // Loại bỏ tất cả các ký tự không phải là số
+                	        var price = Number(priceText);
                 	        var quantity = parseInt(row.querySelector('.quantity-input').value);
-
                 	        totalCostAll += price * quantity;
 
                 	        if (checkbox.checked) {
                 	            totalCostSelected += price * quantity;
-
-                	            var productName = row.querySelector('.product_name a').innerText;
                 	            // Tạo HTML để hiển thị thông tin sản phẩm đã chọn
-                	            selectedProductsHTML += '<p>' + productName + ' - Quantity: ' + quantity + ' - Price: ' + (price * quantity).toLocaleString('vi-VN') + ' VNĐ</p>';
+                	           // selectedProductsHTML += '<p>'+'Quantity: ' + quantity + ' - Price: ' + totalCostSelected.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + '</p>';
                 	        }
                 	    }
 
                 	    var totalCostSelectedDisplay = document.getElementById('totalCostAmount');
                 	    if (totalCostSelectedDisplay) {
-                	        totalCostSelectedDisplay.textContent = totalCostSelected;
+                	        totalCostSelectedDisplay.textContent = totalCostSelected.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
                 	    }
 
                 	    var totalCostAllDisplay = document.getElementById('totalCostAllAmount');
@@ -244,7 +248,7 @@
                 	        // Cập nhật nội dung HTML của phần tử selectedProducts
                 	        selectedProductsDiv.innerHTML = selectedProductsHTML;
                 	    }
-                	}
+                	} 
 
 
                 	 function selectAllItems() {
@@ -272,7 +276,7 @@
                 	            selectAllButton.textContent = 'Select All';
                 	        }
                 	        
-                	        calculateTotalCost();
+                	        //calculateTotalCost();
                 	       
                 	    }
                 	 
@@ -288,24 +292,14 @@
                 	            quantity: quantity
                 	        },
                 	        success: function (response) {
-                	            console.log('Số lượng đã được cập nhật:', response);
-                	            // Cập nhật giao diện người dùng nếu cần
                 	            loadCartData();
                 	        },
                 	        error: function (error) {
-                	            console.error('Lỗi khi cập nhật số lượng:', error);
                 	            // Hiển thị thông báo lỗi cho người dùng
                 	            alert("Cập nhật số lượng thất bại: " + error.responseJSON.message); // Hiển thị thông báo hoặc cập nhật giao diện để thông báo việc thất bại
                 	        }
                 	    });
                 	} 
-                  
-                
-                	
-
-
-                  
-                
 
                   function deleteCartItem(cartId) {
                 	    Swal.fire({
@@ -328,6 +322,7 @@
                 	                    // Refresh your cart data or update the UI as needed
                 	                    loadCartData();
                 	                    Swal.fire('Deleted!', 'Your cart has been deleted.', 'success');
+                	                    document.getElementById('totalCostAmount').textContent = '0';
                 	                },
                 	                error: function (jqXHR, textStatus, errorThrown) {
                 	                    if (jqXHR.status === 400) {
@@ -357,10 +352,9 @@
                 	        url: '/cart/deleteAllCart', // Đường dẫn tới endpoint xóa tất cả giỏ hàng
                 	        success: function (response) {
                 	            console.log(response);
-                	            // Xử lý khi xóa thành công, có thể làm mới trang hoặc cập nhật giao diện người dùng
-                	            // Ví dụ: load lại dữ liệu giỏ hàng sau khi xóa
                 	            loadCartData();
                 	            Swal.fire('Deleted!', 'All items have been removed from the cart.', 'success');
+                	            document.getElementById('totalCostAmount').textContent = '0';
                 	        },
         	                error: function (jqXHR, textStatus, errorThrown) {
         	                    if (jqXHR.status === 400) {

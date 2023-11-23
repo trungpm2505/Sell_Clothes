@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<style>
+/* order history */
+h1 {
+	margin-bottom: 20px;
+}
+
+.order-history {
+	text-align: left;
+}
+
+.order {
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.order img {
+	max-width: 100px;
+	margin-right: 10px;
+}
+
+.order-details {
+	flex-grow: 1;
+}
+
+.order-header {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.order-details ul {
+	list-style-type: none;
+	padding: 0;
+	/* border-style: solid; */
+}
+
+.order-details li {
+	margin-bottom: 5px;
+	font-size: 15px;
+}
+
+.order-details hr {
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border: 0.1px solid rgb(213, 209, 209);
+}
+
+.status {
+	font-weight: bold;
+	float: right;
+	color: red;
+}
+
+.margin {
+	margin: 5px;
+	border: black;
+}
+
+.total {
+	font-weight: bold;
+	font-size: 18px;
+	float: right;
+	color: red;
+	display: block;
+}
+
+.review-button {
+	padding: 8px 16px;
+	font-size: 14px;
+	background-color: #007BFF;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	float: right;
+	display: block;
+	margin: 5px;
+}
+
+.review-button:hover {
+	background-color: #f44336;
+	color: white;
+}
+
+.buy-again {
+	padding: 8px 16px;
+	font-size: 14px;
+	background-color: #007BFF;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	float: right;
+	display: block;
+	margin: 5px;
+}
+
+.buy-again:hover {
+	background-color: #f44336;
+	color: white;
+}
+</style>
+		<!-- Start Maincontent  -->
+		<section class="main_content_area">
+			<div class="account_dashboard">
+				<div class="row">
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<!-- Nav tabs -->
+						<div class="dashboard_tab_button">
+							<ul role="tablist" class="nav flex-column dashboard-list">
+								<li><a href="#account-details" data-toggle="tab"
+									class="nav-link">Account details</a></li>
+								<li><a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
+								<li><a href="#order-history" data-toggle="tab"
+									class="nav-link">Order history</a></li>
+								<li><a href="login1.html" class="nav-link">logout</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-9 col-lg-9">
+						<!-- Tab panes -->
+						<div class="tab-content dashboard_content">
+
+							<div class="tab-pane fade " id="orders">
+								<h3>Orders</h3>
+								<div class="coron_table table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Order</th>
+												<th>Date</th>
+												<th>Status</th>
+												<th>Total</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>May 10, 2018</td>
+												<td><span class="success">Completed</span></td>
+												<td>$25.00 for 1 item</td>
+												<td><a href="cart.html" class="view">view</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>May 10, 2018</td>
+												<td>Processing</td>
+												<td>$17.00 for 1 item</td>
+												<td><a href="cart.html" class="view">view</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="order-history">
+								<h3>Lịch sử đơn hàng</h3>
+
+								<div class="order-history">
+									<div class="order">
+										<img src="assets/img/product/a10.jpg" alt="Sản phẩm 1">
+										<div class="order-details">
+											<div class="status">Tình trạng: Đã giao hàng</div>
+											<div class="order-header">Đơn hàng #12345</div>
+											<hr>
+											<ul>
+												<li>Sản phẩm: Giày MLB Chunlky</li>
+												<li>Phân loại: Trắng, 40</li>
+												<li>Số lượng: 2</li>
+
+											</ul>
+											<hr>
+											<div class="total">Tổng tiền: 200.000 VND</div>
+											<br>
+											<button class="review-button" data-order-id="12345">Đánh
+												giá sản phẩm</button>
+											<button class="buy-again" data-order-id="67890">Mua
+												lại</button>
+										</div>
+									</div>
+
+									<div class="order">
+										<img src="assets/img/product/a11.jpg" alt="Sản phẩm 2">
+										<div class="order-details">
+											<div class="status">Tình trạng: Chờ xử lý</div>
+											<div class="order-header">Đơn hàng #67890</div>
+											<hr>
+											<div class="margin">
+												<ul>
+													<li>Sản phẩm: Giày thể thao</li>
+													<li>Phân loại: Be, 40</li>
+													<li>Số lượng: 1</li>
+
+												</ul>
+												<hr>
+												<div class="total">Tổng tiền: 150.000 VND</div>
+												<br>
+												<button class="review-button" data-order-id="67890">Đánh
+													giá sản phẩm</button>
+												<button class="buy-again" data-order-id="67890">Mua
+													lại</button>
+											</div>
+										</div>
+
+										<!-- Thêm các đơn hàng khác tại đây -->
+
+									</div>
+
+
+								</div>
+
+							</div>
+							<div class="tab-pane fade show active" id="account-details">
+								<form action="" method="">
+									<div class="card">
+										<div class="card-header">
+											<center>
+												<h3>Account Details</h3>
+											</center>
+										</div>
+										<div class="card-body" style="font-size: 17px">
+											<div class="row">
+												<div class="col">
+													<div class="form-group">
+														<label for="username" style="font-size: 16px;">FullName</label>
+														<input type="text" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Fullname"> <small
+															id="" class="form-text text-muted">Username is
+															required</small>
+													</div>
+													<div class="form-group">
+														<label for="password" style="font-size: 16px;">Password</label>
+														<input type="password" class="form-control" name="" id=""
+															placeholder="Password"> <small id=""
+															class="form-text text-muted">Password is required</small>
+													</div>
+
+													<div class="form-group">
+														<label for="email" style="font-size: 16px;">Email</label>
+														<input type="email" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Email"> <small
+															id="" class="form-text text-muted">Email is
+															required</small>
+													</div>
+												</div>
+												<div class="col">
+													<div class="form-group">
+														<label for="fullname" style="font-size: 16px;">Addresss</label>
+														<input type="text" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Addresss"> <small
+															id="" class="form-text text-muted">Fullname is
+															required</small>
+													</div>
+													<div class="form-group">
+														<label for="number" style="font-size: 16px;">Phone</label>
+														<input type="number" class="form-control" name="" id=""
+															placeholder="Phone"> <small id=""
+															class="form-text text-muted">Phone is required</small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer text-muted">
+											<button class="btn btn-success" style="font-size: 16px">SAVE</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Maincontent  -->
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+	</div>
+</body>
+</html>

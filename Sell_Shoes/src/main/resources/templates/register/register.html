@@ -43,7 +43,7 @@
 
       <div class="row input-field ">
         <div class="col-5 input-field">
-          <input type="password" id="passwordInput1" th:field="*{password}" th:id="password">
+          <input type="password" id="passwordInput1" th:field="*{password}">
           <span id="showPassword1" class="fa fa-eye move-right" onclick="togglePasswsordVisibility()"></span>
           <label>Enter your Password</label>
         </div>
@@ -53,8 +53,8 @@
           <span id="showPassword2" class="fa fa-eye move-right" onclick="togglePasswsordVisibility1()"></span>
           <label>Enter again Password</label>
         </div>
-        <small th:name="password-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
-		<small th:name="password-error" th:text="${notMatchPass}"></small>
+        <small th:name="passwordInput1-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+		<small th:name="passwordInput1-error" th:text="${notMatchPass}"></small>
       </div>
       <div class="input-field ">
         <div class="input-field">

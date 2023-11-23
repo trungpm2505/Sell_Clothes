@@ -1295,8 +1295,8 @@ margin-left: 10px
 					  }));
 					  
 			           row.append($('<td>').text(variant.title).addClass('truncate'));
-			           row.append($('<td>').text(variant.price).addClass('price'));
-			           row.append($('<td>').text(variant.currentPrice).addClass('currentPrice'));
+			           row.append($('<td>').text((variant.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })).addClass('price'));
+			           row.append($('<td>').text((variant.currentPrice)!= null ? (variant.currentPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : variant.currentPrice).addClass('currentPrice'));
 			           row.append($('<td>').text(variant.quantity).addClass('quantity'));
 			           row.append($('<td>').text(variant.size).addClass('size'));
 			           row.append($('<td>').text(variant.color).addClass('color'));

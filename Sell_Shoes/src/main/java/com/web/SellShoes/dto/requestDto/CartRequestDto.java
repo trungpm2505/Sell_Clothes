@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CartRequestDto {
 	private int quantity;
-//	private String size;
-//	private String color;
 	private LocalDate updatedAt;
 	private LocalDate deleteAt;
 	private Integer variantId;

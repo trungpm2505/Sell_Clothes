@@ -25,17 +25,14 @@ public class OrderDetail {
 	@Column(nullable = false)
 	private float price;
 	
+	@Column(nullable = true)
+	private float curentPrice;
+	
 	@Column(nullable = false)
 	private int quantity;
 	
 	@Column(nullable = false)
 	private float totalMoney;
-	
-	@Column(nullable = false, length = 20)
-	private String size;
-	
-	@Column(nullable = false, length = 20)
-	private String color;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false,referencedColumnName = "id")

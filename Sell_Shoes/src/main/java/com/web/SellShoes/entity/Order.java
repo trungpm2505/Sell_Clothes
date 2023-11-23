@@ -48,6 +48,10 @@ public class Order {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate order_date = LocalDate.now();
 	
+	@Column(nullable = true)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate completedAt;
+	
 	@Column(nullable = false)
 	private int status = 1;
 	
