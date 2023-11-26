@@ -60,15 +60,15 @@
 							<div class="row">
 								<div class="col-lg-6 mb-30">
 									<label>Full Name <span>*</span></label> <input type="text"
-										class="form-control" />
+								id="fullName" name="fullName" th:value="${accountResponseDto.fullName}" />
 								</div>
 								<div class="col-lg-6 mb-30">
 									<label> Phone <span>*</span></label> <input
-										class="form-control" type="text" />
+										 type="text" th:value="${accountResponseDto.phone}" />
 								</div>
 								<div class="col-lg-12 mb-30">
 									<label> Email Address <span>*</span></label> <input
-										class="form-control" type="text" />
+								 id="address" name="address" type="text" th:value="${accountResponseDto.email}" />
 								</div>
 								<div class="col-lg-4 mb-30">
 									<label>Tỉnh/Thành Phố<span>*</span></label> <select name=""
@@ -92,11 +92,11 @@
 
 								<div class="col-12 mb-30">
 									<label>Street address <span>*</span></label> <input
-										class="form-control" placeholder="" type="text" />
+										 placeholder="" type="text" th:value="${accountResponseDto.address}" />
 								</div>
 								<div class="col-12 mb-30">
 									<label>Notes <span>*</span></label>
-									<textarea class="form-control" placeholder="" rows="3" cols="4">
+									<textarea  placeholder="" rows="3" cols="4">
                                             </textarea>
 
 								</div>
@@ -110,9 +110,10 @@
 							<h3>Your order</h3>
 
 							<div class="order_table table-responsive mb-30">
-								<table>
+								<table id="checkoutTable">
 									<thead>
 										<tr>
+										    <th>Image</th>
 											<th>Tên giày</th>
 											<th>Màu sắc</th>
 											<th>Size giày</th>
@@ -120,38 +121,38 @@
 											<th>Giá</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td><img src="/shopview/assets/img/brand/brand1.png"
-												alt="" width="80" height="60" /> Nike Air Max</td>
-											<td>Đen</td>
-											<td>42</td>
-											<td>2</td>
-											<td>200 USD</td>
+									<tbody id="checkoutBody">
+									
+										<tr th:each="cartItem : ${cartResponseDtos}">
+											
+											<td>
+												<input type="hidden" class="cartId" th:value="${cartItem.cartId}">
+										        <img th:src="@{/upload/__${cartItem.images.inmageForSave}__}"
+												alt="" width="80" height="60" />
+						    				</td>
+											<td th:text="${cartItem.productResponseDto.title}"></td>
+											<td th:text="${cartItem.variantResponseDto.color}"></td>
+											<td th:text="${cartItem.variantResponseDto.size}"></td>
+											<td th:text="${cartItem.quantity}"></td>
+											<td th:text="${cartItem.total}"></td>
+										
 										</tr>
-										<tr>
-											<td><img src="/shopview/assets/img/brand/brand1.png"
-												alt="" width="80" height="60" /> Adidas Superstar</td>
-											<td>Trắng</td>
-											<td>41</td>
-											<td>1</td>
-											<td>100 USD</td>
-										</tr>
-										<!-- Thêm các dòng khác tương tự cho các sản phẩm khác -->
+									
 									</tbody>
 									<tfoot>
 										<tr>
 											<td colspan="5">
-												<div class="coupon">
+											<div class="coupon">
 													<label for="coupon_code">Do you have a discount
 														code? Please enter here</label>
 													<div class="coupon-input">
 														<input type="text" id="coupon_code" name="coupon_code"
 															placeholder="Enter your coupon code" />
-														<button type="submit" class="apply_coupon">Apply
+														<button type="button" onclick="applyCoupon()">Apply
 															Coupon</button>
 													</div>
 												</div>
+
 											</td>
 										</tr>
 										<tr>
@@ -162,11 +163,11 @@
 											<td><strong>2%</strong></td>
 										</tr>
 										<tr>
-											<th>Order Total</th>
+											<th>Order TotalMoney</th>
 											<td></td>
 											<td></td>
 											<td></td>
-											<td><strong>$220.00</strong></td>
+											<td><strong id="orderTotal" >$220.00</strong></td>
 										</tr>
 									</tfoot>
 								</table>
@@ -231,6 +232,64 @@
 		integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+
+	$(document).ready(function() {
+	    $('.order_button button').click(function() {
+	        var orderData = {
+	            fullName: $('#fullName').val(),
+	            address: $('#address').val(),
+	            // Thêm các thông tin khác tương ứng với các trường dữ liệu
+	        };
+	        addOrder(orderData);
+	    });
+
+	    function addOrder(orderData) {
+	        $.ajax({
+	            url: '/userOrder/addOrder',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(orderData),
+	            success: function(response) {
+	                console.log('Đã thêm đơn hàng:', response);
+	                window.location.href = "/order/order-success";
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                console.error('Lỗi khi thêm đơn hàng:', errorThrown);
+	                if (jqXHR.status === 400) {
+	                    var errors = jqXHR.responseJSON;
+	                    if (errors.hasOwnProperty("bindingErrors")) {
+	                        var bindingErrors = errors["bindingErrors"];
+	                        for (var i = 0; i < bindingErrors.length; i++) {
+	                            var error = bindingErrors[i];
+	                            $("#" + error.field + "-error").text(error.defaultMessage);
+	                        }
+	                    }
+	                } else {
+	                    alert("Xin lỗi! Hệ thống gặp sự cố!");
+	                }
+	            }
+	        });
+	    }
+
+	    function applyCoupon() {
+	        var couponCode = $('#coupon_code').val();
+	        $.ajax({
+	            url: '/applyCoupon',
+	            type: 'POST',
+	            data: { couponCode: couponCode },
+	            success: function(response) {
+	                $('#orderTotal').text(response.totalPrice);
+	            },
+	            error: function(error) {
+	                console.error('Error:', error);
+	            }
+	        });
+	    }
+	});
+
+	
+	
+	
         const host = "https://provinces.open-api.vn/api/";
         var callAPI = (api) => {
             return axios.get(api).then((response) => {

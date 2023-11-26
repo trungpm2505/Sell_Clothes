@@ -86,7 +86,11 @@
 									All</button> -->
 									
 								<!-- Thêm nút để xóa các mục đã chọn -->
-								<button class="checkout_btn" onclick="">Checkout</button>
+								<!-- Trong phần HTML của bạn -->
+<!-- ... -->
+<a class="checkout_btn" href="javascript:void(0);" onclick="checkoutSelectedItems()">Checkout</a>
+<!-- ... -->
+
 
 							</div>
 						</div>
@@ -370,7 +374,24 @@
                 	}
 
 
-                 
+                  function checkoutSelectedItems() {
+                	    var selectedCartIds = [];
+                	    var checkboxes = document.querySelectorAll('.itemCheckbox:checked');
+
+                	    checkboxes.forEach(function(checkbox) {
+                	        selectedCartIds.push(checkbox.getAttribute('data-cart-id'));
+                	    });
+
+                	    if (selectedCartIds.length > 0) {
+                	        // Chuyển hướng đến trang thanh toán, truyền danh sách cartIds được chọn
+                	        var checkoutUrl = '/userOrder/checkout?cartIdList=' + selectedCartIds.join(',');
+                	        window.location.href = checkoutUrl;
+                	    } else {
+                	        // Nếu không có mục nào được chọn, hiển thị thông báo hoặc thực hiện hành động khác
+                	        alert('Please select items before checkout.');
+                	    }
+                	}
+
 
 
          
