@@ -118,7 +118,7 @@ public class ProductUserController {
 	
 	@GetMapping(value = "/get")
 	@ResponseBody
-	public ResponseEntity<?> getProductById(@RequestParam Integer productId) {
+	public ResponseEntity<?> getProductById( Model model, @RequestParam Integer productId) {
 		Optional<Product> product = productService.getProductById(productId);
 		
 		if (product.isEmpty()) {
@@ -127,6 +127,7 @@ public class ProductUserController {
 		
 		ProductResponseDto productResponse = mapper.productToProductResponese(product.get());
 		
+		System.out.println(productResponse);
 		return ResponseEntity.ok(productResponse);
 
 	}

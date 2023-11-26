@@ -20,6 +20,7 @@ import com.web.SellShoes.dto.requestDto.VariantRequestDto;
 import com.web.SellShoes.dto.responseDto.AccountResponseDto;
 import com.web.SellShoes.dto.responseDto.CartResponseDto;
 import com.web.SellShoes.dto.responseDto.OrderDetailResponseDto;
+import com.web.SellShoes.dto.responseDto.OrderResponseDto;
 import com.web.SellShoes.dto.responseDto.ProductResponseDto;
 import com.web.SellShoes.dto.responseDto.VariantResponseDto;
 import com.web.SellShoes.entity.Account;
@@ -27,6 +28,7 @@ import com.web.SellShoes.entity.Brand;
 import com.web.SellShoes.entity.Cart;
 import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Color;
+import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.entity.OrderDetail;
 import com.web.SellShoes.entity.Product;
 import com.web.SellShoes.entity.Promotion;
@@ -188,6 +190,7 @@ public class Mapper {
 
 		variantResponseDto.setId(variant.getId());
 		variantResponseDto.setQuantity(variant.getQuantity());
+		variantResponseDto.setTitle(variant.getProduct().getTitle());
 		variantResponseDto.setSize(variant.getSize().getSize());
 		variantResponseDto.setColor(variant.getColor().getColor());
 		variantResponseDto.setPrice(variant.getPrice());
@@ -337,5 +340,19 @@ public class Mapper {
 			orderDetailsResponseDtos.add(orderDetailsResponseDto);
 		}
 		return orderDetailsResponseDtos;
+	}
+
+	public OrderResponseDto orderToOrderResponseDto(Order order) {
+		OrderResponseDto orderResponseDto = new OrderResponseDto();
+		orderResponseDto.setId(order.getId());
+		orderResponseDto.setFullName(order.getFullName());
+		orderResponseDto.setPhone(order.getPhone_Number());
+		orderResponseDto.setAddress(order.getAdrress());
+		orderResponseDto.setCreateAt(order.getOrder_date());
+		orderResponseDto.setCompletedAt(order.getCompletedAt());
+		orderResponseDto.setTotalMoney(order.getTotalMoney());
+		orderResponseDto.setStatus(order.getStatus());
+		orderResponseDto.setNote(order.getNote());
+		return orderResponseDto;
 	}
 }

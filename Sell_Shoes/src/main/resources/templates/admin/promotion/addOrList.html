@@ -93,10 +93,8 @@ input:checked+.slider:before {
 							<input th:id="id" type="text" class="d-none">
 								<div class="form-group">
 									<div>
-										<span style="color: red">(Mã kích hoạt chỉ bao gồm ký
-											tự viết hoa từ A-Z và số từ 0-9 và dấu gạch ngang (độ dài từ
-											4 - 16 ký tự)]</span> <br> <label class="required-label"
-											for="code">Mã code</label>
+										<span style="color: red">(Activation code only includes capital letters from A-Z and numbers from 0-9 and hyphens (length from 4 - 16 characters)]</span> <br> <label class="required-label"
+											for="code">Activation code</label>
 
 									</div>
 									<input type="text" class="form-control" id="couponCode">
@@ -104,27 +102,25 @@ input:checked+.slider:before {
 								</div>
 								<div class="form-group">
 									<div>
-										<label class="required-label" for="name">Tên chương
-											trình</label>
+										<label class="required-label" for="name">Name of promotion program</label>
 									</div>
 									<input type="text" class="form-control" id="name">
 									<div th:id="name-error" class="text-danger form-text "></div>
 								</div>
 
 								<div class="form-group">
-									<label for="discount-type" class="required-label">Khuyến
-										mãi theo</label> <select class="form-control" id="discount-type"
+									<label for="discount-type" class="required-label">Promotion according to:</label> <select class="form-control" id="discount-type"
 										onchange="toggleDiscountInput()">
 										
-										<option value="2">Khoản tiền trực tiếp</option>
-										<option value="1">Phần trăm (%)</option>
+										<option value="2">Direct amount</option>
+										<option value="1">Percent (%)</option>
 									</select>
 								</div>
 
 								<div class="form-group">
 									<div>
-										<label class="required-label" for="discount-value">Mức
-											giảm</label> <span class="invalid-feedback"
+										<label class="required-label" for="discount-value">Discount level</label> 
+										<span class="invalid-feedback"
 											id="invalid-feedback-discount-value"></span>
 									</div>
 									<input type="text" min="1" class="form-control"
@@ -134,8 +130,7 @@ input:checked+.slider:before {
 
 								<div class="form-group discount-exactly">
 									<div>
-										<label class="required-label" for="max-value">Mức giảm
-											tối đa</label>
+										<label class="required-label" for="max-value">Maximum discount</label>
 									</div>
 									<input type="text" min="1" class="form-control"
 										id="maxValue">
@@ -143,8 +138,7 @@ input:checked+.slider:before {
 								</div>
 								<div class="form-group">
 									<div>
-										<label class="required-label" for="expired-date">Ngày
-											hết hạn</label>
+										<label class="required-label" for="expired-date">Expiration date</label>
 									</div>
 									<input type="date" class="form-control" id="expiredDate">
 									<div th:id="expiredDate-error" class="text-danger form-text "></div>
@@ -152,12 +146,12 @@ input:checked+.slider:before {
 								<div class="form-group">
 									<label class="switch"> <input type="checkbox"
 										id="active" checked> <span class="slider round"></span>
-									</label> <label for="active">Kích hoạt khuyến mãi</label>
+									</label> <label for="active">Activate promotion</label>
 								</div>
 								<div class="form-group">
 									<label class="switch"> <input type="checkbox"
 										id="ispublic" checked> <span class="slider round"></span>
-									</label> <label for="ispublic">Công khai khuyến mãi</label>
+									</label> <label for="ispublic">Publicize promotional programs</label>
 								</div>
 								<button type="submit" class="btn btn-primary"
 									th:id="save-promotion-value" onclick="savePromotion()">Save changes</button>
@@ -203,8 +197,8 @@ input:checked+.slider:before {
 											<td>5YWWJP</td>
 											<td>20/10</td>
 											<td>30.000</td>
-											<td><span class="badge badge-success">Công khai</span></td>
-											<td><span class="badge badge-success">Kích hoạt</span></td>
+											<td><span class="badge badge-success">CÃ´ng khai</span></td>
+											<td><span class="badge badge-success">KÃ­ch hoáº¡t</span></td>
 											<td></td>
 											<td>21-10-2023</td>
 											<td>
@@ -242,10 +236,10 @@ input:checked+.slider:before {
 			}
 
 			function numberWithCommas(x) {
-			    // Xóa tất cả các ký tự không phải số trong chuỗi x
+			    // XÃ³a táº¥t cáº£ cÃ¡c kÃ½ tá»± khÃ´ng pháº£i sá» trong chuá»i x
 			    x = x.replace(/\D/g, '');
 
-			    // Thêm dấu chấm phân tách hàng nghìn vào số x
+			    // ThÃªm dáº¥u cháº¥m phÃ¢n tÃ¡ch hÃ ng nghÃ¬n vÃ o sá» x
 			    x = x.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
 			    return x; 
@@ -260,7 +254,7 @@ input:checked+.slider:before {
 			    var value = numberWithCommas($(this).val());
 			    $(this).val(value);
 			});
-			// Gọi hàm khi trang được tải để kiểm tra giá trị mặc định
+			// Gá»i hÃ m khi trang ÄÆ°á»£c táº£i Äá» kiá»m tra giÃ¡ trá» máº·c Äá»nh
 			toggleDiscountInput();
 			
 			var inputList = [ 'couponCode', 'name', 'expiredDate', 'discountValue','maxValue' ];
@@ -269,7 +263,7 @@ input:checked+.slider:before {
 				var input = document.getElementById(inputName);
 				var error = document.getElementById(inputName + '-error');
 
-				if (input) { // Kiểm tra xem phần tử input có tồn tại không
+				if (input) { // Kiá»m tra xem pháº§n tá»­ input cÃ³ tá»n táº¡i khÃ´ng
 					input.addEventListener("focus", function() {
 						error.textContent = '';
 					});
@@ -309,17 +303,39 @@ input:checked+.slider:before {
 				var code = document.getElementById('couponCode').value.trim();
 				var name = document.getElementById("name").value;
 				var discountType = parseInt(document.getElementById("discount-type").value);
-				var discountValue = parseFloat(document.getElementById("discountValue").value.replace(".", ""));
+				var discountValueInput = document.getElementById("discountValue").value.replace(".", "");
+				if (discountValueInput !== "") {
+				    if (!isNaN(discountValueInput)) {
+				        var discountValue = parseFloat(discountValueInput);
+				    } else {
+				        var discountValue = 0;
+				        console.error("Giá trị không hợp lệ cho discountValue");
+				    }
+				} else {
+				    var discountValue = "";
+				}
 
-				var maxValue = document.getElementById("maxValue").value;
+
+				var maxValueInput = document.getElementById("maxValue").value.replace(".", "");
+				if (maxValueInput !== "") {
+				    if (!isNaN(maxValueInput)) {
+				        var maxValue = parseFloat(maxValueInput);
+				    } else {
+				        var maxValue = "";
+				        console.error("Giá trị không hợp lệ cho discountValue");
+				    }
+				}else{
+					var maxValue = "";
+				}
+				
 				var expiredDate = document.getElementById("expiredDate").value;
 				var isPublic = document.getElementById('ispublic').checked;
 				var active = document.getElementById('active').checked;
 				
 				
-				 // Tạo đối tượng FormData để chứa dữ liệu
+				 // Táº¡o Äá»i tÆ°á»£ng FormData Äá» chá»©a dá»¯ liá»u
 			    var formData = new FormData();
-			 	// Thêm dữ liệu vào đối tượng FormData
+			 	// ThÃªm dá»¯ liá»u vÃ o Äá»i tÆ°á»£ng FormData
 			   if (url1 == "/promotion/update") {
 			        formData.append('id', parseInt(document.getElementById('id').value)); 
 			    }
@@ -345,13 +361,13 @@ input:checked+.slider:before {
 						  },
 				        cache: false,
 				        success: function(data) {
-				        	toastr.success(data.message); // Hiển thị thông báo thành công khi request thành công.
+				        	toastr.success(data.message); // Hiá»n thá» thÃ´ng bÃ¡o thÃ nh cÃ´ng khi request thÃ nh cÃ´ng.
 				            clearFrom(); 
 				            
 				            loadData(0, ""); 
 				        },
 				        error: function(jqXHR, textStatus, errorMessage) {
-				            // Xử lý lỗi khi request không thành công.
+				            // Xá»­ lÃ½ lá»i khi request khÃ´ng thÃ nh cÃ´ng.
 				            if (jqXHR.status === 400) {
 				                var errors = jqXHR.responseJSON;
 				                if (errors.hasOwnProperty("bindingErrors")) {
@@ -390,14 +406,14 @@ input:checked+.slider:before {
 			
 			function editPromotion(promotionId) {
 				clearFrom();
-			    // Chọn hàng bảng với variantId cụ thể
+			    // Chá»n hÃ ng báº£ng vá»i variantId cá»¥ thá»
 			    var promotionRow = $('tr').find('.id:contains(' + promotionId + ')').closest('tr');
 
 			    var couponcode = promotionRow.find('.couponCode').text();
 			    var name = promotionRow.find('.name').text();
 			    var discountValue = promotionRow.find('.discountValue').text();
 			    
-			    // Đọc giá trị boolean cho trạng thái và công khai từ ô bảng
+			    // Äá»c giÃ¡ trá» boolean cho tráº¡ng thÃ¡i vÃ  cÃ´ng khai tá»« Ã´ báº£ng
 			    var ispublic = promotionRow.find('.public').text() === 'true';
 			    var active = promotionRow.find('.active').text() === 'true';
 
@@ -419,7 +435,7 @@ input:checked+.slider:before {
 			    document.getElementById('discountValue').value = discountValue;
 			    document.getElementById('discount-type').value = discountType;
 			    
-			    // Đặt giá trị cho checkbox "Công khai" và "Kích hoạt"
+			    // Äáº·t giÃ¡ trá» cho checkbox "CÃ´ng khai" vÃ  "KÃ­ch hoáº¡t"
 			    document.getElementById('ispublic').checked = ispublic;
 			    document.getElementById('active').checked = active;
 				if(discountType === 1){
@@ -455,7 +471,7 @@ input:checked+.slider:before {
 			           row.append($('<td>').text(promotion.name).addClass('name'));
 			           row.append($('<td>').text(promotion.discountValue).addClass('discountValue'));
 			            
-			           var publicText = promotion.public ? 'Công khai' : 'Ẩn';
+			           var publicText = promotion.public ? 'Public' : 'Hide';
 			           var publicColorClass = promotion.public ? 'badge badge-primary' : 'badge badge-danger';
 
 			           var publicCell = $('<td>');
@@ -464,7 +480,7 @@ input:checked+.slider:before {
 			           publicCell.append(publicSpan);
 			           row.append(publicCell);
 
-			           var activeText = promotion.active ? 'Kích hoạt' : 'Vô hiệu hóa';
+			           var activeText = promotion.active ? 'Activated' : 'Disable';
 			           var colorClass = promotion.active ? 'badge badge-success' : 'badge badge-danger';
 
 			           var activeCell = $('<td>');
@@ -500,10 +516,10 @@ input:checked+.slider:before {
 			      error: function(){}})
 			  } 
 			 function createPagination(navId, pagination, currentPage, totalPages, keyWord ){
-		    	  $(navId).empty();//xoa toan bo noi dung trong html có id navId(paging)
+		    	  $(navId).empty();//xoa toan bo noi dung trong html cÃ³ id navId(paging)
 		          
 		          pagination += '<ul class="pagination">';//tao danh sach 
-		          //Thêm một nút điều hướng cho trang trước vào biến pagination nếu currentPage >0
+		          //ThÃªm má»t nÃºt Äiá»u hÆ°á»ng cho trang trÆ°á»c vÃ o biáº¿n pagination náº¿u currentPage >0
 		          pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadData(' + (currentPage - 1) +',\''+keyWord+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
 
 		              var startPage = currentPage > 2 ? currentPage - 2 : 0;
@@ -513,11 +529,11 @@ input:checked+.slider:before {
 		                  pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadData(' + i +',\''+keyWord+'\')">' + (i + 1) + '</a></li>';
 		              }
 		              
-		             //Nếu có quá nhiều trang (totalPages > 5) và trang hiện tại (currentPage) nhỏ hơn totalPages-3, hàm sẽ thêm một nút chấm ...
+		             //Náº¿u cÃ³ quÃ¡ nhiá»u trang (totalPages > 5) vÃ  trang hiá»n táº¡i (currentPage) nhá» hÆ¡n totalPages-3, hÃ m sáº½ thÃªm má»t nÃºt cháº¥m ...
 		              if ((totalPages > 5) &&  (currentPage < totalPages - 3)) {
 		                  pagination += '<li class="page-item disabled"><a class="page-link" >...</a></li>';
 		              }
-		             //Nếu không phải là trang cuối cùng (totalPages-1 != currentPage) và trang hiện tại (currentPage) không phải là trang thứ hai từ cuối (totalPages-2 != currentPage) và trang hiện tại (currentPage) nhỏ hơn totalPages-3, hàm sẽ thêm nút điều hướng đến trang cuối cùng.
+		             //Náº¿u khÃ´ng pháº£i lÃ  trang cuá»i cÃ¹ng (totalPages-1 != currentPage) vÃ  trang hiá»n táº¡i (currentPage) khÃ´ng pháº£i lÃ  trang thá»© hai tá»« cuá»i (totalPages-2 != currentPage) vÃ  trang hiá»n táº¡i (currentPage) nhá» hÆ¡n totalPages-3, hÃ m sáº½ thÃªm nÃºt Äiá»u hÆ°á»ng Äáº¿n trang cuá»i cÃ¹ng.
 		              if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
 		                  pagination += '<li><a class="page-link" onclick="loadData(' + (totalPages - 1) +',\''+keyWord+'\')" >' + totalPages + '</a></li>';
 		              }
@@ -552,7 +568,7 @@ input:checked+.slider:before {
 						                var error = jqXHR.responseJSON || jqXHR.responseText;
 						                toastr.warning(error);
 						            } else {
-						                // Xử lý lỗi khác
+						                // Xá»­ lÃ½ lá»i khÃ¡c
 						                console.log(textStatus);
 						                console.log(errorThrown);
 						            }

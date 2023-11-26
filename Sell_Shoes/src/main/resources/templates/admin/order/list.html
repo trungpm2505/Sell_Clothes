@@ -73,13 +73,13 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Người nhận</th>
-							<th scope="col">Số điện thoại</th>
-							<th scope="col">Tổng tiền</th>
-							<th scope="col">Ngày mua</th>
-							<th scope="col">Trạng thái</th>
-							<th scope="col">Chi tiết</th>
-							<th scope="col">Hoạt động</th>
+							<th scope="col">NgÆ°á»i nháº­n</th>
+							<th scope="col">Sá» Äiá»n thoáº¡i</th>
+							<th scope="col">Tá»ng tiá»n</th>
+							<th scope="col">NgÃ y mua</th>
+							<th scope="col">Tráº¡ng thÃ¡i</th>
+							<th scope="col">Chi tiáº¿t</th>
+							<th scope="col">Hoáº¡t Äá»ng</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -88,10 +88,10 @@
 							<td>Minh Trung</td>
 							<td>0123456789</td>
 							<td>1000000</td>
-							<td><span class="badge badge-success">Đã giao</span></td>
+							<td><span class="badge badge-success">ÄÃ£ giao</span></td>
 							<td>21-10-2023</td>
 							<td><button type="button" class="btn btn-outline-primary">Chi
-									tiết</button></td>
+									tiáº¿t</button></td>
 							<td>
 								<button class="btn btn-warning">Edit</button>
 								<button class="btn btn-danger">Delete</button>
@@ -103,6 +103,27 @@
 				
 				<nav class="float-right" th:id ="paging"></nav>
 				</div>
+				<!-- Modal refuse-->
+				<div class="modal fade" id="refuseOrder">
+				 <div class="modal-dialog">
+				  <div class="modal-content">
+				   <div class="modal-header">
+				    <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+				   </div>
+				   <div class="modal-body">
+				    <p>Bạn có chắc muốn hủy đơn hàng này?</p>
+				    <input type="hidden" th:id="orderIdRefuseModal" name="orderId">
+				    <input type="hidden" th:id="statusRefuseModal" name="status">
+				 
+				  </div>
+				  <div class="modal-footer">
+				   <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+				    <button type="button" data-id="" data-update-status="2" class="btn btn-danger" th:id="refuse-order-modal" onclick='updateStatus(event)'>Hủy đơn</button>
+				   </div>
+				  </div>
+				 </div>
+				</div>
 			</div>
 			
 		</div>
@@ -113,26 +134,26 @@
 			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
 		<script>
 			 document.addEventListener('DOMContentLoaded', function() {
-				// Lấy phần tử select
+				// Láº¥y pháº§n tá»­ select
 				var select = document.getElementById('time');
 
-				// Lấy phần tử wrap của ô date
+				// Láº¥y pháº§n tá»­ wrap cá»§a Ã´ date
 				var dateWrap = document.getElementById('date-wrap');
 
-				// Lấy phần tử wrap của ô start date và end date
+				// Láº¥y pháº§n tá»­ wrap cá»§a Ã´ start date vÃ  end date
 				var dateRangeWrap = document.getElementById('dateRange-wrap');
 
-				// Ẩn ban đầu ô date, start date và end date
+				// áº¨n ban Äáº§u Ã´ date, start date vÃ  end date
 				dateWrap.style.display = 'none';
 				dateRangeWrap.style.display = 'none';
 
-				// Thêm sự kiện khi thay đổi giá trị trong dropdown
+				// ThÃªm sá»± kiá»n khi thay Äá»i giÃ¡ trá» trong dropdown
 				select.addEventListener('change', function() {
-					// Ẩn tất cả ô date, start date và end date
+					// áº¨n táº¥t cáº£ Ã´ date, start date vÃ  end date
 					dateWrap.style.display = 'none';
 					dateRangeWrap.style.display = 'none';
 
-					// Hiển thị ô tương ứng với lựa chọn trong dropdown
+					// Hiá»n thá» Ã´ tÆ°Æ¡ng á»©ng vá»i lá»±a chá»n trong dropdown
 					if (select.value === 'date') {
 						dateWrap.style.display = 'block';
 					} else if (select.value === 'dateRange') {
@@ -166,7 +187,7 @@
 				         if(order.status==1){
 				        	 	row.append($('<td>').append($('<span>').text("New order").addClass('badge badge-primary')));
 								row.append($('<td>').html("<button data-id="+order.id+" onclick='getOrderDetails(event)'  class='btn btn-outline-primary' type='button'>Details</button>"));
-								row.append($('<td>').addClass('text-danger').html("<button data-id="+order.id+" data-update-status='2' data-bs-toggle='modal' data-bs-target ='#refuseOrder'  class='btn btn-sm btn-danger' type='button'>Refuse</button> <button onclick='updateStatus(event)' data-id="+order.id+" data-update-status='3' class='btn btn-sm btn-primary' type='button'>Agree</button>"));
+								row.append($('<td>').addClass('text-danger').html("<button data-id="+order.id+" data-update-status='2' data-toggle='modal' data-target ='#refuseOrder'  class='btn btn-sm btn-danger' type='button'>Refuse</button> <button onclick='updateStatus(event)' data-id="+order.id+" data-update-status='3' class='btn btn-sm btn-primary' type='button'>Agree</button>"));
 				            	
 				            	
 						 }else if(order.status==2){
@@ -176,7 +197,7 @@
 						 }else if(order.status==3){
 								row.append($('<td>').append($('<span>').text("Order has been confirm.").addClass('badge badge-warning')));
 								row.append($('<td>').html("<button data-id="+order.id+" onclick='getOrderDetails(event)' class='btn btn-outline-primary' type='button'>Details</button>"));
-								row.append($('<td>').addClass('text-danger').html('<button onclick="updateStatus(event)" data-id='+order.id+' data-update-status="4" class="btn btn-sm btn-success" type="button">Complete</button> <button data-id='+order.id+' data-update-status="2" data-bs-toggle="modal" data-bs-target ="#refuseOrder"  class="btn btn-sm btn-danger" type="button">Cancle</button>'));
+								row.append($('<td>').addClass('text-danger').html('<button onclick="updateStatus(event)" data-id='+order.id+' data-update-status="4" class="btn btn-sm btn-success" type="button">Complete</button> <button data-id='+order.id+' data-update-status="2" data-toggle="modal" data-target ="#refuseOrder"  class="btn btn-sm btn-danger" type="button">Cancle</button>'));
 				            	
 						 }else if(order.status==4){
 								row.append($('<td>').append($('<span>').text("Completed").addClass('badge badge-success')));
@@ -227,13 +248,56 @@
 		           $(navId).append(pagination);
 		      }
 			 
+			 $('#refuseOrder').on('show.bs.modal', function (e) {
+			        var button = e.relatedTarget;
+			       	var orderId = $(button).data('id');
+					  
+					$('#refuse-order-modal').data('id', orderId);      
+				                
+				   })
+			//update status
+				var csrfToken;
+				var buttonText;
+				var undo =false;
+				function updateStatus(event){
+					csrfToken = Cookies.get('XSRF-TOKEN');
+					var button = event.target;
+					buttonText = button.textContent;
+					if(buttonText=="Undo"){
+						undo = true;
+					}
+					console.log("Button:", button);
+					var orderId = $(button).data('id');
+					var status = $(button).data('update-status');
+					console.log("OrderId:", orderId);
+					console.log("Status:", status);
+
+					$.ajax({
+				      url: '/order/updateStatus',
+				      type: 'PUT',
+				      dataType: 'json',
+				      data: {orderId : parseInt(orderId),status: parseInt(status),undo : undo},
+				       headers: {
+						    'X-XSRF-TOKEN': csrfToken
+						  },
+				      success: function() {
+						$('#refuseOrder').modal('hide');
+						$('body').removeClass('modal-open');
+						$('.modal-backdrop').remove();
+						loadData(0,0,false,"",null,null,null);
+				        
+				      },
+				      error: function(jqXHR, textStatus, errorThrown){
+						  var errors = jqXHR.responseJSON;
+						  alert(errors);
+					  }})
+				}
+			 
 			 	var timeSelect = document.getElementById("time");				
 			  	var dateWrap = document.getElementById("date-wrap");
 			  	var startDate = document.getElementById("startDate-wrap");
 			  	var endDate = document.getElementById("endDate-wrap");
 
-			  
-			  
 			  var searchButton = document.getElementById("searchButton");
 			  var  keyInput = document.getElementById("key");
 			  var selectStatus = document.getElementById("selectStatus");
@@ -260,7 +324,7 @@
 				      startDateValue = document.getElementById("startDate").value;
 				      endDateValue = document.getElementById("endDate").value;
 				    } else if (timeSelect.value === "today") {
-				      var date = new Date(); // Ngày hiện tại
+				      var date = new Date(); // NgÃ y hiá»n táº¡i
 				      dateValue = date.toISOString().substring(0, 10);
 				    } else if (timeSelect.value === "lastDate") {
 				      var date = new Date();
@@ -293,6 +357,16 @@
 				}
 
 				searchButton.addEventListener("click", searchButtonClick);
+				
+				function getOrderDetails(event) {
+					var button = event.target;
+					var orderId = $(button).data('id');
+				  // Tạo URL mới với orderId
+				  var url = '/orderDetails/get?orderId=' + orderId;
+			  
+				  // Chuyển hướng đến URL mới
+				  window.location.href = url;
+				};
 
 		</script>
 

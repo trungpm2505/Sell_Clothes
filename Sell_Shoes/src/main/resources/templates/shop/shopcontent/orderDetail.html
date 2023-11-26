@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<style>
+.shopee-avatar__img {
+    border-radius: 50%;
+    width: 35%;
+}
+
+.mC1Llc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333
+}
+
+._78QHr1 {
+    color: #888;
+    text-transform: capitalize;
+    text-decoration: none
+}
+
+.rhmIbk {
+    list-style: none;
+    padding: 0;
+    margin: 27px 0 0;
+    cursor: pointer;
+}
+
+.hiXKxx {
+    margin: 12px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+}
+
+.x0QT2k:first-child {
+    padding-top: 24px;
+}
+.VrgkXA {
+    padding: 4px 0 ;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    color: #212121;
+    background: #eaeaea;
+    border-radius: 2px;
+}
+.VrgkXA>input {
+    flex: 1;
+    font-size: 14px;
+    line-height: 16px;
+    border: 0;
+    outline: none;
+    background-color: inherit;
+}
+
+.x0QT2k {
+    padding: 12px 24px;
+    background: #fff;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .13);
+    border-radius: 0.125rem;
+}
+
+.hiXKxx {
+    margin: 12px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+}
+
+.KrPQEI {
+    padding: 20px;
+    border-bottom: 0.0625rem solid #efefef;
+    justify-content: space-between;
+}
+
+._0RxYUS,
+.KrPQEI {
+    display: flex;
+    align-items: center;
+}
+
+.KmBIg2 {
+    text-decoration: none;
+    color: #26aa99;
+}
+
+._9Ro5mP {
+    max-width: 200px;
+    margin-left: 8px;
+    /* font-size: 14px; */
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.qCUYY8 {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.V\+w7Xs {
+    line-height: 24px;
+    color: #ee4d2d;
+    text-align: right;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.EQko8g {
+    padding: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.rGP9Yd {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+    background: #e1e1e1;
+}
+
+.shopee-image__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.shopee-image__place-holder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #fafafa;
+}
+
+.shopee-image__content--blur {
+    width: 100%;
+    height: 100%;
+}
+
+._7uZf6Q {
+    min-width: 0;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    word-wrap: break-word;
+}
+
+.iJlxsT {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 22px;
+    max-height: 48px;
+}
+
+.vb0b-P {
+    color: rgba(0, 0, 0, .54);
+}
+
+._8ex9dW {
+    padding: 2px 4px;
+    margin: 0 6px 0 0;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 1px;
+    color: #ee4d2d;
+    border: 0.5px solid #ee4d2d;
+}
+
+.j2En5\+ {
+    margin: 0 4px 0 0;
+    -webkit-text-decoration-line: line-through;
+    -moz-text-decoration-line: line-through;
+    text-decoration-line: line-through;
+    color: #000;
+    opacity: .26;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.OkfGBc {
+    color: #ee4d2d;
+}
+
+.-x3Dqh,
+.j2En5\+,
+.kCaFF- {
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.kvXy0c {
+    padding: 24px 24px 12px;
+    background: #fffefb;
+    border-top: 0.0625rem solid #efefef;
+}
+
+.\-78s2g {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.IlORNJ {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0 5px 0 0;
+    line-height: 0;
+}
+
+._0NMXyN {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, .8);
+}
+
+.DeWpya {
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.AM4Cxf {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    background: #fffefb;
+}
+
+.qtUncs {
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    grid-gap: 4px;
+    gap: 4px;
+    flex-grow: 1;
+    word-wrap: break-word;
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, .54);
+}
+
+.EOjXew {
+    display: flex;
+    padding:  40px 0 0 300px;
+}
+.PF0-AU,
+.PgtIur {
+    margin: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.stardust-button--primary {
+    background-color: #ee4d2d;
+    border-color: #cd3011;
+    color: #fff;
+}
+
+.stardust-button--primary.stardust-button--active,
+.stardust-button--primary:hover {
+    background-color: #d73211;
+    border-color: #ba2b0f;
+}
+
+.stardust-button {
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, .26);
+    padding: 8px 10px;
+}
+
+.WgYvse:not(.stardust-button--primary):hover:not(.ToSnPt) {
+    background-color: rgba(0, 0, 0, .02);
+    border: 1px solid rgba(0, 0, 0, .09);
+}
+
+.WgYvse {
+    min-width: 150px;
+    min-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    outline: 0;
+}
+
+.PF0-AU,
+.PgtIur {
+    margin: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.WgYvse:not(.stardust-button--primary) {
+    color: #555;
+    border: 1px solid rgba(0, 0, 0, .09);
+}
+/* order */
+.yO9lYJ {
+    display: flex;
+    margin-right: 16px;
+    color: rgba(0,0,0,.54);
+}
+.EkDKzu {
+    margin: 0 16px;
+}
+.capx2D {
+    color: #ee4d2d;
+    text-transform: uppercase;
+}
+.mu8SJw {
+    padding: 20px 24px 24px;
+}
+._0Ihttg {
+    padding: 0 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.PW9gQm {
+    text-transform: capitalize;
+    color: rgba(0,0,0,.8);
+    font-size: 20px;
+    line-height: 24px;
+}
+.wMj1t2 {
+    display: flex;
+}
+.iWu\+Gv {
+    max-width: 100%;
+    padding: 10px 24px 0 0;
+    line-height: 22px;
+    flex: 1;
+}
+.KZmoHt {
+    max-width: 100%;
+    margin: 0 0 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(0,0,0,.8);
+}
+.AnJAa1 {
+    color: rgba(0,0,0,.54);
+    font-size: 12px;
+    white-space: pre-line;
+}
+.ifE\+r- {
+    width: 620px;
+    padding: 4px 0 0 12px;
+    border-left: 1px solid rgba(0,0,0,.09);
+}
+.rqUx-N {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding: 0;
+    grid-gap: 12px;
+    gap: 12px;
+}
+.cuJgPF .JNurwA {
+    color: #26aa99;
+}
+.JNurwA {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+    color: rgba(0,0,0,.54);
+    font-size: 14px;
+}
+.rVemEI {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+}
+.rVemEI .AXDO-g {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    z-index: 2;
+}
+.B3MLEe {
+    width: 120px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    color: rgba(0,0,0,.8);
+    padding: 0 12px;
+}
+.u4VSsO {
+    min-width: 0;
+}
+.u4VSsO p._0P1byN {
+    font-weight: 700;
+    margin-bottom: -2px;
+}
+.KrPQEI2 {
+    margin-top: 40px;
+    border-bottom: 0.0625rem solid #efefef;
+    justify-content: space-between;
+}
+.RZJjTX {
+    background-color: #fafafa;
+    border-top: 1px solid rgba(0,0,0,.09);
+}
+.TokOv1 {
+    padding: 0 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    border-bottom: 1px dotted rgba(0,0,0,.09);
+}
+._8kMYJ3 {
+    padding: 13px 10px;
+    color: rgba(0,0,0,.54);
+    font-size: 12px;
+}
+.CxyZBG {
+    padding: 13px 0 13px 10px;
+    width: 240px;
+    border-left: 1px dotted rgba(0,0,0,.09);
+    justify-content: flex-end;
+    word-wrap: break-word;
+    color: rgba(0,0,0,.8);
+}
+.TokOv1:last-child {
+    border: 0;
+}
+.a59vwO {
+    align-items: flex-start;
+}
+.TokOv1 {
+    padding: 0 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: right;
+    border-bottom: 1px dotted rgba(0,0,0,.09);
+}
+.B6pCRN {
+    padding-top: 20px;
+}
+._8kMYJ3 {
+    padding: 13px 10px;
+    color: rgba(0,0,0,.54);
+    font-size: 12px;
+}
+.CxyZBG {
+    padding: 13px 0 13px 10px;
+    width: 240px;
+    border-left: 1px dotted rgba(0,0,0,.09);
+    justify-content: flex-end;
+    word-wrap: break-word;
+    color: rgba(0,0,0,.8);
+}
+._8ZGgbl {
+    color: #ee4d2d;
+    font-size: 24px;
+}
+.O2KPzo {
+    width: 100%;
+    height: 0;
+    border-bottom: 1px dotted rgba(0,0,0,.09);
+    position: relative;
+}
+</style>
+		<!-- Start Maincontent  -->
+		<section>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-2">
+					<div class="row">
+						<img
+							src="https://down-vn.img.susercontent.com/file/00403ac0a919bf7ad009eb0bfb307653_tn"
+							alt="" class="col-md-5 shopee-avatar__img">
+
+						<div class="col-md-7">
+							<div class="mC1Llc" th:text="${userName}"></div>
+							<a class="_78QHr1" href="#"><svg width="12" height="12" th:text="#{updateProfile}"
+									style="margin-right: 4px;">
+                                    <path
+										d="M8.54 0L6.987 1.56l3.46 3.48L12 3.48M0 8.52l.073 3.428L3.46 12l6.21-6.18-3.46-3.48"
+										fill="#9B9B9B" fill-rule="evenodd"></path>
+                                </svg></a>
+						</div>
+					</div>
+					<div th:replace="shop/shopcontent/navbar_account :: navbar_account"></div>
+
+				</div>
+				 <div class="col-md-10">
+                    <div class="hiXKxx">
+
+
+                        <div class="card">
+                            <div class="KrPQEI">
+                                <div class="yO9lYJ">
+                                    <a href="/order/user/all-order"><i class="fa fa-chevron-left" aria-hidden="true"></i> <span>Back</span></a>
+                                </div>
+                                <div class="EQko8g">
+                                    <span th:text="'ORDER ID. ' + ${orderResponseDto.id}"></span>
+                                    <span class="EkDKzu">|</span>
+                                    <span th:switch="${orderResponseDto.status}">
+											    <span class="capx2D text-primary" th:case="1">New order</span>
+											    <span class="capx2D" th:case="2">Canceled order</span>
+											    <span class="capx2D text-success" th:case="3">Confirm order</span>
+											    <span class="capx2D text-success" th:case="4">Completed order</span>
+									</span>
+                                    <!-- <span >Đơn hàng đã hoàn thành</span> -->
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mu8SJw">
+                                    <div class="_0Ihttg">
+                                        <div class="PW9gQm">Delivery Address</div>
+                                    </div>
+                                    <div class="wMj1t2">
+                                        <div class="iWu+Gv">
+                                            <div class="KZmoHt" th:text="${orderResponseDto.fullName}"></div>
+                                            <div class="AnJAa1"><span th:text="${orderResponseDto.phone}"></span><br><div th:text="${orderResponseDto.address}"></div></div>
+                                        </div>
+                                        <div class="ifE+r-">
+                                            <div>
+                                                <div class="rqUx-N cuJgPF">
+                                                    <div class="JNurwA">
+                                                    	<div class="d-flex" th:if="${orderResponseDto.status==4}">
+                                                    		<div class="rVemEI"><img class="AXDO-g" title="image"
+                                                                src="https://cf.shopee.vn/file/delivered_parcel_active_3x">
+                                                        	</div>
+                                                        
+                                                        	<div class="B3MLEe" th:text="${orderResponseDto.completedAt}"></div>
+                                                    	</div>
+                                                        
+                                                        <div class="u4VSsO">
+                                                            <b class="_0P1byN">Delivered</b>
+                                                            <div>
+                                                            <span th:switch="${orderResponseDto.status}">
+															   <span class="capx2D text-primary" th:case="1">New order</span>
+															    <span class="capx2D" th:case="2">Canceled order</span>
+															    <span class="capx2D text-success" th:case="3">Confirm order</span>
+															    <span class="capx2D text-success" th:case="4">Completed order</span>
+															</span>
+                                                            <span th:text="'. Recipient:'+ ${orderResponseDto.fullName}">
+                                                                    </span></div>
+                                                             <b class="_0P1byN">Note: </b>
+                                                             <div>
+                                                             	<span class="text-dark" th:text="${orderResponseDto.note}"></span>
+                                                             </div>
+                                                        </div>	
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="EOjXew ">
+                                            
+                                                <div class="PF0-AU">
+                                                	<button th:if="${orderResponseDto.status == 4}"
+                                                        class="stardust-button stardust-button--primary WgYvse">Buy Again</button>
+                                                    <button th:if="${orderResponseDto.status == 1}"
+                                                        class="stardust-button stardust-button--primary WgYvse">Cancel</button>
+                                                </div>
+                                                <div class="PgtIur"><button
+                                                        class="stardust-button stardust-button--secondary btn-contact" >Contact Seller</button></div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="KrPQEI2">
+                                        <div class="qCUYY8">
+                                            <div class="_9Ro5mP">Puu Official</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card-body" >
+                            	<th:block th:each="orderDetailsResponseDto : ${orderDetailsResponseDtos}">
+                            	
+	                                <div class="row row-product" onclick="redirectToDetail(event)">
+	                                	<input th:class="product-id" type="hidden" th:value="${orderDetailsResponseDto.variantResponseDto.id}">
+	                                    <div class="col-md-2">
+	                                        <div class="shopee-image__wrapper">
+	                                            <div class="shopee-image__place-holder">
+	                                                <img class="shopee-image__content--blur"
+	                                                    th:src="@{/upload/__${orderDetailsResponseDto.imageForSave}__}"
+	                                                    alt="">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-md-8">
+	                                        <div class="_7uZf6Q">
+	                                            <div>
+	                                                <div class="iJlxsT"><span class="x5GTyN" th:text="${orderDetailsResponseDto.variantResponseDto.title}"></span></div>
+	                                            </div>
+	                                            <div>
+	                                                <div class="vb0b-P">
+	                                                	<ul class="d-flex">
+															<li class="mr-5" th:text="${orderDetailsResponseDto.variantResponseDto.size}"></li>
+															<li th:text="${orderDetailsResponseDto.variantResponseDto.color}"></li>
+														</ul>
+	                                                </div>
+	                                                <div class="_3F1-5M" th:text="'x' + ${orderDetailsResponseDto.number}"></div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-md-2">
+	                                        <div class="text-center" style="margin-top: 60px;">
+	                                            <div class="rjqzk1" th:if="${orderDetailsResponseDto.curentPrice != null}" >
+	                                            	<span class="j2En5+" th:text="${#numbers.formatInteger(orderDetailsResponseDto.price,3,'POINT')}+'&#8363;'"></span><span
+	                                                    class="-x3Dqh OkfGBc" th:text="${#numbers.formatInteger(orderDetailsResponseDto.curentPrice,3,'POINT')}+'&#8363;'"></span></div>
+	                                                
+	                                              <div class="rjqzk1" th:if="${orderDetailsResponseDto.curentPrice == null}" >
+	                                            	<span
+	                                                    class="-x3Dqh OkfGBc" th:text="${#numbers.formatInteger(orderDetailsResponseDto.price,3,'POINT')}+'&#8363;'"></span></div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+                                </th:block>
+                                <div class="RZJjTX">
+                                    <div class="TokOv1">
+                                        <div class="_8kMYJ3"><span>Merchandise Subtotal</span></div>
+                                        <div class="CxyZBG">
+                                            <div th:text="${#numbers.formatInteger(orderResponseDto.totalMoney - 30000,3,'POINT')}+'&#8363;'"></div>
+                                        </div>
+                                    </div>
+                                    <div class="TokOv1">
+                                        <div class="_8kMYJ3"><span>Shipping Fee</span></div>
+                                        <div class="CxyZBG">
+                                            <div>30.000₫</div>
+                                        </div>
+                                    </div>
+                                    <div class="TokOv1">
+                                        <div class="_8kMYJ3"><span>Order Total</span></div>
+                                        <div class="CxyZBG">
+                                            <div class="OkfGBc" th:text="${#numbers.formatInteger(orderResponseDto.totalMoney,3,'POINT')}+'&#8363;'">₫32.700</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="TX9IwS">
+                                    <div class="O2KPzo">
+                                        <div class="mn7INg xFSVYg"> </div>
+                                        <div class="mn7INg EfbgJE"> </div>
+                                    </div>
+                                    <div class="TokOv1">
+                                        <div class="_8kMYJ3"><span><span class="JMmT2C"><span class="qyvpC4"><svg
+                                                            width="16" height="17" viewBox="0 0 253 263" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M126.5 0.389801C126.5 0.389801 82.61 27.8998 5.75 26.8598C5.08763 26.8507 4.43006 26.9733 3.81548 27.2205C3.20091 27.4677 2.64159 27.8346 2.17 28.2998C1.69998 28.7657 1.32713 29.3203 1.07307 29.9314C0.819019 30.5425 0.688805 31.198 0.689995 31.8598V106.97C0.687073 131.07 6.77532 154.78 18.3892 175.898C30.003 197.015 46.7657 214.855 67.12 227.76L118.47 260.28C120.872 261.802 123.657 262.61 126.5 262.61C129.343 262.61 132.128 261.802 134.53 260.28L185.88 227.73C206.234 214.825 222.997 196.985 234.611 175.868C246.225 154.75 252.313 131.04 252.31 106.94V31.8598C252.31 31.1973 252.178 30.5414 251.922 29.9303C251.667 29.3191 251.292 28.7649 250.82 28.2998C250.35 27.8358 249.792 27.4696 249.179 27.2225C248.566 26.9753 247.911 26.852 247.25 26.8598C170.39 27.8998 126.5 0.389801 126.5 0.389801Z"
+                                                                fill="#ee4d2d"></path>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M207.7 149.66L119.61 107.03C116.386 105.472 113.914 102.697 112.736 99.3154C111.558 95.9342 111.772 92.2235 113.33 88.9998C114.888 85.7761 117.663 83.3034 121.044 82.1257C124.426 80.948 128.136 81.1617 131.36 82.7198L215.43 123.38C215.7 120.38 215.85 117.38 215.85 114.31V61.0298C215.848 60.5592 215.753 60.0936 215.57 59.6598C215.393 59.2232 215.128 58.8281 214.79 58.4998C214.457 58.1705 214.063 57.909 213.63 57.7298C213.194 57.5576 212.729 57.4727 212.26 57.4798C157.69 58.2298 126.5 38.6798 126.5 38.6798C126.5 38.6798 95.31 58.2298 40.71 57.4798C40.2401 57.4732 39.7735 57.5602 39.3376 57.7357C38.9017 57.9113 38.5051 58.1719 38.1709 58.5023C37.8367 58.8328 37.5717 59.2264 37.3913 59.6604C37.2108 60.0943 37.1186 60.5599 37.12 61.0298V108.03L118.84 147.57C121.591 148.902 123.808 151.128 125.129 153.884C126.45 156.64 126.797 159.762 126.113 162.741C125.429 165.72 123.755 168.378 121.363 170.282C118.972 172.185 116.006 173.221 112.95 173.22C110.919 173.221 108.915 172.76 107.09 171.87L40.24 139.48C46.6407 164.573 62.3785 186.277 84.24 200.16L124.49 225.7C125.061 226.053 125.719 226.24 126.39 226.24C127.061 226.24 127.719 226.053 128.29 225.7L168.57 200.16C187.187 188.399 201.464 170.892 209.24 150.29C208.715 150.11 208.2 149.9 207.7 149.66Z"
+                                                                fill="#fff"></path>
+                                                        </svg></span></span><span class="_3Nh1BH">Payment Method</span></span></div>
+                                        <div class="CxyZBG">
+                                            <div>Payment On Delivery</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</section>
+		<!-- End Maincontent  -->
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+		<script type="text/javascript">
+		  function toggleProfile() {
+	            var profileLink = document.getElementById('profileLink');
+	            profileLink.classList.add('active');
+	       }
+		  
+		  function openModal() {
+              document.getElementById("modal").style.display = "block";
+          }
+
+          function closeModal() {
+              document.getElementById("modal").style.display = "none";
+          }
+          
+          const ratingStars = document.querySelectorAll('.rating-star');
+          const ratingDescription = document.querySelector('.rating-description');
+
+          ratingStars.forEach((star, index) => {
+              star.addEventListener('click', () => {
+                  // Remove active class from all stars
+                  ratingStars.forEach((star) => {
+                      star.classList.remove('active');
+                  });
+
+                  // Add active class to clicked star and previous stars
+                  for (let i = 0; i <= index; i++) {
+                      ratingStars[i].classList.add('active');
+                  }
+
+                  // Update rating description based on the selected rating
+                  switch (index + 1) {
+                      case 1:
+                          ratingDescription.textContent = 'Tệ';
+                          break;
+                      case 2:
+                          ratingDescription.textContent = 'Không hài lòng';
+                          break;
+                      case 3:
+                          ratingDescription.textContent = 'Bình thường';
+                          break;
+                      case 4:
+                          ratingDescription.textContent = 'Hài lòng';
+                          break;
+                      case 5:
+                          ratingDescription.textContent = 'Tuyệt vời';
+                          break;
+                      default:
+                          ratingDescription.textContent = '';
+                          break;
+                  }
+              });
+          });
+          
+          var thumbnailOrder;
+        	var id;
+        	function redirectToDetail(event) {
+      		  thumbnailOrder = event.currentTarget.closest('.card');
+      		 
+      		  id = thumbnailOrder.querySelector('.order-id').textContent;
+      		 
+              window.location.href = '/orderDetails/get?orderId='+ id ;
+          }
+		  
+          loadData(0,0,"");
+  		//get data for table
+  		function loadData(page,status,key) {
+  			var orderWrap = ".order-wrap";
+  		    $.ajax({
+  		      url: '/order/user/getOrderPage',
+  		      type: 'GET',
+  		      dataType: 'json',
+  		      data: {page : page,status: status,keyWord:key},
+  		      success: function(orderPageResponseDto) {
+  		        //clear table
+  		        $(orderWrap).empty();
+  				
+  		        //add record
+  		        $.each(orderPageResponseDto.orderResponseDtos, function(index, order) {
+  					
+  					var hiXKxx = $('<div>').addClass('hiXKxx');
+  					var card = $('<div>').addClass('card');
+  					
+  					//Cart
+  					//1
+  					//KrPQEI
+  					var KrPQEI = $('<div>').addClass('KrPQEI');
+  					KrPQEI.append($('<div>').addClass('qCUYY8').append($('<div>').addClass('_9Ro5mP').text("Puu Store")));
+  					
+  					
+  					var EQko8g = $('<div>').addClass('EQko8g');
+  					var KmBIg2 = $('<a>').addClass('KmBIg2');
+  					KmBIg2.href='#';
+  					var message;
+  					if(order.status==1){
+  						message="Đơn hàng đang đợi xác nhận.";
+  					}else if(order.status==2){
+  						message="Đơn hàng đã bị hủy.";
+  					}else if(order.status==3){
+  						message="Đơn hàng đã được xác nhận.";
+  					}else if(order.status==4){
+  						message="Đơn hàng đã được giao thành công.";
+  					}
+  					var nkmfr2 = $('<span>').addClass('nkmfr2');
+  					//nkmfr2.append($('<i>').addClass('fa fa-truck').attr('aria-hidden', true));
+  					nkmfr2.append("<i class='fa fa-truck' aria-hidden='true'></i>");
+  					
+  					nkmfr2.text(message).click(redirectToDetail);
+  					KmBIg2.append(nkmfr2);
+  					EQko8g.append(KmBIg2);
+  					KrPQEI.append(EQko8g)
+  					//card add KrPQEI
+  					card.append(KrPQEI);
+  					
+  					//2
+  					//card-body
+  					var cardBody = $('<div>').addClass('card-body');
+  					//add id
+  					cardBody.append($('<div>').text(order.id).hide().addClass('order-id'));
+  					//row(product)
+  					
+  					$.each(order.orderDetaitsResponseDtos, function(index, orderDetails) {
+  						var row = $('<div>').addClass('row').click(redirectToDetail);
+  						row.append('<hr>')
+  						//col-md-2
+  						var subRow = $('<div>').addClass('col-md-2');
+  						var shopeeImageWrapper = $('<div>').addClass('shopee-image__wrapper');
+  						var shopeeImagePlaceHolder = $('<div>').addClass('shopee-image__place-holder');
+  						//var imageElement = $('<img>').addClass("shopee-image__content--blur").attr('src', '../upload/' + orderDetails.imageForSave);
+  						 shopeeImagePlaceHolder.append($('<img>').addClass("shopee-image__content--blur").attr('src', '/upload/' + orderDetails.imageForSave));
+  						 shopeeImageWrapper.append(shopeeImagePlaceHolder);
+  						 subRow.append(shopeeImageWrapper);
+  						 row.append(subRow);
+  						 
+  						 //col-md-8
+  						var subRow2 = $('<div>').addClass('col-md-8');
+  						var _7uZf6Q = $('<div>').addClass('_7uZf6Q');
+  						
+  						var iJlxsT = $('<div>').append($('<div>').addClass('iJlxsT').append($('<span>').attr({
+  		            	'data-id': orderDetails.variantResponseDto.id
+
+  		            }).addClass('x5GTyN').text(orderDetails.variantResponseDto.title)));
+  						_7uZf6Q.append(iJlxsT);
+  						
+  						var div = $('<div>');
+  						if(orderDetails.variantResponseDto.sizeId != "" || orderDetails.variantResponseDto.color != ""){
+  							if(orderDetails.variantResponseDto.size!="" && orderDetails.variantResponseDto.color!=""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.size + ' | ' +orderDetails.variantResponseDto.color));
+  							}else if(orderDetails.variantResponseDto.size!="" && orderDetails.variantResponseDto.color==""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.size));
+  							}else if(orderDetails.variantResponseDto.size=="" && orderDetails.variantResponseDto.color!=""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.color));
+  							}
+  						}
+  						 
+  						 div.append( $('<div>').addClass('_3F1-5M').text('x'+orderDetails.number));
+  						
+  						 _7uZf6Q.append(div);
+  						 
+  						 subRow2.append(_7uZf6Q);
+  						 row.append(subRow2);
+  						 
+  						 //sub3
+  						 var subRow3 = $('<div>').addClass('col-md-2');
+  						 var textCenter = $('<div>').addClass('text-center').css('margin-top', '60px');
+  						 var rjqzk1 = $('<div>').addClass('rjqzk1');
+  						 formattedPrice =orderDetails.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  						 if(orderDetails.curentPrice!=0){
+  							 formattedCurrentPrice =orderDetails.curentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  							 
+  							 rjqzk1.append($('<span>').addClass('j2En5+').text(formattedCurrentPrice));
+  							 rjqzk1.append($('<span>').addClass('-x3Dqh OkfGBc').text(formattedPrice));
+  						 }else{
+  							 rjqzk1.append($('<span>').addClass('-x3Dqh OkfGBc').text(formattedPrice));
+  						 }
+  						 
+  						 textCenter.append(rjqzk1);
+  						 subRow3.append(textCenter);
+  						 row.append(subRow3);
+  						 
+  						 cardBody.append(row);
+  					});
+  					
+  					
+  					
+  					 
+  					 //kvXy0c
+  					 formattedTotal =order.totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  					var kvXy0c = $('<div>').addClass('kvXy0c');
+  					var div78s2g= $('<div>').addClass('-78s2g').append($('<div>').addClass('_0NMXyN').text('Total: ')).append($('<div>').addClass('DeWpya').text(formattedTotal).click(redirectToDetail));
+  					kvXy0c.append(div78s2g);
+  					cardBody.append(kvXy0c);
+  					
+  					//AM4Cxf
+  					var AM4Cxf = $('<div>').addClass('AM4Cxf');
+  					//var qtUncs = $('<div>').addClass('qtUncs').append($('<span>').addClass('_0NMXyN').text('Không nhận được đánh giá'));
+  					AM4Cxf.append(  $('<div>').addClass('_8ex9dW').text('7 days return and exchange'));
+  					
+  					var EOjXew_4IR9IT = $('<div>').addClass('EOjXew _4IR9IT');
+  					if(order.status==1){
+  						var PF0AU = $('<div>').addClass('PF0-AU').append($('<button>').attr({
+  		            	'data-order-id': order.id,
+  		            	'data-update-status' : 2,
+  		                'data-toggle': 'modal',
+  		                'data-target': '#refuseOrder'
+  		            }).addClass('stardust-button stardust-button--primary WgYvse cancelOrderBtn').text("Cancel")
+  		            
+  		            	.on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  cancleOrder(event);
+  						})
+  		            );
+  						EOjXew_4IR9IT.append(PF0AU);
+  					}else if(order.status==4 || order.status==2){
+  						var PF0AU = $('<div>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('PF0-AU').append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse buy-again-btn').text("Buy Again").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  addToCart(event);
+  						}));
+  					
+  						EOjXew_4IR9IT.append(PF0AU);
+  					}
+  					
+  					
+  					var PgtIur= $('<div>').addClass('PgtIur').append($('<button>').addClass('stardust-button stardust-button--primary WgYvse btn-contact mr-10').text("Contact Seller"));
+  					EOjXew_4IR9IT.append(PgtIur);
+  					
+  					if((order.status==4 || order.status==2) && order.rated == false){
+  						EOjXew_4IR9IT.append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("Rating").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  openModal(event);
+  						}));
+  					}else if((order.status==4 || order.status==2) && order.rated == true){
+  						EOjXew_4IR9IT.append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("View rating").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  viewRating(event);
+  						}));
+  					}
+  					AM4Cxf.append(EOjXew_4IR9IT);
+  					cardBody.append(AM4Cxf);
+  					card.append(cardBody);
+  					hiXKxx.append(card);
+  					$(orderWrap).append(hiXKxx);
+  					
+  		        });
+  		         pagination = '';
+  		         currentPage = orderPageResponseDto.currentPage;
+  		         totalPages = orderPageResponseDto.totalPages;
+  		         size = orderPageResponseDto.size;
+  		        //create pagination 
+  		     	// createPagination("#paging",pagination,currentPage,totalPages,status,key );
+  		      },
+  		      error: function(){}})}
+		</script>
+	</div>
+</body>
+</html>

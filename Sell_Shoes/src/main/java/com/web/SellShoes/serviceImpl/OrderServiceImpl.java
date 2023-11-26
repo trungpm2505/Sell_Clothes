@@ -73,21 +73,21 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Page<Order> getOrderPageByAccount(int pageNumber, int size, Account account) {
 		PageRequest orderPageable = PageRequest.of(pageNumber, size,
-				Sort.by(Direction.DESC, "order_date").and(Sort.by(Direction.DESC, "id")));
+				Sort.by(Direction.DESC, "fullName").and(Sort.by(Direction.DESC, "id")));
 		return orderRepository.findByAccount(orderPageable, account);
 	}
 
 	@Override
 	public Page<Order> getOrderPageByStatusAndAccount(int pageNumber, int size, int status, Account account) {
 		PageRequest orderPageable = PageRequest.of(pageNumber, size,
-				Sort.by(Direction.DESC, "order_date").and(Sort.by(Direction.DESC, "id")));
+				Sort.by(Direction.DESC, "fullName").and(Sort.by(Direction.DESC, "id")));
 		return orderRepository.findOrderByStatusAndAccount(orderPageable, status, account);
 	}
 
 	@Override
 	public Page<Order> getOrderPageByKeywordAndAccount(int pageNumber, int size, String keyWord, Account account) {
 		PageRequest orderPageable = PageRequest.of(pageNumber, size,
-				Sort.by(Direction.DESC, "order_date").and(Sort.by(Direction.DESC, "id")));
+				Sort.by(Direction.DESC, "fullName").and(Sort.by(Direction.DESC, "id")));
 		return orderRepository.findByKeywordForAccount(orderPageable, account, keyWord);
 	}
 
