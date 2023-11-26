@@ -39,7 +39,7 @@ public class CartController {
 
 	@GetMapping()
 	public String view() {
-		return "shop/shopcontent/cart";
+		return "/shop/shopcontent/cart";
 	}
 
 	@PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
