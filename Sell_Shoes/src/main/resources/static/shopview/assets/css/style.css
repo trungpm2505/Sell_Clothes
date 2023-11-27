@@ -862,6 +862,7 @@
 	width: 250px;
 	margin-left: 20px;
 	margin-bottom: 20px;
+	margin-top: 20px
 }
 .layere_categorie ul li input {
 	width: 16px;
@@ -949,22 +950,23 @@
 .categorie__titile {
 	margin-bottom: 10px;
 }
-.sidebar_widget.shop_c {
+.sidebar_widget1.shop_c {
 	margin-bottom: 20px;
 }
-.sidebar_widget.color h2 {
+.sidebar_widget1.color h2 {
 	margin-bottom: 13px;
 }
 .ca_search_filters input {
 	background: no-repeat;
 	border: 1px solid #ddd;
 	height: 30px;
+	width: 170px;
 	margin-bottom: 10px;
 }
-.sidebar_widget.color {
+.sidebar_widget1.color {
 	margin-bottom: 25px;
 }
-.sidebar_widget.price {
+.sidebar_widget1.price {
 	margin-bottom: 32px;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
@@ -991,8 +993,12 @@
 .sidebar_widget.special .block_title h3 {
 	margin-bottom: 17px;
 }
-.sidebar_widget.price h2 {
+.sidebar_widget1.price h4 {
 	margin-bottom: 15px;
+	background-color: #15a7b4;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
 }
 .small_p_desc .product_ratting {
 	margin-bottom: 4px;

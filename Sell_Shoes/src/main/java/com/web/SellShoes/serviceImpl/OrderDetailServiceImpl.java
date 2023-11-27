@@ -20,4 +20,9 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 		return orderDetailRepository.findOrderDetailsByOrder(order);
 	}
 
+	@Override
+	public int getNumberOfProductInOrder(Order order) {
+		return orderDetailRepository.getNumberOfProductInOrder(order);
+	}
+
 }

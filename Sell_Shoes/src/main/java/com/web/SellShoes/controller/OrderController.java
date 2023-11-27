@@ -50,6 +50,8 @@ public class OrderController {
 
 		return "admin/order/list";
 	}
+	
+	
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	LocalDate startDateParse = null;
@@ -169,9 +171,10 @@ public class OrderController {
 	public ResponseEntity<OrderPageResponseDto> getOrderPageForUser(@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "0") int status,
 			@RequestParam(required = false) String keyWord) {
+		keyWord = "";
 		Page<Order> orderPage = null;
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Account> account = accountService.findUserByEmail(authentication.getName());
+		//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
 
 		if (keyWord == null || keyWord.equals("")) {
 			if (status == 0) {

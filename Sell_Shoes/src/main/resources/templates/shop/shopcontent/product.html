@@ -668,49 +668,49 @@
 		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 		<script type="text/javascript">
 		var ProductDetails = {
-    			createRadioList: function(variantList, propertyName, container, labelText, divClass) {
-            var propertyList = $('<ul>'); // Tạo một danh sách ul
-            var addedProperties = {};
-
-            $.each(variantList, function(i, variant) {
-                // Nếu thuộc tính chưa được thêm vào danh sách
-                if (!addedProperties[variant[propertyName]]) {
-                    addedProperties[variant[propertyName]] = true;
-
-                    var id = variant[propertyName];
-                    var listItem = $('<li>');
-
-                    var propertyRadio = $('<input>').attr({
-                        type: 'radio',
-                        name: propertyName,
-                        value: variant[propertyName + 'Id'],
-                        id: id,
-                        class: propertyName + '-button' // Thêm class tại đây
-                    });
-
-                    // Tạo label và thiết lập for attribute
-                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
-
-                    // Thêm input radio và label vào mục li
-                    listItem.append(propertyRadio).append(propertyLabel);
-
-                    // Thêm mục li vào danh sách
-                    propertyList.append(listItem);
-                }
-            });
-
-            if (propertyName === 'size') {
-                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
-                propertyDiv.append(propertyList);
-                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
-                productDPropertyDiv.append(propertyDiv);
-                container.append(productDPropertyDiv);
-            } else {
-                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
-                container.append(propertyDiv);
-                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
-            }
-        }
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
+	            var propertyList = $('<ul>'); // Tạo một danh sách ul
+	            var addedProperties = {};
+	
+	            $.each(variantList, function(i, variant) {
+	                // Nếu thuộc tính chưa được thêm vào danh sách
+	                if (!addedProperties[variant[propertyName]]) {
+	                    addedProperties[variant[propertyName]] = true;
+	
+	                    var id = variant[propertyName];
+	                    var listItem = $('<li>');
+	
+	                    var propertyRadio = $('<input>').attr({
+	                        type: 'radio',
+	                        name: propertyName,
+	                        value: variant[propertyName + 'Id'],
+	                        id: id,
+	                        class: propertyName + '-button' // Thêm class tại đây
+	                    });
+	
+	                    // Tạo label và thiết lập for attribute
+	                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
+	
+	                    // Thêm input radio và label vào mục li
+	                    listItem.append(propertyRadio).append(propertyLabel);
+	
+	                    // Thêm mục li vào danh sách
+	                    propertyList.append(listItem);
+	                }
+	            });
+	
+	            if (propertyName === 'size') {
+	                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
+	                propertyDiv.append(propertyList);
+	                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
+	                productDPropertyDiv.append(propertyDiv);
+	                container.append(productDPropertyDiv);
+	            } else {
+	                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
+	                container.append(propertyDiv);
+	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
+	            }
+	        }
     	}
 			
 		loadData();
@@ -751,7 +751,7 @@
 	            	            var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 
 	            	            product_d_right.append($('<div>').addClass('content_price mb-15')
-	            	                .append($('<span>').text(formattedCurentPrice))
+	            	                .append($('<span>').addClass('new_price').text(formattedCurentPrice))
 	            	                .append($('<span>').addClass('old-price').text(formattedPrice))
 	            	            );
 	            	        } else {

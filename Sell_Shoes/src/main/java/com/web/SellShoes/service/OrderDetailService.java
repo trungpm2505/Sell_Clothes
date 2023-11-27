@@ -8,4 +8,5 @@ import com.web.SellShoes.entity.OrderDetail;
 
 public interface OrderDetailService {
 	public List<OrderDetail> getOrderDtails(Order order); 
+	public int getNumberOfProductInOrder(Order order); 
 }
