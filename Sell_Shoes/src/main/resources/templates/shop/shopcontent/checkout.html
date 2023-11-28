@@ -60,29 +60,30 @@
 							<div class="row">
 								<div class="col-lg-6 mb-30">
 									<label>Full Name <span>*</span></label> <input type="text"
-								id="fullName" name="fullName" th:value="${accountResponseDto.fullName}" />
+										id="fullName" name="fullName"
+										th:value="${accountResponseDto.fullName}" />
 								</div>
 								<div class="col-lg-6 mb-30">
-									<label> Phone <span>*</span></label> <input
-										 type="text" th:value="${accountResponseDto.phone}" />
+									<label> Phone <span>*</span></label> <input type="text"
+										id="phoneNumber" th:value="${accountResponseDto.phone}" />
 								</div>
 								<div class="col-lg-12 mb-30">
-									<label> Email Address <span>*</span></label> <input
-								 id="address" name="address" type="text" th:value="${accountResponseDto.email}" />
+									<label> Email Address <span>*</span></label> <input type="text"
+										th:value="${accountResponseDto.email}" />
 								</div>
 								<div class="col-lg-4 mb-30">
-									<label>Tỉnh/Thành Phố<span>*</span></label> <select name=""
+									<label>Tỉnh/Thành Phố<span>*</span></label> <select name="province"
 										id="province">
 										<option value="">chọn tỉnh</option>
 									</select>
 								</div>
 								<div class="col-lg-4 mb-30">
-									<label>Quận/Huyện<span>*</span></label> <select id="district">
+									<label>Quận/Huyện<span>*</span></label> <select id="district" name="district">
 										<option value="">chọn quận</option>
 									</select>
 								</div>
 								<div class="col-lg-4 mb-30">
-									<label>Phường/Xã <span>*</span></label> <select id="ward">
+									<label>Phường/Xã <span>*</span></label> <select id="ward" name="ward">
 										<option value="">chọn phường</option>
 									</select>
 								</div>
@@ -92,11 +93,13 @@
 
 								<div class="col-12 mb-30">
 									<label>Street address <span>*</span></label> <input
-										 placeholder="" type="text" th:value="${accountResponseDto.address}" />
+										id="address" name="address" placeholder="" type="text"
+										th:value="${accountResponseDto.address}" />
 								</div>
 								<div class="col-12 mb-30">
 									<label>Notes <span>*</span></label>
-									<textarea  placeholder="" rows="3" cols="4">
+									<textarea placeholder="" rows="3" cols="4" id="note"
+										name="note">
                                             </textarea>
 
 								</div>
@@ -113,7 +116,7 @@
 								<table id="checkoutTable">
 									<thead>
 										<tr>
-										    <th>Image</th>
+											<th>Image</th>
 											<th>Tên giày</th>
 											<th>Màu sắc</th>
 											<th>Size giày</th>
@@ -122,34 +125,34 @@
 										</tr>
 									</thead>
 									<tbody id="checkoutBody">
-									
+
 										<tr th:each="cartItem : ${cartResponseDtos}">
-											
-											<td>
-												<input type="hidden" class="cartId" th:value="${cartItem.cartId}">
-										        <img th:src="@{/upload/__${cartItem.images.inmageForSave}__}"
-												alt="" width="80" height="60" />
-						    				</td>
+
+											<td><input type="hidden" id="cartId" class="cartId"
+												th:value="${cartItem.cartId}"> <img
+												th:src="@{/upload/__${cartItem.images.inmageForSave}__}"
+												alt="" width="80" height="60" /></td>
 											<td th:text="${cartItem.productResponseDto.title}"></td>
 											<td th:text="${cartItem.variantResponseDto.color}"></td>
 											<td th:text="${cartItem.variantResponseDto.size}"></td>
 											<td th:text="${cartItem.quantity}"></td>
 											<td th:text="${cartItem.total}"></td>
-										
+
 										</tr>
-									
+
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="5">
-											<div class="coupon">
+											<td colspan="7">
+												<div class="coupon">
 													<label for="coupon_code">Do you have a discount
 														code? Please enter here</label>
 													<div class="coupon-input">
 														<input type="text" id="coupon_code" name="coupon_code"
 															placeholder="Enter your coupon code" />
-														<button type="button" onclick="applyCoupon()">Apply
-															Coupon</button>
+														<button type="button" id="applyCouponBtn" class="apply_coupon">Áp dụng
+															mã giảm giá</button>
+
 													</div>
 												</div>
 
@@ -160,15 +163,22 @@
 											<td></td>
 											<td></td>
 											<td></td>
-											<td><strong>2%</strong></td>
+											<td></td>
+											<td><strong id="discountTypeDisplay">0VND</strong></td>
 										</tr>
 										<tr>
-											<th>Order TotalMoney</th>
+											<th>Tổng tiền</th>
 											<td></td>
 											<td></td>
 											<td></td>
-											<td><strong id="orderTotal" >$220.00</strong></td>
+											<td></td>
+											<td id="total"><strong th:text="${total}"></strong></td>
+											<input type="hidden" th:value="${total}"
+												id="originalTotalValue" name="originalTotalValue">
 										</tr>
+
+
+
 									</tfoot>
 								</table>
 							</div>
@@ -185,27 +195,37 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel-default">
-									<input id="payment_defult" name="check_method" type="radio"
-										data-target="createp_account" /> <label for="payment_defult"
-										data-toggle="collapse" data-target="#collapsedefult"
-										aria-controls="collapsedefult">PayPal <img
-										src="/shopview/assets/img/visha/papyel.png" alt="" /></label>
-									<div id="collapsedefult" class="collapse one"
-										data-parent="#accordion">
-										<div class="card-body1">
-											<p>Pay via PayPal; you can pay with your credit card if
-												you don’t have a PayPal account.</p>
-										</div>
+							
+
+								<div class="panel-default" onclick="$('#payment_info').hide()">
+
+									<input id="payment_bank_transfer" name="check_method"
+										type="radio" data-target="createp_account"> <label
+										class="custom-control-label" for="credit">Thanh Toán
+										Khi Nhận Hàng</label>
+
+								</div>
+								<div class="panel-default" onclick="$('#payment_info').show()">
+									<input id="payment_bank_transfer" name="check_method"
+										type="radio" data-target="createp_account"> <label
+										class="custom-control-label" for="debit">Chuyển Khoản</label>
+								</div>
+								<input id="inputan">
+								<div class="row" id="payment_info" style="display: none;">
+									<div class="col-md-6 mb-3">
+										<label for="cc-name">
+											<h5>STK : 1903 7531 0590 11</h5>
+											<div>Ngân Hàng : Techcombank</div>
+											<div>Chi Nhánh : Quảng Nam</div>
+											<div>Chủ TK : PHAM MINH TRUNG</div>
+											<h5>
+												<br> <br> HOTLINE:&nbsp; 0335.247.942
+											</h5>
+										</label>
 									</div>
 								</div>
-								<div class="panel-default">
-									<input id="payment_defult" name="check_method" type="radio"
-										data-target="createp_account" /> <label for="payment_defult">Payment
-										on delivery</label>
-								</div>
 								<div class="order_button">
-									<button type="submit">Complete the Order</button>
+									<button id="checkoutButton" type="button">Thanh toán</button>
 								</div>
 							</div>
 						</form>
@@ -216,13 +236,15 @@
 	</div>
 	<div th:replace="shop/fragments/footer::footer"></div>
 	<script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <script src="/shopview/assets/js/popper.js"></script>
-    <script src="/shopview/assets/js/bootstrap.min.js"></script>
-    <script src="/shopview/assets/js/ajax-mail.js"></script>
-    <script src="/shopview/assets/js/plugins.js"></script>
+	<script src="/shopview/assets/js/popper.js"></script>
+	<script src="/shopview/assets/js/bootstrap.min.js"></script>
+	<script src="/shopview/assets/js/ajax-mail.js"></script>
+	<script src="/shopview/assets/js/plugins.js"></script>
 
-	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -232,65 +254,127 @@
 		integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+		var confirmedPrice = 0;
+		var promotionId=0
+		var selectedProvince = null;
+		var selectedDistrict = null;
+		var selectedward = null;
 
-	$(document).ready(function() {
-	    $('.order_button button').click(function() {
-	        var orderData = {
-	            fullName: $('#fullName').val(),
-	            address: $('#address').val(),
-	            // Thêm các thông tin khác tương ứng với các trường dữ liệu
-	        };
-	        addOrder(orderData);
-	    });
-
-	    function addOrder(orderData) {
-	        $.ajax({
-	            url: '/userOrder/addOrder',
-	            type: 'POST',
-	            contentType: 'application/json',
-	            data: JSON.stringify(orderData),
-	            success: function(response) {
-	                console.log('Đã thêm đơn hàng:', response);
-	                window.location.href = "/order/order-success";
-	            },
-	            error: function(jqXHR, textStatus, errorThrown) {
-	                console.error('Lỗi khi thêm đơn hàng:', errorThrown);
-	                if (jqXHR.status === 400) {
-	                    var errors = jqXHR.responseJSON;
-	                    if (errors.hasOwnProperty("bindingErrors")) {
-	                        var bindingErrors = errors["bindingErrors"];
-	                        for (var i = 0; i < bindingErrors.length; i++) {
-	                            var error = bindingErrors[i];
-	                            $("#" + error.field + "-error").text(error.defaultMessage);
-	                        }
-	                    }
-	                } else {
-	                    alert("Xin lỗi! Hệ thống gặp sự cố!");
-	                }
-	            }
+	     // Sử dụng jQuery để lắng nghe sự kiện khi giá trị của select thay đổi
+	        $('#province').on('change', function() {
+	        	selectedProvince =   $(this).find("option:selected").text(); // Lấy văn bản của lựa chọn đã chọn
+	            console.log('Tên tỉnh được chọn:', selectedProvince);
+	            // Làm điều gì đó với tên tỉnh được chọn ở đây
 	        });
-	    }
-
-	    function applyCoupon() {
-	        var couponCode = $('#coupon_code').val();
-	        $.ajax({
-	            url: '/applyCoupon',
-	            type: 'POST',
-	            data: { couponCode: couponCode },
-	            success: function(response) {
-	                $('#orderTotal').text(response.totalPrice);
-	            },
-	            error: function(error) {
-	                console.error('Error:', error);
-	            }
+	        $('#district').on('change', function() {
+	        	selectedDistrict = $(this).find("option:selected").text(); // Lấy văn bản của lựa chọn đã chọn
+	            console.log('Tên tỉnh được chọn:', selectedProvince);
+	            // Làm điều gì đó với tên tỉnh được chọn ở đây
 	        });
-	    }
-	});
+	        $('#ward').on('change', function() {
+	        	selectedward = $(this).find("option:selected").text(); // Lấy văn bản của lựa chọn đã chọn
+	            console.log('Tên tỉnh được chọn:', selectedProvince);
+	            // Làm điều gì đó với tên tỉnh được chọn ở đây
+	        });
+
+	        
+		$('#checkoutButton').on('click', function() {
+		    var formData = {
+		        fullName: $('#fullName').val(),
+		        phone_Number: $('#phoneNumber').val(),
+		        address:  $('#address').val(),
+		     /*     province : selectedProvince ,
+		        district : selectedDistrict ,
+		        ward : selectedward , */
+	
+		        note: $('#note').val(),
+		        confirmedPrice : confirmedPrice , 
+		        promotionId : promotionId, 
+		        cartIds: [] // Khởi tạo mảng cartIds
+		    };
+
+		    // Lặp qua các phần tử có class 'cartId' và thêm giá trị vào mảng 'cartIds'
+		    $('.cartId').each(function() {
+		        formData.cartIds.push($(this).val());
+		    });
+
+		    // Gửi dữ liệu đặt hàng lên server
+		    $.ajax({
+		        type: 'POST',
+		        url: '/userOrder/addOrder',
+		        contentType: 'application/json',
+		        data: JSON.stringify(formData),
+		        success: function(response) {
+		            console.log('Đặt hàng thành công!', response);
+		           
+		            var totalElement = document.getElementById("total");
+
+		        },
+		        error: function(error) {
+		            console.error('Đã xảy ra lỗi khi đặt hàng:', error);
+		            // Xử lý khi có lỗi xảy ra trong quá trình gửi dữ liệu đặt hàng
+		        }
+		    });
+		});
+
+
+		document.getElementById("applyCouponBtn").addEventListener("click", function() {
+		    // Xử lý khi nút "Áp dụng mã giảm giá" được nhấn
+		    var couponCode = document.getElementById("coupon_code").value;
+		    var originalTotalValue = document.getElementById("originalTotalValue").value; // lấy giá gốc
+
+		    $.ajax({
+		        type: 'GET',
+		        url: '/userOrder/applyPromotionByCode',
+		        data: { coupon_code: couponCode }, // Truyền mã giảm giá qua tham số truy vấn
+		        success: function(response) {
+		            console.log('Áp dụng mã giảm giá thành công!', response);
+		            promotionId = response.id
+		            if(response.discountType == 2){
+		                document.getElementById("discountTypeDisplay").innerHTML = response.discountValue;
+					 document.getElementById("total").innerHTML = originalTotalValue - response.discountValue;
+					 document.getElementById("inputan").value = originalTotalValue - response.discountValue;
+		            }
+		            if (response.discountType === 1) {
+		            
+		            	var totalRate = parseFloat(originalTotalValue); // Lấy giá trị từ phần tử "originalTotalValue"
+
+		                var discountValue = parseFloat(response.discountValue); // Chuyển đổi giá trị giảm giá nhận được từ response sang số
+
+		                if (!isNaN(totalRate) && !isNaN(discountValue)) { // Kiểm tra nếu giá trị là số hợp lệ
+		                    var rate = 0 // Tính giá trị mới sau khi giảm giá
+
+		                	var discount = totalRate * discountValue /100; // Tính giá trị giảm giá
+		                    if(discount > response.maximumDiscountValue){
+		                    	rate =totalRate- response.maximumDiscountValue;
+		     document.getElementById("discountTypeDisplay").innerHTML = response.maximumDiscountValue;
+		                    }else{
+		                    	rate = totalRate - discount;		
+		    document.getElementById("discountTypeDisplay").innerHTML =discount;
+
+		                    	}
+							 document.getElementById("total").innerHTML = rate;
+						     confirmedPrice = rate 
+
+		                    console.log(rate); // Log giá trị mới sau khi giảm giá
+		                } else {
+		                    console.error("Invalid input. Please check the values.");
+		                }
+		            }
+
+
+		        },
+		        error: function(error) {
+		            console.error('Đã xảy ra lỗi khi áp dụng mã giảm giá:', error);
+		            // Xử lý khi có lỗi xảy ra trong quá trình gửi yêu cầu áp dụng mã giảm giá
+		        }
+		    });
+		});
+
 
 	
 	
-	
-        const host = "https://provinces.open-api.vn/api/";
+		const host = "https://provinces.open-api.vn/api/";
         var callAPI = (api) => {
             return axios.get(api).then((response) => {
                 renderData(response.data, "province");
@@ -319,10 +403,13 @@
 
         $("#province").change(() => {
             callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+            //printResult();
         });
         $("#district").change(() => {
             callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+            //printResult();
         });
+    
     </script>
 
 

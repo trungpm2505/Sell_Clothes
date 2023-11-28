@@ -41,154 +41,122 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value="/userOrder")
+@RequestMapping(value = "/userOrder")
 public class OrderUserController {
-private final OrderService orderService;
-private final AccountService accountService;
-private final OrderDetailService orderDetailService;
-private final CartService cartService;
-private final PromotionService promotionService;
-private final Mapper mapper;
+	private final OrderService orderService;
+	private final AccountService accountService;
+	private final OrderDetailService orderDetailService;
+	private final CartService cartService;
+	private final PromotionService promotionService;
+	private final Mapper mapper;
 
-@GetMapping()
-public String view() {
-	return "shop/shopcontent/checkout";
-}
-
-//@GetMapping(value = "/checkout")
-//public ResponseEntity<List<CartResponseDto>> createOrder(@RequestParam List<Integer> cartIds, HttpSession session) {
-//    String email = (String) session.getAttribute("email");
-//    Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
-//
-//    AccountResponseDto accountResponseDto = mapper.accountToAccountResponseDto(account.get());
-//    List<CartResponseDto> cartResponseDtos = new ArrayList<>();
-//
-//    for (Integer id : cartIds) {
-//        cart = cartService.getCartById(id);
-//        cartResponseDto = mapper.cartToCartResponseDto(cart.get());
-//        cartResponseDtos.add(cartResponseDto);
-//    }
-//
-//    return ResponseEntity.ok().body(cartResponseDtos);
-//}
-Optional<Cart>cart;
-CartResponseDto cartResponseDto;
-@GetMapping(value = "/checkout")
-public String createOrder(@RequestParam List<Integer> cartIdList,Model model, HttpSession session) {
-    String email = (String) session.getAttribute("email");
-    Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
-
-    AccountResponseDto accountResponseDtos = mapper.accountToAccountResponseDto(account.get());
-    List<CartResponseDto> cartResponseDtos = new ArrayList<>();
-
-    for (Integer id : cartIdList) {
-        cart = cartService.getCartById(id);
-        cartResponseDto = mapper.cartToCartResponseDto(cart.get());
-        cartResponseDtos.add(cartResponseDto);
-    }
-      model.addAttribute("cartResponseDtos",cartResponseDtos);
-      model.addAttribute("accountResponseDto",accountResponseDtos);
-      model.addAttribute("orderRequestDtos",new OrderRequestDto());
-
-    return "shop/shopcontent/checkout";
-}
-@PostMapping(value="/addOrder")
-@ResponseBody
-public ResponseEntity<?>addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto,
-		BindingResult bindingResult,HttpSession session){
-	Map<String,Object>errors=new HashMap<>();
-	 String email = (String) session.getAttribute("email");
-	  Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");	 
-     Optional<Promotion>promotion=promotionService.getPromotionByCouponCode(orderRequestDto.getPromotion().getCouponCode());
-	  if (bindingResult.hasErrors()) {
-		errors.put("bindingErrors", bindingResult.getAllErrors());
-		return ResponseEntity.badRequest().body(errors);
+	@GetMapping()
+	public String view() {
+		return "shop/shopcontent/checkout";
 	}
-	  Order order=new Order();
-	  order.setFullName(orderRequestDto.getFullName());
-	  order.setAdrress(orderRequestDto.getAdrress());
-	  order.setPhone_Number(orderRequestDto.getPhone_Number());
-	  order.setNote(orderRequestDto.getNote());
-	  order.setAccount(account.get());
-	  order.setTotalMoney(0);
-	  order.setPromotion(orderRequestDto.getPromotion());
-	  
-	  if (promotion.isPresent()) {
-	        Promotion validPromotion = promotion.get();
-	        float totalPayment = calculateTotalPayment(orderRequestDto.getCartIds());
 
-	        if (validPromotion.getDiscountType() == 1) { // Kiểm tra loại giảm giá: 1 - Phần trăm, 2 - Số tiền
-	            float discountAmount = (validPromotion.getDiscountValue() / 100) * totalPayment;
-	            order.setTotalMoney(totalPayment - discountAmount);
-	        } else if (validPromotion.getDiscountType() == 2) {
-	            order.setTotalMoney(totalPayment - validPromotion.getDiscountValue());
-	        }
-	        
-	        order.setPromotion(validPromotion);
-	    } else {
-	        float totalPayment = calculateTotalPayment(orderRequestDto.getCartIds());
-	        order.setTotalMoney(totalPayment);
-	    }
-	  orderService.save(order);
-	  float totalPayment=0;
-	  for (Integer id : orderRequestDto.getCartIds()) {
-		Optional<Cart>cart=cartService.getCartById(id);
-		OrderDetail orderDetail=new OrderDetail();
-		orderDetail.setQuantity(cart.get().getQuantity());
-		if (cart.get().getVariant().getCurrentPrice() != null) {
-			orderDetail.setPrice(cart.get().getVariant().getCurrentPrice());
-			orderDetail.setTotalMoney(cart.get().getQuantity() * cart.get().getVariant().getCurrentPrice());
-		} else {
-			orderDetail.setPrice(cart.get().getVariant().getPrice());
-			orderDetail.setTotalMoney(cart.get().getQuantity() * cart.get().getVariant().getPrice());
+	Optional<Cart> cart;
+	CartResponseDto cartResponseDto;
+
+	@GetMapping(value = "/checkout")
+	public String createOrder(@RequestParam List<Integer> cartIdList, Model model, HttpSession session) {
+		String email = (String) session.getAttribute("email");
+		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+
+		AccountResponseDto accountResponseDtos = mapper.accountToAccountResponseDto(account.get());
+		List<CartResponseDto> cartResponseDtos = new ArrayList<>();
+
+		Float total = (float) 0;
+		for (Integer id : cartIdList) {
+			cart = cartService.getCartById(id);
+			cartResponseDto = mapper.cartToCartResponseDto(cart.get());
+			total += cartResponseDto.getTotal();
+			cartResponseDtos.add(cartResponseDto);
 		}
-		orderDetail.setVariant(cart.get().getVariant());
-		orderDetail.setOrder(order);
- 
-		
-		  
+		model.addAttribute("total", total);
+		model.addAttribute("cartResponseDtos", cartResponseDtos);
+		model.addAttribute("accountResponseDto", accountResponseDtos);
+		model.addAttribute("orderRequestDtos", new OrderRequestDto());
 
-		orderDetailService.save(orderDetail);
-
-		totalPayment += (orderDetail.getTotalMoney());
+		return "shop/shopcontent/checkout";
 	}
-	
-	order.setTotalMoney(totalPayment);
-	orderService.save(order);
-	
-	return ResponseEntity.ok().body("Order Success!");
-}
 
-private float calculateTotalPayment(List<Integer> cartIds) {
-    float totalPayment = 0;
-    for (Integer id : cartIds) {
-        Optional<Cart> cartOptional = cartService.getCartById(id);
-        if (cartOptional.isPresent()) {
-            Cart cart = cartOptional.get();
-            float price = cart.getVariant().getCurrentPrice() != null ? cart.getVariant().getCurrentPrice() : cart.getVariant().getPrice();
-            float itemTotal = price * cart.getQuantity();
-            totalPayment += itemTotal;
-        }
-    }
-    return totalPayment;
-}
+	@PostMapping(value = "/addOrder")
+	@ResponseBody
+	public ResponseEntity<?> addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto, BindingResult bindingResult,
+			HttpSession session) {
+		Map<String, Object> errors = new HashMap<>();
+		String email = (String) session.getAttribute("email");
+		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		// Lấy thông tin khuyến mãi từ mã giảm giá trong đơn hàng
+		// Optional<Promotion> promotion =
+		// promotionService.getPromotionById(orderRequestDto.getPromotion_id());
+		// Kiểm tra và xử lý lỗi từ việc validate dữ liệu đầu vào
+		// Optional<Promotion> promotion ;
+		if (bindingResult.hasErrors()) {
+			errors.put("bindingErrors", bindingResult.getAllErrors());
+			return ResponseEntity.badRequest().body(errors);
+		}
 
-//Optional<Cart>cart;
-//CartResponseDto cartResponseDto;
-//@GetMapping(value = "/checkout")
-//public ResponseEntity<List<CartResponseDto>> createOrder(@RequestParam List<Integer> cartIdList, HttpSession session) {
-//    String email = (String) session.getAttribute("email");
-//    Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
-//
-//    List<CartResponseDto> cartResponseDtos = new ArrayList<>();
-//
-//    for (Integer id : cartIdList) {
-//        cart = cartService.getCartById(id);
-//        CartResponseDto cartResponseDto = mapper.cartToCartResponseDto(cart.get());
-//        cartResponseDtos.add(cartResponseDto);
-//    }
-//
-//    return new ResponseEntity<>(cartResponseDtos, HttpStatus.OK);
-//}
+		// Tạo một đơn hàng mới và set thông tin từ orderRequestDto
+		Order order = new Order();
+		
+//		String address = orderRequestDto.getAddress() + ", " +  orderRequestDto.getProvince()
+//	  + ", " +  orderRequestDto.getDistrict() + ", " +  orderRequestDto.getWard();
+		order.setAdrress(orderRequestDto.getAddress());
+
+		
+		order.setFullName(orderRequestDto.getFullName());
+		order.setPhone_Number(orderRequestDto.getPhone_Number());
+		order.setNote(orderRequestDto.getNote());
+		order.setAccount(account.get());
+		// order.setPromotion(promotion.get());
+		order.setTotalMoney(0);
+		
+  		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
+		System.out.println(promotion + "===");
+
+		order.setPromotion(promotion);
+		
+		orderService.save(order);
+		float totalPayment = 0;
+		// Lặp qua danh sách các sản phẩm trong đơn hàng để tạo thông tin chi tiết đơn
+		// hàng
+		for (Integer id : orderRequestDto.getCartIds()) {
+			System.out.println(id + "jasdkjo");
+			Optional<Cart> cart = cartService.getCartById(id);
+
+			OrderDetail orderDetail = new OrderDetail();
+			orderDetail.setQuantity(cart.get().getQuantity());
+			if (cart.get().getVariant().getCurrentPrice() != null) {
+				orderDetail.setPrice(cart.get().getVariant().getCurrentPrice());
+				orderDetail.setTotalMoney(cart.get().getQuantity() * cart.get().getVariant().getCurrentPrice());
+			} else {
+				orderDetail.setPrice(cart.get().getVariant().getPrice());
+				orderDetail.setTotalMoney(cart.get().getQuantity() * cart.get().getVariant().getPrice());
+			}
+			orderDetail.setVariant(cart.get().getVariant());
+			orderDetail.setOrder(order);
+			orderDetail.setCurentPrice(cart.get().getVariant().getCurrentPrice());
+
+			// Lưu thông tin chi tiết đơn hàng vào cơ sở dữ liệu
+			orderDetailService.save(orderDetail);
+//            totalPayment += orderDetail.getTotalMoney();
+
+		}
+		// Cập nhật tổng giá trị đơn hàng
+		order.setTotalMoney(orderRequestDto.getConfirmedPrice());
+
+		orderService.save(order);
+
+		return ResponseEntity.ok().body("Đặt hàng thành công!");
+	}
+
+	@GetMapping("/applyPromotionByCode")
+	public ResponseEntity<Optional<Promotion>> applyPromotionByCode(@RequestParam("coupon_code") String couponCode) {
+		// Thực hiện xử lý của bạn ở đây
+		Optional<Promotion> appliedPromotion = promotionService.getPromotionByCouponCode(couponCode);
+		return ResponseEntity.ok(appliedPromotion);
+	}
 
 }
