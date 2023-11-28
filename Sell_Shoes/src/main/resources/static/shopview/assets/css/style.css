@@ -1965,7 +1965,7 @@
 .form-control {
   width: calc(100% - 80px); /* 100% trừ đi chiều rộng của 2 nút */
   height: 40px;
-  text-align: center;
+  /* text-align: center; */
   border: 1px solid #ddd;
   border-radius: 5px;
 }
@@ -3601,7 +3601,7 @@ li {
 .modal_body {
 	padding: 0 6px 30px;
 }
-.modal-content button.close {
+/* .modal-content button.close {
 	position: relative;
 	left: 94%;
 	width: 30px;
@@ -3612,7 +3612,7 @@ li {
 	border-radius: 5px;
 	cursor: pointer;
 	z-index: 9;
-}
+} */
 .modal-content button span{
     
 }

@@ -31,7 +31,7 @@ public class Promotion {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate createAt = LocalDate.now();
 
-	@Column(name = "name", nullable = false, length = 300)
+	@Column(name = "name", nullable = false, length = 300, columnDefinition = "NVARCHAR(300)")
 	private String name;
 
 	@Column(name = "coupon_code", unique = true)

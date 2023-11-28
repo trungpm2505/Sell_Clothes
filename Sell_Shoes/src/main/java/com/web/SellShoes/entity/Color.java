@@ -26,7 +26,7 @@ public class Color {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
 	private String color;
 	
 	@Column(nullable = false)
