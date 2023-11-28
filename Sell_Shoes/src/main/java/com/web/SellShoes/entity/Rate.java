@@ -37,7 +37,7 @@ public class Rate {
 	@Column(nullable = false)
     private int rating;
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 1500, columnDefinition = "NVARCHAR(1500)")
     private String content;
     
 	@ManyToOne(fetch = FetchType.LAZY)

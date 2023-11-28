@@ -27,7 +27,7 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20, columnDefinition = "NVARCHAR(20)")
 	private String size;
 	
 	@Column(nullable = false)

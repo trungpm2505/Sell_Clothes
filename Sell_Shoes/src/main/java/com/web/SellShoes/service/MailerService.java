@@ -5,6 +5,6 @@ import com.web.SellShoes.entity.Account;
 
 public interface MailerService {
 	void send(MailInfoDto mail);
-	void sendEmailToConfirmAccount(Account user);
-	
+	void sendEmailToConfirmAccount(Account account);
+	void sendEmailToResetPassword(Account account);
 }

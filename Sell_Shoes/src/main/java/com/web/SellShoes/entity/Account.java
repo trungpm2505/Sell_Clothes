@@ -28,7 +28,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
 	private String fullName;
 	
 	@Column(nullable = false, length = 100)
@@ -40,7 +40,7 @@ public class Account {
 	@Column(nullable = false, length = 11)
 	private String phone;
 	
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 100, columnDefinition = "NVARCHAR(100)")
 	private String address;
 	
 	@Column(nullable = false)
