@@ -4,197 +4,7 @@
 	layout:decorate="~{shop/fragments/index.html}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-/* style voucher */
 
-
-.corner-popup {
-	position: fixed;
-	bottom: 5px;
-	right: 5px;
-	background-color: tomato;
-	color: #fff;
-	padding: 5px;
-	cursor: pointer;
-	border-radius: 4px;
-	z-index: 2;
-
-}
-
-.center-popup {
-	display: none;
-	position: fixed;
-	float: right;
-	margin-left: 880px;
-	margin-top: 100px;
-	
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-	color: #f44336;
-	scroll-behavior: auto;
-
-}
-
-#closeButton {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	cursor: pointer;
-	font-size: 20px;
-}
-
-.order-history {
-	text-align: left;
-}
-
-.voucher {
-	border: 1px solid #f13939;
-	padding: 10px;
-	margin-bottom: 10px;
-	display: flex;
-	align-items: center;
-	width: 600px;
-	height: 220px;;
-}
-
-.voucher img {
-	max-width: 100px;
-	margin-left: 15px;
-}
-
-.voucher-details {
-	flex-grow: 1;
-	margin-top: 0px;
-}
-
-.voucher-header {
-	font-weight: bold;
-	margin-top: 15px;
-	margin-bottom: 5px;
-	font-size: 18px;
-}
-
-.voucher-details ul {
-	list-style-type: none;
-	padding: 0;
-	/* border-style: solid; */
-}
-
-.voucher-details li {
-	margin-bottom: 5px;
-	font-size: 15px;
-	color: deepskyblue;
-}
-
-.voucher-details hr {
-	margin-top: 7px;
-	margin-bottom: 7px;
-	border: 0.1px solid rgb(213, 209, 209);
-}
-
-.status {
-	font-weight: bold;
-	float: right;
-	color: red;
-
-}
-
-.margin {
-	margin: 5px;
-	border: black;
-}
-
-.total {
-	font-weight: bold;
-	font-size: 18px;
-	float: right;
-	color: red;
-	display: block;
-}
-
-.review-button {
-	padding: 8px 16px;
-	font-size: 14px;
-	background-color: #007BFF;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-	float: right;
-	display: block;
-	margin: 5px;
-
-}
-
-.review-button:hover {
-	background-color: #f44336;
-	color: white;
-}
-
-.buy-again {
-	padding: 8px 16px;
-	font-size: 14px;
-	background-color: #007BFF;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-	float: right;
-	display: block;
-	margin: 5px;
-
-}
-
-.buy-again:hover {
-	background-color: #f44336;
-	color: white;
-}
-
-.margin-title {
-	margin: 10px;
-	margin-top: 0px;
-}
-
-.title-vocher h4 {
-	margin-top: 0px;
-	color: #f44336;
-}
-
-.img-vocher {
-	display: block;
-	justify-content: center;
-}
-
-.center-popup {
-	display: none;
-	position: fixed;
-	
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-	color: #f44336;
-	scroll-behavior: auto;
-	max-height: 80%;
-	/* Đặt chiều cao tối đa của thanh trượt */
-	overflow-y: auto;
-	/* Sử dụng thanh trượt dọc khi nội dung vượt quá chiều cao tối đa */
-}
-
-.center-popup {
-	/* ... */
-	transition: all 0.3s ease;
-	/* Hiệu ứng chuyển động trong 0.3 giây với kiểu chuyển động 'ease' */
-}
-
-.codevoucher {
-	display: inline-block;
-	margin: 0px;
-	font-size: 18px;
-}
-</style>
 </head>
 <body>
 
@@ -206,10 +16,10 @@
 
             <div id="closeButton" onclick="closeCenterPopup()">X</div>
 
-            <div class="voucher">
+            <div class="voucher" id="Promotion">
                 <div class="margin-title">
                     <div class="title-vocher">
-                        <h4 href="">Giảm giá 50k</h4>
+                        <h4>Giảm giá 50% </h4>
                     </div>
                     <img class="img-vocher" src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png" alt="Sản phẩm 1">
                 </div>
@@ -218,8 +28,7 @@
                         onclick="copyToClipboard()">Coppy mã</button>
                     <div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn bộ đơn hàng</div>
                     <ul>
-                        <li>Giảm tối đa: 50.000 </li>
-                        <li>Đơn hàng tối thiếu: 350.000</li>
+                        <li>Giảm tối đa: 50.000 </li>                       
                         <li>Ngày hết hạn: 30/11/2023</li>
                         <li>Thể lệ: Cho toàn bộ đơn hàng</li>
                     </ul>
@@ -228,78 +37,8 @@
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="voucher">
-                <div class="margin-title">
-                    <div class="title-vocher">
-                        <h4 href="">Giảm giá 50k</h4>
-                    </div>
-                    <img class="img-vocher" src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png" alt="Sản phẩm 1">
-                </div>
-                <div class="voucher-details">
-                    <button class="review-button" data-order-id="12345" id="discountCode"
-                        onclick="copyToClipboard()">Coppy mã</button>
-                    <div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn bộ đơn hàng</div>
-                    <ul>
-                        <li>Giảm tối đa: 50.000 </li>
-                        <li>Đơn hàng tối thiếu: 350.000</li>
-                        <li>Ngày hết hạn: 30/11/2023</li>
-                        <li>Thể lệ: Cho toàn bộ đơn hàng</li>
-                    </ul>
-
-                    <div class="codevoucher" id="voucherCode">Your Voucher Code: <p class="codevoucher" id="predefinedText">JSPO2K3M
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="voucher">
-                <div class="margin-title">
-                    <div class="title-vocher">
-                        <h4 href="">Giảm giá 50k</h4>
-                    </div>
-                    <img class="img-vocher" src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png" alt="Sản phẩm 1">
-                </div>
-                <div class="voucher-details">
-                    <button class="review-button" data-order-id="12345" id="discountCode"
-                        onclick="copyToClipboard()">Coppy mã</button>
-                    <div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn bộ đơn hàng</div>
-                    <ul>
-                        <li>Giảm tối đa: 50.000 </li>
-                        <li>Đơn hàng tối thiếu: 350.000</li>
-                        <li>Ngày hết hạn: 30/11/2023</li>
-                        <li>Thể lệ: Cho toàn bộ đơn hàng</li>
-                    </ul>
-
-                    <div class="codevoucher" id="voucherCode">Your Voucher Code: <p class="codevoucher" id="predefinedText">JSPO2K3M
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="voucher">
-                <div class="margin-title">
-                    <div class="title-vocher">
-                        <h4 href="">Giảm giá 50k</h4>
-                    </div>
-                    <img class="img-vocher" src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png" alt="Sản phẩm 1">
-                </div>
-                <div class="voucher-details">
-                    <button class="review-button" data-order-id="12345" id="discountCode"
-                        onclick="copyToClipboard()">Coppy mã</button>
-                    <div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn bộ đơn hàng</div>
-                    <ul>
-                        <li>Giảm tối đa: 50.000 </li>
-                        <li>Đơn hàng tối thiếu: 350.000</li>
-                        <li>Ngày hết hạn: 30/11/2023</li>
-                        <li>Thể lệ: Cho toàn bộ đơn hàng</li>
-                    </ul>
-
-                    <div class="codevoucher" id="voucherCode">Your Voucher Code: <p class="codevoucher" id="predefinedText">JSPO2K3M
-                        </p>
-                    </div>
-                </div>
-            </div>
+            </div>           
             
-
         </div>
 		<div class="breadcrumbs_area">
 			<div class="row">
@@ -691,7 +430,85 @@
                       alert('Đã sao chép vocher');
                   }
 
-                 
+                ///// promotion
+                loadPromotion()
+                function loadPromotion() {
+                    $.ajax({
+                        url: '/promotion/getProductPage',
+                        type: 'GET',
+                        success: function (response) {
+                            var centerPopup = $("#centerPopup");
+
+                            // Clear existing content
+                            centerPopup.empty();
+
+                            // Loop through promotion data and append to the centerPopup
+                            $.each(response.promotionResponseDtos, function (index, promotion) {
+                                // Check if the promotion is active
+                                if (promotion.active) {
+                                	var imagesHtml = `<img src="https://cdn-icons-png.flaticon.com/512/3258/3258499.png" alt="Promotion Image">`;
+ 									// Assuming you have images for each promotion
+ 									
+                                    // Loop through promotion images
+                                    $.each(promotion.images, function (imgIndex, image) {
+                                        imagesHtml += `<img src="${image.url}" alt="Promotion Image">`;
+                                    });
+
+                                    // Construct the promotion HTML
+                                                                    
+                                    var promotionHtml = `
+                                    	<div id="closeButton" onclick="closeCenterPopup()">X</div>
+                                        <div class="voucher" id="Promotion${promotion.id}">
+                                            <div class="margin-title">
+                                                <div class="title-vocher">
+                                                    <h4>Voucher ${promotion.name}</h4>
+                                                </div>
+                                                ${imagesHtml}
+                                            </div>
+                                            <div class="voucher-details">
+                                            <button class="review-button" data-promotion-id="${promotion.id}" onclick="applyPromotion('${promotion.couponCode}')">Coppy code</button>
+                                                <div class="voucher-header">Discount code ${promotion.name} applies to entire order </div>
+                                                <ul>                                                
+                                                    <li>Discount Value: ${promotion.discountType === 1 ? `${promotion.discountValue}%` : `${promotion.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`}</li>
+                                                    <li>Max Value: ${promotion.maxValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>                                                    
+                                                    <li>Expired Date: ${promotion.expiredDate}</li>
+                                                    <li class="codevoucher" id="voucherCode">Coupon Code: ${promotion.couponCode}</li> <!-- Add this line for Coupon Code -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    `;
+
+                                    // Append the promotion HTML to the centerPopup
+                                    centerPopup.append(promotionHtml);
+                                }
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error loading promotion data:', errorThrown);
+                        }
+                    });
+                }
+
+                                        
+
+               // Add this function to handle copying the coupon code
+               function applyPromotion(couponCode) {
+                   // Use the provided couponCode parameter to copy to the clipboard
+                   const textarea = document.createElement('textarea');
+                   textarea.value = couponCode;
+                   document.body.appendChild(textarea);
+                   textarea.select();
+                   document.execCommand('copy');
+                   document.body.removeChild(textarea);
+
+                   // Optionally, you can display a message or perform additional actions
+                   alert(`Coupon Code "${couponCode}" has been copied to the clipboard.`);
+             	}
+
+
+                
+
+                                
 
 
          

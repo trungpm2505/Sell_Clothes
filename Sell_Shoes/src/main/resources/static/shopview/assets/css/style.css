@@ -8697,7 +8697,8 @@ li {
 	position: fixed;
 	float: right;
 	margin-left: 780px;
-	
+	margin-top: -90px;
+	height: 1000px;
 	
 	background-color: #fff;
 	padding: 20px;
@@ -8728,7 +8729,7 @@ li {
 	display: flex;
 	align-items: center;
 	width: 600px;
-	height: 220px;
+	height: 190px;
 }
 
 .voucher img {
@@ -8847,8 +8848,8 @@ li {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	color: #f44336;
-	margin-top: -70px;
-	height: 2000px;
+	
+	
 	scroll-behavior: auto;
 	max-height: 70%;
 	/* Đặt chiều cao tối đa của thanh trượt */
@@ -8859,6 +8860,7 @@ li {
 .center-popup {
 	/* ... */
 	transition: all 0.3s ease;
+	/*margin-top: -170px;*/
 	/* Hiệu ứng chuyển động trong 0.3 giây với kiểu chuyển động 'ease' */
 }
 
