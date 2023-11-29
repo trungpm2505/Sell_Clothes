@@ -30,7 +30,7 @@ public class ResponseRate {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	LocalDateTime createAt = LocalDateTime.now();
 	
-	 @Column(nullable = false)
+	 @Column(nullable = false, length = 1500, columnDefinition = "NVARCHAR(1500)")
 	 private String content;
 	
 	@ManyToOne

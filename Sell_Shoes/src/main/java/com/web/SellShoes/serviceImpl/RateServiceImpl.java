@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.web.SellShoes.entity.Order;
+import com.web.SellShoes.entity.Product;
 import com.web.SellShoes.entity.Rate;
 import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.repository.RateRepository;
@@ -50,6 +51,18 @@ public class RateServiceImpl implements RateService {
 	@Override
 	public Rate getRateById(Integer rateId) {
 		return rateRepository.findRateById(rateId);
+	}
+
+	@Override
+	public Page<Rate> finPageProduct(int pageNumber, int size, Product product) {
+		PageRequest ratePageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.DESC, "createAt"));
+		return rateRepository.findRateByProduct(ratePageable, product);
+	}
+
+	@Override
+	public Page<Rate> finPageByRateScoreProduct(int pageNumber, int size, Product product, int rateScore) {
+		PageRequest ratePageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.DESC, "createAt"));
+		return rateRepository.findRateByProductAndRating(ratePageable, product, rateScore);
 	}
 
 }

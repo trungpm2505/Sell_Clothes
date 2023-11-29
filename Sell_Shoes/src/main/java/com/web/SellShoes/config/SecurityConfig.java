@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
+			"/password/**",
+			"/rate/**",
 			"/orderDetails/**",
 			"/order/**",
 			"/promotion/**",

@@ -150,6 +150,14 @@ margin-top: 20px;
   	object-position : center center;
 }
 
+.shopee-image__content--blur1 {
+	margin-left: 5px;
+	width: 120px;
+    height: 120px;
+    object-fit: cover;
+  	object-position : center center;
+}
+
 ._7uZf6Q {
     min-width: 0;
     display: flex;
@@ -370,7 +378,7 @@ margin-top: 20px;
   }
 
   
-  .modal-content {
+  .modal-content1 {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -405,11 +413,12 @@ margin-top: 20px;
 }
 .shopee-popup-form__title {
     font-weight: 400;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
     color: #222;
     text-transform: capitalize;
     display: flex;
     align-items: center;
+    margin: auto;
 }
 .shopee-popup-form__main {
     flex: 1;
@@ -469,11 +478,12 @@ margin-top: 20px;
 .D7LjRB {
     color: rgba(0,0,0,.8);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 17px;
     word-break: break-word;
 }
 .q7YFPv {
     color: rgba(0,0,0,.26);
+    margin-top: 20px
 }
 .dmvG7c {
     display: flex;
@@ -483,7 +493,7 @@ margin-top: 20px;
 .dmvG7c .jcQ0KT {
     margin: toRem(20px) auto toRem(7px);
     font-size: toRem(14px);
-    min-width: 180px;
+    /* min-width: 180px; */
 }
 .rating-stars {
     display: inline-block;
@@ -520,15 +530,7 @@ margin-top: 20px;
     padding: 1.25rem 1.5625rem 0.9375rem;
 }
 ._2LhMgE {
-    overflow: hidden;
-    resize: none;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    line-height: 1.25rem;
-    font-size: 1rem;
     width: 100%;
-    height: 1.25rem;
     color: rgba(0,0,0,.87);
 }
 .shopee-popup-form__footer {
@@ -572,6 +574,34 @@ margin-top: 20px;
     min-width: 60px;
     max-width: 190px;
 }
+#content {
+    height: 400px;
+    overflow: auto;
+}
+.file-input{
+	margin-top: 10px;
+}
+.rating-modal-handler__container {
+	margin-bottom: 30px
+}
+.selected-images {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.selected-images img {
+    margin-left: 5px;
+}
+.selected-image img {
+    transition: filter 0.3s ease;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center center;
+}
+.hide{
+    display: none;
+}
 </style>
 		<!-- Start Maincontent  -->
 		 <section>
@@ -580,11 +610,11 @@ margin-top: 20px;
             <div class="row">
                 <div class="col-2">
                     <div class="row">
-                        <img src="https://down-vn.img.susercontent.com/file/00403ac0a919bf7ad009eb0bfb307653_tn" alt=""
+                        <img src="https://zero1.sg/img/accountlogin-icon.png" alt=""
                             class="col-md-5 shopee-avatar__img">
 
                         <div class="col-md-7">
-                            <div class="mC1Llc">mjnhtrung2003</div>
+                            <div class="mC1Llc">Phạm Minh Trung</div>
                             <a class="_78QHr1" href="#"><svg width="12" height="12" style="margin-right: 4px;">
                                     <path
                                         d="M8.54 0L6.987 1.56l3.46 3.48L12 3.48M0 8.52l.073 3.428L3.46 12l6.21-6.18-3.46-3.48"
@@ -738,42 +768,15 @@ margin-top: 20px;
 	                        </div>
 	                    </div> -->
 					</div>
+					<nav th:id="paging" class="d-flex justify-content-center mb-40"></nav>
                 </div>
             </div>
         </div>
         
-        <!-- Modal refuse-->
-	<div class="modal fade" id="refuseOrder">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"
-						th:text="#{refuseOrder}"></h5>
-					<button th:class="close-delete" type="button" class="close"
-						data-bs-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<p th:text="#{questionConfirmRefuse}"></p>
-					<input type="hidden" th:id="orderIdRefuseModal" name="orderId">
-					<input type="hidden" th:id="statusRefuseModal" name="status">
-
-				</div>
-				<div class="modal-footer">
-					<button th:class="close-delete" type="button"
-						class="btn btn-secondary" data-bs-dismiss="modal"
-						th:text="#{cancel}"></button>
-					<button type="button" data-id="" data-update-status="2"
-						class="btn btn-danger" th:id="refuse-order-modal"
-						onclick='updateStatus(event)' th:text="#{refuse}"></button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div id="modal" class="modal" >
-		<div class="modal-content">
+		<div class="modal-content1">
 			<div class="shopee-popup-form__header">
-				<div class="shopee-popup-form__title" th:text="#{productRate}"></div>
+				<div class="shopee-popup-form__title">Đánh giá sản phẩm</div>
 			</div>
 			<div id="content">
 				<!-- <div
@@ -824,66 +827,122 @@ margin-top: 20px;
 					</div>
 				</div> -->
 			</div>
+			
+			
+			<div class="shopee-popup-form__footer">
+				<button class="btn cancel-btn" onclick="closeModal()">Cancel</button>
+				<button type="button"
+					class="btn btn-solid-primary btn--s btn--inline rL4kG2" th:id="save-rating" data-order-id-value='' onclick="saveRating()">Rate</button>
+					<button type="button"
+					class="btn btn-solid-primary btn--s btn--inline rL4kG2" th:id="update-rating" data-order-id-value='' onclick="updateRateView()">Update</button>
+				
+			</div>
+		</div>
+
+	</div>
 
     </section>
-		<!-- End Maincontent  -->
+      <!-- Modal refuse-->
+	<div class="modal" id="refuseOrder">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+					<button type="button" class="close"
+						data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Bạn có chắc muốn hủy đơn hàng này?</p>
+					<input type="hidden" th:id="orderIdRefuseModal" name="orderId">
+					<input type="hidden" th:id="statusRefuseModal" name="status">
 
+				</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+					<button type="button" data-id="" data-update-status="2"
+						class="btn btn-danger" th:id="refuse-order-modal"
+						onclick='updateStatus(event)' >Xác nhận</button>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- End Maincontent  -->
+		<!-- Thêm Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
-		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 		<script type="text/javascript">
 		  function toggleProfile() {
 	            var profileLink = document.getElementById('profileLink');
 	            profileLink.classList.add('active');
 	       }
 		  
-		  function openModal() {
+		 /*  function openModal() {
               document.getElementById("modal").style.display = "block";
+          } */
+		  function openModal1() {
+              document.getElementById("refuseOrder").style.display = "block";
+		
+			$('#refuse-order-modal').data('id', orderId);   
+          }
+		  
+		  function closeModal1() {
+              document.getElementById("refuseOrder").style.display = "none";
           }
 
           function closeModal() {
               document.getElementById("modal").style.display = "none";
           }
           
-          const ratingStars = document.querySelectorAll('.rating-star');
-          const ratingDescription = document.querySelector('.rating-description');
-
-          ratingStars.forEach((star, index) => {
-              star.addEventListener('click', () => {
+          function starChange(event){
+				var ratingStars = $(event.target).closest('.rating-stars');
+				var ratingDescription = $(event.target).closest('.dmvG7c').find('.rating-description');
+				
+				var subRatingStar = ratingStars.find('.rating-star').toArray();
+				var number = $(event.target).data('number');
+				
                   // Remove active class from all stars
-                  ratingStars.forEach((star) => {
-                      star.classList.remove('active');
-                  });
-
+                  for (let index = 0; index < subRatingStar.length; index++) {
+                     subRatingStar[index].classList.remove('active');
+                     subRatingStar[index].classList.add('gray-star');
+                  };
+	
                   // Add active class to clicked star and previous stars
-                  for (let i = 0; i <= index; i++) {
-                      ratingStars[i].classList.add('active');
+                  for (let i = 0; i < number; i++) {
+                      subRatingStar[i].classList.add('active');
                   }
 
                   // Update rating description based on the selected rating
-                  switch (index + 1) {
+                  switch (number) {
                       case 1:
-                          ratingDescription.textContent = 'Tệ';
+                          ratingDescription.text('Terrible');
+                          ratingStars.attr('data-rate', 1);
                           break;
                       case 2:
-                          ratingDescription.textContent = 'Không hài lòng';
+                          ratingDescription.text('Poor');
+                           ratingStars.attr('data-rate', 2);
                           break;
                       case 3:
-                          ratingDescription.textContent = 'Bình thường';
+                          ratingDescription.text('Fair');
+                           ratingStars.attr('data-rate', 3);
                           break;
                       case 4:
-                          ratingDescription.textContent = 'Hài lòng';
+                          ratingDescription.text('Good');
+                           ratingStars.attr('data-rate', 4);
                           break;
                       case 5:
-                          ratingDescription.textContent = 'Tuyệt vời';
+                          ratingDescription.text('Amazing');
+                           ratingStars.attr('data-rate', 5);
                           break;
                       default:
-                          ratingDescription.textContent = '';
+                          ratingDescription.text('');
                           break;
                   }
-              });
-          });
+
+              };
           
           var thumbnailOrder;
         	var id;
@@ -918,7 +977,7 @@ margin-top: 20px;
   					//1
   					//KrPQEI
   					var KrPQEI = $('<div>').addClass('KrPQEI');
-  					KrPQEI.append($('<div>').addClass('qCUYY8').append($('<div>').addClass('_9Ro5mP').text("Puu Store")));
+  					KrPQEI.append($('<div>').addClass('qCUYY8').append($('<div>').addClass('_9Ro5mP').text("ADELA SHOP")));
   					
   					
   					var EQko8g = $('<div>').addClass('EQko8g');
@@ -934,7 +993,7 @@ margin-top: 20px;
   					}else if(order.status==4){
   						message="Đơn hàng đã được giao thành công.";
   					}
-  					var nkmfr2 = $('<span>').addClass('nkmfr2');
+  					var nkmfr2 = $('<span>').addClass('nkmfr2 text-success');
   					//nkmfr2.append($('<i>').addClass('fa fa-truck').attr('aria-hidden', true));
   					nkmfr2.append("<i class='fa fa-truck' aria-hidden='true'></i>");
   					
@@ -1033,16 +1092,12 @@ margin-top: 20px;
   					if(order.status==1){
   						var PF0AU = $('<div>').addClass('PF0-AU').append($('<button>').attr({
   		            	'data-order-id': order.id,
-  		            	'data-update-status' : 2,
-  		                'data-toggle': 'modal',
-  		                'data-target': '#refuseOrder'
+  		            	'data-update-status' : 2 
   		            }).addClass('stardust-button stardust-button--primary WgYvse cancelOrderBtn').text("Cancel")
-  		            
-  		            	.on('click', function(event) {
-  						  // Xử lý khi phần tử được click
-  						  cancleOrder(event);
-  						})
-  		            );
+		  		          .on('click', function(event) {
+							  // Xử lý khi phần tử được click
+							  showCancel(order.id);
+							}));
   						EOjXew_4IR9IT.append(PF0AU);
   					}else if(order.status==4 || order.status==2){
   						var PF0AU = $('<div>').attr({
@@ -1061,14 +1116,14 @@ margin-top: 20px;
   					var PgtIur= $('<div>').addClass('PgtIur').append($('<button>').addClass('stardust-button stardust-button--primary WgYvse btn-contact mr-10').text("Contact Seller"));
   					EOjXew_4IR9IT.append(PgtIur);
   					
-  					if((order.status==4 || order.status==2) && order.rated == false){
+  					if((order.status==4) && order.rated == false){
   						EOjXew_4IR9IT.append($('<button>').attr({
   		            	'data-order-id': order.id
   		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("Rating").on('click', function(event) {
   						  // Xử lý khi phần tử được click
   						  openModal(event);
   						}));
-  					}else if((order.status==4 || order.status==2) && order.rated == true){
+  					}else if((order.status==4) && order.rated == true){
   						EOjXew_4IR9IT.append($('<button>').attr({
   		            	'data-order-id': order.id
   		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("View rating").on('click', function(event) {
@@ -1088,9 +1143,420 @@ margin-top: 20px;
   		         totalPages = orderPageResponseDto.totalPages;
   		         size = orderPageResponseDto.size;
   		        //create pagination 
-  		     	// createPagination("#paging",pagination,currentPage,totalPages,status,key );
+  		     	 createPagination("#paging",pagination,currentPage,totalPages,status,key );
   		      },
   		      error: function(){}})}
+  		
+  		
+  		 	function showCancel(orderId){
+	  			$('#refuseOrder').modal('show');
+	  			 $('#orderIdRefuseModal').val(orderId);
+	  		}
+	   	  
+	   	  //update status
+		   var csrfToken;
+		   var buttonText;
+		   var undo =false;
+		   function updateStatus(event){
+				csrfToken = Cookies.get('XSRF-TOKEN');
+				var button = event.target;
+				buttonText = button.textContent;
+				if(buttonText=="Undo"){
+					undo = true;
+				}
+				var orderId = $('#orderIdRefuseModal').val();
+				var status =$(button).data('update-status');
+				
+				console.log("OrderId:", orderId);
+				
+				$.ajax({
+			      url: '/order/updateStatus',
+			      type: 'PUT',
+			      dataType: 'json',
+			      data: {orderId : parseInt(orderId),status: parseInt(status),undo : undo},
+			       headers: {
+					    'X-XSRF-TOKEN': csrfToken
+					  },
+			      success: function() {
+			    	  $('#refuseOrder').modal('hide');
+						$('body').removeClass('modal-open');
+						$('.modal-backdrop').remove();
+
+			        loadData(0,0,"");
+			        
+			      },
+			      error: function(jqXHR, textStatus, errorThrown){
+					  var errors = jqXHR.responseJSON;
+					  alert(errors);
+				  }})
+			}
+		   
+		   //open modal rate
+		   function openModal(event) {
+			   var button = $(event.target);
+			   
+			   $('#save-rating').attr('data-order-id-value',button.data('order-id'));
+			   $('#save-rating').removeClass("hide");
+			   $('#update-rating').addClass("hide");
+			   
+			   var content = $('#content');
+			   content.empty();
+			   var cardBody = button.closest('.card-body');
+			   cardBody.find('.x5GTyN').each(function(index) {
+				   
+				   var title = cardBody.find('.x5GTyN').eq(index).text();
+				   var size_color = cardBody.find('.vb0b-P').eq(index).text();
+				   var img =cardBody.find('.shopee-image__content--blur')[index].getAttribute('src');
+				   
+				   var rating = $('<div>').addClass('rating-modal-handler__container rating-modal-handler__container--last');
+				   var pinpOp = $('<div>').addClass('PinpOp UYED6+');
+			   	   pinpOp.append($('<div>').addClass('shopee-image__wrapper tJpxcs').append($('<div>').addClass('shopee-image__content')
+			   		.append($('<img>').addClass('shopee_img').attr('src', img))
+			   	   ));
+			   	   var u2w1su =$('<div>').addClass('U2w1su').attr('data-rate-id', -1);
+				   u2w1su.append($('<div>').addClass('D7LjRB').attr('data-id', cardBody.find('.x5GTyN').eq(index).attr('data-id')).text(title));
+			   	   u2w1su.append($('<div>').addClass('q7YFPv').text(size_color));
+			   		
+			   		pinpOp.append(u2w1su);
+			   		rating.append(pinpOp);
+			   	//star
+			   		var star = $('<div>').css('margin', '20px 0px');
+			   		var dmvG7c = ($('<div>').addClass('dmvG7c'));
+			   		dmvG7c.append($('<div>').addClass('jcQ0KT').append($('<h6>').text("Rating: ")));
+			   		var containStar= $('<div>').css('padding-left', '5px');
+			   		var ratingStars = $('<div>').attr('data-rate', 5).addClass('rating-stars');
+			   		for(var i=1; i<=5;i++){
+						ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star active').html('&#9733;').on('click', function(event) {
+					  // Xử lý khi phần tử được click
+					  starChange(event);
+						}))   
+					}
+			   		
+			   		containStar.append(ratingStars);
+					dmvG7c.append(containStar);
+					dmvG7c.append($('<span>').addClass('_6m3yfK rating-description').text("Terrible").css('color', 'rgb(237, 165, 0)'));
+			   		star.append(dmvG7c);
+			   		rating.append(star);
+			   		//jz-Ezz
+			   		var jzEzz = $('<div>').addClass('jz-Ezz');
+			   		var X3Qjvs = $('<div>').addClass('X3Qjvs').append($('<div>').addClass('CLFTQP'));
+					X3Qjvs.append($('<div>').css('position', 'relative').append($('<textarea>').addClass('_2LhMgE form-control').css('min-height', '100px').attr({
+					  'rows': '3',
+					  'placeholder': 'Please share what you like about this product with other buyers.'
+					})));
+					
+					X3Qjvs.append($('<input>').attr({'type': 'file','multiple': 'multiple'}).addClass('file-input'));
+				   	X3Qjvs.append($('<div>').attr({'images': ''}).addClass('selected-images'));
+				   	jzEzz.append(X3Qjvs);
+				   	rating.append(jzEzz);
+				   	content.append(rating);
+				   
+			   });
+			   
+			   
+			   document.getElementById("modal").style.display = "block";
+			   var fileInputs = document.getElementsByClassName('file-input');
+				for (let i = 0; i < fileInputs.length; i++) {
+					
+				  var fileInput = fileInputs[i];
+				  fileInput.addEventListener('change', function(event) {
+					  imageChange(event);
+					});
+				}
+		   }
+		   
+		   
+		// Mảng chứa các file đã chọn
+			let selectedFiles = [];
+			function imageChange(event){
+				var fileInput = event.target;
+				
+				var selectedImagesContainer = $(fileInput).closest('.X3Qjvs').find('.selected-images');
+	  			
+				// Xóa các ảnh đã hiển thị trước đó
+				  selectedImagesContainer.empty();
+				
+			    // Lấy danh sách các file đã chọn
+			    if(fileInput!=null && fileInput.files != undefined){
+					const files = fileInput.files;
+					selectedFiles=[];
+					// Thêm các file mới vào mảng
+				    for (let i = 0; i < files.length; i++) {
+				        selectedFiles.push(files[i]);
+				    }
+				}
+				
+			    // Hiển thị các ảnh đã chọn trên màn hình
+			    for (let i = 0; i < selectedFiles.length; i++) {
+			        // Tạo khung chứa ảnh
+			        const imageContainer = document.createElement('div');
+			        imageContainer.className = 'selected-image';
+			        // Tạo đối tượng ảnh
+			        const image = document.createElement('img');
+			        image.src = URL.createObjectURL(selectedFiles[i]);
+			     // Thêm ảnh vào khung chứa
+			        imageContainer.appendChild(image);
+					
+			        // Thêm khung chứa ảnh vào khung hiển thị ảnh đã chọn
+				     selectedImagesContainer.append(imageContainer);
+			       
+			    }	        
+			};
+			
+			//save rating
+			var csrfToken;
+			function saveRating() {
+				console.log("click sdb");
+				var containerRate = document.getElementsByClassName('rating-modal-handler__container');
+				csrfToken = Cookies.get('XSRF-TOKEN');
+				for (let index = 0; index < containerRate.length; index++) {
+					var inputs = containerRate[index].querySelector('.file-input').files;
+					var formData = new FormData();
+					for (let i = 0; i < inputs.length; i++) {
+			       		formData.append('file', inputs[i]);
+			    	}
+					if(containerRate[index].querySelector('.U2w1su').getAttribute('data-rate-id')!= -1){
+						formData.append('rateId',containerRate[index].querySelector('.U2w1su').getAttribute('data-rate-id'));
+					}
+					console.log($(containerRate[index]).find('.rating-stars').attr('data-rate'));
+					 formData.append('variantId', $(containerRate[index]).find('.D7LjRB').attr('data-id'));
+		             formData.append('rating', $(containerRate[index]).find('.rating-stars').attr('data-rate'));  
+		             formData.append('content', $(containerRate[index]).find('._2LhMgE').val()); 
+		             formData.append('orderId', $('#save-rating').data('order-id-value')); 
+		             
+		             $.ajax({
+		            	 url: '/rate/add',
+		 		         type: 'POST', 
+		 		         contentType: false,
+				         processData: false,
+				         data: formData,
+				         dataType: 'json',
+				         cache: false,
+				         headers: {
+					      'X-XSRF-TOKEN': csrfToken
+					     },
+					     success: function(data) {
+					    	 document.getElementById("modal").style.display = "none";
+					    	 toastr.success(data.message);
+					    	 loadData(0,0,"");
+				         },
+				         error: function(jqXHR, textStatus, errorMessage) {
+				        	 console.log("Status Code:", jqXHR.status);
+				        	    console.log("Error:", errorMessage);
+				         }
+		             });
+				}
+			}
+			
+			//view rating
+			function viewRating(event) {
+					var button = $(event.target);
+					 // Lấy button gây ra sự kiện
+					 
+					$('#update-rating').attr('data-order-id-value',button.data('order-id'));
+					$('#save-rating').addClass("hide");
+					$('#update-rating').removeClass("hide");
+					
+					var content = $('#content');
+					  content.empty();
+					var cardBody = button.closest('.card-body');
+				  
+				  
+				  
+				cardBody.find('.x5GTyN').each(function(index) {
+					
+					
+					  var x5GTyNValue = cardBody.find('.x5GTyN').eq(index).text();
+					  var vb0b = cardBody.find('.vb0b-P').eq(index).text();
+					  var img =cardBody.find('.shopee-image__content--blur')[index].getAttribute('src');
+					  
+					 
+					 
+				   		var rating = $('<div>').addClass('rating-modal-handler__container rating-modal-handler__container--last');
+				   		
+				   		var PinpOp = $('<div>').addClass('PinpOp UYED6+');
+				   		PinpOp.append($('<div>').addClass('shopee-image__wrapper tJpxcs')
+				   		.append($('<div>').addClass('shopee-image__content')
+				   		.append($('<img>').addClass('shopee_img').attr('src', img))
+				   		));
+				   		var U2w1su =$('<div>').addClass('U2w1su');
+				   		U2w1su.append($('<div>').addClass('D7LjRB').attr('data-id', cardBody.find('.x5GTyN').eq(index).attr('data-id')).text(x5GTyNValue));
+				   		U2w1su.append($('<div>').addClass('q7YFPv').text(vb0b));
+				   		
+				   		PinpOp.append(U2w1su);
+				   		rating.append(PinpOp);
+				   		//get rate 
+				   		$.ajax({
+				      url: '/rate/getByOrder?orderId='+button.data('order-id')+'&variantId='+cardBody.find('.x5GTyN').eq(index).attr('data-id'),
+				      type: 'GET',
+				      dataType: 'json',
+				      
+				      success: function(rateResponseDtos) {
+						  //rate id
+						    U2w1su.attr('data-rate-id', rateResponseDtos.id);
+						  //star
+					   		var star = $('<div>').css('margin', '20px 0px');
+					   		var dmvG7c = ($('<div>').addClass('dmvG7c'));
+					   		dmvG7c.append($('<div>').addClass('jcQ0KT').append($('<h6>').text("rate")));
+					   		
+					   		var containStar= $('<div>').css('padding-left', '5px');
+					   		var ratingStars = $('<div>').attr('data-rate', 5).addClass('rating-stars');
+					   		for(var i = 1; i < 6; i++){
+								
+								if(i <= rateResponseDtos.rating){
+									
+									ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star active').html('&#9733;').on('click', function(event) {
+									  // Xử lý khi phần tử được click
+									  starChange(event);}))
+									
+								}else{
+									ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star gray-color').html('&#9733;').on('click', function(event) {
+									  // Xử lý khi phần tử được click
+									  starChange(event);}))
+								}
+							
+							}
+					   		
+							containStar.append(ratingStars);
+							dmvG7c.append(containStar);
+							
+					   		star.append(dmvG7c);
+					   		rating.append(star);
+					   		//jz-Ezz
+					   		var jzEzz = $('<div>').addClass('jz-Ezz');
+					   		var X3Qjvs = $('<div>').addClass('X3Qjvs').append($('<div>').addClass('CLFTQP'));
+							X3Qjvs.append($('<div>').css('position', 'relative').append($('<p>').addClass('_2LhMgE form-control').text(rateResponseDtos.content!=''?rateResponseDtos.content : 'The customer did not leave any comments.')));
+					   		
+					   		var imageList=$('<div>').addClass('imageList');
+	
+							for(var i =0;i<rateResponseDtos.images.length;i++){
+								
+								  imageList.append($('<img>').attr('src', "/upload/"+rateResponseDtos.images[i].inmageForSave).addClass('shopee-image__content--blur1'))
+								
+							}
+						   		
+						   	X3Qjvs.append(imageList);
+						   	
+						   		//response
+							if(rateResponseDtos.responses.length!=0){
+								var  fwJamt =  $('<div>').addClass('fwJamt');
+								var  response;
+		
+								for(var i = 0; i < rateResponseDtos.responses.length; i++){
+									response =  $('<div>').addClass('response');
+									if(rateResponseDtos.responses[i].userResponseDto.roleName == "ADMIN"){
+										response.append($('<div>').addClass('CaoTou').text("ADELA"));
+									}else{
+										response.append($('<div>').addClass('CaoTou').text(rateResponseDtos.responses[i].userResponseDto.fullName));
+									}
+									response.append($('<div>').addClass('_2kece8').text(rateResponseDtos.responses[i].content));
+									fwJamt.append(response);
+								}
+								X3Qjvs.append(fwJamt);
+							  }
+							   
+							   	jzEzz.append(X3Qjvs);
+							   	rating.append(jzEzz);
+							   	content.append(rating);
+						  },
+		      			  error: function(){}})
+					 })
+			
+				document.getElementById("modal").style.display = "block";
+			}
+			
+			//update Rate
+			 function updateRateView(){
+					$('#save-rating').removeClass("hide");
+					$('#update-rating').addClass("hide");
+					var X3Qjvs = $('.X3Qjvs');
+					
+					for (var i = 0; i < X3Qjvs.length; i++) {
+					 
+					    var content = $(X3Qjvs[i]).find('._2LhMgE').text();
+					  
+						$(X3Qjvs[i]).empty();
+						$(X3Qjvs[i]).append($('<div>').addClass('CLFTQP'));
+						$(X3Qjvs[i]).append($('<div>').css('position', 'relative').append($('<textarea>').addClass('_2LhMgE form-control').val(content).css('min-height', '100px').attr({
+					  		'rows': '3'
+						})));
+									   	
+					   	$(X3Qjvs[i]).append($('<input>').attr({'type': 'file','multiple': 'multiple'}).addClass('file-input'));
+					   	$(X3Qjvs[i]).append($('<div>').attr({'images': ''}).addClass('selected-images'));
+					}
+					
+					var fileInputs = document.getElementsByClassName('file-input');
+					for (let i = 0; i < fileInputs.length; i++) {
+						
+					  var fileInput = fileInputs[i];
+					  fileInput.addEventListener('change', function(event) {
+						  imageChange(event);
+					  });
+					}
+			 }
+			
+			 function createPagination(navId,pagination,currentPage,totalPages,status,key ){
+		    	  $(navId).empty();
+		          
+		          pagination += '<ul class="pagination">';
+		          pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadData(' + (currentPage - 1) +','+status+', \''+key+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
+
+		         
+		              var startPage = currentPage > 2 ? currentPage - 2 : 0;
+		              var endPage = currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1;
+
+		              for (var i = startPage; i <= endPage; i++) {
+		                  pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadData(' + i +','+status+', \''+key+'\')">' + (i + 1) + '</a></li>';
+		              }
+		             //${page.totalPages > 5 && page.number < page.totalPages - 3}
+		              if ((totalPages > 5) &&  (currentPage < totalPages-3)) {
+		                
+		                  pagination += '<li class="page-item disabled"><a class="page-link" >...</a></li>';
+		              }
+		             
+		              if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
+		                  pagination += '<li><a class="page-link" onclick="loadData(' + (totalPages - 1) +','+status+', \''+key+'\')" >' + totalPages + '</a></li>';
+		              }
+
+		          pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadData(' + (currentPage + 1) +','+status+', \''+key+'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
+		          pagination += '</ul>';
+		           
+		           $(navId).append(pagination);
+		      }
+			 
+			 	var csrfToken;
+				//var orderId;
+			    function addToCart(event) {
+			        var button = event.target;
+					var id = $(button).data('order-id');
+					  csrfToken = Cookies.get('XSRF-TOKEN');
+					  
+					    // Gửi Ajax request
+					    $.ajax({
+					    	
+					      url: '/cart/addByOrder?orderId=' +id,
+					      type: 'POST',
+					      contentType: "application/json",
+					      headers: {
+					        'X-XSRF-TOKEN': csrfToken
+					      },
+					      success: function(response,textStatus, jqXHR) {
+							
+						    var contentType = jqXHR.getResponseHeader("Content-Type");
+						    if (contentType.includes("text/html")) {
+								
+						      // Redirect the user to the login page
+						      window.location.href = "/login";
+						    } 
+						    window.location.href = "/cart";
+					      },
+					      error: function(xhr, status, error) {
+							  alert(status);
+							  console.log("loi")
+					      }
+					    });
+			    }
+			
 		</script>
 	</div>
 </body>

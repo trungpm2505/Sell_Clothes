@@ -187,7 +187,7 @@
 				         if(order.status==1){
 				        	 	row.append($('<td>').append($('<span>').text("New order").addClass('badge badge-primary')));
 								row.append($('<td>').html("<button data-id="+order.id+" onclick='getOrderDetails(event)'  class='btn btn-outline-primary' type='button'>Details</button>"));
-								row.append($('<td>').addClass('text-danger').html("<button data-id="+order.id+" data-update-status='2' data-toggle='modal' data-target ='#refuseOrder'  class='btn btn-sm btn-danger' type='button'>Refuse</button> <button onclick='updateStatus(event)' data-id="+order.id+" data-update-status='3' class='btn btn-sm btn-primary' type='button'>Agree</button>"));
+								row.append($('<td>').addClass('text-danger').html("<button data-id="+order.id+" onclick='showCancel("+order.id+")' data-update-status='2'  class='btn btn-sm btn-danger' type='button'>Refuse</button> <button onclick='updateStatus(event)' data-id="+order.id+" data-update-status='3' class='btn btn-sm btn-primary' type='button'>Agree</button>"));
 				            	
 				            	
 						 }else if(order.status==2){
@@ -248,50 +248,54 @@
 		           $(navId).append(pagination);
 		      }
 			 
-			 $('#refuseOrder').on('show.bs.modal', function (e) {
-			        var button = e.relatedTarget;
-			       	var orderId = $(button).data('id');
-					  
-					$('#refuse-order-modal').data('id', orderId);      
-				                
-				   })
-			//update status
-				var csrfToken;
-				var buttonText;
-				var undo =false;
-				function updateStatus(event){
-					csrfToken = Cookies.get('XSRF-TOKEN');
-					var button = event.target;
-					buttonText = button.textContent;
-					if(buttonText=="Undo"){
-						undo = true;
-					}
-					console.log("Button:", button);
-					var orderId = $(button).data('id');
-					var status = $(button).data('update-status');
-					console.log("OrderId:", orderId);
-					console.log("Status:", status);
+			// Biến địa phương để lưu trữ giá trị orderId
+			 function showCancel(orderId){
+	  			$('#refuseOrder').modal('show');
+	  			 $('#orderIdRefuseModal').val(orderId);
+	  		}
 
-					$.ajax({
-				      url: '/order/updateStatus',
-				      type: 'PUT',
-				      dataType: 'json',
-				      data: {orderId : parseInt(orderId),status: parseInt(status),undo : undo},
-				       headers: {
-						    'X-XSRF-TOKEN': csrfToken
-						  },
-				      success: function() {
-						$('#refuseOrder').modal('hide');
-						$('body').removeClass('modal-open');
-						$('.modal-backdrop').remove();
-						loadData(0,0,false,"",null,null,null);
-				        
-				      },
-				      error: function(jqXHR, textStatus, errorThrown){
-						  var errors = jqXHR.responseJSON;
-						  alert(errors);
-					  }})
-				}
+			 //update status
+			 var csrfToken;
+			 var buttonText;
+			 var undo = false;
+
+			 function updateStatus(event) {
+			     // Lấy giá trị orderId từ biến địa phương hoặc data của modal
+			       var orderId = $('#orderIdRefuseModal').val();
+
+			     csrfToken = Cookies.get('XSRF-TOKEN');
+			     var button = event.target;
+			     buttonText = button.textContent;
+			     if (buttonText == "Undo") {
+			         undo = true;
+			     }
+
+			     console.log("OrderId:", orderId);
+
+			     $.ajax({
+			         url: '/order/updateStatus',
+			         type: 'PUT',
+			         dataType: 'json',
+			         data: {
+			             orderId: parseInt(orderId),
+			             status: parseInt($(button).data('update-status')),
+			             undo: undo
+			         },
+			         headers: {
+			             'X-XSRF-TOKEN': csrfToken
+			         },
+			         success: function () {
+			             $('#refuseOrder').modal('hide');
+			             $('.modal-backdrop').remove();
+			             loadData(0, 0, false, "", null, null, null);
+			         },
+			         error: function (jqXHR, textStatus, errorThrown) {
+			             var errors = jqXHR.responseJSON;
+			             alert(errors);
+			         }
+			     });
+			 }
+
 			 
 			 	var timeSelect = document.getElementById("time");				
 			  	var dateWrap = document.getElementById("date-wrap");
