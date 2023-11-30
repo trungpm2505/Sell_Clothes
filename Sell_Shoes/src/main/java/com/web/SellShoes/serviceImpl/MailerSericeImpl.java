@@ -49,7 +49,7 @@ public class MailerSericeImpl implements MailerService {
 	public void sendEmailToResetPassword(Account account) {
 		ConfirmationToken confirmationToken = new ConfirmationToken(String.valueOf(random.nextInt(900000) + 100000),account,LocalDateTime.now().plusMinutes(2));
 		confirmationTokenService.save(confirmationToken);
-		MailInfoDto mailInfoDto = new MailInfoDto(account.getEmail(), "Puu-Reset Your Password",
+		MailInfoDto mailInfoDto = new MailInfoDto(account.getEmail(), "ADELA-Reset Your Password",
 				"Dear "+account.getFullName()+",\r\n"
 				+ "\r\n"
 				+ "You have requested to reset the password for your account. Below is the confirmation code to complete the password reset process:\r\n"
@@ -63,7 +63,7 @@ public class MailerSericeImpl implements MailerService {
 				+ "Thank you for your attention.\r\n"
 				+ "\r\n"
 				+ "Sincerely,\r\n"
-				+ " Shop"
+				+ " ADELA"
 				)
 				
 				;

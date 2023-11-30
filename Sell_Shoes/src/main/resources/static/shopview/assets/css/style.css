@@ -3517,12 +3517,12 @@
     cursor: pointer;
 }
 
-.modal_size ul li input:checked + label {
+.size-button:checked + label{
     background-color: #ff0000;
     color: #fff;
 }
 
-.modal_size ul li input:hover + label {
+.size-button + label:hover {
     background-color: #ff0000;
     color: #fff;
 }

@@ -261,7 +261,7 @@
 
 			 function updateStatus(event) {
 			     // Lấy giá trị orderId từ biến địa phương hoặc data của modal
-			       var orderId = $('#orderIdRefuseModal').val();
+			       var orderId = event.target.getAttribute('data-id');
 
 			     csrfToken = Cookies.get('XSRF-TOKEN');
 			     var button = event.target;

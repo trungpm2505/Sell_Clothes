@@ -50,7 +50,7 @@ public class LoginController {
 
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			model.addAttribute("loginRequestDto", new LoginRequestDto());
-			return "login/login";
+			return "/login/login";
 		}
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 

@@ -91,19 +91,18 @@ h2 {
 
 .input-field label {
 	position: absolute;
-	top: 50%;
 	left: 0;
 	transform: translateY(-50%);
 	color: #fff;
 	font-size: 17px;
 	font-weight: bold;
 	pointer-events: none;
-	transition: 0.15s ease;
 }
 
 .input-field input {
 	width: 100%;
 	height: 40px;
+	margin-top 2px;
 	background: transparent;
 	border: none;
 	outline: none;

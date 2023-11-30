@@ -7,50 +7,12 @@
 </head>
 <body>
 	<div th:fragment="header">
-		<header>
+		<header class="container-fluid">
 
 			<div class="header-top">
 
 				<div class="container">
 
-					<ul class="header-social-container">
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-facebook"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-twitter"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-instagram"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-linkedin"></ion-icon>
-						</a></li>
-
-					</ul>
-
-
-
-					<div class="header-top-actions">
-
-						<select name="currency">
-
-							<option value="usd">USD &dollar;</option>
-							<option value="eur">EUR &euro;</option>
-
-						</select> <select name="language">
-
-							<option value="en-US">English</option>
-							<option value="es-ES">Espa&ntilde;ol</option>
-							<option value="fr">Fran&ccedil;ais</option>
-
-						</select>
-
-					</div>
 
 				</div>
 
@@ -103,15 +65,14 @@
 											</ul>
 										</div>
 									</div>
-								</li>
+								</li><!-- 
 								<button class="action-btn">
 									<ion-icon name="heart-outline"></ion-icon>
 									<span class="count">0</span>
-								</button>
+								</button> -->
 
 								<button class="action-btn">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-									<span class="count">0</span>
+									<a href="/cart"><ion-icon name="bag-handle-outline"></ion-icon></a>
 								</button>
 							</ul>
 						</div>
@@ -140,7 +101,7 @@
 						<li class="menu-category"><a href="/shop/shop"
 							class="menu-title">Shop</a>
 
-							<ul class="dropdown-list">
+							<!-- <ul class="dropdown-list">
 
 								<li class="dropdown-item"><a href="/shop/checkout">Checkout</a>
 								</li>
@@ -151,11 +112,11 @@
 
 								<li class="dropdown-item"><a href="#">Bracelets</a></li>
 
-							</ul></li>
+							</ul> --></li>
 
 						<li class="menu-category"><a href="#" class="menu-title">Perfume</a>
 
-							<ul class="dropdown-list">
+							<!-- <ul class="dropdown-list">
 
 								<li class="dropdown-item"><a href="#">Clothes Perfume</a></li>
 
@@ -166,7 +127,7 @@
 
 								<li class="dropdown-item"><a href="#">Air Freshener</a></li>
 
-							</ul></li>
+							</ul> --></li>
 
 						<li class="menu-category"><a
 							href="shop/shopcontent/my-account1.html" class="menu-title">Account</a>
