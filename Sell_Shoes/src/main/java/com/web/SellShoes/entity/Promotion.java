@@ -30,25 +30,38 @@ public class Promotion {
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate createAt = LocalDate.now();
-	
-	@Column(name = "name", nullable = false, length = 300)
+
+	@Column(name = "name", nullable = false, length = 300, columnDefinition = "NVARCHAR(300)")
 	private String name;
-	
+
 	@Column(name = "coupon_code", unique = true)
 	private String couponCode;
-	
+
 	@Column(name = "discount_type")
 	private int discountType;
-	
+
 	@Column(name = "discount_value")
 	private long discountValue;
-	
+
 	@Column(name = "maximum_discount_value")
 	private long maximumDiscountValue;
-	
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate expiredAt;
+
+	@Column(name = "is_active")
+	private boolean isActive;
 	
+	@Column(name = "is_public")
+	private boolean isPublic;
+	
+	@Column(nullable = true)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate deleteAt;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate updateAt;
+
 	@OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<>();
 }

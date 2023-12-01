@@ -37,19 +37,22 @@ public class Rate {
 	@Column(nullable = false)
     private int rating;
 	
-	@Column(nullable = false, length = 1500)
+	@Column(nullable = false,length = 1500, columnDefinition = "NVARCHAR(1500)")
     private String content;
     
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "variant_id", nullable = false)
+	@JoinColumn(name = "variant_id", nullable = false, referencedColumnName = "id")
 	private Variant variant;
     
     @ManyToOne
     @JoinColumn(name = "account_id",nullable = false, referencedColumnName = "id")
     private Account account;
+    
+    @OneToMany(mappedBy = "rate", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ResponseRate> responses = new ArrayList<>();
 	
-//    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	private List<Image> images = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Image> images = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "id")

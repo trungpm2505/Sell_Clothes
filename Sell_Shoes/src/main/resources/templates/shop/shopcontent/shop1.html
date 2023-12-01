@@ -12,8 +12,125 @@
 <link rel="stylesheet" href="/shopview/assets/css/style.css">
 <link rel="stylesheet" href="/shopview/assets/css/responsive.css">
 <script src="/shopview/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="/shopview/assets/css/style-prefix.css">
+	 <link rel="stylesheet" href="/shopview/assets/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" href="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" href="/shopview/assets/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
+    <!-- Bao gồm Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<style>
+.del {
+	text-decoration: line-through;
+	opacity: 0.7;
+}
+
+.product_price {
+	margin-right: 10px; /* Đặt khoảng cách 10px giữa hai thẻ */
+}
+
+.modal_size, .sidebar_widget{
+    display: flex;
+    align-items: center;
+}
+
+.modal_size h2, .sidebar_widget h2 {
+    margin-right: 10px; 
+}
+
+.box_quantity {
+    display: inline-flex;
+    align-items: center;
+}
+
+.box_quantity .minus,
+.box_quantity .plus {
+    cursor: pointer;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    user-select: none;
+    border-radius: 2px;
+}
+
+.box_quantity input {
+    width: 60px; 
+}
+.box_quantity .minus:hover,
+.box_quantity .plus:hover {
+  background-color: #ff0000;
+}
+
+.error-text {
+    display: block;
+    clear: both; /* Đảm bảo rằng phần tử sẽ xuống dòng mới */
+    margin-top: 5px; /* Khoảng cách giữa chữ báo lỗi và input quantity */
+}
+
+#category option:hover {
+	cursor: pointer;
+	background-color: #f0f0f0; /* Màu nền khi hover */
+	background-color: #f0f0f0;
+    border: 1px solid #ddd; /* Đường viền khi hover */
+    border-radius: 5px; /* Bo tròn góc */
+    padding: 10px;
+}
+
+#category option {
+	padding-top: 5px;
+	padding-bottom: 5px /* Khoảng cách giữa các option */
+}
+
+.layere_categorie {
+    border: 1px solid #ddd; /* Đặt đường viền */
+    border-radius: 5px; /* Bo tròn góc */
+    padding: 10px; /* Khoảng cách nội dung từ mép */
+}
+#category option:checked {
+    background-color: #15a7b4; /* Màu nền khi được chọn */
+    font-weight: bold; /* In đậm khi được chọn */
+}
+.layere_categorie ul {
+    list-style: none; /* Ẩn dấu hiệu danh sách */
+    padding: 0;
+}
+
+.layere_categorie li {
+    margin-bottom: 5px; /* Khoảng cách giữa mỗi mục danh sách */
+}
+
+.layere_categorie input[type="radio"] {
+    appearance: none; /* Ẩn giao diện mặc định của radio button */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px; /* Độ rộng mong muốn của radio button */
+    height: 20px; /* Chiều cao mong muốn của radio button */
+    border: 1px solid #ddd; /* Đường viền */
+    border-radius: 5px; /* Bo tròn góc */
+    outline: none; /* Ẩn đường viền khi được focus */
+    margin-right: 5px; /* Khoảng cách giữa mỗi radio button */
+}
+
+.layere_categorie input[type="radio"]:checked {
+    background-color: #15a7b4; /* Màu nền khi được chọn */
+}
+
+.layere_categorie h4 {
+    background-color: #15a7b4; /* Màu nền */
+    color: #fff; /* Màu chữ */
+    padding: 10px; /* Khoảng cách với nội dung */
+    border-radius: 5px; /* Bo tròn góc */
+}
+
+
+</style>
 <!--
     - favicon
   -->
@@ -24,7 +141,6 @@
     - custom css link
   -->
 <link rel="stylesheet" href="/shopview/assets/css/style-prefix.css">
-
 </head>
 <body>
 	<div th:replace="shop/fragments/header::header"></div>
@@ -47,402 +163,75 @@
 		<!--pos home section-->
 		<div class=" pos_home_section">
 			<div class="row pos_home">
-				<div class="col-lg-3 col-md-12">
+				<div class="col-lg-2 col-md-2">
 					<!--layere categorie"-->
-					<div class="sidebar_widget shop_c">
-						<div class="categorie__titile">
+					<div class="sidebar_widget1 shop_c">
+						<div class="layere_categorie categorie__titile">
 							<h4>Categories</h4>
 							<div class="form-group">
-								<label for="exampleFormControlSelect2"> </label> <select
-									class="form-select" size="3" aria-label="Size 3 select example">
+								<label for="exampleFormControlSelect2"> </label> <select onclick="searchButtonClick()"
+									th:id="category"
+									style="padding-left: 0px; height: 120px"
+									class="form-select" size="5" aria-label="Size 3 select example">
 									<option selected>Open this select menu</option>
 									<option value="1">One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>
-									<option value="4">One</option>
+									<option value="4">Four</option>
 									<option value="5">Two</option>
 									<option value="6">Three</option>
 								</select>
 							</div>
 						</div>
-						<div class="layere_categorie">
-							<div>
-								<h4>Brand</h4>
-							</div>
-							<ul>
-								<li><input id="Reebok" type="checkbox"> <label
-									for="Reebok">Reebok<span>(10)</span></label></li>
-								<li><input id="Adidas" type="checkbox"> <label
-									for="Adidas">Adidas <span>(2)</span></label></li>
-								<li><input id="Nike" type="checkbox"> <label
-									for="Nike">Nike<span>(3)</span></label></li>
-								<li><input id="Puma" type="checkbox"> <label
-									for="Puma">Puma<span>(4)</span></label></li>
-								<li><input id="Converse" type="checkbox"> <label
-									for="Converse">Converse<span>(4)</span></label></li>
-								<li><input id="Alexander Mqueen" type="checkbox"> <label
-									for="Alexander Mqueen">Alexander Mqueen<span>(4)</span></label>
-								</li>
-							</ul>
-						</div>
 					</div>
 					<!--layere categorie end-->
 
 					<!--color area start-->
-					<div class="sidebar_widget color">
-						<h2>Color</h2>
-						<div class="widget_color">
-							<ul>
-
-								<li><a href="#">Black <span>(10)</span></a></li>
-
-								<li><a href="#">Orange <span>(12)</span></a></li>
-
-								<li><a href="#">Blue <span>(14)</span></a></li>
-
-								<li><a href="#">Yellow <span>(15)</span></a></li>
-
-								<li><a href="#">pink <span>(16)</span></a></li>
-
-								<li><a href="#">green <span>(11)</span></a></li>
-
-							</ul>
-						</div>
+					<div class="sidebar_widget1 color">
+					    <div class="layere_categorie">
+					        <div>
+					            <h4>Color</h4>
+					        </div>
+					        
+					        <ul id="colorContainer">
+					           
+					        </ul>
+					    </div>
 					</div>
-					<!--color area end-->
-					<!-- size start -->
-					<div class="sidebar_widget shop_c">
-						<div class="layere_categorie">
-							<div>
-								<h4>Size</h4>
-							</div>
-							<ul>
-								<li><input id="36" type="checkbox"> <label for="36">36</label>
-								</li>
-								<li><input id="37" type="checkbox"> <label for="37">37</label>
-								</li>
-								<li><input id="38" type="checkbox"> <label for="38">38</label>
-								</li>
-								<li><input id="39" type="checkbox"> <label for="39">39</label>
-								</li>
-								<li><input id="40" type="checkbox"> <label for="40">40</label>
-								</li>
-								<li><input id="41" type="checkbox"> <label for="41">41</label>
-								</li>
-								<li><input id="42" type="checkbox"> <label for="42">42</label>
-								</li>
-								<li><input id="43" type="checkbox"> <label for="43">43</label>
-								</li>
-								<li><input id="44" type="checkbox"> <label for="44">44</label>
-								</li>
-							</ul>
-						</div>
+					
+					<!-- Size area start -->
+					<div class="sidebar_widget1 shop_c">
+					    <div class="layere_categorie">
+					        <div>
+					            <h4>Size</h4>
+					        </div>
+					        <ul id="sizeContainer">
+					           
+					        </ul>
+					    </div>
 					</div>
+
 					<!-- size and -->
 					<!--price slider start-->
-					<div class="sidebar_widget price">
-						<h2>Price</h2>
+					<div class="sidebar_widget1 price">
+					<div class="layere_categorie">
+						<h4>Price</h4>
 						<div class="ca_search_filters">
-							<input type="text" name="text" id="amount">
+							<input class="form-control" type="text" name="text" id="amount">
 							<div id="slider-range"></div>
+						</div>
 						</div>
 					</div>
 					<!--price slider end-->
 				</div>
-				<div class="col-lg-9 col-md-12">
-					<!--banner slider start-->
-					<!-- <div class="banner_slider mb-35">
-                                            <img src="/shopview/assets/img/banner/bannershop.png" alt="">
-                                        </div>  -->
-					<!--banner slider start-->
-
-					<!--shop toolbar start-->
-					<div class="shop_toolbar mb-35">
-
-						<div class="list_button">
-							<ul class="nav" role="tablist">
-								<li><a class="active" data-toggle="tab" href="#large"
-									role="tab" aria-controls="large" aria-selected="true"><i
-										class="fa fa-th-large"></i></a></li>
-
-							</ul>
-						</div>
-						<div class="page_amount">
-							<p>Showing 1–9 of 21 results</p>
-						</div>
-
-						<div class="select_option">
-							<form action="#">
-								<label>Sort By</label> <select name="orderby" id="short">
-									<option selected="" value="1">All</option>
-									<option value="1">Price: Lowest</option>
-									<option value="1">Price: Highest</option>
-									<option value="1">Product Name:A</option>
-									<option value="1">Product Name: Z</option>
-								</select>
-							</form>
-						</div>
-					</div>
-					<!--shop toolbar end-->
+				<div class="col-lg-10 col-md-10">
 
 					<!--shop tab product-->
 					<div class="shop_tab_product">
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="large" role="tabpanel">
-								<div class="row">
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/adidas1.jpg" alt=""></a>
-												<div class="img_icone">
-													<img src="/shopview/assets/img/cart/span-new.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$50.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">ULTRABOOST LIGHT PARLEY
-														NON DYED</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/adidas2.jpg" alt=""></a>
-												<div class="hot_img">
-													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$40.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">ULTRABOOST LIGHT CLOUD
-														WHITE / SOLAR RED</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/adidas3.jpg" alt=""></a>
-												<div class="img_icone">
-													<img src="/shopview/assets/img/cart/span-new.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$60.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">ULTRABOOST LIGHT PARLEY
-														CORE BLACK</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/nike1.jpg" alt=""></a>
-												<div class="hot_img">
-													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$65.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">AIR JORDAN 1 LOW NAVY
-														(2004)</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/nike2.jpg" alt=""></a>
-												<div class="img_icone">
-													<img src="/shopview/assets/img/cart/span-new.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$50.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">AIR JORDAN 1 LOW SHADOW
-														BROWN</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/nike3.jpg" alt=""></a>
-												<div class="hot_img">
-													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$40.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">AIR JORDAN 1 LOW LUCKY
-														GREEN/AQUATONE</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/nike4.jpg" alt=""></a>
-												<div class="img_icone">
-													<img src="/shopview/assets/img/cart/span-new.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$60.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">ULTRABOOST LIGHT WHITE
-														GREEN</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/nike5.jpg" alt=""></a>
-												<div class="hot_img">
-													<img src="/shopview/assets/img/cart/span-hot.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$65.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">AIR JORDAN 1 LOW SE
-														MIGHTY SWOOSHERS</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-6">
-										<div class="single_product">
-											<div class="product_thumb">
-												<a href="single-product.html"><img
-													src="/shopview/assets/img/product/adidas4.jpg" alt=""></a>
-												<div class="img_icone">
-													<img src="/shopview/assets/img/cart/span-new.png" alt="">
-												</div>
-
-											</div>
-											<div class="product_content">
-												<span class="product_price">$50.00</span>
-												<h3 class="product_title">
-													<a href="single-product.html">ULTRABOOST LIGHT CLOUD
-														WHITE / SOLAR RED</a>
-												</h3>
-											</div>
-											<div class="product_info">
-												<ul>
-													<li><a href="/shop/product" title=" Add to Wishlist ">View
-															Detail</a></li>
-													<li><a href="#" data-toggle="modal"
-														data-target="#modal_box" title="Quick view">Add to
-															cart</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
+								<div class="row productAll">
+									
 								</div>
 							</div>
 
@@ -452,25 +241,11 @@
 					<!--shop tab product end-->
 
 					<!--pagination style start-->
-					<div class="pagination_style">
-						<div class="item_page">
-							<form action="#">
-								<label for="page_select">show</label> <select id="page_select">
-									<option value="1">6</option>
-									<option value="2">9</option>
-									<option value="3">12</option>
-									<option value="3">15</option>
-								</select> <span>Products by page</span>
-							</form>
-						</div>
+					<div class="pagination_style d-flex justify-content-end">
+						
 						<div class="page_number">
 							<span>Pages: </span>
-							<ul>
-								<li>«</li>
-								<li class="current_number">1</li>
-								<li><a href="#">2</a></li>
-								<li>»</li>
-							</ul>
+							 <nav class="float-right" th:id="paging"></nav>
 						</div>
 					</div>
 					<!--pagination style end-->
@@ -530,11 +305,1016 @@
 				</div>
 			</div>
 		</div>
+		</div>
+		<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal_body">
+                    <div class="container">
+                        <div class="row">
+                                <div class="product_details video_details">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6">
+                            <div class="single_product_pics">
+                                <div class="row">
+
+                                    <div class="col-lg-12 image_col order-lg-2 order-1">
+                                        <div class="single_product_image">
+                                            <div class="single_product_image_background">
+                                                <img class="main-image" src="/shopview/assets/img/product/a10.jpg"
+                                                    alt="Product Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="product_slider_container">
+                                            <div class="owl-carousel owl-theme product_slider imageSmall">
+                                                <!-- Danh sách ảnh nhỏ -->
+                                                <div class="owl-item product_slider_item">
+                                                    <div class="product_image">
+                                                        <img class="thumbnail-image" src="/shopview/assets/img/product/a11.jpg"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                                <!-- Thêm danh sách các ảnh nhỏ khác -->
+                                            </div>
+
+                                            <!-- Slider Navigation -->
+
+                                            <div
+                                                class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                            </div>
+                                            <div
+                                                class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-lg-7 col-md-7 col-sm-12 signle">
+                                <div class="modal_right">
+                                    <div class="modal_title mb-10">
+                                        <h2>Handbag feugiat</h2> 
+                                    </div>
+                                    <div class="modal_price mb-10">
+                                        <span class="new_price">$64.99</span>    
+                                        <span class="old_price">$78.99</span>    
+                                    </div>
+                                    <div class="modal_content mb-10">
+                                        <p>Short-sleeved blouse with feminine draped sleeve detail.</p>    
+                                    </div>
+                                    <div class="product_d_size mb-20">
+							<div class="modal_size mb-15">
+		                                 <h2>size</h2>
+		                                  <ul>
+		                                      <li>
+											    <input type="radio" id="size-36" name="size" value="36">
+											    <label for="size-36">36</label>
+											  </li>
+											   <li>
+											    <input type="radio" id="size-37" name="size" value="37">
+											    <label for="size-37">37</label>
+											  </li>
+											   <li>
+											    <input type="radio" id="size-38" name="size" value="38">
+											    <label for="size-38">38</label>
+											  </li>
+											   <li>
+											    <input type="radio" id="size-39" name="size" value="39">
+											    <label for="size-39">39</label>
+											  </li>
+		                                  </ul>
+		                             </div>
+								</div>
+                                   <div>
+                                    <div class="sidebar_widget color ">
+									<h2>Choose Color</h2>
+									<div class="widget_color">
+										<ul>
+											<li>
+											    <input class="color-button" type="radio" id="color_red" name="color">
+											    <label for="color_red">Red</label>
+											</li>
+											<li>
+											    <input class="color-button" type="radio" id="color_white" name="color">
+											    <label for="color_white">White</label>
+											</li>
+											<li>
+											    <input class="color-button" type="radio" id="color_black" name="color">
+											    <label for="color_black">Black</label>
+											</li>
+		
+										</ul>
+									</div>
+								</div>
+                                   </div>
+                                    <div class="modal_add_to_cart mb-15">
+                                        <form action="#">
+                                            <input min="0" max="100" step="2" value="1" type="number">
+                                            <button type="submit">add to cart</button>
+                                        </form>
+                                    </div>   
+                                    <div class="modal_description mb-15">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>    
+                                    </div> 
+                                    <div class="modal_social">
+                                        <h2>Share this product</h2>
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>    
+                                    </div>      
+                                </div>    
+                            </div>    
+                        </div>     
+                    </div>
+                </div>    
+            </div>
+        </div>
+        </div>
+    </div>
 	</div>
 	<div th:replace="shop/fragments/footer::footer"></div>
-	   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="/shopview/assets/js/popper.js"></script>
+    <script src="/shopview/assets/js/ajax-mail.js"></script>
+    <script src="/shopview/assets/js/plugins.js"></script>
+    <!-- <script src="/shopview/assets/js/script.js"></script> -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+    <script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+	<script>
+    loadCategory();
+    function loadCategory() {
+      const categorySelect = document.getElementById('category');
+      $.ajax({
+          url: "/category/getAll",
+          type: "GET",
+          dataType: 'json',
+          success: function (categories) {
+            if (categories.length != 0) {
+              categorySelect.innerHTML = "<option value='0' selected>Choose category</option>";
+              categories.forEach(function (category) {const optionElement = document.createElement('option');
+                  optionElement.value = category.id;
+                  optionElement.textContent = category.categoryName;
+                  categorySelect.appendChild(optionElement);
+                });
 
+            } else {
+
+            }
+          },
+          error: function (jqXHR, textStatus, errorMessage) {
+            var error = jqXHR.responseJSON
+              || jqXHR.responseText;
+          }
+        });
+    }
+    
+    function loadSize() {
+        const sizeContainer = document.getElementById('sizeContainer');
+
+        $.ajax({
+            url: "/size/getAll",
+            type: "GET",
+            dataType: 'json',
+            success: function(sizes) {
+                if (sizes.length !== 0) {
+                	const allLiElement = document.createElement('li');
+                    const allInputElement = document.createElement('input');
+                    allInputElement.type = 'radio';
+                    allInputElement.name = 'size';
+                    allInputElement.id = 'size_all';
+                    allInputElement.value = '0';
+
+                    const allLabelElement = document.createElement('label');
+                    allLabelElement.setAttribute('for', 'size_all');
+                    allLabelElement.textContent = 'All';
+
+                    allLiElement.appendChild(allInputElement);
+                    allLiElement.appendChild(allLabelElement);
+                    sizeContainer.appendChild(allLiElement);
+                    allInputElement.addEventListener('click', function() {
+                        // Lấy giá trị của radio button được chọn
+                        selectedSizeId = allInputElement.value;
+                        searchButtonClick();
+                        // Gọi hàm hoặc thực hiện các thao tác khác với giá trị đã chọn
+                    });
+                    
+
+                    sizes.forEach(function(size) {
+                        const liElement = document.createElement('li');
+                        const inputElement = document.createElement('input');
+                        inputElement.type = 'radio';
+                        inputElement.name = 'size';
+                        inputElement.id = `size_${size.id}`;
+                        inputElement.value = size.id;
+
+                        const labelElement = document.createElement('label');
+                        labelElement.setAttribute('for', `size_${size.id}`);
+                        labelElement.textContent = size.name;
+
+                        liElement.appendChild(inputElement);
+                        liElement.appendChild(labelElement);
+                        sizeContainer.appendChild(liElement);
+
+                        inputElement.addEventListener('click', function() {
+                            // Lấy giá trị của radio button được chọn
+                            selectedSizeId = inputElement.value;
+                            searchButtonClick();
+                        });
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorMessage) {
+                var error = jqXHR.responseJSON || jqXHR.responseText;
+            }
+        });
+    }
+
+    loadSize();
+    
+    function loadColor() {
+        const colorContainer = document.getElementById('colorContainer');
+
+        $.ajax({
+            url: "/color/getAll",
+            type: "GET",
+            dataType: 'json',
+            success: function(colors) {
+                if (colors.length !== 0) {
+                    // Thêm radio button "All" vào đầu danh sách
+                    const allLiElement = document.createElement('li');
+                    const allInputElement = document.createElement('input');
+                    allInputElement.type = 'radio';
+                    allInputElement.name = 'color';
+                    allInputElement.id = 'color_all';
+                    allInputElement.value = '0';
+
+                    const allLabelElement = document.createElement('label');
+                    allLabelElement.setAttribute('for', 'color_all');
+                    allLabelElement.textContent = 'All';
+
+                    allLiElement.appendChild(allInputElement);
+                    allLiElement.appendChild(allLabelElement);
+                    colorContainer.appendChild(allLiElement);
+                    allInputElement.addEventListener('click', function() {
+                        // Lấy giá trị của radio button được chọn
+                        selectedColorId = allInputElement.value;
+                        searchButtonClick();
+                    });
+                    
+
+                    colors.forEach(function(color) {
+                        const liElement = document.createElement('li');
+                        const inputElement = document.createElement('input');
+                        inputElement.type = 'radio';
+                        inputElement.name = 'color';
+                        inputElement.id = `color_${color.id}`;
+                        inputElement.value = color.id;
+
+                        const labelElement = document.createElement('label');
+                        labelElement.setAttribute('for', `color_${color.id}`);
+                        labelElement.textContent = color.name;
+
+                        liElement.appendChild(inputElement);
+                        liElement.appendChild(labelElement);
+                        colorContainer.appendChild(liElement);
+
+                        inputElement.addEventListener('click', function() {
+                            // Lấy giá trị của radio button được chọn
+                            selectedColorId = inputElement.value;
+                            console.log('Đã chọn màu có ID: ' + selectedColorId);
+                            searchButtonClick();
+                            // Gọi hàm hoặc thực hiện các thao tác khác với giá trị đã chọn
+                        });
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorMessage) {
+                var error = jqXHR.responseJSON || jqXHR.responseText;
+            }
+        });
+    }
+
+
+    loadColor();
+
+
+
+    loadAllProduct(0, 0, 0, 0, 0,null, null, "");
+    function loadAllProduct(page, categoryId, brandId, sizeId, colorId, minPrice, maxPrice, keyword) {
+      $.ajax({
+        url: '/product/getProductView',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          page: page,categoryId: categoryId,brandId: brandId,sizeId: sizeId,colorId: colorId, minPrice : minPrice, maxPrice : maxPrice, keyword: keyword
+        },
+        success: function (data) {
+          $('.productAll').empty();
+
+          $.each(data.productResponseDtos, function (index, product) {
+            var col = $('<div>').addClass('col-lg-3 col-md-6');
+            var single_product = $('<div>').addClass('single_product');
+            var product_thumb = $('<div>').addClass('product_thumb');
+
+            var product_content = $('<div>').addClass('product_content');
+            var product_info = $('<div>') .addClass( 'product_info');
+            //image
+            $.each(
+                product.images,function (i,image) {
+                  if (product.images[i].isDefault == true) {
+                    product_thumb.append($('<a>',{
+                          href: '/product/details?productId='+product.id}).append($('<img>').attr('src',"../upload/" + image.inmageForSave).addClass('card-img-top')));
+                  }
+                });
+
+            //variant
+            $.each( product.variantResponseDtos,function (i,variant) {
+                  if (i === 0) {
+                    var formattedPrice = variant.price.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+
+                    if (variant.currentPrice != null) {
+                      var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+                      product_content.append($('<span>').text(formattedCurentPrice).addClass('product_price '));
+                      product_content.append($('<span>').text(formattedPrice).addClass('product_price del'));
+
+                    } else {
+                      product_content.append($('<span>').text(formattedPrice).addClass('product_price'));
+                    }
+
+                  }
+                });
+            product_content.append($('<div>').text(product.id).hide().addClass('id'));
+            product_content.append($('<h3>').append($('<a>',{
+                      href: '/product/details?productId='+product.id,
+                      text: product.title
+                    }).addClass('product_title')));
+            product_info.append($('<ul>').append(
+            	  $('<li>').append($('<a>',{
+                         href: '/product/details?productId='+product.id,
+                         text: 'View Detail',
+                       })),
+                  $('<li>').append($('<a>',{
+                          href: '#',
+                          text: 'Add to cart',
+                          'data-toggle': 'modal',
+                          'data-target': '#modal_box',
+                          onclick: 'loadData(' + product.id + ');'
+                   }))));
+
+            single_product.append(product_thumb)
+            single_product.append(product_content)
+            single_product.append(product_info)
+
+            col.append(single_product);
+            $('.productAll').append(col);
+          });
+          pagination = '';
+	         currentPage = data.currentPage;
+	         totalPages = data.totalPages;
+	         size = data.size;
+	        //create pagination 
+		     createPagination("#paging",pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId,minPrice, maxPrice, keyword );
+        }
+      });
+    }
+    
+    function createPagination(navId,pagination,currentPage,totalPages,categoryId,brandId,sizeId,colorId,minPrice,maxPrice, keyword ){
+  	  $(navId).empty();
+        
+        pagination += '<ul class="pagination">';
+        pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadAllProduct(' + (currentPage - 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
+
+       
+            var startPage = currentPage > 2 ? currentPage - 2 : 0;
+            var endPage = currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1;
+
+            for (var i = startPage; i <= endPage; i++) {
+                pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')">' + (i + 1) + '</a></li>';
+            }
+           //${page.totalPages > 5 && page.number < page.totalPages - 3}
+            if ((totalPages > 5) &&  (currentPage < totalPages-3)) {
+                pagination += '<li class="page-item disabled"><a class="page-link" >...</a></li>';
+            }
+           
+            if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
+                pagination += '<li><a class="page-link" onclick="loadAllProduct(' + i +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')">';
+            }
+
+        pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadAllProduct(' + (currentPage + 1) +','+categoryId +','+brandId +','+sizeId +','+colorId +','+minPrice +','+maxPrice +',\''+keyword+'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
+        pagination += '</ul>';
+         
+        $(navId).append(pagination);
+    }
+    
+    //var searchButton = document.getElementById("searchButton");
+	// var  keyInput = document.getElementById("key");
+	 
+      
+    	      /*--------------------------
+    	     ScrollUp
+    	    ---------------------------- */
+    	    $.scrollUp({
+    	        scrollText: '<i class="fa fa-angle-double-up"></i>',
+    	        easingType: 'linear',
+    	        scrollSpeed: 900,
+    	        animation: 'fade'
+    	    });
+    		
+    	    
+    	     /* brand activation */
+    	    $('.brand_active').owlCarousel({
+    	        animateOut: 'fadeOut',
+    			loop: true,
+    	        nav: true,
+    	        autoplay: false,
+    	        autoplayTimeout: 8000,
+    	        items: 6,
+    	        dots:true,
+    	        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+    	        responsiveClass:true,
+    			responsive:{
+    				0:{
+    					items:1,
+    				},
+    	            480:{
+    					items:3,
+    				},
+    	            992:{
+    					items:4,
+    				},
+    	            1200:{
+    					items:6,
+    				},
+
+    			  }
+    	    });
+    	    
+    	    
+    	    $("#slider-range").slider({
+    	        range: true,
+    	        min: 0,
+    	        max: 2000000,
+    	        step: 10000,
+    	        values: [0, 1000000],
+    	        slide: function (event, ui) {
+    	        	minPrice = ui.values[0];
+    	            maxPrice = ui.values[1];
+    	            $("#amount").val(ui.values[0].toLocaleString('vi-VN') + "đ" + " - " + ui.values[1].toLocaleString('vi-VN') + "đ");
+    	        },
+    	        change: function(event, ui) {
+    	            searchButtonClick();
+    	        }
+    	    });
+
+    	    // Đặt giá trị mặc định của input khi trang web được tải
+    	    $("#amount").val(
+    	        $( "#slider-range" ).slider("values", 0).toLocaleString('vi-VN') + "đ" +
+    	        " - " +
+    	        $( "#slider-range" ).slider("values", 1).toLocaleString('vi-VN') + "đ"
+    	    );
+
+    	      
+
+    	     var selectedColorId;
+    		  var selectedSizeId;
+    		  var minPrice;
+    		  var maxPrice;
+    	      function searchButtonClick() {
+    			  var key = "";
+    			  var categoryId = document.getElementById("category").value;
+    			  loadAllProduct(0, categoryId, 0, selectedSizeId, selectedColorId, minPrice,maxPrice, key);
+    		  }
+    	      
+    	      
+    	//////////////
+    	 var ProductDetails = {
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
+	            var propertyList = $('<ul>'); // Tạo một danh sách ul
+	            var addedProperties = {};
+	
+	            $.each(variantList, function(i, variant) {
+	                // Nếu thuộc tính chưa được thêm vào danh sách
+	                if (!addedProperties[variant[propertyName]]) {
+	                    addedProperties[variant[propertyName]] = true;
+	
+	                    var id = variant[propertyName];
+	                    var listItem = $('<li>');
+	
+	                    var propertyRadio = $('<input>').attr({
+	                        type: 'radio',
+	                        name: propertyName,
+	                        value: variant[propertyName + 'Id'],
+	                        id: id,
+	                        class: propertyName + '-button' // Thêm class tại đây
+	                    });
+	
+	                    // Tạo label và thiết lập for attribute
+	                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
+	
+	                    // Thêm input radio và label vào mục li
+	                    listItem.append(propertyRadio).append(propertyLabel);
+	
+	                    // Thêm mục li vào danh sách
+	                    propertyList.append(listItem);
+	                }
+	            });
+	
+	            if (propertyName === 'size') {
+	                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
+	                propertyDiv.append(propertyList);
+	                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
+	                productDPropertyDiv.append(propertyDiv);
+	                container.append(productDPropertyDiv);
+	            } else {
+	                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
+	                container.append(propertyDiv);
+	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
+	            }
+	        }
+    	}
+    	
+	    function loadData(productId) {	
+		    	globalVariantId = null;
+    		// Hủy bỏ Owl Carousel cũ trước khi tạo mới
+    		 $('.owl-carousel.owl-theme.product_slider').trigger('destroy.owl.carousel');
+
+	        $.ajax({
+	            url: '/product/get?productId=' + productId,
+	            type: 'GET',
+	            //dataType: 'json',
+	            success: function(data) {
+	            	
+	            	$('.single_product_image').empty();
+	            	 $('.owl-carousel.owl-theme.product_slider').empty();
+	                // Thêm ảnh lớn vào .single_product_image (chỉ lấy ảnh có isDefault)
+	                if (data.images && data.images.length > 0) {
+	                    $.each(data.images, function(i, image) {
+	                        if (image.isDefault) {
+	                            var imageDiv = $('<div>').addClass('single_product_image_background');
+	                            var imageUrl = '/upload/' + image.inmageForSave;
+	                            var img = $('<img>').addClass('main-image').attr({
+	                                'src': imageUrl,
+	                                'alt': 'Product Image'
+	                            });
+
+	                            imageDiv.append(img);
+	                            $('.single_product_image').append(imageDiv);
+	                        }
+	                        
+	                        var imageDiv = $('<div>').addClass('owl-item product_slider_item');
+	                        var productImageDiv = $('<div>').addClass('product_image');
+	                        var imageUrl = '/upload/' + image.inmageForSave;
+	                        var img = $('<img>').addClass('thumbnail-image').attr({
+	                            'src': imageUrl,
+	                            'alt': 'Product Image'
+	                        });
+
+	                        productImageDiv.append(img);
+	                        imageDiv.append(productImageDiv);
+
+	                        // Thêm vào .imageSmall
+	                        $('.owl-carousel.owl-theme.product_slider').append(imageDiv);
+	                        
+	                    });
+	                    initSlider();
+	                    var thumbnails = $('.thumbnail-image');
+
+	   	             // Xử lý sự kiện khi hover vào ảnh nhỏ
+	   	             thumbnails.on('mouseover', function () {
+	   	                 // Lấy URL của ảnh nhỏ khi hover
+	   	                 var newImageSrc = $(this).attr('src');
+
+	   	                 // Thay đổi ảnh lớn khi hover vào ảnh nhỏ
+	   	                 $('.main-image').attr('src', newImageSrc);
+	   	             });
+	                }
+	                
+	                var colorOptionsState = [];
+		 	        var sizeOptionsState = [];
+
+	            	// Mảng để lưu trữ các phần tử cần append
+	            	var elementsToAppend = [];
+
+	            	//clear table
+	            	$('.signle').empty();
+
+	            	//add record
+	            	var product_d_right = $('<div>').addClass('product_d_right');
+
+	            	//add id
+	            	product_d_right.append($('<div>').text(data.id).hide().addClass('productId'));
+
+	            	//title
+	            	product_d_right.append($('<h1>').text(data.title));
+	            	//description
+	            	product_d_right.append($('<div>').addClass('product_desc').append($('<p>').text(data.discription)));
+
+	            	var countItems = 0;
+	            	$.each(data.variantResponseDtos, function (i, variant) {
+
+	            	    if (i === 0) {
+	            	        var formattedPrice = variant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	            	        if (variant.currentPrice != null) {
+	            	            var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	            	            product_d_right.append($('<div>').addClass('content_price mb-15')
+	            	                .append($('<span>').addClass('new_price').text(formattedCurentPrice))
+	            	                .append($('<span>').addClass('old-price').text(formattedPrice))
+	            	            );
+	            	        } else {
+	            	            product_d_right.append($('<div>').addClass('content_price mb-15')
+	            	                .append($('<span>').text(formattedPrice))
+	            	            );
+	            	        }
+	            	        //items;
+
+	            	    }
+	            	    countItems += variant.quantity;
+	            	});
+	            	var items = $('<p>').text(countItems + ' items');
+	            	//button
+	            	var boxQuantityDiv = $('<div>').addClass('box_quantity mb-20')
+	            	    .append(
+	            	        $('<form>').attr('action', '#').append(
+	            	            $('<span>').addClass('minus').append(
+	            	                $('<i>').addClass('fa fa-minus').attr('aria-hidden', 'true')
+	            	            ),
+	            	            $('<input>').attr({
+	            	                'type': 'number',
+	            	                'id': 'quantity-single-product',
+	            	                'value': 1,
+	            	                'min': 1
+	            	            }),
+	            	            $('<span>').addClass('plus').append(
+	            	                $('<i>').addClass('fa fa-plus').attr('aria-hidden', 'true')
+	            	            )
+	            	        ),
+	            	    )
+	            	    .append(
+						    $('<button>').attr('type', 'submit').attr('id', 'add-to-cart-single').append(
+						        $('<i>').addClass('fa fa-shopping-cart')
+						    ).append(' add to cart').on('click', function() {
+						        // Gọi hàm khi nút "add to cart" được nhấp
+						        addToCartInSingleProduct();
+						    })
+						);
+
+	            	boxQuantityDiv.append('<br>');
+	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
+
+	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
+	            	
+
+	            	
+
+
+	            	// Sử dụng hàm để tạo danh sách size
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
+
+	            	// Sử dụng hàm để tạo danh sách color
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
+
+	            	// Hàm để tạo danh sách radio
+
+	            	product_d_right.append(boxQuantityDiv);
+	            	product_d_right.append(errorTextDiv);
+
+	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
+	            	stockDiv.append(items);
+	            	stockDiv.append('<span>In stock</span>');
+	            	product_d_right.append(stockDiv);
+
+	            	// Tạo và append div thứ hai với class 'wishlist-share'
+	            	var wishlistDiv = $('<div>').addClass('wishlist-share');
+	            	wishlistDiv.append('<h4>Share on:</h4>');
+	            	wishlistDiv.append('<ul><li><a href="#"><i class="fa fa-rss"></i></a></li><li><a href="#"><i class="fa fa-vimeo"></i></a></li><li><a href="#"><i class="fa fa-tumblr"></i></a></li><li><a href="#"><i class="fa fa-pinterest"></i></a></li><li><a href="#"><i class="fa fa-linkedin"></i></a></li></ul>');
+	            	product_d_right.append(wishlistDiv);
+
+	            	// Thêm product_d_right và các phần tử khác vào mảng
+	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(boxQuantityDiv);
+	            	elementsToAppend.push(stockDiv);
+	            	elementsToAppend.push(wishlistDiv);
+
+	            	// Sử dụng append một lần duy nhất để thêm tất cả các phần tử vào .signle
+	            	$('.signle').append(elementsToAppend);
+	            	  
+	  	 		  // Lấy phần tử ô nhập liệu số lượng
+	  	 				var quantityInput = $('#quantity-single-product');
+
+	  	 				// Xử lý sự kiện khi người dùng thay đổi giá trị trong ô nhập liệu
+	  	 				quantityInput.on('input', function() {
+	  	 					// Lấy giá trị số lượng từ ô nhập liệu
+	  	 					var currentValue = parseInt($(this).val());
+
+	  	 					// Kiểm tra giá trị số lượng để đảm bảo nó không nhỏ hơn 1
+	  	 					if (currentValue < 1) {
+	  	 						currentValue = 1;
+	  	 					}
+
+	  	 					// Cập nhật giá trị số lượng trong ô nhập liệu
+	  	 					$(this).val(currentValue);
+	  	 				});
+
+	  	 				// Xử lý sự kiện khi nhấn nút "plus"
+	  	 				$('.plus').on('click', function() {
+	  	 					var currentValue = parseInt(quantityInput.val());
+	  	 					// Tăng giá trị số lượng lên 1
+	  	 					if(currentValue < quantitySelect){
+	  	 						quantityInput.val(currentValue + 1);
+	  	 						currentValue = quantitySelect;
+	  	 					}
+	  	 					
+	  	 				});
+
+	  	 				// Xử lý sự kiện khi nhấn nút "minus"
+	  	 				$('.minus').on('click', function() {
+	  	 					var currentValue = parseInt(quantityInput.val());
+	  	 					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
+	  	 					quantityInput.val(Math.max(currentValue - 1, 1));
+	  	 				});
+
+	  	 		        quantityInput.on('input', function() {
+	  	 		            var enteredValue = parseInt($(this).val(), 10); 
+	  	 		            if (enteredValue > quantitySelect) {
+	  	 		            	quantityInput.val(quantitySelect);
+	  	 		            }
+	  	 		        });
+	  	 				
+	  	 		     $('.size-button').on('click', function () {
+			 	            var sizeId = $(this).val();
+			 	            var productId = $('.productId').text();
+			 	            $('.error-text.text-danger').text("");
+			 	            sizeOptionsState = saveSizeOptionsState();
+
+			 	            $.ajax({
+			 	                type: 'GET',
+			 	                url: '/variant/getVariant',
+			 	                data: {
+			 	                    productId: productId,
+			 	                    sizeId: sizeId
+			 	                },
+			 	                success: function (response) {
+			 	                    $('.sidebar_widget.color').remove();
+			 	                    ProductDetails.createRadioList(response, 'color', $('.product_d_right'), 'color:', '');
+			 	                    restoreColorOptionsState(colorOptionsState);
+
+			 	                    
+			 	                },
+			 	                error: function (error) {
+			 	                    console.error(error);
+			 	                }
+			 	            });
+			 	        }); 
+
+			 	        $('.color-button').on('click', function () {
+			 	            var colorId = $(this).val();
+			 	            var productId = $('.productId').text();
+			 	            $('.error-text.text-danger').text("");
+			 	            colorOptionsState = saveColorOptionsState();
+
+			 	            $.ajax({
+			 	                type: 'GET',
+			 	                url: '/variant/getVariant',
+			 	                data: {
+			 	                    productId: productId,
+			 	                    colorId: colorId
+			 	                },
+			 	                success: function (response) {
+			 	                    $('.product_d_size').remove();
+			 	                    var newSizeList = $('<div>'); 
+			 	                    ProductDetails.createRadioList(response, 'size', newSizeList, 'size:', 'modal_size');
+			 	                    $('.sidebar_widget').before(newSizeList);
+			 	                },
+			 	                error: function (error) {
+			 	                    console.error(error);
+			 	                }
+			 	            });
+			 	        });
+
+	            },
+	            error: function() {
+	                // Handle errors here
+	            }
+	        });
+	        
+    	}
+	     // Hàm để lấy giá trị của tham số từ URL
+	        function getParameterByName(name, url) {
+	            if (!url) url = window.location.href;
+	            name = name.replace(/[\[\]]/g, '\\$&');
+	            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+	                results = regex.exec(url);
+	            if (!results) return null;
+	            if (!results[2]) return '';
+	            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	        }
+	         
+	         function initSlider() {
+	             if ($('.product_slider').length) {
+	                 var slider1 = $('.product_slider');
+
+	                 slider1.owlCarousel({
+	                     loop: false,
+	                     dots: false,
+	                     nav: false,
+	                     responsive: {
+	                         0: { items: 1 },
+	                         480: { items: 2 },
+	                         768: { items: 3 },
+	                     }
+	                 });
+
+	                 // Các phần xử lý sự kiện nhấp chuột tương tự vẫn được giữ nguyên
+	                 if ($('.product_slider_nav_left').length) {
+	                     $('.product_slider_nav_left').on('click', function () {
+	                         slider1.trigger('prev.owl.carousel');
+	                     });
+	                 }
+
+	                 if ($('.product_slider_nav_right').length) {
+	                     $('.product_slider_nav_right').on('click', function () {
+	                         slider1.trigger('next.owl.carousel');
+	                     });
+	                 }
+	             }
+	         }
+	         
+	 	       
+	 	        
+	 	        $(document).on('change', '.modal_size input[type="radio"], .widget_color input[type="radio"]', function () {
+	 	        	if (isSizeAndColorSelected()) {
+	                     callAdditionalAjax();
+	                 }
+	 	        });
+	 	       var isSizeSelected = false;
+	 	       var isColorSelected = false;
+	 	        function isSizeAndColorSelected() {
+	 	        	  
+	 	             isSizeSelected = $('.modal_size input[type="radio"]:checked').length > 0;
+	 	             isColorSelected = $('.widget_color input[type="radio"]:checked').length > 0;
+
+	 	            return isSizeSelected && isColorSelected;
+	 	        }
+
+	 	        var globalVariantId;
+	 	        var quantitySelect
+	 	        function callAdditionalAjax() {
+	 	            if (!isSizeAndColorSelected()) {
+	 	                alert("Please select size and color before adding to cart.");
+	 	                return;
+	 	            }
+
+	 	            var productId = $('.productId').text();
+	 	            var sizeId = $('.modal_size input[type="radio"]:checked').val();
+	 	            var colorId = $('.widget_color input[type="radio"]:checked').val();
+
+	 	            $.ajax({
+	 	                type: 'GET',
+	 	                url: '/variant/getVariant',
+	 	                data: { 
+	 	                    productId: productId,
+	 	                    sizeId: sizeId,
+	 	                    colorId: colorId
+	 	                },
+	 	                success: function (response) {
+	 	                    if (response.length > 0) {
+	 	                        var firstVariant = response[0];
+	 	                        var currentPrice = firstVariant.currentPrice;
+	 	                        quantitySelect = firstVariant.quantity;
+	 	                        globalVariantId = firstVariant.id;
+
+	 	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
+
+	 	                        if (currentPrice != null) {
+	 	                            var formattedCurentPrice = currentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	 	                            $('.content_price span').text(formattedCurentPrice);
+	 	                            $('.content_price span.old-price').text(formattedPrice);
+
+	 	                        } else {
+	 	                            $('.content_price span').text(formattedPrice);
+	 	                        }
+
+	 	                        // Cập nhật giá trị quantity
+	 	                        var quantityText = quantitySelect + ' items';
+	 	                        $('.product_stock p').text(quantityText);
+
+	 	                        // Cập nhật giá trị của ô input
+	 	                        var quantityInput = $('#quantity-single-product');
+	 	                        var enteredValue = parseInt(quantityInput.val(), 10);
+	 	                        if (enteredValue > quantitySelect) {
+	 	                            quantityInput.val(quantitySelect);
+	 	                        }
+	 	                    }
+	 	                },
+	 	                error: function (error) {
+	 	                    console.error(error);
+	 	                }
+	 	            });
+	 	        }
+
+
+
+
+	 //////////////////////////////////////////////
+	 	        function saveColorOptionsState() {
+	 	            var optionsState = [];
+	 	            $('.widget_color input[type="radio"]').each(function () {
+	 	                optionsState.push({
+	 	                    id: $(this).attr('id'),
+	 	                    checked: $(this).prop('checked')
+	 	                });
+	 	            });
+	 	            return optionsState;
+	 	        }
+
+	 	        function restoreColorOptionsState(optionsState) {
+	 	            optionsState.forEach(function (option) {
+	 	                $('#' + option.id).prop('checked', option.checked);
+	 	            });
+	 	        }
+
+	 	        function saveSizeOptionsState() {
+	 	            var optionsState = [];
+	 	            $('.size-widget input[type="radio"]').each(function () {
+	 	                optionsState.push({
+	 	                    id: $(this).attr('id'),
+	 	                    checked: $(this).prop('checked')
+	 	                });
+	 	            });
+	 	            return optionsState;
+	 	        }
+
+	 	        function restoreSizeOptionsState(optionsState) {
+	 	            optionsState.forEach(function (option) {
+	 	                $('#' + option.id).prop('checked', option.checked);
+	 	            });
+	 	        }
+	 	        
+	 	        ////////////////
+	 	       
+
+	 	        
+	 	        var quantity;
+	 			var csrfToken;
+	 		    function addToCartInSingleProduct(event) {
+	 					 var quantity = document.getElementById("quantity-single-product").value;
+	 					  csrfToken = Cookies.get('XSRF-TOKEN');
+	 					  
+	 					  // Kiểm tra xem token có tồn tại hay không
+	 					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
+	 					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
+	 					        return;
+	 					   }
+	 					  $('.error-text.text-danger').text("");
+	 					    // Tạo đối tượng dữ liệu để gửi qua Ajax
+	 					    var data = {
+	 					      variantId: globalVariantId,
+	 					      quantity : quantity
+	 					    }
+	 					    // Gửi Ajax request
+	 					    $.ajax({
+	 					      url: '/cart/save',
+	 					      type: 'POST',
+	 					      contentType: "application/json",
+	 					      data: JSON.stringify(data),
+	 					      headers: {
+	 					        'X-XSRF-TOKEN': csrfToken
+	 					      },
+	 					      success: function(response,textStatus, jqXHR) {
+	 					    	  toastr.success(response);
+	 						    var contentType = jqXHR.getResponseHeader("Content-Type");
+	 					      },
+	 					      error: function(xhr, status, error) {
+	 						       alert("The system has errors!");
+	 					      }
+	 					    });
+	 					  } 
+	 		    
+	 		   
+
+  </script>
 </body>
 </html>

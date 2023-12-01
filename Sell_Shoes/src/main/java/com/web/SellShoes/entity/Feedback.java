@@ -27,7 +27,7 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 60,columnDefinition = "NVARCHAR(60)")
     private String fullName;
     
     @Email
@@ -37,10 +37,10 @@ public class Feedback {
     @Column(nullable = false, length = 15)
     private String phone;
     
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
     private String subjectName;
     
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 1500, columnDefinition = "NVARCHAR(1500)")
     private String note;
     
     @Column(nullable = false)

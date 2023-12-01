@@ -54,7 +54,7 @@ public class ColorController {
 		return ResponseEntity.ok(colorResponseDtos);
 	}
 	@GetMapping("/getColorPage")
-	public ResponseEntity<ColorPageResponseDto> getColorPage(@RequestParam(defaultValue = "5") int size,
+	public ResponseEntity<ColorPageResponseDto> getColorPage(@RequestParam(defaultValue = "8") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {

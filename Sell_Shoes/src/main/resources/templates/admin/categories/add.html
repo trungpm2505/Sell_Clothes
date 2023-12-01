@@ -1,109 +1,114 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
-  layout:decorate="~{admin/fragments/home.html}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/fragments/home.html}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-    
-     <div   layout:fragment="content">
-    <section class="row mt-4">
-    <div class="col mt-4">
-      
-        <div class="card">
-            <div class="card-header">
-                <h2>LIST OF CATEGORY</h2>
-              </div>
-    
-              <div class="card-body">
-        <div class="row mt-2 mb-2">
-            <div class="col">
-<form action="" id="searchForm">
-    <div class="form-inline float-right">
-        <label for="searchCategoryName">Search by category name:</label>
-        <input type="text" class="form-control ml-2" name="categoryName" id="searchcategoryName" placeholder="Seacrh Categories">
-        <button class="btn btn-outline-info ml-2" type="button" onclick="searchCategories()"><i class="fa fa-search"></i> Search</button>
-        <button class="btn btn-outline-secondary ml-2" type="button" onclick="getAllCategories()"><i class="fa fa-list"></i> All Categories</button>
-    </div>
-</form>
+
+	<div layout:fragment="content">
+		<section class="container-fluid">
+				<div class="card">
+					<div class="card-header">
+						<h2>LIST OF CATEGORY</h2>
+					</div>
+
+					<div class="card-body">
+						<div class="row mt-2 mb-2">
+							<div class="col">
+								<form action="" id="searchForm">
+									<div class="form-inline float-right">
+										<label for="searchCategoryName">Search by category
+											name:</label> <input type="text" class="form-control ml-2"
+											name="categoryName" id="searchcategoryName"
+											placeholder="Seacrh Categories">
+										<button class="btn btn-outline-info ml-2" type="button"
+											onclick="searchCategories()">
+											<i class="fa fa-search"></i> Search
+										</button>
+										<button class="btn btn-outline-secondary ml-2" type="button"
+											onclick="getAllCategories()">
+											<i class="fa fa-list"></i> All Categories
+										</button>
+									</div>
+								</form>
+								<button type="button" class="btn btn-outline-info float-left"
+									onclick="addCategory()">
+									<i class="fa fa-plus-square-o"></i> Add new categories
+								</button>
+
+							</div>
+						</div>
+						<table id="categoryTable" class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>CreateAt</th>
+									<th>UpdateAt</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
+							</tbody>
+						</table>
+
+						<!-- modal edit category -->
+						<div class="modal fade" id="editCategoryModal" tabindex="-1"
+							role="dialog" aria-labelledby="editCategoryModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editCategoryModalLabel">Chỉnh
+											sửa danh mục</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
+										<form id="editCategoryForm">
+											<div class="form-group d-none">
+												<label for="editCategoryId">ID:</label> <input type="text"
+													class="form-control" id="editCategoryId" name="idCategory"
+													readonly>
+											</div>
+											<div class="form-group">
+												<label for="editCategoryName">Category Name:</label> <input
+													type="text" class="form-control" id="editCategoryName"
+													name="categoryName">
+												<div th:id="categoryName-error"
+													class="text-danger form-text "></div>
+
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary"
+											id="saveCategoryChanges">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card-footer">
+						<nav class="float-right" th:id="paging"></nav>
+					</div>
 
 
 
-          
-
-
-<button type="button" class="btn btn-outline-info float-left" onclick="addCategory()">
-    <i class="fa fa-plus-square-o"></i> Add new categories
-</button>
-
-            </div>
-        </div>
-	<table id="categoryTable" class="table table-striper">
-    <thead>
-        <tr>
-            <!-- <th>Category ID</th> -->
-            <th>Name</th>
-            <th>Create Date</th>
-            <th>Edit Date</th>
-           <th colspan="2">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
-    </tbody>
-</table>
-
-<!-- modal edit category -->
-<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryModalLabel">Chỉnh sửa danh mục</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
-                    <form id="editCategoryForm">
-        <div class="form-group d-none">
-            <label for="editCategoryId">ID:</label>
-            <input type="text" class="form-control" id="editCategoryId" name="idCategory" readonly>
-        </div>
-        <div class="form-group">
-            <label for="editCategoryName">Category Name:</label>
-            <input type="text" class="form-control" id="editCategoryName" name="categoryName">
-                 <div th:id="categoryName-error" class="text-danger form-text "></div>
-            
-        </div>
-    </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveCategoryChanges">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-<div class="card-footer">
-<nav class="float-right" th:id="paging"></nav>
-</div>
-
-
-
-</div>
-      </div>
-  </section>
-  <script>
-/**
- * 
- */
- 
-
+				</div>
+		</section>
+		<script>
 
 document.addEventListener("DOMContentLoaded", function() {
     // Gọi hàm để lấy danh sách categories khi trang web được tải
@@ -139,15 +144,17 @@ function searchCategories() {
                      var category = categories[i];
 
                      var row = '<tr>' +
+                     	 '<td>' + (i+1) + '</td>' +
                          '<td>' + category.categoryName + '</td>' +
                          '<td>' + category.createAt + '</td>' +
                          '<td>' + (category.updateAt ? category.updateAt : '-') + '</td>' +
                          '<td>' +
-                         '<span onclick="deleteCategory(' + category.id + ', \'' + category.categoryName + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
-                         '</td>' +
-                         '<td>' +
                          '<span onclick="editCategory(' + category.id + ', \'' + category.categoryName + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
                          '</td>' +
+                         '<td>' +
+                         '<span onclick="deleteCategory(' + category.id + ', \'' + category.categoryName + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
+                         '</td>' +
+                         
                          '</tr>';
                      $("#categoryTable tbody").append(row);
                  }
@@ -197,35 +204,6 @@ function searchCategories() {
           $(navId).append(pagination);
      }
 
-
- 
-
-/*function ss() {
-	
-			var categoryName = document.getElementById("categoryName").value;
-		
-			$.ajax({
-				type : 'POST',
-				url : '/category/saveCategory',
-				data : {
-					
-					categoryName : categoryName
-				},
-				success : function(response) {
-					console.log("thanh cong")
-					  getlistCategories();
-					 document.getElementById("categoryName").value = "";
-					  $('#exampleModalCenter').modal('hide');
-					 
-				},
-				error : function(xhr, status, error) {
-					console.log(error);
-					console.log(status);
-				
-				}
-			});
-}
-*/
 function clearEditCategoryForm() {
 	  // Lấy tham chiếu đến các phần tử trong biểu mẫu
 	  var editCategoryId = document.getElementById("editCategoryId");
@@ -243,10 +221,6 @@ function addCategory() {
 	clearEditCategoryForm();
     // Hiển thị modal chỉnh sửa danh mục
     $("#editCategoryModal").modal("show");
-/*     var categoryName = document.getElementById("addcategoryName").value;
- */
- // $("#editCategoryName").val(categoryName);
-    // Thiết lập sự kiện cho nút "Lưu thay đổi"
     $("#saveCategoryChanges").off("click").on("click", function () {
     	 var categoryName = document.getElementById("editCategoryName").value;
         // Gửi AJAX request để cập nhật danh mục (sử dụng newCategoryId và newCategoryName)
@@ -398,7 +372,7 @@ function editCategory(id, categoryName) {
 
 
 </script>
-        </div>
+	</div>
 </body>
 
 </html>

@@ -1,0 +1,57 @@
+
+<div class="rhmIbk" th:fragment="navbar_account">
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-toggle="collapse" data-target="#collapseCate"
+		aria-expanded="true" aria-controls="collapseUtilities"
+		onclick="toggleProfile()"> <i class="fa fa-user-o fs-5"></i> <span> My Account
+				</span>
+	</a>
+		<div id="collapseCate" class="collapse"
+			aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/user/accountUser" onclick="openProfile()">Edit Profile</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/password/change">Change Password</a>
+					</div>
+				</div>
+			</div>
+		</div></li>
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-toggle="collapse" data-target="#donmua"
+		aria-expanded="true" aria-controls="collapseUtilities"
+		onclick="toggleProfile()"> <i class="fa fa-list-alt fs-5"></i> <span>My purchase
+				</span>
+	</a>
+		<div id="donmua" class="collapse" aria-labelledby="headingUtilities"
+			data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/all-order">All Order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/new-order" >New Order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/confirmed-order"> Confirmed Order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/completed-order">Complete Order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/canceled-order">Canceled Order</a>
+					</div>
+				</div>
+			</div>
+		</div></li>
+</div>

@@ -52,9 +52,9 @@ if (loginForm) {
                 console.log(role);
                 
                 if (role === 'USER') {
-                    window.location.href = "/product/user-home";
+                    window.location.href = "/product/all-product";
                 } else if (role === 'ADMIN') {
-                    window.location.href = '/add';
+                    window.location.href = '/product/admin';
                 }
             } else {
                 const errors = await response.json();

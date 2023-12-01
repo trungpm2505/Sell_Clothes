@@ -31,6 +31,8 @@ public class ProductResponseDto {
 	private Integer brandId;
 
 	private List<ImageResponseDto> images;
+	
+	private List<VariantResponseDto> variantResponseDtos;
 
 	public ProductResponseDto(Integer id, String title, String discription, LocalDate createAt, LocalDate updateAt,
 			String categoryName, String brandName, List<ImageResponseDto> images) {
@@ -54,6 +56,16 @@ public class ProductResponseDto {
 		this.categoryId = categoryId;
 		this.brandId = brandId;
 		this.images = images;
+	}
+
+	public ProductResponseDto(Integer id, String title, String discription, List<ImageResponseDto> images,
+			List<VariantResponseDto> variantResponseDtos) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.discription = discription;
+		this.images = images;
+		this.variantResponseDtos = variantResponseDtos;
 	}
 	
 	

@@ -51,7 +51,7 @@ public class SizeController {
 	}
 
 	@GetMapping("/getSizePage")
-	public ResponseEntity<SizePageResponseDto> getSizePage(@RequestParam(defaultValue = "5") int size,
+	public ResponseEntity<SizePageResponseDto> getSizePage(@RequestParam(defaultValue = "8") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {

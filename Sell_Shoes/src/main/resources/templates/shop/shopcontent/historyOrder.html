@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<style>
+section{
+margin-top: 20px;
+}
+.shopee-avatar__img {
+    border-radius: 50%;
+    width: 35%;
+}
+
+.mC1Llc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333
+}
+
+._78QHr1 {
+    color: #888;
+    text-transform: capitalize;
+    text-decoration: none
+}
+
+.rhmIbk {
+    list-style: none;
+    padding: 0;
+    margin: 27px 0 0;
+    cursor: pointer;
+}
+
+.hiXKxx {
+    margin: 12px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+}
+
+.x0QT2k:first-child {
+    padding-top: 24px;
+}
+.VrgkXA {
+    padding: 4px 0 ;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    color: #212121;
+    background: #eaeaea;
+    border-radius: 2px;
+}
+.VrgkXA>input {
+    flex: 1;
+    font-size: 14px;
+    line-height: 16px;
+    border: 0;
+    outline: none;
+    background-color: inherit;
+}
+
+.x0QT2k {
+    padding: 12px 24px;
+    background: #fff;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .13);
+    border-radius: 0.125rem;
+}
+
+.hiXKxx {
+    margin: 12px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+}
+
+.KrPQEI {
+    padding: 20px;
+    border-bottom: 0.0625rem solid #efefef;
+    justify-content: space-between;
+}
+
+._0RxYUS,
+.KrPQEI {
+    display: flex;
+    align-items: center;
+}
+
+.KmBIg2 {
+    text-decoration: none;
+    color: #26aa99;
+}
+
+._9Ro5mP {
+    max-width: 200px;
+    margin-left: 8px;
+    /* font-size: 14px; */
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.qCUYY8 {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.V\+w7Xs {
+    line-height: 24px;
+    color: #ee4d2d;
+    text-align: right;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.EQko8g {
+    padding: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.rGP9Yd {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+    background: #e1e1e1;
+}
+
+.shopee-image__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.shopee-image__content--blur {
+	width: 100%;
+    height: 120px;
+    object-fit: cover;
+  	object-position : center center;
+}
+
+.shopee-image__content--blur1 {
+	margin-left: 5px;
+	width: 120px;
+    height: 120px;
+    object-fit: cover;
+  	object-position : center center;
+}
+
+._7uZf6Q {
+    min-width: 0;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    word-wrap: break-word;
+}
+
+.iJlxsT {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 22px;
+    max-height: 48px;
+}
+
+.vb0b-P {
+    color: rgba(0, 0, 0, .54);
+}
+
+._8ex9dW {
+    padding: 2px 4px;
+    margin: 0 6px 0 0;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 1px;
+    color: #ee4d2d;
+    border: 0.5px solid #ee4d2d;
+    height: 20px;
+}
+
+.j2En5\+ {
+    margin: 0 4px 0 0;
+    -webkit-text-decoration-line: line-through;
+    -moz-text-decoration-line: line-through;
+    text-decoration-line: line-through;
+    color: #000;
+    opacity: .26;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.OkfGBc {
+    color: #ee4d2d;
+}
+
+.-x3Dqh,
+.j2En5\+,
+.kCaFF- {
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.kvXy0c {
+    padding: 24px 24px 12px;
+    background: #fffefb;
+    border-top: 0.0625rem solid #efefef;
+}
+
+.\-78s2g {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.IlORNJ {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0 5px 0 0;
+    line-height: 0;
+}
+
+._0NMXyN {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, .8);
+}
+
+.DeWpya {
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.AM4Cxf {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    background: #fffefb;
+    align-items: center;
+}
+
+.qtUncs {
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    grid-gap: 4px;
+    gap: 4px;
+    flex-grow: 1;
+    word-wrap: break-word;
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, .54);
+}
+
+.EOjXew {
+    display: flex;
+}
+
+.PF0-AU,
+.PgtIur {
+    margin: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.stardust-button--primary {
+    background-color: #ee4d2d;
+    border-color: #cd3011;
+    color: #fff;
+}
+
+.stardust-button--primary.stardust-button--active,
+.stardust-button--primary:hover {
+    background-color: #d73211;
+    border-color: #ba2b0f;
+}
+
+.stardust-button {
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, .26);
+    padding: 8px 10px;
+}
+
+.WgYvse:not(.stardust-button--primary):hover:not(.ToSnPt) {
+    background-color: rgba(0, 0, 0, .02);
+    border: 1px solid rgba(0, 0, 0, .09);
+}
+
+.WgYvse {
+    min-width: 150px;
+    min-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    outline: 0;
+}
+
+.PF0-AU,
+.PgtIur {
+    margin: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.WgYvse:not(.stardust-button--primary) {
+    color: #555;
+    border: 1px solid rgba(0, 0, 0, .09);
+}
+.row{
+	margin-bottom: 10px;
+}
+.x5GTyN{
+	color: #333;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 15px;
+    text-transform: capitalize;
+    height: calc(325px - 295px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.btn-contact{
+	background: #293a6c;
+	color: #fff;
+}
+
+.CxyZBG{
+	color: #ee4d2d;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  
+  .modal-content1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 45%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .OU2Nj\+ .shopee-popup-form__header {
+    height: unset;
+    margin-bottom: 1.875rem;
+}
+.shopee-popup-form__header {
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+.shopee-popup-form__title {
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #222;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.shopee-popup-form__main {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 50px;
+    margin-right: -50px;
+    padding-left: 50px;
+    margin-left: -50px;
+    position: relative;
+}
+.shopee-popup-form__main-container {
+    margin-bottom: 84px;
+}
+.qR3ynI {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+.PinpOp {
+    text-decoration: none;
+    color: rgba(0,0,0,.87);
+    display: flex;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    cursor: pointer;
+}
+.UG4U2O {
+    flex: 1;
+}
+.tJpxcs {
+    display: inline-block;
+    width: 3.5rem!important;
+    height: 3.5rem!important;
+    margin-right: 0.625rem;
+    border: 1px solid rgba(0,0,0,.09);
+    flex-shrink: 0;
+}
+.shopee-image__wrapper {
+    position: relative;
+}
+.shopee-image__place-holder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #fafafa;
+}
+.shopee_img{
+    width: 100%;
+    height: 100%;
+}
+.U2w1su {
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.D7LjRB {
+    color: rgba(0,0,0,.8);
+    font-weight: 400;
+    font-size: 17px;
+    word-break: break-word;
+}
+.q7YFPv {
+    color: rgba(0,0,0,.26);
+    margin-top: 20px
+}
+.dmvG7c {
+    display: flex;
+    flex-flow: "row nowrap";
+    align-items: center;
+}
+.dmvG7c .jcQ0KT {
+    margin: toRem(20px) auto toRem(7px);
+    font-size: toRem(14px);
+    /* min-width: 180px; */
+}
+.rating-stars {
+    display: inline-block;
+  }
+
+  .rating-star {
+    font-size: 24px;
+    color: grey;
+    cursor: pointer;
+  }
+
+  .rating-star.active {
+    color: yellow;
+  }
+  .dmvG7c ._6m3yfK {
+    margin-left: 10px;
+    min-width: 100px;
+}
+.BKScP5, .X3Qjvs {
+    position: relative;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: inset 0 -0.5px 0 rgba(0,0,0,.09);
+    margin: 0 0 0.75rem;
+    padding: 0.75rem;
+}
+.X3Qjvs {
+    border: 1px solid rgba(0,0,0,.26);
+    border-radius: 0.125rem;
+}
+.jz-Ezz {
+    position: relative;
+    background-color: #f5f5f5;
+    padding: 1.25rem 1.5625rem 0.9375rem;
+}
+._2LhMgE {
+    width: 100%;
+    color: rgba(0,0,0,.87);
+}
+.shopee-popup-form__footer {
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    right: 0;
+    text-transform: uppercase;
+    background: linear-gradient(hsla(0,0%,100%,.9),#fff);
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.cancel-btn {
+    padding: 10px 0;
+    box-sizing: border-box;
+    width: 140px;
+    text-transform: uppercase;
+    font-size: .875rem;
+    font-weight: 400;
+    cursor: pointer;
+    color: #555;
+    margin-right: 6px;
+    line-height: 1;
+    background: none;
+    border: 0;
+    transition: background-color .1s cubic-bezier(.4,0,.6,1);
+}
+.btn-solid-primary {
+    color: #fff;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+    background: #ee4d2d;
+}.btn--s {
+    height: 34px;
+    padding: 0 15px;
+    min-width: 60px;
+    max-width: 190px;
+}
+#content {
+    height: 400px;
+    overflow: auto;
+}
+.file-input{
+	margin-top: 10px;
+}
+.rating-modal-handler__container {
+	margin-bottom: 30px
+}
+.selected-images {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.selected-images img {
+    margin-left: 5px;
+}
+.selected-image img {
+    transition: filter 0.3s ease;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center center;
+}
+.hide{
+    display: none;
+}
+</style>
+		<!-- Start Maincontent  -->
+		 <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <div class="row">
+                        <img src="https://zero1.sg/img/accountlogin-icon.png" alt=""
+                            class="col-md-5 shopee-avatar__img">
+
+                        <div class="col-md-7">
+                            <div class="mC1Llc">Phạm Minh Trung</div>
+                            <a class="_78QHr1" href="#"><svg width="12" height="12" style="margin-right: 4px;">
+                                    <path
+                                        d="M8.54 0L6.987 1.56l3.46 3.48L12 3.48M0 8.52l.073 3.428L3.46 12l6.21-6.18-3.46-3.48"
+                                        fill="#9B9B9B" fill-rule="evenodd"></path>
+                                </svg>Sửa hồ sơ</a>
+                        </div>
+                    </div>
+                    <div th:replace="shop/shopcontent/navbar_account :: navbar_account"></div>
+
+                </div>
+                <div class="col-md-10">
+                    <div class="VrgkXA">
+                        <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <input placeholder="Bạn có thể tìm kiếm theo ID đơn hàng hoặc Tên Sản phẩm" value="">
+                    </div>
+                    <div class="order-wrap">
+	                    <!-- <div class="hiXKxx">
+	                        <div class="card">
+	                            <div class="KrPQEI">
+	                                <div class="qCUYY8">
+	                                    <div class="_9Ro5mP">Aukey Official Mall</div>
+	                                </div>
+	                                <div class="EQko8g">
+	                                    <a class="KmBIg2" href="#"><span class="nkmfr2"><i class="fa fa-truck"
+	                                                aria-hidden="true"></i> Đơn hàng đã được giao thành công</span></a>
+	                                </div>
+	                            </div>
+	                            <div class="card-body">
+	                                <div class="row">
+	                                    <div class="col-md-2">
+	                                        <div class="shopee-image__wrapper">
+	                                            <div class="shopee-image__place-holder">
+	                                                <img class="shopee-image__content--blur"
+	                                                    src="https://cf.shopee.vn/file/690c7bec3fdb614c1039b2eda1d715d0"
+	                                                    alt="">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-md-8">
+	                                        <div class="_7uZf6Q">
+	                                            <div>
+	                                                <div class="iJlxsT"><span class="x5GTyN">Chuột Game không dây AUKEY
+	                                                        GM-F5,2.4GHz 16000 DPI RGB 8 Nút lập trình 2 Trong 1 Cho PC
+	                                                        Laptop</span></div>
+	                                            </div>
+	                                            <div>
+	                                                <div class="vb0b-P">Phân loại hàng: 2.4Ghz 2 in 1</div>
+	                                                <div class="_3F1-5M">x1</div><span class="_8ex9dW">7 ngày trả
+	                                                    hàng</span>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-md-2">
+	                                        <div class="text-center" style="margin-top: 60px;">
+	                                            <div class="rjqzk1"><span class="j2En5+">₫904.000</span><span
+	                                                    class="-x3Dqh OkfGBc">₫452.000</span></div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="kvXy0c">
+	                                    <div class="-78s2g"><span class="JMmT2C">
+	                                            <div class="IlORNJ"><svg width="16" height="17" viewBox="0 0 253 263"
+	                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+	                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+	                                                        d="M126.5 0.389801C126.5 0.389801 82.61 27.8998 5.75 26.8598C5.08763 26.8507 4.43006 26.9733 3.81548 27.2205C3.20091 27.4677 2.64159 27.8346 2.17 28.2998C1.69998 28.7657 1.32713 29.3203 1.07307 29.9314C0.819019 30.5425 0.688805 31.198 0.689995 31.8598V106.97C0.687073 131.07 6.77532 154.78 18.3892 175.898C30.003 197.015 46.7657 214.855 67.12 227.76L118.47 260.28C120.872 261.802 123.657 262.61 126.5 262.61C129.343 262.61 132.128 261.802 134.53 260.28L185.88 227.73C206.234 214.825 222.997 196.985 234.611 175.868C246.225 154.75 252.313 131.04 252.31 106.94V31.8598C252.31 31.1973 252.178 30.5414 251.922 29.9303C251.667 29.3191 251.292 28.7649 250.82 28.2998C250.35 27.8358 249.792 27.4696 249.179 27.2225C248.566 26.9753 247.911 26.852 247.25 26.8598C170.39 27.8998 126.5 0.389801 126.5 0.389801Z"
+	                                                        fill="#ee4d2d"></path>
+	                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+	                                                        d="M207.7 149.66L119.61 107.03C116.386 105.472 113.914 102.697 112.736 99.3154C111.558 95.9342 111.772 92.2235 113.33 88.9998C114.888 85.7761 117.663 83.3034 121.044 82.1257C124.426 80.948 128.136 81.1617 131.36 82.7198L215.43 123.38C215.7 120.38 215.85 117.38 215.85 114.31V61.0298C215.848 60.5592 215.753 60.0936 215.57 59.6598C215.393 59.2232 215.128 58.8281 214.79 58.4998C214.457 58.1705 214.063 57.909 213.63 57.7298C213.194 57.5576 212.729 57.4727 212.26 57.4798C157.69 58.2298 126.5 38.6798 126.5 38.6798C126.5 38.6798 95.31 58.2298 40.71 57.4798C40.2401 57.4732 39.7735 57.5602 39.3376 57.7357C38.9017 57.9113 38.5051 58.1719 38.1709 58.5023C37.8367 58.8328 37.5717 59.2264 37.3913 59.6604C37.2108 60.0943 37.1186 60.5599 37.12 61.0298V108.03L118.84 147.57C121.591 148.902 123.808 151.128 125.129 153.884C126.45 156.64 126.797 159.762 126.113 162.741C125.429 165.72 123.755 168.378 121.363 170.282C118.972 172.185 116.006 173.221 112.95 173.22C110.919 173.221 108.915 172.76 107.09 171.87L40.24 139.48C46.6407 164.573 62.3785 186.277 84.24 200.16L124.49 225.7C125.061 226.053 125.719 226.24 126.39 226.24C127.061 226.24 127.719 226.053 128.29 225.7L168.57 200.16C187.187 188.399 201.464 170.892 209.24 150.29C208.715 150.11 208.2 149.9 207.7 149.66Z"
+	                                                        fill="#fff"></path>
+	                                                </svg></div>
+	                                        </span>
+	                                        <div class="_0NMXyN">Thành tiền:</div>
+	                                        <div class="DeWpya">₫445.399</div>
+	                                    </div>
+	                                </div>
+	                                <div class="AM4Cxf">
+	                                    <div class="qtUncs"><span>Không nhận được đánh giá</span></div>
+	                                    <div class="EOjXew _4IR9IT">
+	                                        <div class="PF0-AU"><button
+	                                                class="stardust-button stardust-button--primary WgYvse">Mua lại</button>
+	                                        </div>
+	                                        <div class="PgtIur"><button
+	                                                class="stardust-button stardust-button--secondary WgYvse">Liên hệ Người
+	                                                bán</button></div>
+	                                        <div class="PgtIur">
+	                                            <button class="stardust-button stardust-button--secondary WgYvse"
+	                                                onclick="openModal()">Đánh giá</button>
+	                                        </div>
+	
+	                                        <div id="modal" class="modal">
+	                                            <div class="modal-content">
+	                                                <div class="shopee-popup-form__header">
+	                                                    <div class="shopee-popup-form__title">Đánh giá sản phẩm</div>
+	                                                </div>
+	                                                <div
+	                                                    class="rating-modal-handler__container rating-modal-handler__container--last">
+	                                                    <div class="PinpOp UYED6+">
+	                                                        <div class="shopee-image__wrapper tJpxcs">
+	                                                            <div class="shopee-image__content">
+	                                                                <img class="shopee_img"
+	                                                                    src="https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-libvkcc6drrm59_tn"
+	                                                                    alt="">
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="U2w1su">
+	                                                            <div class="D7LjRB">Quạt điều hoà hơi nước dung tích 600ml,
+	                                                                Quạt phun sương làm mát 3 chế độ tích hợp đèn led , Quạt
+	                                                                để bàn hơi nước Q6</div>
+	                                                            <div class="q7YFPv">Phân loại hàng: Màu Trắng.</div>
+	                                                        </div>
+	                                                    </div>
+	                                                    <div style="margin: 20px 0px;">
+	                                                        <div class="dmvG7c">
+	                                                            <div class="jcQ0KT"><span>Chất lượng sản phẩm</span></div>
+	                                                            <div style="padding-left: 5px;">
+	                                                                <div class="rating-stars">
+	                                                                    <span class="rating-star">&#9733;</span>
+	                                                                    <span class="rating-star">&#9733;</span>
+	                                                                    <span class="rating-star">&#9733;</span>
+	                                                                    <span class="rating-star">&#9733;</span>
+	                                                                    <span class="rating-star">&#9733;</span>
+	                                                                </div>
+	                                                            </div>
+	                                                            <span class="_6m3yfK rating-description"
+	                                                                style="color: rgb(237, 165, 0);"></span>
+	                                                        </div>
+	                                                    </div>
+	                                                    <div class="jz-Ezz">
+	                                                        <div class="X3Qjvs">
+	
+	                                                            <div class="CLFTQP"></div>
+	                                                            <div style="position: relative;"><textarea
+	                                                                    class="_2LhMgE form-control"
+	                                                                    style="min-height: 100px;" rows="3"
+	                                                                    placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
+	                                                            </div>
+	                                                        </div>
+	                                                    </div>
+	                                                </div>
+	                                                <div class="shopee-popup-form__footer"><button class="cancel-btn" onclick="closeModal()">Trở
+	                                                    Lại</button><button type="button"
+	                                                    class="btn btn-solid-primary btn--s btn--inline rL4kG2">Hoàn
+	                                                    thành</button></div>
+	                                            </div>
+	                                            
+	                                        </div>
+	
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div> -->
+					</div>
+					<nav th:id="paging" class="d-flex justify-content-center mb-40"></nav>
+                </div>
+            </div>
+        </div>
+        
+	<div id="modal" class="modal" >
+		<div class="modal-content1">
+			<div class="shopee-popup-form__header">
+				<div class="shopee-popup-form__title">Đánh giá sản phẩm</div>
+			</div>
+			<div id="content">
+				<!-- <div
+					class="rating-modal-handler__container rating-modal-handler__container--last">
+					<div class="PinpOp UYED6+">
+						<div class="shopee-image__wrapper tJpxcs">
+							<div class="shopee-image__content">
+								<img class="shopee_img" th:id="img-rating"
+									src="https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-libvkcc6drrm59_tn"
+									alt="">
+							</div>
+						</div>
+						<div class="U2w1su">
+							<div class="D7LjRB" ></div>
+							<div class="q7YFPv" ></div>
+						</div>
+					</div>
+					<div style="margin: 20px 0px;">
+						<div class="dmvG7c">
+							<div class="jcQ0KT">
+								<span>Chất lượng sản phẩm</span>
+							</div>
+							<div style="padding-left: 5px;">
+								<div class="rating-stars">
+									<span class="rating-star active">&#9733;</span> 
+									<span class="rating-star active">&#9733;</span> 
+									<span class="rating-star active">&#9733;</span>
+									<span class="rating-star active">&#9733;</span>
+									<span class="rating-star active">&#9733;</span>
+								</div>
+							</div>
+							<span class="_6m3yfK rating-description"
+								style="color: rgb(237, 165, 0);"></span>
+						</div>
+						
+					</div>
+					<div class="jz-Ezz">
+						<div class="X3Qjvs">
+	
+							<div class="CLFTQP"></div>
+							<div style="position: relative;">
+								<textarea class="_2LhMgE form-control" style="min-height: 100px;"
+									rows="3"
+									placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
+							</div>
+							<input type="file">
+						</div>
+					</div>
+				</div> -->
+			</div>
+			
+			
+			<div class="shopee-popup-form__footer">
+				<button class="btn cancel-btn" onclick="closeModal()">Cancel</button>
+				<button type="button"
+					class="btn btn-solid-primary btn--s btn--inline rL4kG2" th:id="save-rating" data-order-id-value='' onclick="saveRating()">Rate</button>
+					<button type="button"
+					class="btn btn-solid-primary btn--s btn--inline rL4kG2" th:id="update-rating" data-order-id-value='' onclick="updateRateView()">Update</button>
+				
+			</div>
+		</div>
+
+	</div>
+
+    </section>
+      <!-- Modal refuse-->
+	<div class="modal" id="refuseOrder">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+					<button type="button" class="close"
+						data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Bạn có chắc muốn hủy đơn hàng này?</p>
+					<input type="hidden" th:id="orderIdRefuseModal" name="orderId">
+					<input type="hidden" th:id="statusRefuseModal" name="status">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+					<button type="button" data-id="" data-update-status="2"
+						class="btn btn-danger" th:id="refuse-order-modal"
+						onclick='updateStatus(event)' >Xác nhận</button>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- End Maincontent  -->
+		<!-- Thêm Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script type="text/javascript">
+		  function toggleProfile() {
+	            var profileLink = document.getElementById('profileLink');
+	            profileLink.classList.add('active');
+	       }
+		  
+		 /*  function openModal() {
+              document.getElementById("modal").style.display = "block";
+          } */
+		  function openModal1() {
+              document.getElementById("refuseOrder").style.display = "block";
+		
+			$('#refuse-order-modal').data('id', orderId);   
+          }
+		  
+		  function closeModal1() {
+              document.getElementById("refuseOrder").style.display = "none";
+          }
+
+          function closeModal() {
+              document.getElementById("modal").style.display = "none";
+          }
+          
+          function starChange(event){
+				var ratingStars = $(event.target).closest('.rating-stars');
+				var ratingDescription = $(event.target).closest('.dmvG7c').find('.rating-description');
+				
+				var subRatingStar = ratingStars.find('.rating-star').toArray();
+				var number = $(event.target).data('number');
+				
+                  // Remove active class from all stars
+                  for (let index = 0; index < subRatingStar.length; index++) {
+                     subRatingStar[index].classList.remove('active');
+                     subRatingStar[index].classList.add('gray-star');
+                  };
+	
+                  // Add active class to clicked star and previous stars
+                  for (let i = 0; i < number; i++) {
+                      subRatingStar[i].classList.add('active');
+                  }
+
+                  // Update rating description based on the selected rating
+                  switch (number) {
+                      case 1:
+                          ratingDescription.text('Terrible');
+                          ratingStars.attr('data-rate', 1);
+                          break;
+                      case 2:
+                          ratingDescription.text('Poor');
+                           ratingStars.attr('data-rate', 2);
+                          break;
+                      case 3:
+                          ratingDescription.text('Fair');
+                           ratingStars.attr('data-rate', 3);
+                          break;
+                      case 4:
+                          ratingDescription.text('Good');
+                           ratingStars.attr('data-rate', 4);
+                          break;
+                      case 5:
+                          ratingDescription.text('Amazing');
+                           ratingStars.attr('data-rate', 5);
+                          break;
+                      default:
+                          ratingDescription.text('');
+                          break;
+                  }
+
+              };
+          
+          var thumbnailOrder;
+        	var id;
+        	function redirectToDetail(event) {
+      		  thumbnailOrder = event.currentTarget.closest('.card');
+      		 
+      		  id = thumbnailOrder.querySelector('.order-id').textContent;
+      		 
+              window.location.href = '/orderDetails/get?orderId='+ id ;
+          }
+		  
+          loadData(0,0,"");
+  		//get data for table
+  		function loadData(page,status,key) {
+  			var orderWrap = ".order-wrap";
+  		    $.ajax({
+  		      url: '/order/user/getOrderPage',
+  		      type: 'GET',
+  		      dataType: 'json',
+  		      data: {page : page,status: status,keyWord:key},
+  		      success: function(orderPageResponseDto) {
+  		        //clear table
+  		        $(orderWrap).empty();
+  				
+  		        //add record
+  		        $.each(orderPageResponseDto.orderResponseDtos, function(index, order) {
+  					
+  					var hiXKxx = $('<div>').addClass('hiXKxx');
+  					var card = $('<div>').addClass('card');
+  					
+  					//Cart
+  					//1
+  					//KrPQEI
+  					var KrPQEI = $('<div>').addClass('KrPQEI');
+  					KrPQEI.append($('<div>').addClass('qCUYY8').append($('<div>').addClass('_9Ro5mP').text("ADELA SHOP")));
+  					
+  					
+  					var EQko8g = $('<div>').addClass('EQko8g');
+  					var KmBIg2 = $('<a>').addClass('KmBIg2');
+  					KmBIg2.href='#';
+  					var message;
+  					if(order.status==1){
+  						message="Đơn hàng đang đợi xác nhận.";
+  					}else if(order.status==2){
+  						message="Đơn hàng đã bị hủy.";
+  					}else if(order.status==3){
+  						message="Đơn hàng đã được xác nhận.";
+  					}else if(order.status==4){
+  						message="Đơn hàng đã được giao thành công.";
+  					}
+  					var nkmfr2 = $('<span>').addClass('nkmfr2 text-success');
+  					//nkmfr2.append($('<i>').addClass('fa fa-truck').attr('aria-hidden', true));
+  					nkmfr2.append("<i class='fa fa-truck' aria-hidden='true'></i>");
+  					
+  					nkmfr2.text(message).click(redirectToDetail);
+  					KmBIg2.append(nkmfr2);
+  					EQko8g.append(KmBIg2);
+  					KrPQEI.append(EQko8g)
+  					//card add KrPQEI
+  					card.append(KrPQEI);
+  					
+  					//2
+  					//card-body
+  					var cardBody = $('<div>').addClass('card-body');
+  					//add id
+  					cardBody.append($('<div>').text(order.id).hide().addClass('order-id'));
+  					//row(product)
+  					
+  					$.each(order.orderDetaitsResponseDtos, function(index, orderDetails) {
+  						var row = $('<div>').addClass('row').click(redirectToDetail);
+  						row.append('<hr>')
+  						//col-md-2
+  						var subRow = $('<div>').addClass('col-md-2');
+  						var shopeeImageWrapper = $('<div>').addClass('shopee-image__wrapper');
+  						var shopeeImagePlaceHolder = $('<div>').addClass('shopee-image__place-holder');
+  						//var imageElement = $('<img>').addClass("shopee-image__content--blur").attr('src', '../upload/' + orderDetails.imageForSave);
+  						 shopeeImagePlaceHolder.append($('<img>').addClass("shopee-image__content--blur").attr('src', '/upload/' + orderDetails.imageForSave));
+  						 shopeeImageWrapper.append(shopeeImagePlaceHolder);
+  						 subRow.append(shopeeImageWrapper);
+  						 row.append(subRow);
+  						 
+  						 //col-md-8
+  						var subRow2 = $('<div>').addClass('col-md-8');
+  						var _7uZf6Q = $('<div>').addClass('_7uZf6Q');
+  						
+  						var iJlxsT = $('<div>').append($('<div>').addClass('iJlxsT').append($('<span>').attr({
+  		            	'data-id': orderDetails.variantResponseDto.id
+
+  		            }).addClass('x5GTyN').text(orderDetails.variantResponseDto.title)));
+  						_7uZf6Q.append(iJlxsT);
+  						
+  						var div = $('<div>');
+  						if(orderDetails.variantResponseDto.sizeId != "" || orderDetails.variantResponseDto.color != ""){
+  							if(orderDetails.variantResponseDto.size!="" && orderDetails.variantResponseDto.color!=""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.size + ' | ' +orderDetails.variantResponseDto.color));
+  							}else if(orderDetails.variantResponseDto.size!="" && orderDetails.variantResponseDto.color==""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.size));
+  							}else if(orderDetails.variantResponseDto.size=="" && orderDetails.variantResponseDto.color!=""){
+  								div.append( $('<div>').addClass('vb0b-P').text(orderDetails.variantResponseDto.color));
+  							}
+  						}
+  						 
+  						 div.append( $('<div>').addClass('_3F1-5M').text('x'+orderDetails.number));
+  						
+  						 _7uZf6Q.append(div);
+  						 
+  						 subRow2.append(_7uZf6Q);
+  						 row.append(subRow2);
+  						 
+  						 //sub3
+  						 var subRow3 = $('<div>').addClass('col-md-2');
+  						 var textCenter = $('<div>').addClass('text-center').css('margin-top', '60px');
+  						 var rjqzk1 = $('<div>').addClass('rjqzk1');
+  						 formattedPrice =orderDetails.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  						 if(orderDetails.curentPrice!=0){
+  							 formattedCurrentPrice =orderDetails.curentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  							 
+  							 rjqzk1.append($('<span>').addClass('j2En5+').text(formattedCurrentPrice));
+  							 rjqzk1.append($('<span>').addClass('-x3Dqh OkfGBc').text(formattedPrice));
+  						 }else{
+  							 rjqzk1.append($('<span>').addClass('-x3Dqh OkfGBc').text(formattedPrice));
+  						 }
+  						 
+  						 textCenter.append(rjqzk1);
+  						 subRow3.append(textCenter);
+  						 row.append(subRow3);
+  						 
+  						 cardBody.append(row);
+  					});
+  					
+  					
+  					
+  					 
+  					 //kvXy0c
+  					 formattedTotal =order.totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  					var kvXy0c = $('<div>').addClass('kvXy0c');
+  					var div78s2g= $('<div>').addClass('-78s2g').append($('<div>').addClass('_0NMXyN').text('Total: ')).append($('<div>').addClass('DeWpya').text(formattedTotal).click(redirectToDetail));
+  					kvXy0c.append(div78s2g);
+  					cardBody.append(kvXy0c);
+  					
+  					//AM4Cxf
+  					var AM4Cxf = $('<div>').addClass('AM4Cxf');
+  					//var qtUncs = $('<div>').addClass('qtUncs').append($('<span>').addClass('_0NMXyN').text('Không nhận được đánh giá'));
+  					AM4Cxf.append(  $('<div>').addClass('_8ex9dW').text('7 days return and exchange'));
+  					
+  					var EOjXew_4IR9IT = $('<div>').addClass('EOjXew _4IR9IT');
+  					if(order.status==1){
+  						var PF0AU = $('<div>').addClass('PF0-AU').append($('<button>').attr({
+  		            	'data-order-id': order.id,
+  		            	'data-update-status' : 2 
+  		            }).addClass('stardust-button stardust-button--primary WgYvse cancelOrderBtn').text("Cancel")
+		  		          .on('click', function(event) {
+							  // Xử lý khi phần tử được click
+							  showCancel(order.id);
+							}));
+  						EOjXew_4IR9IT.append(PF0AU);
+  					}else if(order.status==4 || order.status==2){
+  						var PF0AU = $('<div>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('PF0-AU').append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse buy-again-btn').text("Buy Again").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  addToCart(event);
+  						}));
+  					
+  						EOjXew_4IR9IT.append(PF0AU);
+  					}
+  					
+  					
+  					var PgtIur= $('<div>').addClass('PgtIur').append($('<button>').addClass('stardust-button stardust-button--primary WgYvse btn-contact mr-10').text("Contact Seller"));
+  					EOjXew_4IR9IT.append(PgtIur);
+  					
+  					if((order.status==4) && order.rated == false){
+  						EOjXew_4IR9IT.append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("Rating").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  openModal(event);
+  						}));
+  					}else if((order.status==4) && order.rated == true){
+  						EOjXew_4IR9IT.append($('<button>').attr({
+  		            	'data-order-id': order.id
+  		            }).addClass('stardust-button stardust-button--primary WgYvse rating-btn ').text("View rating").on('click', function(event) {
+  						  // Xử lý khi phần tử được click
+  						  viewRating(event);
+  						}));
+  					}
+  					AM4Cxf.append(EOjXew_4IR9IT);
+  					cardBody.append(AM4Cxf);
+  					card.append(cardBody);
+  					hiXKxx.append(card);
+  					$(orderWrap).append(hiXKxx);
+  					
+  		        });
+  		         pagination = '';
+  		         currentPage = orderPageResponseDto.currentPage;
+  		         totalPages = orderPageResponseDto.totalPages;
+  		         size = orderPageResponseDto.size;
+  		        //create pagination 
+  		     	 createPagination("#paging",pagination,currentPage,totalPages,status,key );
+  		      },
+  		      error: function(){}})}
+  		
+  		
+  		 	function showCancel(orderId){
+	  			$('#refuseOrder').modal('show');
+	  			 $('#orderIdRefuseModal').val(orderId);
+	  		}
+	   	  
+	   	  //update status
+		   var csrfToken;
+		   var buttonText;
+		   var undo =false;
+		   function updateStatus(event){
+				csrfToken = Cookies.get('XSRF-TOKEN');
+				var button = event.target;
+				buttonText = button.textContent;
+				if(buttonText=="Undo"){
+					undo = true;
+				}
+				var orderId = $('#orderIdRefuseModal').val();
+				var status =$(button).data('update-status');
+				
+				console.log("OrderId:", orderId);
+				
+				$.ajax({
+			      url: '/order/updateStatus',
+			      type: 'PUT',
+			      dataType: 'json',
+			      data: {orderId : parseInt(orderId),status: parseInt(status),undo : undo},
+			       headers: {
+					    'X-XSRF-TOKEN': csrfToken
+					  },
+			      success: function() {
+			    	  $('#refuseOrder').modal('hide');
+						$('body').removeClass('modal-open');
+						$('.modal-backdrop').remove();
+
+			        loadData(0,0,"");
+			        
+			      },
+			      error: function(jqXHR, textStatus, errorThrown){
+					  var errors = jqXHR.responseJSON;
+					  alert(errors);
+				  }})
+			}
+		   
+		   //open modal rate
+		   function openModal(event) {
+			   var button = $(event.target);
+			   
+			   $('#save-rating').attr('data-order-id-value',button.data('order-id'));
+			   $('#save-rating').removeClass("hide");
+			   $('#update-rating').addClass("hide");
+			   
+			   var content = $('#content');
+			   content.empty();
+			   var cardBody = button.closest('.card-body');
+			   cardBody.find('.x5GTyN').each(function(index) {
+				   
+				   var title = cardBody.find('.x5GTyN').eq(index).text();
+				   var size_color = cardBody.find('.vb0b-P').eq(index).text();
+				   var img =cardBody.find('.shopee-image__content--blur')[index].getAttribute('src');
+				   
+				   var rating = $('<div>').addClass('rating-modal-handler__container rating-modal-handler__container--last');
+				   var pinpOp = $('<div>').addClass('PinpOp UYED6+');
+			   	   pinpOp.append($('<div>').addClass('shopee-image__wrapper tJpxcs').append($('<div>').addClass('shopee-image__content')
+			   		.append($('<img>').addClass('shopee_img').attr('src', img))
+			   	   ));
+			   	   var u2w1su =$('<div>').addClass('U2w1su').attr('data-rate-id', -1);
+				   u2w1su.append($('<div>').addClass('D7LjRB').attr('data-id', cardBody.find('.x5GTyN').eq(index).attr('data-id')).text(title));
+			   	   u2w1su.append($('<div>').addClass('q7YFPv').text(size_color));
+			   		
+			   		pinpOp.append(u2w1su);
+			   		rating.append(pinpOp);
+			   	//star
+			   		var star = $('<div>').css('margin', '20px 0px');
+			   		var dmvG7c = ($('<div>').addClass('dmvG7c'));
+			   		dmvG7c.append($('<div>').addClass('jcQ0KT').append($('<h6>').text("Rating: ")));
+			   		var containStar= $('<div>').css('padding-left', '5px');
+			   		var ratingStars = $('<div>').attr('data-rate', 5).addClass('rating-stars');
+			   		for(var i=1; i<=5;i++){
+						ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star active').html('&#9733;').on('click', function(event) {
+					  // Xử lý khi phần tử được click
+					  starChange(event);
+						}))   
+					}
+			   		
+			   		containStar.append(ratingStars);
+					dmvG7c.append(containStar);
+					dmvG7c.append($('<span>').addClass('_6m3yfK rating-description').text("Terrible").css('color', 'rgb(237, 165, 0)'));
+			   		star.append(dmvG7c);
+			   		rating.append(star);
+			   		//jz-Ezz
+			   		var jzEzz = $('<div>').addClass('jz-Ezz');
+			   		var X3Qjvs = $('<div>').addClass('X3Qjvs').append($('<div>').addClass('CLFTQP'));
+					X3Qjvs.append($('<div>').css('position', 'relative').append($('<textarea>').addClass('_2LhMgE form-control').css('min-height', '100px').attr({
+					  'rows': '3',
+					  'placeholder': 'Please share what you like about this product with other buyers.'
+					})));
+					
+					X3Qjvs.append($('<input>').attr({'type': 'file','multiple': 'multiple'}).addClass('file-input'));
+				   	X3Qjvs.append($('<div>').attr({'images': ''}).addClass('selected-images'));
+				   	jzEzz.append(X3Qjvs);
+				   	rating.append(jzEzz);
+				   	content.append(rating);
+				   
+			   });
+			   
+			   
+			   document.getElementById("modal").style.display = "block";
+			   var fileInputs = document.getElementsByClassName('file-input');
+				for (let i = 0; i < fileInputs.length; i++) {
+					
+				  var fileInput = fileInputs[i];
+				  fileInput.addEventListener('change', function(event) {
+					  imageChange(event);
+					});
+				}
+		   }
+		   
+		   
+		// Mảng chứa các file đã chọn
+			let selectedFiles = [];
+			function imageChange(event){
+				var fileInput = event.target;
+				
+				var selectedImagesContainer = $(fileInput).closest('.X3Qjvs').find('.selected-images');
+	  			
+				// Xóa các ảnh đã hiển thị trước đó
+				  selectedImagesContainer.empty();
+				
+			    // Lấy danh sách các file đã chọn
+			    if(fileInput!=null && fileInput.files != undefined){
+					const files = fileInput.files;
+					selectedFiles=[];
+					// Thêm các file mới vào mảng
+				    for (let i = 0; i < files.length; i++) {
+				        selectedFiles.push(files[i]);
+				    }
+				}
+				
+			    // Hiển thị các ảnh đã chọn trên màn hình
+			    for (let i = 0; i < selectedFiles.length; i++) {
+			        // Tạo khung chứa ảnh
+			        const imageContainer = document.createElement('div');
+			        imageContainer.className = 'selected-image';
+			        // Tạo đối tượng ảnh
+			        const image = document.createElement('img');
+			        image.src = URL.createObjectURL(selectedFiles[i]);
+			     // Thêm ảnh vào khung chứa
+			        imageContainer.appendChild(image);
+					
+			        // Thêm khung chứa ảnh vào khung hiển thị ảnh đã chọn
+				     selectedImagesContainer.append(imageContainer);
+			       
+			    }	        
+			};
+			
+			//save rating
+			var csrfToken;
+			function saveRating() {
+				console.log("click sdb");
+				var containerRate = document.getElementsByClassName('rating-modal-handler__container');
+				csrfToken = Cookies.get('XSRF-TOKEN');
+				for (let index = 0; index < containerRate.length; index++) {
+					var inputs = containerRate[index].querySelector('.file-input').files;
+					var formData = new FormData();
+					for (let i = 0; i < inputs.length; i++) {
+			       		formData.append('file', inputs[i]);
+			    	}
+					if(containerRate[index].querySelector('.U2w1su').getAttribute('data-rate-id')!= -1){
+						formData.append('rateId',containerRate[index].querySelector('.U2w1su').getAttribute('data-rate-id'));
+					}
+					console.log($(containerRate[index]).find('.rating-stars').attr('data-rate'));
+					 formData.append('variantId', $(containerRate[index]).find('.D7LjRB').attr('data-id'));
+		             formData.append('rating', $(containerRate[index]).find('.rating-stars').attr('data-rate'));  
+		             formData.append('content', $(containerRate[index]).find('._2LhMgE').val()); 
+		             formData.append('orderId', $('#save-rating').data('order-id-value')); 
+		             
+		             $.ajax({
+		            	 url: '/rate/add',
+		 		         type: 'POST', 
+		 		         contentType: false,
+				         processData: false,
+				         data: formData,
+				         dataType: 'json',
+				         cache: false,
+				         headers: {
+					      'X-XSRF-TOKEN': csrfToken
+					     },
+					     success: function(data) {
+					    	 document.getElementById("modal").style.display = "none";
+					    	 toastr.success(data.message);
+					    	 loadData(0,0,"");
+				         },
+				         error: function(jqXHR, textStatus, errorMessage) {
+				        	 console.log("Status Code:", jqXHR.status);
+				        	    console.log("Error:", errorMessage);
+				         }
+		             });
+				}
+			}
+			
+			//view rating
+			function viewRating(event) {
+					var button = $(event.target);
+					 // Lấy button gây ra sự kiện
+					 
+					$('#update-rating').attr('data-order-id-value',button.data('order-id'));
+					$('#save-rating').addClass("hide");
+					$('#update-rating').removeClass("hide");
+					
+					var content = $('#content');
+					  content.empty();
+					var cardBody = button.closest('.card-body');
+				  
+				  
+				  
+				cardBody.find('.x5GTyN').each(function(index) {
+					
+					
+					  var x5GTyNValue = cardBody.find('.x5GTyN').eq(index).text();
+					  var vb0b = cardBody.find('.vb0b-P').eq(index).text();
+					  var img =cardBody.find('.shopee-image__content--blur')[index].getAttribute('src');
+					  
+					 
+					 
+				   		var rating = $('<div>').addClass('rating-modal-handler__container rating-modal-handler__container--last');
+				   		
+				   		var PinpOp = $('<div>').addClass('PinpOp UYED6+');
+				   		PinpOp.append($('<div>').addClass('shopee-image__wrapper tJpxcs')
+				   		.append($('<div>').addClass('shopee-image__content')
+				   		.append($('<img>').addClass('shopee_img').attr('src', img))
+				   		));
+				   		var U2w1su =$('<div>').addClass('U2w1su');
+				   		U2w1su.append($('<div>').addClass('D7LjRB').attr('data-id', cardBody.find('.x5GTyN').eq(index).attr('data-id')).text(x5GTyNValue));
+				   		U2w1su.append($('<div>').addClass('q7YFPv').text(vb0b));
+				   		
+				   		PinpOp.append(U2w1su);
+				   		rating.append(PinpOp);
+				   		//get rate 
+				   		$.ajax({
+				      url: '/rate/getByOrder?orderId='+button.data('order-id')+'&variantId='+cardBody.find('.x5GTyN').eq(index).attr('data-id'),
+				      type: 'GET',
+				      dataType: 'json',
+				      
+				      success: function(rateResponseDtos) {
+						  //rate id
+						    U2w1su.attr('data-rate-id', rateResponseDtos.id);
+						  //star
+					   		var star = $('<div>').css('margin', '20px 0px');
+					   		var dmvG7c = ($('<div>').addClass('dmvG7c'));
+					   		dmvG7c.append($('<div>').addClass('jcQ0KT').append($('<h6>').text("rate")));
+					   		
+					   		var containStar= $('<div>').css('padding-left', '5px');
+					   		var ratingStars = $('<div>').attr('data-rate', 5).addClass('rating-stars');
+					   		for(var i = 1; i < 6; i++){
+								
+								if(i <= rateResponseDtos.rating){
+									
+									ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star active').html('&#9733;').on('click', function(event) {
+									  // Xử lý khi phần tử được click
+									  starChange(event);}))
+									
+								}else{
+									ratingStars.append($('<span>').attr({'data-number': i}).addClass('rating-star gray-color').html('&#9733;').on('click', function(event) {
+									  // Xử lý khi phần tử được click
+									  starChange(event);}))
+								}
+							
+							}
+					   		
+							containStar.append(ratingStars);
+							dmvG7c.append(containStar);
+							
+					   		star.append(dmvG7c);
+					   		rating.append(star);
+					   		//jz-Ezz
+					   		var jzEzz = $('<div>').addClass('jz-Ezz');
+					   		var X3Qjvs = $('<div>').addClass('X3Qjvs').append($('<div>').addClass('CLFTQP'));
+							X3Qjvs.append($('<div>').css('position', 'relative').append($('<p>').addClass('_2LhMgE form-control').text(rateResponseDtos.content!=''?rateResponseDtos.content : 'The customer did not leave any comments.')));
+					   		
+					   		var imageList=$('<div>').addClass('imageList');
+	
+							for(var i =0;i<rateResponseDtos.images.length;i++){
+								
+								  imageList.append($('<img>').attr('src', "/upload/"+rateResponseDtos.images[i].inmageForSave).addClass('shopee-image__content--blur1'))
+								
+							}
+						   		
+						   	X3Qjvs.append(imageList);
+						   	
+						   		//response
+							if(rateResponseDtos.responses.length!=0){
+								var  fwJamt =  $('<div>').addClass('fwJamt');
+								var  response;
+		
+								for(var i = 0; i < rateResponseDtos.responses.length; i++){
+									response =  $('<div>').addClass('response');
+									if(rateResponseDtos.responses[i].userResponseDto.roleName == "ADMIN"){
+										response.append($('<div>').addClass('CaoTou').text("ADELA"));
+									}else{
+										response.append($('<div>').addClass('CaoTou').text(rateResponseDtos.responses[i].userResponseDto.fullName));
+									}
+									response.append($('<div>').addClass('_2kece8').text(rateResponseDtos.responses[i].content));
+									fwJamt.append(response);
+								}
+								X3Qjvs.append(fwJamt);
+							  }
+							   
+							   	jzEzz.append(X3Qjvs);
+							   	rating.append(jzEzz);
+							   	content.append(rating);
+						  },
+		      			  error: function(){}})
+					 })
+			
+				document.getElementById("modal").style.display = "block";
+			}
+			
+			//update Rate
+			 function updateRateView(){
+					$('#save-rating').removeClass("hide");
+					$('#update-rating').addClass("hide");
+					var X3Qjvs = $('.X3Qjvs');
+					
+					for (var i = 0; i < X3Qjvs.length; i++) {
+					 
+					    var content = $(X3Qjvs[i]).find('._2LhMgE').text();
+					  
+						$(X3Qjvs[i]).empty();
+						$(X3Qjvs[i]).append($('<div>').addClass('CLFTQP'));
+						$(X3Qjvs[i]).append($('<div>').css('position', 'relative').append($('<textarea>').addClass('_2LhMgE form-control').val(content).css('min-height', '100px').attr({
+					  		'rows': '3'
+						})));
+									   	
+					   	$(X3Qjvs[i]).append($('<input>').attr({'type': 'file','multiple': 'multiple'}).addClass('file-input'));
+					   	$(X3Qjvs[i]).append($('<div>').attr({'images': ''}).addClass('selected-images'));
+					}
+					
+					var fileInputs = document.getElementsByClassName('file-input');
+					for (let i = 0; i < fileInputs.length; i++) {
+						
+					  var fileInput = fileInputs[i];
+					  fileInput.addEventListener('change', function(event) {
+						  imageChange(event);
+					  });
+					}
+			 }
+			
+			 function createPagination(navId,pagination,currentPage,totalPages,status,key ){
+		    	  $(navId).empty();
+		          
+		          pagination += '<ul class="pagination">';
+		          pagination += '<li ' + (currentPage > 0 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage > 0 ? 'loadData(' + (currentPage - 1) +','+status+', \''+key+'\')' : 'return false;') + '" aria-label="Previous"><span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a></li>';
+
+		         
+		              var startPage = currentPage > 2 ? currentPage - 2 : 0;
+		              var endPage = currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1;
+
+		              for (var i = startPage; i <= endPage; i++) {
+		                  pagination += '<li ' + (currentPage === i ? 'class="page-item active"' : '') + '><a class="page-link" onclick="loadData(' + i +','+status+', \''+key+'\')">' + (i + 1) + '</a></li>';
+		              }
+		             //${page.totalPages > 5 && page.number < page.totalPages - 3}
+		              if ((totalPages > 5) &&  (currentPage < totalPages-3)) {
+		                
+		                  pagination += '<li class="page-item disabled"><a class="page-link" >...</a></li>';
+		              }
+		             
+		              if ((totalPages > 1) && (totalPages-1 != currentPage) && (totalPages-2 != currentPage) && (currentPage<totalPages-3)) {
+		                  pagination += '<li><a class="page-link" onclick="loadData(' + (totalPages - 1) +','+status+', \''+key+'\')" >' + totalPages + '</a></li>';
+		              }
+
+		          pagination += '<li ' + (currentPage < totalPages - 1 ? '' : 'class="page-item disabled"') + '><a class="page-link" onclick="' + (currentPage < totalPages - 1 ? 'loadData(' + (currentPage + 1) +','+status+', \''+key+'\')' : 'return false;') + '" aria-label="Next"><span aria-hidden="true">&raquo;</span><span class="sr-only"></span></a></li>';
+		          pagination += '</ul>';
+		           
+		           $(navId).append(pagination);
+		      }
+			 
+			 	var csrfToken;
+				//var orderId;
+			    function addToCart(event) {
+			        var button = event.target;
+					var id = $(button).data('order-id');
+					  csrfToken = Cookies.get('XSRF-TOKEN');
+					  
+					    // Gửi Ajax request
+					    $.ajax({
+					    	
+					      url: '/cart/addByOrder?orderId=' +id,
+					      type: 'POST',
+					      contentType: "application/json",
+					      headers: {
+					        'X-XSRF-TOKEN': csrfToken
+					      },
+					      success: function(response,textStatus, jqXHR) {
+							
+						    var contentType = jqXHR.getResponseHeader("Content-Type");
+						    if (contentType.includes("text/html")) {
+								
+						      // Redirect the user to the login page
+						      window.location.href = "/login";
+						    } 
+						    window.location.href = "/cart";
+					      },
+					      error: function(xhr, status, error) {
+							  alert(status);
+							  console.log("loi")
+					      }
+					    });
+			    }
+			
+		</script>
+	</div>
+</body>
+</html>

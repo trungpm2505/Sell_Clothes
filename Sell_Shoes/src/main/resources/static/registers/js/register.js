@@ -36,7 +36,7 @@ function togglePasswsordVisibility() {
     return emailRegex.test(email);
   }
   
-  const inputList = [ 'fullname', 'password', 'address',
+  const inputList = [ 'fullname', 'passwordInput1', 'address',
 				'email', 'phone' ];
 
 	inputList.forEach(function(inputName) {

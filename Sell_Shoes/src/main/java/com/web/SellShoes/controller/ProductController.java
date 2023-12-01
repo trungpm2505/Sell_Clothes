@@ -1,6 +1,7 @@
 package com.web.SellShoes.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,6 @@ public class ProductController {
 	@ResponseBody
 	public ResponseEntity<ProductPageResponseDto> getProductPage(@RequestParam(defaultValue = "7") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
-		
 		Page<Product> productPage = null;
 		if (keyword.equals("")) {
 			productPage = productService.getAllProduct(page, size);
@@ -129,8 +129,6 @@ public class ProductController {
 			@RequestParam int defaultFileIndex, @Valid @ModelAttribute ProductRequestDto productRequestDto,
 			BindingResult bindingResult) {
 		Map<String, Object> errors = new HashMap<>();
-		System.out.println("ảnh file: " + files);
-		System.out.println("ảnh string: " + fileNames);
 
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
@@ -182,8 +180,7 @@ public class ProductController {
 
 		List<Variant> variants = variantService.getVariantsByProductId(productId);
 		if (!variants.isEmpty()) {
-			return ResponseEntity.badRequest().body(
-					"There are designs in the product that cannot be erased!!");
+			return ResponseEntity.badRequest().body("There are designs in the product that cannot be erased!!");
 		}
 
 		productService.deleteProduct(productById.get());
@@ -191,5 +188,7 @@ public class ProductController {
 
 		return ResponseEntity.ok().body("Product deleted successfully.");
 	}
+
+	
 
 }

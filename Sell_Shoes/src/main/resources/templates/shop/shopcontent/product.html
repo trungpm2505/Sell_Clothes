@@ -1,640 +1,1529 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
-  layout:decorate="~{shop/fragments/index.html}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <div  layout:fragment="content">
-  <div class="product_details video_details">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product_tab product_video fix">
+	<div layout:fragment="content">
+	<style>
+.modal_size, .sidebar_widget{
+    display: flex;
+    align-items: center;
+}
 
-                                <!--<div class="tab-content produc_tab_c">
-                                        <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
-                                            <div class="modal_img">
-                                                <a href="#"><img src="/shopview/assets/img/product/productbig.jpg" alt=""></a>
-                                                <div class="img_icone">
-                                                   <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                               </div>
-                                                <div class="view_img">
-                                                    <a class="video_popup" href="https://www.youtube.com/embed/DR2c266yWEA">View video <i class="fa fa-search-plus"></i></a>
-                                                </div>    
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="p_tab2" role="tabpanel">
-                                            <div class="modal_img">
-                                                <a href="#"><img src="/shopview/assets/img/product/productbig1.jpg" alt=""></a>
-                                                <div class="img_icone">
-                                                   <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                               </div>
-                                                <div class="view_img">
-                                                    <a class="video_popup" href="https://www.youtube.com/embed/DR2c266yWEA">View video <i class="fa fa-search-plus"></i></a>
-                                                </div>     
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="p_tab3" role="tabpanel">
-                                            <div class="modal_img">
-                                                <a href="#"><img src="/shopview/assets/img/product/productbig2.jpg" alt=""></a>
-                                                <div class="img_icone">
-                                                   <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                               </div>
-                                                <div class="view_img">
-                                                    <a class="video_popup" href="https://www.youtube.com/embed/DR2c266yWEA">View video  <i class="fa fa-search-plus"></i>  </a>
-                                                </div>     
-                                            </div>
-                                        </div>
-                                    </div>
+.modal_size h2, .sidebar_widget h2 {
+    margin-right: 10px; 
+}
 
-                                    <div class="product_tab_button">    
-                                        <ul class="nav" role="tablist">
-                                            <li>
-                                                <a class="active" data-toggle="tab" href="#p_tab1" role="tab" aria-controls="p_tab1" aria-selected="false"><img src="/shopview/assets/img/cart/cart.jpg" alt=""></a>
-                                            </li>
-                                            <li>
-                                                 <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2" aria-selected="false"><img src="/shopview/assets/img/cart/cart2.jpg" alt=""></a>
-                                            </li>
-                                            <li>
-                                               <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3" aria-selected="false"><img src="/shopview/assets/img/cart/cart4.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                -->
-                                <div class="container">
-                                    <!--<div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                    -->
-                                    <div class="mySlides">
-                                        <div class="numbertext">1 / 6</div>
-                                        <img src="/shopview/assets/img/product/a10.jpg" style="width:100%">
-                                    </div>
+.box_quantity {
+    display: inline-flex;
+    align-items: center;
+}
 
-                                    <div class="mySlides">
-                                        <div class="numbertext">2 / 6</div>
-                                        <img src="/shopview/assets/img/product/a11.jpg" style="width:100%">
-                                    </div>
+.box_quantity .minus,
+.box_quantity .plus {
+    cursor: pointer;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    user-select: none;
+    border-radius: 2px;
+}
 
-                                    <div class="mySlides">
-                                        <div class="numbertext">3 / 6</div>
-                                        <img src="/shopview/assets/img/product/a12.jpg" style="width:100%">
-                                    </div>
+.box_quantity input {
+    width: 60px; 
+}
+.box_quantity .minus:hover,
+.box_quantity .plus:hover {
+  background-color: #ff0000;
+}
 
-                                    <div class="mySlides">
-                                        <div class="numbertext">4 / 6</div>
-                                        <img src="/shopview/assets/img/product/a13.jpg" style="width:100%">
-                                    </div>
+.error-text {
+    display: block;
+    clear: both; /* Đảm bảo rằng phần tử sẽ xuống dòng mới */
+    margin-top: 5px; /* Khoảng cách giữa chữ báo lỗi và input quantity */
+}
 
-                                    <div class="mySlides">
-                                        <div class="numbertext">5 / 6</div>
-                                        <img src="/shopview/assets/img/product/a16.jpg" style="width:100%">
-                                    </div>
 
-                                    <div class="mySlides">
-                                        <div class="numbertext">6 / 6</div>
-                                        <img src="/shopview/assets/img/product/a20.jpg" style="width:100%">
-                                    </div>
+/*----------------------------------------*/
 
-                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                    <a class="next" onclick="plusSlides(1)">❯</a>
+.product-ratings {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+    overflow: hidden;
+    background: #fff;
+    margin-top: 0.9375rem;
+    padding: 1.5625rem;
+    overflow: visible;
+}
 
-                                    <div class="caption-container">
-                                        <p id="caption"></p>
-                                    </div>
+.product-ratings__header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 1em;
+}
 
-                                    <div class="row">
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a10.jpg" style="width:100%"
-                                                onclick="currentSlide(1)" alt="Black">
-                                        </div>
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a11.jpg" style="width:100%"
-                                                onclick="currentSlide(2)" alt="White">
-                                        </div>
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a12.jpg" style="width:100%"
-                                                onclick="currentSlide(3)" alt="Yellow">
-                                        </div>
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a13.jpg" style="width:100%"
-                                                onclick="currentSlide(4)" alt="Cream">
-                                        </div>
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a16.jpg" style="width:100%"
-                                                onclick="currentSlide(5)" alt="Green">
-                                        </div>
-                                        <div class="column">
-                                            <img class="demo cursor" src="/shopview/assets/img/product/a20.jpg" style="width:100%"
-                                                onclick="currentSlide(6)" alt="Pink">
-                                        </div>
-                                        <a class="back" onclick="plusSlides(-1)">❮</a>
-                                        <a class="next1" onclick="plusSlides(1)">❯</a>
+.product-ratings__header_score {
+    font-size: 1.125rem;
+    color: rgba(0, 0, 0, .87);
+    margin-right: 0.2em;
+    text-transform: capitalize;
+}
+
+.product-rating-overview {
+    background-color: #fffbf8;
+    min-height: 5rem;
+    border: 1px solid #f9ede5;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 1.875rem;
+}
+
+.product-rating-overview__briefing {
+    text-align: center;
+    margin-right: 1.875rem;
+}
+
+.theme--ofs .product-rating-overview__score-wrapper {
+    color: #d0011b;
+}
+
+.product-rating-overview__score-wrapper {
+    color: #ee4d2d;
+    font-size: 1.125rem;
+}
+
+.product-rating-overview__rating-score {
+    font-size: 1.875rem;
+}
+
+.theme--ofs .product-rating-overview__score-wrapper {
+    color: #d0011b;
+}
+
+.product-rating-overview__stars {
+    font-size: 1.25rem;
+    margin-top: 0.625rem;
+}
+
+.shopee-rating-stars {
+    position: relative;
+    display: inline-block;
+}
+
+.shopee-rating-stars__stars {
+    display: flex;
+}
+
+.shopee-rating-stars__star-wrapper {
+    position: relative;
+    margin-right: 1px;
+}
+
+.shopee-rating-stars__star-wrapper>.shopee-rating-stars__lit {
+    overflow: hidden;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.product-rating-overview__filters {
+    flex: 1;
+    margin-left: 0.9375rem;
+}
+
+.product-rating-overview__filter {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    height: 2rem;
+    line-height: 2rem;
+    min-width: 6.25rem;
+    text-align: center;
+    padding: 0 0.625rem;
+    color: rgba(0, 0, 0, .8);
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .09);
+    box-sizing: border-box;
+    display: inline-block;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    color: rgba(0, 0, 0, .87);
+    text-transform: capitalize;
+    border-radius: 2px;
+    margin-bottom: 0.3125rem;
+    margin-top: 0.3125rem;
+}
+
+.product-rating-overview__filter>a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .8);
+}
+
+.selected {
+    background-color: #ee4d2d;
+}
+
+.shopee-product-rating:first-child {
+    padding-top: 0;
+}
+.shopee-product-rating {
+    border-bottom: 1px solid rgba(0,0,0,.09);
+    display: flex;
+    padding: 1rem 0 1rem 1.25rem;
+}
+
+.shopee-product-rating__avatar {
+    width: 2.5rem;
+    margin-right: 0.625rem;
+    text-align: center;
+}
+
+.shopee-product-rating__avatar .shopee-avatar {
+    border: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.shopee-avatar {
+    display: inline-block;
+    width: 1.875rem;
+    height: 1.875rem;
+    position: relative;
+    border-radius: 50%;
+    border: 0.0625rem solid rgba(0, 0, 0, .09);
+    box-sizing: border-box;
+}
+._1O4r\+C, .shopee-avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.shopee-avatar__placeholder {
+    width: 100%;
+    position: relative;
+    padding-top: 100%;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.shopee-avatar__img {
+    border-radius: 50%;
+}
+
+.shopee-avatar__img,
+.shopee-avatar__img-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.shopee-product-rating__main {
+    flex: 1;
+}
+
+.shopee-product-rating__author-name {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .87);
+    font-size: .75rem;
+}
+
+.shopee-product-rating__main .repeat-purchase-con {
+    display: flex;
+}
+
+.shopee-product-rating__rating {
+    margin-top: 0.375rem;
+}
+.shopee-product-rating__time {
+    margin-top: 0.25rem;
+    margin-bottom: 0.9375rem;
+    font-size: .75rem;
+    color: rgba(0,0,0,.54);
+}
+.Rk6V\+3 {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0.9375rem 0;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: rgba(0,0,0,.87);
+    word-break: break-word;
+}
+.fwJamt {
+    margin-bottom: 0.75rem;
+    background-color: #f5f5f5;
+    padding: 0.875rem 0.75rem;
+    position: relative;
+}
+.CaoTou {
+    color: rgba(0,0,0,.87);
+    font-weight: 500;
+    font-size: .875rem;
+    text-transform: capitalize;
+}
+._2kece8 {
+    color: rgba(0,0,0,.65);
+    margin-top: 0.625rem;
+    word-break: break-word;
+}
+
+.rating>li {
+    display: inline-block;
+    margin: 0;
+}
+
+.rating li i {
+    color: red;
+}
+
+</style>
+		<div class="product_details video_details">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<div class="single_product_pics">
+                        <div class="row">
+
+                            <div class="col-lg-12 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <div th:each="image : ${productResponse.images}" class="single_product_image_background">
+                                       <img th:if="${image.isDefault}" class="main-image"
+											th:src="@{/upload/__${image.inmageForSave}__}"
+											alt="Product Image">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-md-6">
-                            <div class="product_d_right">
-                                <h1>Printed Summer Dress</h1>
-                                <div class="product_ratting mb-10">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"> Write a review </a></li>
-                                    </ul>
-                                </div>
-                                <div class="product_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati modi culpa
-                                        voluptates illo, quos magni totam inventore delectus perspiciatis
-                                        necessitatibus, iure rerum! Deleniti nobis voluptatibus minus, iusto ullam quae
-                                        esse..</p>
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="product_slider_container">
+                                    <div class="owl-carousel owl-theme product_slider">
+                                        <!-- Danh sách ảnh nhỏ -->
+                                        <div th:each="image : ${productResponse.images}"
+                                         class="owl-item product_slider_item">
+                                            <div class="product_image">
+                                                <img class="thumbnail-image" th:src="@{/upload/__${image.inmageForSave}__}"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                        <!-- Thêm danh sách các ảnh nhỏ khác -->
+                                    </div>
 
-                                <div class="content_price mb-15">
-                                    <span>$118.00</span>
-                                    <span class="old-price">$130.00</span>
-                                </div>
-                                <div class="box_quantity mb-20">
-                                    <form action="#">
-                                        <label>quantity</label>
-                                        <input min="0" max="100" value="1" type="number">
-                                    </form>
-                                    <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                    <a href="#" title="add to wishlist"><i class="fa fa-heart"
-                                            aria-hidden="true"></i></a>
-                                </div>
-                                <div class="product_d_size mb-20">
-                                    <label for="group_1">size</label>
-                                    <select name="size" id="group_1">
-                                        <option value="1">S</option>
-                                        <option value="2">M</option>
-                                        <option value="3">L</option>
-                                    </select>
-                                </div>
+                                    <!-- Slider Navigation -->
 
-                                 <div class="sidebar_widget color">
-                                    <h2>Choose Color</h2>
-                                    <div class="widget_color">
-                                        <ul>
-                                            <li>
-                                                <button class="color-button">Red</button>
-                                            </li>
-                                            <li>
-                                                <button class="color-button">Blue</button>
-                                            </li>
-                                            <li>
-                                                <button class="color-button">Green</button>
-                                            </li>
-                                            <li>
-                                                <button class="color-button">Yellow</button>
-                                            </li>
-                                        </ul>
+                                    <div
+                                        class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                    </div>
+                                    <div
+                                        class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                     </div>
                                 </div>
-
-                                <div class="product_stock mb-20">
-                                    <p>299 items</p>
-                                    <span> In stock </span>
-                                </div>
-                                <div class="wishlist-share">
-                                    <h4>Share on:</h4>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-
                             </div>
                         </div>
+                    </div>
+				</div>
+				<div class="col-lg-8 col-md-6 signle">
+					<div class="product_d_right">
+						<h1></h1>
+						<div class="product_ratting mb-10">
+							<ul>
+								<li><a href="#"><i class="fa fa-star"></i></a></li>
+								<li><a href="#"><i class="fa fa-star"></i></a></li>
+								<li><a href="#"><i class="fa fa-star"></i></a></li>
+								<li><a href="#"><i class="fa fa-star"></i></a></li>
+								<li><a href="#"><i class="fa fa-star"></i></a></li>
+								<li><a href="#"> Write a review </a></li>
+							</ul>
+						</div>
+						<div class="product_desc">
+							<p></p>
+						</div>
+
+						<div class="content_price mb-15">
+							<span>$118.00</span> <span class="old-price">$130.00</span>
+						</div>
+						<div class="box_quantity mb-20">
+							<form action="#">
+								<input min="0" max="100" value="1" type="number">
+							</form>
+							<button type="submit">
+								<i class="fa fa-shopping-cart"></i> add to cart
+							</button>
+							<!-- <a href="#" title="add to wishlist"><i class="fa fa-heart"
+								aria-hidden="true"></i></a> -->
+						</div>
+						<div class="product_d_size mb-20">
+							<div class="modal_size mb-15">
+                                 <h2>size</h2>
+                                  <ul>
+                                      <li>
+									    <input type="radio" id="size-36" name="size" value="36">
+									    <label for="size-36">36</label>
+									  </li>
+									   <li>
+									    <input type="radio" id="size-37" name="size" value="37">
+									    <label for="size-37">37</label>
+									  </li>
+									   <li>
+									    <input type="radio" id="size-38" name="size" value="38">
+									    <label for="size-38">38</label>
+									  </li>
+									   <li>
+									    <input type="radio" id="size-39" name="size" value="39">
+									    <label for="size-39">39</label>
+									  </li>
+                                  </ul>
+                             </div>
+						</div>
+
+						<div class="sidebar_widget color ">
+							<h2>Choose Color</h2>
+							<div class="widget_color">
+								<ul>
+									<li>
+									    <input class="color-button" type="radio" id="color_red" name="color">
+									    <label for="color_red">Red</label>
+									</li>
+									<li>
+									    <input class="color-button" type="radio" id="color_white" name="color">
+									    <label for="color_white">White</label>
+									</li>
+									<li>
+									    <input class="color-button" type="radio" id="color_black" name="color">
+									    <label for="color_black">Black</label>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+
+						<div class="product_stock mb-20">
+							<p>299 items</p>
+							<span> In stock </span>
+						</div>
+						<div class="wishlist-share">
+							<h4>Share on:</h4>
+							<ul>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+								<li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+								<li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+								<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--product details end-->
+
+
+		<!--product info start-->
+		
+		<div class="container">
+            <div style="display: contents;">
+                <div class="product-ratings" data-nosnippet="true">
+                    <div class="product-ratings__header">
+                        <div class="product-ratings__header_score">ĐÁNH GIÁ SẢN PHẨM</div>
+                    </div>
+                    <div class="product-rating-overview">
+                        <div class="product-rating-overview__briefing">
+                            <div class="product-rating-overview__score-wrapper"><span
+                                    class="product-rating-overview__rating-score">5.0</span><span
+                                    class="product-rating-overview__rating-score-out-of"> trên 5 </span></div>
+                            <div class="shopee-rating-stars product-rating-overview__stars">
+                                <div class="shopee-rating-stars__stars">
+
+                                    <div class="shopee-rating-stars__star-wrapper">
+                                        <div class="rating-box">
+                                            <ul class="rating rating-with-review-item">
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-rating-overview__filters">
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">tất
+                                    cả</a></div>
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">5 Sao
+                                    (5,9k)</a></div>
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">4 Sao
+                                    (214)</a></div>
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">3 Sao
+                                    (67)</a></div>
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">2 Sao
+                                    (25)</a></div>
+                            <div class="product-rating-overview__filter" onclick="changeColor(this)"><a href="#">1 Sao
+                                    (25)</a></div>
+                        </div>
+                        <script>
+                            function changeColor(element) {
+                                var filters = document.getElementsByClassName('product-rating-overview__filter');
+                                for (var i = 0; i < filters.length; i++) {
+                                    filters[i].classList.remove('selected');
+                                }
+                                element.classList.add('selected');
+                            }
+                        </script>
+                    </div>
+                    <div class="product-ratings__list" style="opacity: 1;">
+                        <div class="shopee-product-comment-list">
+                            <!-- <div class="shopee-product-rating">
+                                <div class="shopee-product-rating__avatar">
+                                    <div class="shopee-avatar">
+                                        <img class="shopee-avatar__img"
+                                            src="https://down-vn.img.susercontent.com/file/6eaf8c444136137db7cb2a03e7c49046_tn">
+                                    </div>
+                                </div>
+                                <div class="shopee-product-rating__main">
+                                    <div class="shopee-product-rating__author-name">minhtrung</div>
+                                    <div class="repeat-purchase-con">
+                                        <div class="shopee-product-rating__rating">
+                                            <ul class="rating rating-with-review-item">
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="shopee-product-rating__time">2022-03-16 13:59 | Phân loại hàng: BTT18
+                                        XANH THAN,L</div>
+                                    <div class="Rk6V+3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        Perferendis nam omnis reprehenderit doloremque id, voluptate exercitationem,
+                                        unde blanditiis magni eligendi obcaecati tempore. Hic architecto sunt tempora,
+                                        beatae velit explicabo nulla?</div>
+                                    <div class="fwJamt">
+                                        <div class="CaoTou">phản hồi của Người Bán</div>
+                                        <div class="_2kece8">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                            Quod itaque asperiores atque. Hic temporibus excepturi dolorem repudiandae,
+                                            debitis minus inventore iure veniam tenetur ipsum. Similique dolore
+                                            reiciendis dicta consequuntur est.</div>
+                                    </div>
+
+                                </div>
+                            </div> -->
+
+                        </div>
+
                     </div>
                 </div>
-                <!--product details end-->
+            </div>
+        </div>
+        <div class="container-paging">
+		<nav  th:id="paging"></nav>
+		
+		<!-- <div class="product_d_info">
+			<div class="row">
+				<div class="col-12">
+					<div class="product_d_inner">
+						<div class="product_info_button">
+							<ul class="nav" role="tablist">
+								<li><a data-toggle="tab" href="#reviews" role="tab"
+									aria-controls="reviews" aria-selected="false">Reviews</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="reviews"
+								role="tabpanel">
+								<div class="product_info_content">
+									<p>ĐÁNH GIÁ SẢN PHẨM TỪ NGƯỜI DÙNG</p>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Trùm bom hàng</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky black cao cấp / size
+											38</strong>
+										<p>Giày đẹp lắm mn ạ. Vải cũg dày dặn. Với số tiền như vậy
+											mà mua đc đôi giày chất lượng như vậy thì k còn j để chê hết
+											ạ</p>
+									</div>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Doraemonnobi</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky LA white cao cấp /
+											size 37</strong>
+										<p>Giày chất lượng, kiểu dáng đẹp lắm luôn, đi êm chân
+											lắm, shop bán hàng quá uy tín luôn, mình sẽ ủng hộ và giới
+											thiệu bạn bè mua tiếp nhé</p>
+									</div>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Posthemes</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky Pink cao cấp / size 39</strong>
+										<p>That's OK!</p>
+									</div>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Posthemes</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky Be cao cấp / size 38</strong>
+										<p>Giày đẹp lắm luôn shop đóng gói cẩn thận còn kèm 1 cái
+											box bảo vệ nữa mình mua mấy đôi của shop cho mình và mng đều
+											rất ưng</p>
+									</div>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Posthemes</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky Đen cao cấp / size 39</strong>
+										<p>That's OK!</p>
+									</div>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Posthemes</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>Phân loại hàng: Chunky Xanh Rêu cao cấp /
+											size 40</strong>
+										<p>That's OK!</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<!--product info end-->
 
 
-                <!--product info start-->
-                <div class="product_d_info">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="product_d_inner">
-                                <div class="product_info_button">
-                                    <ul class="nav" role="tablist">                                      
-                                        <li>
-                                            <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
-                                                aria-selected="false">Reviews</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tab-content">                                                              
-                                    <div class="tab-pane fade show active" id="reviews" role="tabpanel">
-                                        <div class="product_info_content">
-                                            <p>ĐÁNH GIÁ SẢN PHẨM TỪ NGƯỜI DÙNG</p>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Trùm bom hàng</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky black cao cấp / size 38</strong>
-                                                <p>Giày đẹp lắm mn ạ. Vải cũg dày dặn. Với số tiền như vậy mà mua đc đôi giày chất lượng như vậy thì k còn j để chê hết ạ</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Doraemonnobi</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky LA white cao cấp / size 37</strong>
-                                                <p>Giày chất lượng, kiểu dáng đẹp lắm luôn, đi êm chân lắm, shop bán hàng quá uy tín luôn, mình sẽ ủng hộ và giới thiệu bạn bè mua tiếp nhé</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Posthemes</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky Pink cao cấp / size 39</strong>
-                                                <p>That's OK!</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>                                                                                  
-                                                <strong>Posthemes</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky Be cao cấp / size 38</strong>
-                                                <p>Giày đẹp lắm luôn shop đóng gói cẩn thận còn kèm 1 cái box bảo vệ nữa mình mua mấy đôi của shop cho mình và mng đều rất ưng</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Posthemes</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky Đen cao cấp / size 39</strong>
-                                                <p>That's OK!</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Posthemes</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>Phân loại hàng: Chunky Xanh Rêu cao cấp / size 40</strong>
-                                                <p>That's OK!</p>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--product info end-->
+		<!--new product area start-->
+		<div class="new_product_area product_page">
+			<div class="row">
+				<div class="col-12">
+					<div class="block_title">
+						<h3>11 other products category:</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="single_p_active owl-carousel">
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a10.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a11.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$40.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Quisque ornare dui</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a12.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$60.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Sed non turpiss</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a13.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$65.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Duis convallis</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a16.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--new product area start-->
 
 
-                <!--new product area start-->
-                <div class="new_product_area product_page">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="block_title">
-                                <h3> 11 other products category:</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="single_p_active owl-carousel">
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a10.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="product.html">Curabitur sodales</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a11.jpg"
-                                                alt=""></a>
-                                        <div class="hot_img">
-                                            <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$40.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Quisque ornare dui</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a12.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$60.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Sed non turpiss</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a13.jpg"
-                                                alt=""></a>
-                                        <div class="hot_img">
-                                            <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$65.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Duis convallis</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a16.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--new product area start-->
+		<!--new product area start-->
+		<div class="new_product_area product_page">
+			<div class="row">
+				<div class="col-12">
+					<div class="block_title">
+						<h3>Related Products</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="single_p_active owl-carousel">
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a17.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a18.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$40.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Quisque ornare dui</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a19.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$60.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Sed non turpiss</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a10.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$65.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Duis convallis</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="product.html"><img
+									src="/shopview/assets/img/product/a11.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+		<script type="text/javascript">
+		var ProductDetails = {
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
+	            var propertyList = $('<ul>'); // Tạo một danh sách ul
+	            var addedProperties = {};
+	
+	            $.each(variantList, function(i, variant) {
+	                // Nếu thuộc tính chưa được thêm vào danh sách
+	                if (!addedProperties[variant[propertyName]]) {
+	                    addedProperties[variant[propertyName]] = true;
+	
+	                    var id = variant[propertyName];
+	                    var listItem = $('<li>');
+	
+	                    var propertyRadio = $('<input>').attr({
+	                        type: 'radio',
+	                        name: propertyName,
+	                        value: variant[propertyName + 'Id'],
+	                        id: id,
+	                        class: propertyName + '-button' // Thêm class tại đây
+	                    });
+	
+	                    // Tạo label và thiết lập for attribute
+	                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
+	
+	                    // Thêm input radio và label vào mục li
+	                    listItem.append(propertyRadio).append(propertyLabel);
+	
+	                    // Thêm mục li vào danh sách
+	                    propertyList.append(listItem);
+	                }
+	            });
+	
+	            if (propertyName === 'size') {
+	                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
+	                propertyDiv.append(propertyList);
+	                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
+	                productDPropertyDiv.append(propertyDiv);
+	                container.append(productDPropertyDiv);
+	            } else {
+	                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
+	                container.append(propertyDiv);
+	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
+	            }
+	        }
+    	}
+			
+		loadData();
+
+	    function loadData() {		
+	    	var productId = getParameterByName('productId');
+	    	console.log(productId);
+	        $.ajax({
+	            url: '/product/get?productId=' + productId,
+	            type: 'GET',
+	            //dataType: 'json',
+	            success: function(data) {
+	            	// Mảng để lưu trữ các phần tử cần append
+	            	// Mảng để lưu trữ các phần tử cần append
+	            	var elementsToAppend = [];
+
+	            	//clear table
+	            	$('.signle').empty();
+
+	            	//add record
+	            	var product_d_right = $('<div>').addClass('product_d_right');
+
+	            	//add id
+	            	product_d_right.append($('<div>').text(data.id).hide().addClass('productId'));
+
+	            	//title
+	            	product_d_right.append($('<h1>').text(data.title));
+	            	//description
+	            	product_d_right.append($('<div>').addClass('product_desc').append($('<p>').text(data.discription)));
+
+	            	var countItems = 0;
+	            	$.each(data.variantResponseDtos, function (i, variant) {
+
+	            	    if (i === 0) {
+	            	        var formattedPrice = variant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	            	        if (variant.currentPrice != null) {
+	            	            var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	            	            product_d_right.append($('<div>').addClass('content_price mb-15')
+	            	                .append($('<span>').addClass('new_price').text(formattedCurentPrice))
+	            	                .append($('<span>').addClass('old-price').text(formattedPrice))
+	            	            );
+	            	        } else {
+	            	            product_d_right.append($('<div>').addClass('content_price mb-15')
+	            	                .append($('<span>').text(formattedPrice))
+	            	            );
+	            	        }
+	            	        //items;
+
+	            	    }
+	            	    countItems += variant.quantity;
+	            	});
+	            	var items = $('<p>').text(countItems + ' items');
+	            	//button
+	            	var boxQuantityDiv = $('<div>').addClass('box_quantity mb-20')
+	            	    .append(
+	            	        $('<form>').attr('action', '#').append(
+	            	            $('<span>').addClass('minus').append(
+	            	                $('<i>').addClass('fa fa-minus').attr('aria-hidden', 'true')
+	            	            ),
+	            	            $('<input>').attr({
+	            	                'type': 'number',
+	            	                'id': 'quantity-single-product',
+	            	                'value': 1,
+	            	                'min': 1
+	            	            }),
+	            	            $('<span>').addClass('plus').append(
+	            	                $('<i>').addClass('fa fa-plus').attr('aria-hidden', 'true')
+	            	            )
+	            	        ),
+	            	    )
+	            	    .append($('<button>').attr('type', 'submit').attr('id', 'add-to-cart-single').append(
+	            	    	            $('<i>').addClass('fa fa-shopping-cart')
+	            	    	        ).append(' add to cart')
+	            	    	    );
+	            	boxQuantityDiv.append('<br>');
+	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
+
+	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
+	            	
+
+	            	
 
 
-                <!--new product area start-->
-                <div class="new_product_area product_page">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="block_title">
-                                <h3> Related Products</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="single_p_active owl-carousel">
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a17.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a18.jpg"
-                                                alt=""></a>
-                                        <div class="hot_img">
-                                            <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$40.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Quisque ornare dui</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a19.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$60.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Sed non turpiss</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a10.jpg"
-                                                alt=""></a>
-                                        <div class="hot_img">
-                                            <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$65.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Duis convallis</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                        <a href="product.html"><img src="/shopview/assets/img/product/a11.jpg"
-                                                alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                        </div>
-                                        <div class="product_action">
-                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a>
-                                        </h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
-                                                    title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
+	            	// Sử dụng hàm để tạo danh sách size
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
+
+	            	// Sử dụng hàm để tạo danh sách color
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
+
+	            	// Hàm để tạo danh sách radio
+
+	            	product_d_right.append(boxQuantityDiv);
+	            	product_d_right.append(errorTextDiv);
+
+	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
+	            	stockDiv.append(items);
+	            	stockDiv.append('<span>In stock</span>');
+	            	product_d_right.append(stockDiv);
+
+	            	// Tạo và append div thứ hai với class 'wishlist-share'
+	            	var wishlistDiv = $('<div>').addClass('wishlist-share');
+	            	wishlistDiv.append('<h4>Share on:</h4>');
+	            	wishlistDiv.append('<ul><li><a href="#"><i class="fa fa-rss"></i></a></li><li><a href="#"><i class="fa fa-vimeo"></i></a></li><li><a href="#"><i class="fa fa-tumblr"></i></a></li><li><a href="#"><i class="fa fa-pinterest"></i></a></li><li><a href="#"><i class="fa fa-linkedin"></i></a></li></ul>');
+	            	product_d_right.append(wishlistDiv);
+
+	            	// Thêm product_d_right và các phần tử khác vào mảng
+	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(boxQuantityDiv);
+	            	elementsToAppend.push(stockDiv);
+	            	elementsToAppend.push(wishlistDiv);
+
+	            	// Sử dụng append một lần duy nhất để thêm tất cả các phần tử vào .signle
+	            	$('.signle').append(elementsToAppend);
+
+
+	            },
+	            error: function() {
+	                // Handle errors here
+	            }
+	        });
+	        
+	     // Hàm để lấy giá trị của tham số từ URL
+	        function getParameterByName(name, url) {
+	            if (!url) url = window.location.href;
+	            name = name.replace(/[\[\]]/g, '\\$&');
+	            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+	                results = regex.exec(url);
+	            if (!results) return null;
+	            if (!results[2]) return '';
+	            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	        }
+	     
+	     	//caurosel image
+	        initSlider();
+	        function initSlider() {
+	            if ($('.product_slider').length) {
+	                var slider1 = $('.product_slider');
+
+	                slider1.owlCarousel({
+	                    loop: false,
+	                    dots: false,
+	                    nav: false,
+	                    responsive: {
+	                        0: { items: 1 },
+	                        480: { items: 2 },
+	                        768: { items: 3 },
+	                        991: { items: 4 }, // Thay đổi giá trị này từ 5 thành 4
+	                        1280: { items: 4 }, // Thay đổi giá trị này từ 5 thành 4
+	                        1440: { items: 4 }
+	                    }
+	                });
+
+	                // Các phần xử lý sự kiện nhấp chuột tương tự vẫn được giữ nguyên
+	                if ($('.product_slider_nav_left').length) {
+	                    $('.product_slider_nav_left').on('click', function () {
+	                        slider1.trigger('prev.owl.carousel');
+	                    });
+	                }
+
+	                if ($('.product_slider_nav_right').length) {
+	                    $('.product_slider_nav_right').on('click', function () {
+	                        slider1.trigger('next.owl.carousel');
+	                    });
+	                }
+	            }
+	        }
+	        $(document).ready(function () {
+	            // Lấy các ảnh nhỏ
+	            var thumbnails = $('.thumbnail-image');
+
+	            // Xử lý sự kiện khi hover vào ảnh nhỏ
+	            thumbnails.on('mouseover', function () {
+	                // Lấy URL của ảnh nhỏ khi hover
+	                var newImageSrc = $(this).attr('src');
+
+	                // Thay đổi ảnh lớn khi hover vào ảnh nhỏ
+	                $('.main-image').attr('src', newImageSrc);
+	            });
+	        });
+	        
+	    }
+	    
+	    $(document).ready(function () {
+	        var colorOptionsState = [];
+	        var sizeOptionsState = [];
+
+	        $('.size-button').on('click', function () {
+	            var sizeId = $(this).val();
+	            var productId = $('.productId').text();
+	            $('.error-text.text-danger').text("");
+	            sizeOptionsState = saveSizeOptionsState();
+
+	            $.ajax({
+	                type: 'GET',
+	                url: '/variant/getVariant',
+	                data: {
+	                    productId: productId,
+	                    sizeId: sizeId
+	                },
+	                success: function (response) {
+	                    $('.sidebar_widget.color').remove();
+	                    ProductDetails.createRadioList(response, 'color', $('.product_d_right'), 'color:', '');
+	                    restoreColorOptionsState(colorOptionsState);
+
+	                    
+	                },
+	                error: function (error) {
+	                    console.error(error);
+	                }
+	            });
+	        }); 
+
+	        $('.color-button').on('click', function () {
+	            var colorId = $(this).val();
+	            var productId = $('.productId').text();
+	            $('.error-text.text-danger').text("");
+	            colorOptionsState = saveColorOptionsState();
+
+	            $.ajax({
+	                type: 'GET',
+	                url: '/variant/getVariant',
+	                data: {
+	                    productId: productId,
+	                    colorId: colorId
+	                },
+	                success: function (response) {
+	                    $('.product_d_size').remove();
+	                    var newSizeList = $('<div>'); 
+	                    ProductDetails.createRadioList(response, 'size', newSizeList, 'size:', 'modal_size');
+	                    $('.sidebar_widget').before(newSizeList);
+	                },
+	                error: function (error) {
+	                    console.error(error);
+	                }
+	            });
+	        });
+	        
+	        $(document).on('change', '.modal_size input[type="radio"], .widget_color input[type="radio"]', function () {
+	        	if (isSizeAndColorSelected()) {
+                    callAdditionalAjax();
+                }
+	        });
+
+	        function isSizeAndColorSelected() {
+	            var isSizeSelected = $('.modal_size input[type="radio"]:checked').length > 0;
+	            var isColorSelected = $('.widget_color input[type="radio"]:checked').length > 0;
+
+	            return isSizeSelected && isColorSelected;
+	        }
+
+	        var globalVariantId;
+	        var quantitySelect
+	        function callAdditionalAjax() {
+	            if (!isSizeAndColorSelected()) {
+	                alert("Please select size and color before adding to cart.");
+	                return;
+	            }
+
+	            var productId = $('.productId').text();
+	            var sizeId = $('.modal_size input[type="radio"]:checked').val();
+	            var colorId = $('.widget_color input[type="radio"]:checked').val();
+
+	            $.ajax({
+	                type: 'GET',
+	                url: '/variant/getVariant',
+	                data: { 
+	                    productId: productId,
+	                    sizeId: sizeId,
+	                    colorId: colorId
+	                },
+	                success: function (response) {
+	                    if (response.length > 0) {
+	                        var firstVariant = response[0];
+	                        var currentPrice = firstVariant.currentPrice;
+	                        quantitySelect = firstVariant.quantity;
+	                        globalVariantId = firstVariant.id;
+
+	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
+
+	                        if (currentPrice != null) {
+	                            var formattedCurentPrice = currentPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+	                            $('.content_price span').text(formattedCurentPrice);
+	                            $('.content_price span.old-price').text(formattedPrice);
+
+	                        } else {
+	                            $('.content_price span').text(formattedPrice);
+	                        }
+
+	                        // Cập nhật giá trị quantity
+	                        var quantityText = quantitySelect + ' items';
+	                        $('.product_stock p').text(quantityText);
+
+	                        // Cập nhật giá trị của ô input
+	                        var quantityInput = $('#quantity-single-product');
+	                        var enteredValue = parseInt(quantityInput.val(), 10);
+	                        if (enteredValue > quantitySelect) {
+	                            quantityInput.val(quantitySelect);
+	                        }
+	                    }
+	                },
+	                error: function (error) {
+	                    console.error(error);
+	                }
+	            });
+	        }
+
+
+
+
+//////////////////////////////////////////////
+	        function saveColorOptionsState() {
+	            var optionsState = [];
+	            $('.widget_color input[type="radio"]').each(function () {
+	                optionsState.push({
+	                    id: $(this).attr('id'),
+	                    checked: $(this).prop('checked')
+	                });
+	            });
+	            return optionsState;
+	        }
+
+	        function restoreColorOptionsState(optionsState) {
+	            optionsState.forEach(function (option) {
+	                $('#' + option.id).prop('checked', option.checked);
+	            });
+	        }
+
+	        function saveSizeOptionsState() {
+	            var optionsState = [];
+	            $('.size-widget input[type="radio"]').each(function () {
+	                optionsState.push({
+	                    id: $(this).attr('id'),
+	                    checked: $(this).prop('checked')
+	                });
+	            });
+	            return optionsState;
+	        }
+
+	        function restoreSizeOptionsState(optionsState) {
+	            optionsState.forEach(function (option) {
+	                $('#' + option.id).prop('checked', option.checked);
+	            });
+	        }
+	        
+	        ////////////////
+	        
+	        var quantity;
+			var csrfToken;
+		    function addToCartInSingleProduct(event) {
+		        event.stopPropagation();
+					 var quantity = document.getElementById("quantity-single-product").value;
+					  csrfToken = Cookies.get('XSRF-TOKEN');
+					  
+					  // Kiểm tra xem token có tồn tại hay không
+					  console.log(globalVariantId);
+					  console.log(quantity);
+					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
+					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
+					        return;
+					   }
+					  $('.error-text.text-danger').text("");
+					    // Tạo đối tượng dữ liệu để gửi qua Ajax
+					    var data = {
+					      variantId: globalVariantId,
+					      quantity : quantity
+					    }
+					    // Gửi Ajax request
+					    $.ajax({
+					      url: '/cart/save',
+					      type: 'POST',
+					      contentType: "application/json",
+					      data: JSON.stringify(data),
+					      headers: {
+					        'X-XSRF-TOKEN': csrfToken
+					      },
+					      success: function(response,textStatus, jqXHR) {
+					    	  toastr.success(response);
+						    var contentType = jqXHR.getResponseHeader("Content-Type");
+					      },
+					      error: function(xhr, status, error) {
+						       alert("The system has errors!");
+					      }
+					    });
+					  } 
+		    
+		     $("#add-to-cart-single").click(addToCartInSingleProduct);
+		     
+		  // Lấy phần tử ô nhập liệu số lượng
+				var quantityInput = $('#quantity-single-product');
+
+				// Xử lý sự kiện khi người dùng thay đổi giá trị trong ô nhập liệu
+				quantityInput.on('input', function() {
+					// Lấy giá trị số lượng từ ô nhập liệu
+					var currentValue = parseInt($(this).val());
+
+					// Kiểm tra giá trị số lượng để đảm bảo nó không nhỏ hơn 1
+					if (currentValue < 1) {
+						currentValue = 1;
+					}
+
+					// Cập nhật giá trị số lượng trong ô nhập liệu
+					$(this).val(currentValue);
+				});
+
+				// Xử lý sự kiện khi nhấn nút "plus"
+				$('.plus').on('click', function() {
+					var currentValue = parseInt(quantityInput.val());
+					// Tăng giá trị số lượng lên 1
+					if(currentValue < quantitySelect){
+						quantityInput.val(currentValue + 1);
+						currentValue = quantitySelect;
+					}
+					
+				});
+
+				// Xử lý sự kiện khi nhấn nút "minus"
+				$('.minus').on('click', function() {
+					var currentValue = parseInt(quantityInput.val());
+					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
+					quantityInput.val(Math.max(currentValue - 1, 1));
+				});
+
+		        quantityInput.on('input', function() {
+		            var enteredValue = parseInt($(this).val(), 10); 
+		            if (enteredValue > quantitySelect) {
+		            	quantityInput.val(quantitySelect);
+		            }
+		        });
+				
+	    });
+//// load rate
+		//loadRate(0,0);
+		var currentPage ;
+		var totalPages ;
+		var size;
+		var pagination;
+		function loadRate(page, rating){
+			var productContainer = '.shopee-product-comment-list';
+			var productId = $('.productId').val();
+			
+			$.ajax({
+				url: '/rate/getRateProductPage',
+				type: 'GET',
+				dataType: 'json',
+			    data: {page : page, productId : productId,rateScore : rating},
+			    success: function(data) {
+			    	 $(productContainer).empty();
+			    	 $.each(data.rateResponseDto, function(index, rate) {
+			    		 //avatar
+			    		 var thumnailRate = $('<div>').addClass('shopee-product-rating');
+			    		 var shopeeProductRatingAvatar = $('<div>').addClass('shopee-product-rating__avatar');
+			    		 var shopeeAvatar = $('<div>').addClass('shopee-avatar').append($('<img>').attr('src', "https://down-vn.img.susercontent.com/file/6eaf8c444136137db7cb2a03e7c49046_tn").addClass('shopee-avatar__img'));
+			    		 shopeeProductRatingAvatar.append(shopeeAvatar);
+						 thumnailRate.append(shopeeProductRatingAvatar);
+						 
+						 var shopeeProductRatingMain = $('<div>').addClass('shopee-product-rating__main');
+						//fullname
+						 shopeeProductRatingMain.append($('<div>').addClass('shopee-product-rating__author-name').text(rate.userResponseDto.userName));
+			    	 });
+			    },
+			    error: function(){
+			    	
+			    }
+			});
+		}
+
+		</script>
+	</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.web.SellShoes.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -8,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Size;
 
 @Repository
@@ -24,4 +24,7 @@ public interface SizeRepository extends JpaRepository<Size, Integer> {
 
 	@Query("SELECT c FROM Size c WHERE c.deleteAt is null AND c.size = :sizeName")
 	Optional<Size> findBySizeName(String sizeName);
+	
+	@Query("SELECT c FROM Size c WHERE c.deleteAt is null")
+	List<Size> findAll();
 }

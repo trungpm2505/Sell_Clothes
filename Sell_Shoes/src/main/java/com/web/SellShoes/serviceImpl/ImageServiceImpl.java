@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.SellShoes.dto.responseDto.ImageResponseDto;
 import com.web.SellShoes.entity.Image;
 import com.web.SellShoes.entity.Product;
+import com.web.SellShoes.entity.Rate;
 import com.web.SellShoes.repository.ImageRepository;
 import com.web.SellShoes.service.ImageService;
 
@@ -22,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ImageServiceImpl implements ImageService{
+public class ImageServiceImpl implements ImageService {
 	private final ImageRepository imageRepository;
 	private static String UPLOADED_FOLDER = System.getProperty("user.dir") + "//src//main//resources//static//upload//";
 
@@ -47,7 +48,7 @@ public class ImageServiceImpl implements ImageService{
 						+ FilenameUtils.getExtension(file.getOriginalFilename());
 				Path dir = Paths.get(UPLOADED_FOLDER);
 				Path path = Paths.get(UPLOADED_FOLDER + randomFileName);
-				//Tạo thư mục  nếu nó chưa tồn tại.
+				// Tạo thư mục nếu nó chưa tồn tại.
 				if (!Files.exists(dir)) {
 
 					Files.createDirectories(dir);
@@ -61,7 +62,7 @@ public class ImageServiceImpl implements ImageService{
 				if (i == defaultFileIndex) {
 					image.setIsDefault(true);
 				}
-				
+
 				image.setProduct(product);
 
 				save(image);
@@ -71,15 +72,14 @@ public class ImageServiceImpl implements ImageService{
 
 			}
 		}
-		
+
 	}
 
 	@Override
 	public List<ImageResponseDto> getImageByProduct(Product product) {
 		List<Image> images = imageRepository.getImageByProduct(product);
-		List<ImageResponseDto> imageResponseDtos = images.stream()
-				.map(image -> new ImageResponseDto(image.getId(), image.getInmageForShow(), image.getInmageForSave(), image.getIsDefault()))
-				.collect(Collectors.toList());
+		List<ImageResponseDto> imageResponseDtos = images.stream().map(image -> new ImageResponseDto(image.getId(),
+				image.getInmageForShow(), image.getInmageForSave(), image.getIsDefault())).collect(Collectors.toList());
 		return imageResponseDtos;
 	}
 
@@ -93,31 +93,96 @@ public class ImageServiceImpl implements ImageService{
 
 	@Override
 	public void uploadFileList(List<String> fileNames, int defaultFileIndex, Product product) {
-	    for (int i = 0; i < fileNames.size(); i++) {
-	        String fileName = fileNames.get(i);
-	        String nameForShow = fileName;
+		for (int i = 0; i < fileNames.size(); i++) {
+			String fileName = fileNames.get(i);
+			String nameForShow = fileName;
 
-	        try {
-	            // Đọc dữ liệu tệp từ thư mục tạm thời
-	            Path path = Paths.get(UPLOADED_FOLDER + fileName);
-	            byte[] bytes = Files.readAllBytes(path);
+			try {
+				// Đọc dữ liệu tệp từ thư mục tạm thời
+				Path path = Paths.get(UPLOADED_FOLDER + fileName);
+				byte[] bytes = Files.readAllBytes(path);
 
-	            // Tạo đối tượng Image và lưu xuống cơ sở dữ liệu
-	            Image image = new Image();
-	            image.setInmageForShow(nameForShow);
-	            image.setInmageForSave(fileName);
-	            if (i == defaultFileIndex) {
-	                image.setIsDefault(true);
-	            }
-	            
-	            image.setProduct(product);
+				// Tạo đối tượng Image và lưu xuống cơ sở dữ liệu
+				Image image = new Image();
+				image.setInmageForShow(nameForShow);
+				image.setInmageForSave(fileName);
+				if (i == defaultFileIndex) {
+					image.setIsDefault(true);
+				}
 
-	            save(image);
+				image.setProduct(product);
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+				save(image);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void uploadFileForRate(MultipartFile[] files, Rate rate) {
+		for (int i = 0; i < files.length; i++) {
+			MultipartFile file = files[i];
+			String nameForShow = file.getOriginalFilename();
+			if (file.isEmpty()) {
+
+				continue;
+			}
+			try {
+				// Lưu ảnh vào thư mục tạm thời
+				byte[] bytes = file.getBytes();
+
+				String randomFileName = UUID.randomUUID().toString() + "."
+						+ FilenameUtils.getExtension(file.getOriginalFilename());
+				Path dir = Paths.get(UPLOADED_FOLDER);
+				Path path = Paths.get(UPLOADED_FOLDER + randomFileName);
+				if (!Files.exists(dir)) {
+
+					Files.createDirectories(dir);
+				}
+				Files.write(path, bytes);
+
+				// Tạo đối tượng Image và lưu xuống cơ sở dữ liệu
+
+				Image image = new Image();
+				image.setInmageForShow(nameForShow);
+				image.setInmageForSave(randomFileName);
+				image.setRate(rate);
+				save(image);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+
+			}
+		}
+	}
+
+	@Override
+	public List<ImageResponseDto> getImageByRate(Rate rate) {
+		List<Image> images = imageRepository.getImageByRate(rate);
+
+		List<ImageResponseDto> imageResponseDtos = images.stream().map(image -> new ImageResponseDto(image.getId(),
+				image.getInmageForShow(), image.getInmageForSave(), image.getIsDefault())).collect(Collectors.toList());
+
+		return imageResponseDtos;
+	}
+
+	@Override
+	public void deleteByRate(Rate rate) {
+		List<Image> images = imageRepository.getImageByRate(rate);
+		for (Image image : images) {
+			imageRepository.delete(image);
+		}
+	}
+
+	@Override
+	public ImageResponseDto getImageByProductAndDefault(Product product) {
+		ImageResponseDto imageResponseDto = new ImageResponseDto();
+		imageResponseDto
+				.setInmageForSave(imageRepository.getImageByProductAndDefault(product).get().getInmageForSave());
+
+		return imageResponseDto;
 	}
 
 }

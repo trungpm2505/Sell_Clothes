@@ -2,6 +2,8 @@ package com.web.SellShoes.dto.responseDto;
 
 import java.time.LocalDate;
 
+import com.web.SellShoes.entity.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class VariantResponseDto {
+	public VariantResponseDto(Integer id, Integer productId, Integer sizeId, Integer colorId, String size, String color,
+			Float price, Float currentPrice, int quantity, int buyCount) {
+		super();
+		this.id = id;
+		this.productId = productId;
+		this.sizeId = sizeId;
+		this.colorId = colorId;
+		this.size = size;
+		this.color = color;
+		this.price = price;
+		this.currentPrice = currentPrice;
+		this.quantity = quantity;
+		this.buyCount = buyCount;
+	}
+
 	private Integer id;
 
 	private Integer productId;

@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/fragments/home.html}">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -147,8 +147,10 @@ margin-left: 10px
 									<th scope="col">CreateAt</th>
 									<th scope="col">UpdateAt</th>
 									<th scope="col"></th>
-									<th></th>
-									<th></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -162,13 +164,14 @@ margin-left: 10px
 									<td>@mdo</td>
 									<td></td>
 									<td></td>
+									<td></td>
 									<td>
 										<button type="button" class="btn btn-primary"
 											data-toggle="modal" data-target="#variantModal">Add
-											Variant</button>
-										<button class="btn btn-warning">Edit</button>
-										<button class="btn btn-danger">Delete</button>
-									</td>
+											Variant</button></td>
+										<td><button class="btn btn-warning">Edit</button></td>
+										<td><button class="btn btn-danger">Delete</button></td>
+									
 								</tr>
 							</tbody>
 						
@@ -258,8 +261,8 @@ margin-left: 10px
                       <th scope="col">UpdateAt</th>
 
                       <th scope="col"></th>
-                      <th></th>
-                      <th></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -632,7 +635,17 @@ margin-left: 10px
 			    }
 			    
 			    formData.append('discription', discription);
-			    
+			    if (selectedFilesEdit.length > 0) {
+			        selectedFiles = selectedFilesEdit;
+			    }
+			    var defaultFileIndex = 0; // Giả định mặc định là 0
+			    if (selectedFiles.length > 0) {
+			        defaultFileIndex = 0; // Nếu có ảnh được chọn, đặt giá trị thành 0
+			    }
+
+			    // Gắn giá trị mặc định cho defaultFileIndex
+			    formData.append('defaultFileIndex', defaultFileIndex);
+
 			 	// Thêm các file được chọn vào đối tượng FormData
 			     for (let i = 0; i < selectedFiles.length; i++) {
 				    if (typeof selectedFiles[i] === 'string') {
@@ -640,14 +653,7 @@ margin-left: 10px
 				    } else {
 				        formData.append('file', selectedFiles[i]);
 				    }
-				}
-
-			  	// Kiểm tra xem có ảnh được chọn hay không
-			     if (selectedFiles.length === 0 || selectedFiles.length > 0) {
-			         // Gắn giá trị mặc định cho defaultFileIndex
-			         formData.append('defaultFileIndex', 0);
-			     }
-			  	
+				}			  	
 			  	
 			     csrfToken = Cookies.get('XSRF-TOKEN');
 			     $.ajax({
@@ -665,7 +671,8 @@ margin-left: 10px
 				        	toastr.success(data.message); // Hiển thị thông báo thành công khi request thành công.
 				            clearFrom(); 
 				            
-				            loadData(0, ""); 
+				            loadData(0, "");
+				            loadDataVariant(0,0,0,"");
 				        },
 				        error: function(jqXHR, textStatus, errorMessage) {
 				            // Xử lý lỗi khi request không thành công.
@@ -752,7 +759,7 @@ margin-left: 10px
 			            row.append($('<td>').attr({
 			            	'data-id' : product.id
 			            }).addClass('text-danger delete-product').html('<i class="fas fa-trash"></i> Delete'));
-			            
+			            row.append($('<td>'));
 			            $(table).append(row);
 			        });
 			         pagination = '';
@@ -800,6 +807,7 @@ margin-left: 10px
 			    	            	 for (let i = 0; i < inmageForSaveArray.length; i++) {
 			    	            		 selectedFilesEdit.push(inmageForSaveArray[i]);
 			 					    }
+			    	            	
 			    	            	// Hàm hiển thị ảnh
 			    	            	function displayImages(imageList) {
 								    selectedImagesContainer.innerHTML = '';
@@ -1039,6 +1047,7 @@ margin-left: 10px
 			var typeV;
 			function addVariant(productId){
 				  $('#variantModal').modal("show");
+				  clearFromVariant();
 				  $('#productId').val(productId);	
 				  
 				  $("#id").val("");
@@ -1050,6 +1059,15 @@ margin-left: 10px
 			};
 			
 			function editVariant(variantId) {
+				//clearFromVariant();
+				
+				$('#variantModal').modal("show");
+			    clearFromVariant();
+			    
+			    $('#save-variant-value').text('Update');
+
+			    urlV = "/variant/update";
+			    typeV = "PUT";
 			    // Chọn hàng bảng với variantId cụ thể
 			    var variantRow = $('tr').find('.id:contains(' + variantId + ')').closest('tr');
 
@@ -1061,13 +1079,7 @@ margin-left: 10px
 			    var colorId = variantRow.find('.colorId').text();
 			    var productId = variantRow.find('.productId').text();
 
-			    $('#variantModal').modal("show");
-			    clearFromVariant();
 			    
-			    $('#save-variant-value').text('Update');
-
-			    urlV = "/variant/update";
-			    typeV = "PUT";
 			    			    
 			    document.getElementById('variantId').value = variantId;
             	document.getElementById('productId').value = productId;
@@ -1198,6 +1210,11 @@ margin-left: 10px
 			                        $("#" + error.field + "-error").text(error.defaultMessage);
 			                    }
 			                }
+			                
+			                if (errors.hasOwnProperty("variantDuplicate")) {
+			                    var variantDuplicate = errors["variantDuplicate"];
+			                    toastr.warning(variantDuplicate); 
+			                }
 			            } else {
 			                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
 			            }
@@ -1278,8 +1295,8 @@ margin-left: 10px
 					  }));
 					  
 			           row.append($('<td>').text(variant.title).addClass('truncate'));
-			           row.append($('<td>').text(variant.price).addClass('price'));
-			           row.append($('<td>').text(variant.currentPrice).addClass('currentPrice'));
+			           row.append($('<td>').text((variant.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })).addClass('price'));
+			           row.append($('<td>').text((variant.currentPrice)!= null ? (variant.currentPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : variant.currentPrice).addClass('currentPrice'));
 			           row.append($('<td>').text(variant.quantity).addClass('quantity'));
 			           row.append($('<td>').text(variant.size).addClass('size'));
 			           row.append($('<td>').text(variant.color).addClass('color'));

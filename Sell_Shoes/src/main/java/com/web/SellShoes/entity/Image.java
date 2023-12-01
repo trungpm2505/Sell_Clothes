@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,10 @@ public class Image {
 	private Boolean isDefault = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "product_id", nullable = true, referencedColumnName = "id")
     private Product product;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rate_id", nullable = true, referencedColumnName = "id")
+    private Rate rate;
 }

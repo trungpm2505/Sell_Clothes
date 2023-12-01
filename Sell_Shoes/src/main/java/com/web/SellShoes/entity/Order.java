@@ -32,21 +32,25 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false, length = 60, columnDefinition = "NVARCHAR(60)")
 	private String fullName;
 	
 	@Column(nullable = false, length = 11)
 	private String phone_Number;
 	
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 200, columnDefinition = "NVARCHAR(200)")
 	private String adrress;
 	
-	@Column(nullable = true, length = 50)
+	@Column(nullable = true, length = 1500, columnDefinition = "NVARCHAR(1500)")
 	private String note;
 	
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate order_date = LocalDate.now();
+	
+	@Column(nullable = true)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate completedAt;
 	
 	@Column(nullable = false)
 	private int status = 1;

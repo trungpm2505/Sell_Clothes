@@ -54,6 +54,13 @@ public class VariantController {
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 		}
+		Optional<Variant> variantOptional = variantService.getVariantBySizeAndColor(variantRequestDto.getProduct(),
+				variantRequestDto.getSize(), variantRequestDto.getColor());
+		if (variantOptional.isPresent()) {
+			errors.put("variantDuplicate",
+					"Variant already exists in this size and color! please enter a new variant. ");
+		}
+
 		if (!errors.isEmpty()) {
 			return ResponseEntity.badRequest().body(errors);
 		}
@@ -132,6 +139,34 @@ public class VariantController {
 				variantPage.getNumber(), variantPage.getSize(), variantResponseDtos);
 		return ResponseEntity.ok(variantPageResponseDto);
 
+	}
+
+	@GetMapping(value = "/getVariant")
+	@ResponseBody
+	public ResponseEntity<?> getVariant(@RequestParam Integer productId,
+			@RequestParam(required = false, defaultValue = "0") Integer sizeId,
+			@RequestParam(required = false, defaultValue = "0") Integer colorId) {
+
+		List<Variant> variants = null;
+		Size size = null;
+		Color color = null;
+
+		if (sizeId != 0) {
+			size = sizeService.getSize(sizeId).get();
+		}
+		if (colorId != 0) {
+			color = colorService.getColor(colorId).get();
+		}
+		variants = variantService.getVariantsByProductIdAndSizeIdColorId(productId, size, color);
+
+		List<VariantResponseDto> variantResponseDtos = variants.stream()
+				.map(variant -> new VariantResponseDto(variant.getId(), variant.getProduct().getId(),
+						variant.getSize().getId(), variant.getColor().getId(), variant.getProduct().getTitle(),
+						variant.getNote(), variant.getSize().getSize(), variant.getColor().getColor(),
+						variant.getPrice(), variant.getCurrentPrice(), variant.getQuantity(), variant.getBuyCount(),
+						variant.getCreateAt(), variant.getUpdateAt()))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok(variantResponseDtos);
 	}
 
 }

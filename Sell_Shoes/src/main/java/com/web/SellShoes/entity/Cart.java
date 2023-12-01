@@ -29,14 +29,8 @@ public class Cart {
 	@Column(nullable = false)
 	private int quantity;
 
-	@Column(nullable = false, length = 20)
-	private String size;
-	
-	@Column(nullable = false, length = 20)
-	private String color;
-
-	@Column(nullable = false)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Column(nullable = true)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime updatedAt = LocalDateTime.now();
 
 	@ManyToOne(fetch = FetchType.LAZY)

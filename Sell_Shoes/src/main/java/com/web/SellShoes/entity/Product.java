@@ -31,10 +31,10 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false, length = 200)
+	@Column(nullable = false, length = 200, columnDefinition = "NVARCHAR(200)")
 	private String title;
 	
-	@Column(nullable = false, length = 1500)
+	@Column(nullable = false, length = 1500, columnDefinition = "NVARCHAR(1500)")
 	private String discription;
 	
 	@Column(nullable = false)
@@ -57,4 +57,7 @@ public class Product {
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Image> images = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Variant> variants = new ArrayList<>();
 }
