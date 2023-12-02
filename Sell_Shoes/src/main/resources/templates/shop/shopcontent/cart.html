@@ -9,37 +9,42 @@
 <body>
 
 	<div layout:fragment="content">
-		<div class="corner-popup" onclick="openCenterPopup()">Voucher giảm giá</div>
-   
+		<div class="corner-popup" onclick="openCenterPopup()">Voucher
+			giảm giá</div>
 
-        <div id="centerPopup" class="center-popup">
 
-            <div id="closeButton" onclick="closeCenterPopup()">X</div>
+		<div id="centerPopup" class="center-popup">
 
-            <div class="voucher" id="Promotion">
-                <div class="margin-title">
-                    <div class="title-vocher">
-                        <h4>Giảm giá 50% </h4>
-                    </div>
-                    <img class="img-vocher" src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png" alt="Sản phẩm 1">
-                </div>
-                <div class="voucher-details">
-                    <button class="review-button" data-order-id="12345" id="discountCode"
-                        onclick="copyToClipboard()">Coppy mã</button>
-                    <div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn bộ đơn hàng</div>
-                    <ul>
-                        <li>Giảm tối đa: 50.000 </li>                       
-                        <li>Ngày hết hạn: 30/11/2023</li>
-                        <li>Thể lệ: Cho toàn bộ đơn hàng</li>
-                    </ul>
+			<div id="closeButton" onclick="closeCenterPopup()">X</div>
 
-                    <div class="codevoucher" id="voucherCode">Your Voucher Code: <p class="codevoucher" id="predefinedText">JSPO2K3M
-                        </p>
-                    </div>
-                </div>
-            </div>           
-            
-        </div>
+			<div class="voucher" id="Promotion">
+				<div class="margin-title">
+					<div class="title-vocher">
+						<h4>Giảm giá 50%</h4>
+					</div>
+					<img class="img-vocher"
+						src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png"
+						alt="Sản phẩm 1">
+				</div>
+				<div class="voucher-details">
+					<button class="review-button" data-order-id="12345"
+						id="discountCode" onclick="copyToClipboard()">Coppy mã</button>
+					<div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn
+						bộ đơn hàng</div>
+					<ul>
+						<li>Giảm tối đa: 50.000</li>
+						<li>Ngày hết hạn: 30/11/2023</li>
+						<li>Thể lệ: Cho toàn bộ đơn hàng</li>
+					</ul>
+
+					<div class="codevoucher" id="voucherCode">
+						Your Voucher Code:
+						<p class="codevoucher" id="predefinedText">JSPO2K3M</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
 		<div class="breadcrumbs_area">
 			<div class="row">
 				<div class="col-12">
@@ -439,22 +444,23 @@
                         success: function (response) {
                             var centerPopup = $("#centerPopup");
 
-                            // Clear existing content
+                            //Xóa nội dung hiện có
                             centerPopup.empty();
 
-                            // Loop through promotion data and append to the centerPopup
-                            $.each(response.promotionResponseDtos, function (index, promotion) {
-                                // Check if the promotion is active
+                            if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
+                                // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                                $.each(response.promotionResponseDtos, function (index, promotion) {
+                                // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
                                 if (promotion.active) {
                                 	var imagesHtml = `<img src="https://cdn-icons-png.flaticon.com/512/3258/3258499.png" alt="Promotion Image">`;
- 									// Assuming you have images for each promotion
+ 									// Giả sử bạn có hình ảnh cho mỗi chương trình khuyến mãi
  									
-                                    // Loop through promotion images
+                                    // Lặp qua các hình ảnh quảng cáo
                                     $.each(promotion.images, function (imgIndex, image) {
                                         imagesHtml += `<img src="${image.url}" alt="Promotion Image">`;
                                     });
 
-                                    // Construct the promotion HTML
+                                    // Xây dựng promotion HTML
                                                                     
                                     var promotionHtml = `
                                     	<div id="closeButton" onclick="closeCenterPopup()">X</div>
@@ -472,16 +478,24 @@
                                                     <li>Discount Value: ${promotion.discountType === 1 ? `${promotion.discountValue}%` : `${promotion.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`}</li>
                                                     <li>Max Value: ${promotion.maxValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>                                                    
                                                     <li>Expired Date: ${promotion.expiredDate}</li>
-                                                    <li class="codevoucher" id="voucherCode">Coupon Code: ${promotion.couponCode}</li> <!-- Add this line for Coupon Code -->
+                                                    <li >Coupon Code: ${promotion.couponCode}</li> <!-- Add this line for Coupon Code -->
                                                 </ul>
                                             </div>
                                         </div>
                                     `;
 
-                                    // Append the promotion HTML to the centerPopup
+                                    // Nối HTML voucher vào centerPopup
                                     centerPopup.append(promotionHtml);
                                 }
                             });
+                            } else {
+                                // Nếu không có voucher, hiển thị ảnh full
+                                centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/2015/Tin-Tuc/ThuVTK/giam8phantram_1.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">Cùng chờ đón mùa sale lớn giáng sinh</p</div>');
+								
+                            }
+
+                            //Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                            
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.error('Error loading promotion data:', errorThrown);
@@ -490,10 +504,9 @@
                 }
 
                                         
-
-               // Add this function to handle copying the coupon code
+               //Thêm chức năng này để xử lý việc sao chép mã giảm giá
                function applyPromotion(couponCode) {
-                   // Use the provided couponCode parameter to copy to the clipboard
+                   //Sử dụng tham số couponCode được cung cấp để sao chép vào bảng nhớ tạm
                    const textarea = document.createElement('textarea');
                    textarea.value = couponCode;
                    document.body.appendChild(textarea);
@@ -501,7 +514,7 @@
                    document.execCommand('copy');
                    document.body.removeChild(textarea);
 
-                   // Optionally, you can display a message or perform additional actions
+                   //Hiển thị thông báo hoặc thực hiện các hành động bổ sung
                    alert(`Coupon Code "${couponCode}" has been copied to the clipboard.`);
              	}
 
