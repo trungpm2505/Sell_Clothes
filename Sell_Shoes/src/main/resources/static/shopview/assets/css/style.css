@@ -1995,6 +1995,21 @@
 	-webkit-transition: .3s;
 	transition: .3s;
 }
+.cart_submit a,.coupon_inner button {
+	background: #333;
+	border: 0;
+	color: #fff;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	height: 38px;
+	line-height: 18px;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+	-webkit-transition: .3s;
+	transition: .3s;
+}
 .cart_submit button:hover,.coupon_inner button:hover{
     background: #15a7b4;
 }

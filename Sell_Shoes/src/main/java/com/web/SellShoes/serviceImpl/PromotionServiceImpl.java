@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.SellShoes.dto.responseDto.PromotionResponseDto;
 import com.web.SellShoes.entity.Promotion;
 import com.web.SellShoes.repository.PromotionRepository;
 import com.web.SellShoes.service.PromotionService;
@@ -18,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 
 public class PromotionServiceImpl implements PromotionService{
 	private final PromotionRepository promotionRepository;
-
 	@Override
 	public Optional<Promotion> getPromotionById(Integer promotionId) {
 		Optional<Promotion> promotion = promotionRepository.getPromotionById(promotionId);
@@ -59,4 +59,6 @@ public class PromotionServiceImpl implements PromotionService{
 		promotion.setDeleteAt(LocalDate.now());
 		promotionRepository.save(promotion);
 	}
+
+	
 }

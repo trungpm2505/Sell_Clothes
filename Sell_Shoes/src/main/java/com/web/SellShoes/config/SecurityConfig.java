@@ -40,10 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/color/**",
 			"/size/**",
 			"/category/**",
+			"/feedback/**",
 			"/brand/**",
 			"/product/**",
 			"/login/**",
 			"/register/**",
+			"/userfeedback/**",
 			"/image/**",
 			"/upload/**",
 			"/plugins/**" ,
@@ -53,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/logins/**",
 			"/shop/**",
 			"/cart/**",
+			"/userOrder/**",
 	};
 	
 
