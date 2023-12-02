@@ -17,6 +17,6 @@ public class CartResponseDto {
 	private Float currentPrice;
 	private Float total;
 
-	// private ImageResponseDto images;
+	private ImageResponseDto images;
 
 }

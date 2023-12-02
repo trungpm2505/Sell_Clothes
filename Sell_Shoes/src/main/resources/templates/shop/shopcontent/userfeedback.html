@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
+  layout:decorate="~{shop/fragments/index.html}">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <div  layout:fragment="content">
+     <div class="breadcrumbs_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb_content">
+                                <ul>
+                                    <li><a href="index.html">home</a></li>
+                                    <li><i class="fa fa-angle-right"></i></li>
+                                    <li>feedback</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs area end-->
+                <div class="contact_area">
+                    <div class="row">
+                           
+                           <div class="col-lg-6 col-md-12">
+                            <div class="contact_message contact_info">
+                                <h3><strong>CONTACT US</strong></h3>
+                                <div class="info-item">
+                                  
+                                    <i class="fa fa-clock-o" style="font-size:36px"></i>
+                                    <div class="info-content">
+                                        <h3>Work time</h3>
+                                        <h6>8:00 - 17:00</h6>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fa fa-location-arrow" style="font-size:30px"></i>
+                                    <div class="info-content">
+                                        <h3>Address</h3>
+                                        <h6>137 Nguyễn Thị Thập, Thanh Khê Tây, Liên Chiểu, Đà Nẵng, Việt Nam</h6>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fa fa-phone"></i>
+                                    <div class="info-content">
+                                        <h3>Customer Support</h3>
+                                        <h6>1900 638083</h6>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fa fa-envelope"></i>
+                                    <div class="info-content">
+                                        <h3>Happy to answer questions about the product at</h3>
+                                        <h6>mjnhtrung2003@gmail.com</h6>
+                                    </div>
+                                </div>
+                            </div> 
+                           </div>
+                           <div class="col-lg-6 col-md-12">
+                            <div class="contact_message">
+                                 <h3>Tell us your project</h3>   
+                                 <div id="contact-form" >
+                                     <div class="row">
+                                         <div class="col-lg-6">
+                                             <input id="fullName" name="fullname" placeholder="Full name *" type="text">    
+                                             <div th:id="fullName-error" class="text-danger form-text "></div>
+                                         </div>
+                                         
+                                         
+                                         <div class="col-lg-6">
+                                             <input id="email" name="email" placeholder="Email *" type="email">    
+                                              <div th:id="email-error" class="text-danger form-text "></div>
+                                         </div>
+                                        
+                                         
+                                         <div class="col-lg-6">
+                                             <input id="subjectName" name="subjectname" placeholder="Subject name *" type="text">   
+                                              <div th:id="subjectName-error" class="text-danger form-text "></div>
+                                         </div>
+                                        
+                                         
+                                          <div class="col-lg-6">
+                                             <input id="phone" name="phone" placeholder="Phone *" type="text">   
+                                              <div th:id="phone-error" class="text-danger form-text "></div>
+                                         </div>
+                                        
+
+                                         <div class="col-12">
+                                             <div class="contact_textarea">
+                                                 <textarea id="note" placeholder="Note *" name="note" class="form-control2"></textarea>   
+                                                  <div th:id="note-error" class="text-danger form-text "></div>  
+                                             </div>
+                                            
+                                                
+                                             <button id="saveFeedback" type="submit" onclick="addFeedback()"> Send Message </button>  
+                                         </div> 
+                                         <div class="col-12">
+                                             <p class="form-messege">
+                                         </div>
+                                     </div>
+                                 </div>    
+                             </div> 
+                        </div>
+                       
+                       </div>
+                </div>
+                 <div class="contact_map">
+                    <div class="row">
+                        <div class="col-12">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802589282656!2d108.16738507489463!3d16.075730739264273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0xb93a05e26b3b28ff!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1697464287790!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                               
+                             </div>
+                    </div>
+                </div>               
+<script>
+function addFeedback() {
+
+	// Mảng chứa các trường input cần kiểm tra focus
+    var inputList = ['fullName', 'email', 'subjectName', 'note', 'phone'];
+
+    // Lặp qua từng trường input và thêm sự kiện focus
+    inputList.forEach(function (inputName) {
+        var input = $("#" + inputName);
+        var error = $("#" + inputName + '-error');
+
+        if (input) {
+            input.on("focus", function () {
+                error.text('');
+            });
+        } else {
+            console.error("Element with id '" + inputName + "' not found in the page.");
+        }
+    });
+
+	//Xoá form khi thêm thành công
+    var fullName = $("#fullName").val();
+    var email = $("#email").val();
+    var subjectName = $("#subjectName").val();
+    var phone = $("#phone").val();
+    var note = $("#note").val();
+
+    console.log(fullName, email, subjectName, phone, note); // Kiểm tra giá trị đã lấy được
+
+    // Gửi AJAX request để lưu phản hồi từ người dùng
+    $.ajax({
+        type: 'post',
+        url: '/feedback/saveUserfeedback',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            fullName: fullName,
+            email: email,
+            subjectName: subjectName,
+            phone: phone,
+            note: note
+        }),
+        success: function (response) {
+            // Xử lý thành công, có thể thực hiện các hành động khác nếu cần
+            toastr.success(response);
+         // Xoá dữ liệu trên form
+            $("#fullName").val("");
+            $("#email").val("");
+            $("#subjectName").val("");
+            $("#phone").val("");
+            $("#note").val("");
+
+            // Hoặc nếu bạn có các thẻ span để hiển thị lỗi, bạn cũng có thể xoá chúng
+            $(".error-message").text("");
+        },
+        error: function (jqXHR, textStatus, errorMessage) {
+            // Xử lý lỗi
+            console.log(errorMessage); // Kiểm tra thông báo lỗi từ máy chủ
+
+            if (jqXHR.status === 400) {
+                var errors = jqXHR.responseJSON;
+
+                if (errors.hasOwnProperty("bindingErrors")) {
+                    var bindingErrors = errors["bindingErrors"];
+
+                    for (var i = 0; i < bindingErrors.length; i++) {
+                        var error = bindingErrors[i];
+                        // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
+                        $("#" + error.field + "-error").text(error.defaultMessage);
+                    }
+                }
+
+                if (errors.hasOwnProperty("nameDuplicate")) {
+                    var editnameError = errors["nameDuplicate"];
+                    $("#fullName-error").text(editnameError);
+                    $("#email-error").text(editnameError);
+                    $("#subjectName-error").text(editnameError);
+                    $("#phone-error").text(editnameError);
+                    $("#note-error").text(editnameError);
+                }
+            } else {
+                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>
+
+
+
+               

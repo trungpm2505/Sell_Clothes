@@ -21,6 +21,10 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	}
 
 	@Override
+	public <S extends OrderDetail> S save(S entity) {
+		return orderDetailRepository.save(entity);
+		
+	}
 	public int getNumberOfProductInOrder(Order order) {
 		return orderDetailRepository.getNumberOfProductInOrder(order);
 	}

@@ -113,6 +113,7 @@ public class Mapper {
 		} else {
 			cartResponseDto.setTotal(cart.getQuantity() * variant.get().getPrice());
 		}
+		cartResponseDto.setImages(imageService.getImageByProductAndDefault(product.get()));
 		return cartResponseDto;
 	}
 
