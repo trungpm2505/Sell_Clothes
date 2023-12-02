@@ -24,11 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.web.SellShoes.dto.requestDto.OrderRequestDto;
 import com.web.SellShoes.dto.responseDto.AccountResponseDto;
 import com.web.SellShoes.dto.responseDto.CartResponseDto;
+import com.web.SellShoes.dto.responseDto.PromotionResponseDto;
+import com.web.SellShoes.dto.responseDto.VariantResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Cart;
 import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.entity.OrderDetail;
 import com.web.SellShoes.entity.Promotion;
+import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.mapper.Mapper;
 import com.web.SellShoes.service.AccountService;
 import com.web.SellShoes.service.CartService;
@@ -83,39 +86,29 @@ public class OrderUserController {
 
 	@PostMapping(value = "/addOrder")
 	@ResponseBody
-	public ResponseEntity<?> addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto, BindingResult bindingResult,
-			HttpSession session) {
+	public ResponseEntity<?> addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto,
+			BindingResult bindingResult,HttpSession session) {
 		Map<String, Object> errors = new HashMap<>();
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
-		// Lấy thông tin khuyến mãi từ mã giảm giá trong đơn hàng
-		// Optional<Promotion> promotion =
-		// promotionService.getPromotionById(orderRequestDto.getPromotion_id());
-		// Kiểm tra và xử lý lỗi từ việc validate dữ liệu đầu vào
-		// Optional<Promotion> promotion ;
+		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");	
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 			return ResponseEntity.badRequest().body(errors);
 		}
 
 		// Tạo một đơn hàng mới và set thông tin từ orderRequestDto
-		Order order = new Order();
-		
-//		String address = orderRequestDto.getAddress() + ", " +  orderRequestDto.getProvince()
-//	  + ", " +  orderRequestDto.getDistrict() + ", " +  orderRequestDto.getWard();
-		order.setAdrress(orderRequestDto.getAddress());
-
-		
+		Order order = new Order();		
+		String address = orderRequestDto.getAddress() + ", " +  orderRequestDto.getProvince()
+	  + ", " +  orderRequestDto.getDistrict() + ", " +  orderRequestDto.getWard();
+		order.setAdrress(address);
 		order.setFullName(orderRequestDto.getFullName());
 		order.setPhone_Number(orderRequestDto.getPhone_Number());
 		order.setNote(orderRequestDto.getNote());
 		order.setAccount(account.get());
-		// order.setPromotion(promotion.get());
 		order.setTotalMoney(0);
-		
-  		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
-		System.out.println(promotion + "===");
 
+
+  		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
 		order.setPromotion(promotion);
 		
 		orderService.save(order);
@@ -141,22 +134,57 @@ public class OrderUserController {
 
 			// Lưu thông tin chi tiết đơn hàng vào cơ sở dữ liệu
 			orderDetailService.save(orderDetail);
-//            totalPayment += orderDetail.getTotalMoney();
+           totalPayment += orderDetail.getTotalMoney();
 
 		}
-		// Cập nhật tổng giá trị đơn hàng
-		order.setTotalMoney(orderRequestDto.getConfirmedPrice());
-
+	//	 Cập nhật tổng giá trị đơn hàng
+		if (orderRequestDto.getConfirmedPrice() != null && orderRequestDto.getConfirmedPrice() > 0) {
+		    order.setTotalMoney(orderRequestDto.getConfirmedPrice()); // Sử dụng giá đã xác nhận sau khi giảm giá
+		} else {
+		    order.setTotalMoney(totalPayment); // Sử dụng tổng thanh toán từ các mục giỏ hàng
+		}
 		orderService.save(order);
-
 		return ResponseEntity.ok().body("Đặt hàng thành công!");
 	}
 
+
 	@GetMapping("/applyPromotionByCode")
-	public ResponseEntity<Optional<Promotion>> applyPromotionByCode(@RequestParam("coupon_code") String couponCode) {
-		// Thực hiện xử lý của bạn ở đây
-		Optional<Promotion> appliedPromotion = promotionService.getPromotionByCouponCode(couponCode);
-		return ResponseEntity.ok(appliedPromotion);
+	public ResponseEntity<?> applyPromotionByCode(@RequestParam("coupon_code") String couponCode) {
+	    Map<String, Object> errors = new HashMap<>();
+	    if (couponCode.isEmpty()) {
+	        errors.put("couponCode", "Coupon code is empty");
+	        return ResponseEntity.badRequest().body(errors);
+	    }
+
+	    Optional<Promotion> optionalPromotion = promotionService.getPromotionByCouponCode(couponCode);
+	    if (optionalPromotion.isPresent()) {
+	        Promotion promotion = optionalPromotion.get();
+	        PromotionResponseDto promotionResponseDto = promotionToPromotionResponese(promotion);
+	        return ResponseEntity.ok(promotionResponseDto);
+	    } else {
+	        errors.put("couponCode", "Promotion not found for the provided coupon code");
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
+	    }
+	}
+
+	public PromotionResponseDto promotionToPromotionResponese(Promotion promotion) {
+
+		PromotionResponseDto promotionResponseDto = new PromotionResponseDto();
+
+		promotionResponseDto.setId(promotion.getId());
+		promotionResponseDto.setCouponCode(promotion.getCouponCode());
+		promotionResponseDto.setCreateAt(promotion.getCreateAt());
+		promotionResponseDto.setDiscountType(promotion.getDiscountType());
+		promotionResponseDto.setDiscountValue(promotion.getDiscountValue());
+		promotionResponseDto.setExpiredDate(promotion.getExpiredAt());
+		promotionResponseDto.setMaxValue(promotion.getMaximumDiscountValue());
+		promotionResponseDto.setName(promotion.getName());
+		promotionResponseDto.setUpdateAt(promotion.getUpdateAt());		
+		return promotionResponseDto;
+	}
+	@GetMapping("/order-success")
+	public String view(HttpSession session,Model model) {
+		return "shop/shopcontent/order-success";
 	}
 
 }

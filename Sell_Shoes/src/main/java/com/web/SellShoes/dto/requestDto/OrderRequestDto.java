@@ -28,12 +28,12 @@ public class OrderRequestDto {
 	
 	private Integer promotionId;
  
-//	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
-//	private String province;	
-//	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
-//	private String district;	
-//	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
-//	private String ward;	
+	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
+	private String province;	
+	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
+	private String district;	
+	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
+	private String ward;	
 	
 	private Promotion promotion;
 	List<Integer>cartIds;
