@@ -1,6 +1,8 @@
 package com.web.SellShoes.dto.requestDto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -13,24 +15,22 @@ import lombok.NoArgsConstructor;
 public class FeedbackDto {
 	private Integer id;
 	
-	@NotBlank(message = "FeedbackFullName cannot empty!")
-	@Size(min = 1, max = 50, message = "feedbackFullName cannot be empty and must not exceed 20 characters!")
+	@NotBlank(message="Fullname cannot be empty")
+	@Size(max = 60,message="Full name must not exceed 60 characters")
 	private String fullName;
 	
-	@NotBlank(message = "FeedbackEmail cannot empty!")
-	@Size(min = 1, max = 50, message = "feedbackEmail cannot be empty and must not exceed 30 characters!")
+	@Size(min=1,max = 100,message="Email cannot be empty and must not exceed 100 characters")
+	@Email(message="Email should be valid")
 	private String email;
 	
-	
-	@NotBlank(message = "FeedbackPhone cannot empty!")
-	@Size(min = 1, max = 50, message = "feedbackPhonecannot be empty and must not exceed 13 characters!")
+	@Pattern(regexp = "^\\+?[0-9]{10,12}$", message = "Phone can not empty and should be between 10 to 12 digits")
 	private String phone;
 	
-	@NotBlank(message = "FeedbacksubjectName cannot empty!")
-	@Size(min = 1, max = 50, message = "feedbacksubjectName cannot be empty and must not exceed 20 characters!")
+	@NotBlank(message="Subject Name cannot be empty")
+	@Size(max = 60,message="Subject Name must not exceed 60 characters")
 	private String subjectName;
 	
-	@NotBlank(message = "FeedbackNote cannot empty!")
-	@Size(min = 1, max = 1500, message = "Note cannot be empty and must not exceed 100 characters!")
+	@NotBlank(message="Note cannot be empty")
+	@Size(max = 1500,message="Note must not exceed 1500 characters")
 	private String note;
 }

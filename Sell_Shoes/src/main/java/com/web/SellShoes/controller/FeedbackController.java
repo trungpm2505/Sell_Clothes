@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.web.SellShoes.dto.requestDto.FeedbackDto;
 import com.web.SellShoes.dto.responseDto.FeedbackPageResponseDto;
 import com.web.SellShoes.dto.responseDto.FeedbackResponseDto;
-import com.web.SellShoes.dto.responseDto.ProductResponseDto;
 import com.web.SellShoes.entity.Feedback;
-import com.web.SellShoes.entity.Product;
 import com.web.SellShoes.service.FeedbackService;
 
 import lombok.RequiredArgsConstructor;

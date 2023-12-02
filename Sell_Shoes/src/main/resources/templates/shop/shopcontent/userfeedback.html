@@ -64,30 +64,35 @@
                                  <div id="contact-form" >
                                      <div class="row">
                                          <div class="col-lg-6">
-                                             <input id="fullname" name="fullname" placeholder="Full name *" type="text">    
+                                             <input id="fullName" name="fullname" placeholder="Full name *" type="text">    
+                                             <div th:id="fullName-error" class="text-danger form-text "></div>
                                          </div>
-                                         <div th:id="fullname-error" class="text-danger form-text "></div>
+                                         
                                          
                                          <div class="col-lg-6">
                                              <input id="email" name="email" placeholder="Email *" type="email">    
+                                              <div th:id="email-error" class="text-danger form-text "></div>
                                          </div>
-                                         <div th:id="email-error" class="text-danger form-text "></div>
+                                        
                                          
                                          <div class="col-lg-6">
-                                             <input id="subjectname" name="subjectname" placeholder="Subject name *" type="text">   
+                                             <input id="subjectName" name="subjectname" placeholder="Subject name *" type="text">   
+                                              <div th:id="subjectName-error" class="text-danger form-text "></div>
                                          </div>
-                                         <div th:id="subjectname-error" class="text-danger form-text "></div>
+                                        
                                          
                                           <div class="col-lg-6">
                                              <input id="phone" name="phone" placeholder="Phone *" type="text">   
+                                              <div th:id="phone-error" class="text-danger form-text "></div>
                                          </div>
-                                         <div th:id="phone-error" class="text-danger form-text "></div>
+                                        
 
                                          <div class="col-12">
                                              <div class="contact_textarea">
-                                                 <textarea id="note" placeholder="Note *" name="note" class="form-control2"></textarea>     
+                                                 <textarea id="note" placeholder="Note *" name="note" class="form-control2"></textarea>   
+                                                  <div th:id="note-error" class="text-danger form-text "></div>  
                                              </div>
-                                             <div th:id="note-error" class="text-danger form-text "></div>
+                                            
                                                 
                                              <button id="saveFeedback" type="submit" onclick="addFeedback()"> Send Message </button>  
                                          </div> 
@@ -108,74 +113,95 @@
                              </div>
                     </div>
                 </div>               
-                <script>
+<script>
+function addFeedback() {
 
+	// Mảng chứa các trường input cần kiểm tra focus
+    var inputList = ['fullName', 'email', 'subjectName', 'note', 'phone'];
 
-                
-                function addFeedback() {
-                    //clearEditSizeForm();
-                    // Hiển thị modal chỉnh sửa danh mục
-                    $("#editSizeModal").modal("show");
+    // Lặp qua từng trường input và thêm sự kiện focus
+    inputList.forEach(function (inputName) {
+        var input = $("#" + inputName);
+        var error = $("#" + inputName + '-error');
 
-                    // Thiết lập sự kiện cho nút "Lưu thay đổi"
-                    $("#saveFeedback").off("click").on("click", function () {
-                        var fullname = $("#fullname").val();
-                        var email = $("#email").val();
-                        var subjectname = $("#subjectname").val();
-                        var phone = $("#phone").val();
-                        var note = $("#note").val();
+        if (input) {
+            input.on("focus", function () {
+                error.text('');
+            });
+        } else {
+            console.error("Element with id '" + inputName + "' not found in the page.");
+        }
+    });
 
-                        // Gửi AJAX request để lưu phản hồi từ người dùng
-                        $.ajax({
-                            type: 'post',
-                            url: '/feedback/userfeedback/saveUserfeedback',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                fullname: fullname,
-                                email: email,
-                                subjectname: subjectname,
-                                phone: phone,
-                                note: note
-                            }),
-                            success: function (response) {
-                                // Xử lý thành công, có thể thực hiện các hành động khác nếu cần
-                                toastr.success(response);
+	//Xoá form khi thêm thành công
+    var fullName = $("#fullName").val();
+    var email = $("#email").val();
+    var subjectName = $("#subjectName").val();
+    var phone = $("#phone").val();
+    var note = $("#note").val();
 
-                                // Đóng modal sau khi lưu thành công
-                                $("#editSizeModal").modal("hide");
-                            },
-                            error: function (jqXHR, textStatus, errorMessage) {
-                                // Xử lý lỗi
-                                console.log(jqXHR.status);
+    console.log(fullName, email, subjectName, phone, note); // Kiểm tra giá trị đã lấy được
 
-                                if (jqXHR.status === 400) {
-                                    var errors = jqXHR.responseJSON;
+    // Gửi AJAX request để lưu phản hồi từ người dùng
+    $.ajax({
+        type: 'post',
+        url: '/feedback/saveUserfeedback',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            fullName: fullName,
+            email: email,
+            subjectName: subjectName,
+            phone: phone,
+            note: note
+        }),
+        success: function (response) {
+            // Xử lý thành công, có thể thực hiện các hành động khác nếu cần
+            toastr.success(response);
+         // Xoá dữ liệu trên form
+            $("#fullName").val("");
+            $("#email").val("");
+            $("#subjectName").val("");
+            $("#phone").val("");
+            $("#note").val("");
 
-                                    if (errors.hasOwnProperty("bindingErrors")) {
-                                        var bindingErrors = errors["bindingErrors"];
+            // Hoặc nếu bạn có các thẻ span để hiển thị lỗi, bạn cũng có thể xoá chúng
+            $(".error-message").text("");
+        },
+        error: function (jqXHR, textStatus, errorMessage) {
+            // Xử lý lỗi
+            console.log(errorMessage); // Kiểm tra thông báo lỗi từ máy chủ
 
-                                        for (var i = 0; i < bindingErrors.length; i++) {
-                                            var error = bindingErrors[i];
-                                            // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
-                                            $("#" + error.field + "-error").text(error.defaultMessage);
-                                        }
-                                    }
+            if (jqXHR.status === 400) {
+                var errors = jqXHR.responseJSON;
 
-                                    if (errors.hasOwnProperty("nameDuplicate")) {
-                                        var editnameError = errors["nameDuplicate"];
-                                        $("#sizeName-error").text(editnameError);
-                                    }
-                                } else {
-                                    alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
-                                }
-                            }
-                        });
-                    });
+                if (errors.hasOwnProperty("bindingErrors")) {
+                    var bindingErrors = errors["bindingErrors"];
+
+                    for (var i = 0; i < bindingErrors.length; i++) {
+                        var error = bindingErrors[i];
+                        // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
+                        $("#" + error.field + "-error").text(error.defaultMessage);
+                    }
                 }
 
-
-                
-  </script>
-</div>
+                if (errors.hasOwnProperty("nameDuplicate")) {
+                    var editnameError = errors["nameDuplicate"];
+                    $("#fullName-error").text(editnameError);
+                    $("#email-error").text(editnameError);
+                    $("#subjectName-error").text(editnameError);
+                    $("#phone-error").text(editnameError);
+                    $("#note-error").text(editnameError);
+                }
+            } else {
+                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
+            }
+        }
+    });
+}
+</script>
 </body>
 </html>
+
+
+
+               
