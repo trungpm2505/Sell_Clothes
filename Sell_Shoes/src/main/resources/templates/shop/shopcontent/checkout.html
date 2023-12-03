@@ -285,6 +285,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
 		integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
 	<script>
 	var inputList = [ 'fullName','phone_Number','address','province'];
 
@@ -345,9 +346,9 @@
 	          
 	        }); 
 
-	        
+	        var csrfToken;
 		$('#checkoutButton').on('click', function() {
-
+			 csrfToken = Cookies.get('XSRF-TOKEN');
 						
 		    var formData = {
 		        fullName: $('#fullName').val(),
@@ -392,6 +393,9 @@
 		        url: '/userOrder/addOrder',
 		        contentType: 'application/json',
 		        data: JSON.stringify(formData),
+		        headers: {
+			        'X-XSRF-TOKEN': csrfToken
+			      },
 		        success: function(response) {
 		            console.log('Đặt hàng thành công!', response);		           
 		            var totalElement = document.getElementById("total");

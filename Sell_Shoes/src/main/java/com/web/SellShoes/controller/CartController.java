@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,9 @@ public class CartController {
 	private final OrderDetailService orderDetailService;
 
 	@GetMapping()
-	public String view() {
+	public String view(HttpSession session, Model model) {
+		
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "/shop/shopcontent/cart";
 	}
 
@@ -67,7 +70,7 @@ public class CartController {
 	public ResponseEntity<List<CartResponseDto>> findAllByUser(HttpSession session) {
 
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		Optional<Account> account = accountService.findUserByEmail(email);
 
 		List<Cart> findByUser = cartService.findCartByAccount(account.get());
 		List<CartResponseDto> cartResponseDtos = new ArrayList<>();

@@ -96,9 +96,6 @@
                                                 
                                              <button id="saveFeedback" type="submit" onclick="addFeedback()"> Send Message </button>  
                                          </div> 
-                                         <div class="col-12">
-                                             <p class="form-messege">
-                                         </div>
                                      </div>
                                  </div>    
                              </div> 
@@ -113,92 +110,93 @@
                              </div>
                     </div>
                 </div>               
-<script>
-function addFeedback() {
-
-	// Mảng chứa các trường input cần kiểm tra focus
-    var inputList = ['fullName', 'email', 'subjectName', 'note', 'phone'];
-
-    // Lặp qua từng trường input và thêm sự kiện focus
-    inputList.forEach(function (inputName) {
-        var input = $("#" + inputName);
-        var error = $("#" + inputName + '-error');
-
-        if (input) {
-            input.on("focus", function () {
-                error.text('');
-            });
-        } else {
-            console.error("Element with id '" + inputName + "' not found in the page.");
-        }
-    });
-
-	//Xoá form khi thêm thành công
-    var fullName = $("#fullName").val();
-    var email = $("#email").val();
-    var subjectName = $("#subjectName").val();
-    var phone = $("#phone").val();
-    var note = $("#note").val();
-
-    console.log(fullName, email, subjectName, phone, note); // Kiểm tra giá trị đã lấy được
-
-    // Gửi AJAX request để lưu phản hồi từ người dùng
-    $.ajax({
-        type: 'post',
-        url: '/feedback/saveUserfeedback',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            fullName: fullName,
-            email: email,
-            subjectName: subjectName,
-            phone: phone,
-            note: note
-        }),
-        success: function (response) {
-            // Xử lý thành công, có thể thực hiện các hành động khác nếu cần
-            toastr.success(response);
-         // Xoá dữ liệu trên form
-            $("#fullName").val("");
-            $("#email").val("");
-            $("#subjectName").val("");
-            $("#phone").val("");
-            $("#note").val("");
-
-            // Hoặc nếu bạn có các thẻ span để hiển thị lỗi, bạn cũng có thể xoá chúng
-            $(".error-message").text("");
-        },
-        error: function (jqXHR, textStatus, errorMessage) {
-            // Xử lý lỗi
-            console.log(errorMessage); // Kiểm tra thông báo lỗi từ máy chủ
-
-            if (jqXHR.status === 400) {
-                var errors = jqXHR.responseJSON;
-
-                if (errors.hasOwnProperty("bindingErrors")) {
-                    var bindingErrors = errors["bindingErrors"];
-
-                    for (var i = 0; i < bindingErrors.length; i++) {
-                        var error = bindingErrors[i];
-                        // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
-                        $("#" + error.field + "-error").text(error.defaultMessage);
-                    }
-                }
-
-                if (errors.hasOwnProperty("nameDuplicate")) {
-                    var editnameError = errors["nameDuplicate"];
-                    $("#fullName-error").text(editnameError);
-                    $("#email-error").text(editnameError);
-                    $("#subjectName-error").text(editnameError);
-                    $("#phone-error").text(editnameError);
-                    $("#note-error").text(editnameError);
-                }
-            } else {
-                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
-            }
-        }
-    });
-}
-</script>
+		<script>
+		function addFeedback() {
+		
+			// Mảng chứa các trường input cần kiểm tra focus
+		    var inputList = ['fullName', 'email', 'subjectName', 'note', 'phone'];
+		
+		    // Lặp qua từng trường input và thêm sự kiện focus
+		    inputList.forEach(function (inputName) {
+		        var input = $("#" + inputName);
+		        var error = $("#" + inputName + '-error');
+		
+		        if (input) {
+		            input.on("focus", function () {
+		                error.text('');
+		            });
+		        } else {
+		            console.error("Element with id '" + inputName + "' not found in the page.");
+		        }
+		    });
+		
+			//Xoá form khi thêm thành công
+		    var fullName = $("#fullName").val();
+		    var email = $("#email").val();
+		    var subjectName = $("#subjectName").val();
+		    var phone = $("#phone").val();
+		    var note = $("#note").val();
+		
+		    console.log(fullName, email, subjectName, phone, note); // Kiểm tra giá trị đã lấy được
+		
+		    // Gửi AJAX request để lưu phản hồi từ người dùng
+		    $.ajax({
+		        type: 'post',
+		        url: '/feedback/saveUserfeedback',
+		        contentType: 'application/json',
+		        data: JSON.stringify({
+		            fullName: fullName,
+		            email: email,
+		            subjectName: subjectName,
+		            phone: phone,
+		            note: note
+		        }),
+		        success: function (response) {
+		            // Xử lý thành công, có thể thực hiện các hành động khác nếu cần
+		            toastr.success(response);
+		         // Xoá dữ liệu trên form
+		            $("#fullName").val("");
+		            $("#email").val("");
+		            $("#subjectName").val("");
+		            $("#phone").val("");
+		            $("#note").val("");
+		
+		            // Hoặc nếu bạn có các thẻ span để hiển thị lỗi, bạn cũng có thể xoá chúng
+		            $(".error-message").text("");
+		        },
+		        error: function (jqXHR, textStatus, errorMessage) {
+		            // Xử lý lỗi
+		            console.log(errorMessage); // Kiểm tra thông báo lỗi từ máy chủ
+		
+		            if (jqXHR.status === 400) {
+		                var errors = jqXHR.responseJSON;
+		
+		                if (errors.hasOwnProperty("bindingErrors")) {
+		                    var bindingErrors = errors["bindingErrors"];
+		
+		                    for (var i = 0; i < bindingErrors.length; i++) {
+		                        var error = bindingErrors[i];
+		                        // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
+		                        $("#" + error.field + "-error").text(error.defaultMessage);
+		                    }
+		                }
+		
+		                if (errors.hasOwnProperty("nameDuplicate")) {
+		                    var editnameError = errors["nameDuplicate"];
+		                    $("#fullName-error").text(editnameError);
+		                    $("#email-error").text(editnameError);
+		                    $("#subjectName-error").text(editnameError);
+		                    $("#phone-error").text(editnameError);
+		                    $("#note-error").text(editnameError);
+		                }
+		            } else {
+		                alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
+		            }
+		        }
+		    });
+		}
+		</script>
+</div>
 </body>
 </html>
 

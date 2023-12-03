@@ -1031,6 +1031,7 @@
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
 		<script src="/shopview/assets/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<script type="text/javascript">
 		var ProductDetails = {
     		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
@@ -1432,15 +1433,13 @@
 					 var quantity = document.getElementById("quantity-single-product").value;
 					  csrfToken = Cookies.get('XSRF-TOKEN');
 					  
-					  // Kiểm tra xem token có tồn tại hay không
-					  console.log(globalVariantId);
-					  console.log(quantity);
 					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
 					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
 					        return;
 					   }
 					  $('.error-text.text-danger').text("");
 					    // Tạo đối tượng dữ liệu để gửi qua Ajax
+					   if (csrfToken) {
 					    var data = {
 					      variantId: globalVariantId,
 					      quantity : quantity
@@ -1455,13 +1454,31 @@
 					        'X-XSRF-TOKEN': csrfToken
 					      },
 					      success: function(response,textStatus, jqXHR) {
-					    	  toastr.success(response);
+					    	  
 						    var contentType = jqXHR.getResponseHeader("Content-Type");
+						    if (contentType.includes("text/html")) {
+						    	Swal.fire({
+						    		  icon: 'error',
+						    		  title: 'Error!',
+						    		  text: 'Please log in',
+						    		  showCancelButton: true,
+						    		  confirmButtonText: 'Login',
+						    		  cancelButtonText: 'Cancel',
+						    		}).then((result) => {
+						    		  if (result.isConfirmed) {
+						    		    window.location.href = '/login'; 
+						    		  }
+						    		});
+
+							    } else{
+							    	toastr.success(response);
+								}
 					      },
 					      error: function(xhr, status, error) {
 						       alert("The system has errors!");
 					      }
 					    });
+					   }
 					  } 
 		    
 		     $("#add-to-cart-single").click(addToCartInSingleProduct);

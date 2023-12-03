@@ -54,8 +54,9 @@ public class OrderUserController {
 	private final Mapper mapper;
 
 	@GetMapping()
-	public String view() {
-		return "shop/shopcontent/checkout";
+	public String view1(HttpSession session, Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "/shop/shopcontent/checkout";
 	}
 
 	Optional<Cart> cart;
@@ -63,8 +64,9 @@ public class OrderUserController {
 
 	@GetMapping(value = "/checkout")
 	public String createOrder(@RequestParam List<Integer> cartIdList, Model model, HttpSession session) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		Optional<Account> account = accountService.findUserByEmail(email);
 
 		AccountResponseDto accountResponseDtos = mapper.accountToAccountResponseDto(account.get());
 		List<CartResponseDto> cartResponseDtos = new ArrayList<>();
@@ -81,7 +83,7 @@ public class OrderUserController {
 		model.addAttribute("accountResponseDto", accountResponseDtos);
 		model.addAttribute("orderRequestDtos", new OrderRequestDto());
 
-		return "shop/shopcontent/checkout";
+		return "/shop/shopcontent/checkout";
 	}
 
 	@PostMapping(value = "/addOrder")
@@ -109,14 +111,16 @@ public class OrderUserController {
 
 
   		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
-		order.setPromotion(promotion);
+  		if(promotion != null) {
+  			order.setPromotion(promotion);
+  		}
+		
 		
 		orderService.save(order);
 		float totalPayment = 0;
 		// Lặp qua danh sách các sản phẩm trong đơn hàng để tạo thông tin chi tiết đơn
 		// hàng
 		for (Integer id : orderRequestDto.getCartIds()) {
-			System.out.println(id + "jasdkjo");
 			Optional<Cart> cart = cartService.getCartById(id);
 
 			OrderDetail orderDetail = new OrderDetail();
@@ -184,7 +188,8 @@ public class OrderUserController {
 	}
 	@GetMapping("/order-success")
 	public String view(HttpSession session,Model model) {
-		return "shop/shopcontent/order-success";
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "/shop/shopcontent/order-success";
 	}
 
 }

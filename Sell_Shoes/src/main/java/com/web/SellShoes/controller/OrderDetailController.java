@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +34,8 @@ public class OrderDetailController {
 	private final Mapper mapper;
 	
 	@GetMapping("/get")
-	public String viewOrderDetail(@RequestParam Integer orderId,Model model) {
+	public String viewOrderDetail(@RequestParam Integer orderId,HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		Optional<Order> order = orderService.getOrderById(orderId);
 
 		OrderResponseDto orderResponseDto = mapper.orderToOrderResponseDto(order.get());

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -63,7 +65,6 @@ public class OrderController {
 			@RequestParam(defaultValue = "false") boolean search, @RequestParam(required = false) String key,
 			@RequestParam(required = false) String createAt, @RequestParam(required = false) String startDate,
 			@RequestParam(required = false) String endDate, @RequestParam(required = false) String ortherTime) {
-		key = "";
 		Page<Order> orderPage = null;
 
 		if (status == 0) {
@@ -171,8 +172,8 @@ public class OrderController {
 	@ResponseBody
 	public ResponseEntity<OrderPageResponseDto> getOrderPageForUser(@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "0") int status,
-			@RequestParam(required = false) String keyWord) {
-		keyWord = "";
+			@RequestParam(required = false) String keyWord, HttpSession session, Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		Page<Order> orderPage = null;
 		// Authentication authentication =
 		// SecurityContextHolder.getContext().getAuthentication();

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -53,9 +54,9 @@ public class RateController {
 	@Transactional
 	@ResponseBody
 	public ResponseEntity<?> upload(@RequestParam(value = "file", required = false) MultipartFile[] files,
-			@Valid @ModelAttribute RateRequestDto rateRequestDto) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Account> user = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+			@Valid @ModelAttribute RateRequestDto rateRequestDto, HttpSession session) {
+		String email = (String)session.getAttribute("email"); 
+		Optional<Account> user = accountService.findUserByEmail(email);
 
 		Rate rate = mapper.mapRateRequestDtoToRate(rateRequestDto, user.get());
 

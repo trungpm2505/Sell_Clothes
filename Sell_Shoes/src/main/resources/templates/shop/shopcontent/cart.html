@@ -286,8 +286,9 @@
                 	 
 
                 	 
-                	
+                	 var csrfToken;;
                   function updateQuantity(cartId, quantity) {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	    $.ajax({
                 	        url: '/cart/updateQuantity',
                 	        type: 'POST',
@@ -295,6 +296,9 @@
                 	            cartId: cartId,
                 	            quantity: quantity
                 	        },
+                	        headers: {
+    					        'X-XSRF-TOKEN': csrfToken
+    					      },
                 	        success: function (response) {
                 	            loadCartData();
                 	        },
@@ -306,6 +310,7 @@
                 	} 
 
                   function deleteCartItem(cartId) {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	    Swal.fire({
                 	        title: 'Are you sure you want to delete?',
                 	        text: 'This action cannot be undone!',
@@ -321,6 +326,9 @@
                 	                data: {
                 	                    cartId: cartId
                 	                },
+                	                headers: {
+            					        'X-XSRF-TOKEN': csrfToken
+            					      },
                 	                success: function (response) {
                 	                    console.log(response);
                 	                    // Refresh your cart data or update the UI as needed
@@ -342,6 +350,7 @@
                 	}
                   
                   function deleteAllCart() {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	   Swal.fire({
                	        title: 'Are you sure you want to delete all cart?',
                	        text: 'This action cannot be undone!',
@@ -354,6 +363,9 @@
                 	    $.ajax({
                 	        type: 'POST',
                 	        url: '/cart/deleteAllCart', // Đường dẫn tới endpoint xóa tất cả giỏ hàng
+                	        headers: {
+    					        'X-XSRF-TOKEN': csrfToken
+    					      },
                 	        success: function (response) {
                 	            console.log(response);
                 	            loadCartData();

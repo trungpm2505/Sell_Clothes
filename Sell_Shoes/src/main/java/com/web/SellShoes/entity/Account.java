@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -55,5 +57,6 @@ public class Account {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", nullable = false)
+	@Fetch(FetchMode.JOIN)
 	private Role role;
 }
