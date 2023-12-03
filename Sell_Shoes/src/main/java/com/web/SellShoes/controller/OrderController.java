@@ -177,7 +177,8 @@ public class OrderController {
 		Page<Order> orderPage = null;
 		// Authentication authentication =
 		// SecurityContextHolder.getContext().getAuthentication();
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		String email = (String) session.getAttribute("email");
+		Optional<Account> account = accountService.findUserByEmail(email);
 
 		if (keyWord == null || keyWord.equals("")) {
 			if (status == 0) {
@@ -211,8 +212,8 @@ public class OrderController {
 	}
 
 	@GetMapping("/user/all-order")
-	public String getAllOrderForUser(Model model) {
-
+	public String getAllOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "shop/shopcontent/historyOrder";
 	}
 }

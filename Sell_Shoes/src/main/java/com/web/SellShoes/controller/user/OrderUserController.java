@@ -92,7 +92,7 @@ public class OrderUserController {
 			BindingResult bindingResult,HttpSession session) {
 		Map<String, Object> errors = new HashMap<>();
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");	
+		Optional<Account> account = accountService.findUserByEmail(email);	
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 			return ResponseEntity.badRequest().body(errors);

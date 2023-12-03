@@ -46,15 +46,23 @@ public class OrderDetailController {
 				.listOrderDtailsToListOrderDetailsDto(orderDetails);
 		int number = orderDetailService.getNumberOfProductInOrder(order.get());
 
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		model.addAttribute("number", number);
 		//model.addAttribute("userName", userService.findUserByEmail(authentication.getName()).get().getUserName());
 		model.addAttribute("orderResponseDto", orderResponseDto);
 		model.addAttribute("orderDetailsResponseDtos", orderDetailsResponseDtos);
 		
-		// return "admin/order/orderDetail";
-		return "shop/shopcontent/orderDetail";
+		
+		if (roles.contains("ADMIN")) {
+			return "admin/order/orderDetail";
+		} else {
+			return "shop/shopcontent/orderDetail";
+		}
+		// 
+		
 	}
+	
+	
 }

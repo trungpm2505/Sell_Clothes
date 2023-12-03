@@ -73,7 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/order/updateStatus",
 			 "/order/user/getOrderPage",
 			 "/order/user/all-order",
-			 "/orderDetails/get",
 			 "/promotion/getProductPage",
 			 "/rate/**",
 			 "/size/getAll",
@@ -87,7 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/brand/**",
 			 "/color/**",
 			 "/feedback/**",
-			 "/orderDetails/**",
 			 "/promotion/**",
 			 "/rate/**",
 			 "/size/**"

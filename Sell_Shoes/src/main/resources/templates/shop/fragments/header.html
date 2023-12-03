@@ -56,8 +56,11 @@
 															name="person"></ion-icon> <span>Profile</span></a></li>
 												<li><a href="/order/user/all-order"><ion-icon
 															name="mail"></ion-icon> <span>Purchase</span></a></li>
-												<li><a href="page-login.html"><ion-icon
-															name="log-out"></ion-icon> <span>Logout</span></a></li>
+												
+												<form id="logout-form" action="/logout" method="post">
+												    <li><button type="submit"><ion-icon
+															name="log-out"></ion-icon> <span>Logout</span></button></li>
+												</form>
 											</ul>
 											<ul th:if="${fullName == null}">
 												<li><a href="/login"><ion-icon name="log-out"></ion-icon>
@@ -78,9 +81,6 @@
 
 									<a href="/cart"><ion-icon name="bag-handle-outline"></ion-icon></a>
 
-									<a href="cart.html">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-									<span class="count">0</span>
 
 								</button>
 							</ul>
@@ -140,7 +140,6 @@
 						<li class="menu-category"><a href="#" class="menu-title">Account</a>
 						</li>
 
-						<li class="menu-category"><a href="#" class="menu-title">WishList</a></li>
 						<li class="menu-category"><a href="/feedback/userfeedback"
 							class="menu-title">Contact</a></li>
 
