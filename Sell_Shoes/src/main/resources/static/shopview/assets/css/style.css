@@ -8695,6 +8695,7 @@ li {
 
 /* style voucher */
 
+
 .corner-popup {
 	position: fixed;
 	bottom: 5px;
@@ -8705,15 +8706,15 @@ li {
 	cursor: pointer;
 	border-radius: 4px;
 	z-index: 2;
+
 }
 
 .center-popup {
 	display: none;
 	position: fixed;
 	float: right;
-	margin-left: 780px;
-	margin-top: -90px;
-	height: 1000px;
+	margin-left: 880px;
+	margin-top: 150px;
 	
 	background-color: #fff;
 	padding: 20px;
@@ -8744,7 +8745,7 @@ li {
 	display: flex;
 	align-items: center;
 	width: 600px;
-	height: 190px;
+	height: 220px;;
 }
 
 .voucher img {
@@ -8863,10 +8864,8 @@ li {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	color: #f44336;
-	
-	
 	scroll-behavior: auto;
-	max-height: 70%;
+	max-height: 80%;
 	/* Đặt chiều cao tối đa của thanh trượt */
 	overflow-y: auto;
 	/* Sử dụng thanh trượt dọc khi nội dung vượt quá chiều cao tối đa */
@@ -8875,7 +8874,6 @@ li {
 .center-popup {
 	/* ... */
 	transition: all 0.3s ease;
-	/*margin-top: -170px;*/
 	/* Hiệu ứng chuyển động trong 0.3 giây với kiểu chuyển động 'ease' */
 }
 

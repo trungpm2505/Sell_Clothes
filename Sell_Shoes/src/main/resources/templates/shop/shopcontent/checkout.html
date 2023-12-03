@@ -28,6 +28,42 @@
 
 </head>
 <body>
+	<div class="corner-popup" onclick="openCenterPopup()">Voucher
+			giảm giá</div>
+
+
+		<div id="centerPopup" class="center-popup">
+
+			<div id="closeButton" onclick="closeCenterPopup()">X</div>
+
+			<div class="voucher" id="Promotion">
+				<div class="margin-title">
+					<div class="title-vocher">
+						<h4>Giảm giá 50%</h4>
+					</div>
+					<img class="img-vocher"
+						src="https://cdn-icons-png.flaticon.com/128/3258/3258499.png"
+						alt="Sản phẩm 1">
+				</div>
+				<div class="voucher-details">
+					<button class="review-button" data-order-id="12345"
+						id="discountCode" onclick="copyToClipboard()">Coppy mã</button>
+					<div class="voucher-header">Mã giảmn giá 50K áp dụng cho toàn
+						bộ đơn hàng</div>
+					<ul>
+						<li>Giảm tối đa: 50.000</li>
+						<li>Ngày hết hạn: 30/11/2023</li>
+						<li>Thể lệ: Cho toàn bộ đơn hàng</li>
+					</ul>
+
+					<div class="codevoucher" id="voucherCode">
+						Your Voucher Code:
+						<p class="codevoucher" id="predefinedText">JSPO2K3M</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	<div th:replace="shop/fragments/header::header"></div>
 	<div class="container">
 		<div class="breadcrumbs_area">
@@ -58,51 +94,54 @@
 						<form action="#">
 							<h3>Billing Details</h3>
 							<div class="row">
-							<div class="col-lg-4 mb-30">
+								<div class="col-lg-4 mb-30">
 									<label>Province/City<span>*</span></label> <select
 										name="province" id="province">
 										<option value="">Select province</option>
-									</select>
-				<small  th:id="province-error" class="text-danger form-text error"></small>
-									
+									</select> <small th:id="province-error"
+										class="text-danger form-text error"></small>
+
 								</div>
 								<div class="col-lg-4 mb-30">
 									<label>District<span>*</span></label> <select id="district"
 										name="district">
 										<option value="">Select district</option>
-									</select>
-	      <small  th:id="district-error" class="text-danger form-text error"></small>								
+									</select> <small th:id="district-error"
+										class="text-danger form-text error"></small>
 								</div>
 								<div class="col-lg-4 mb-30">
 									<label>Wards <span>*</span></label> <select id="ward"
 										name="ward">
 										<option value="">Select ward</option>
-									</select>
-      	 <small  th:id="ward-error" class="text-danger form-text error"></small>																
+									</select> <small th:id="ward-error" class="text-danger form-text error"></small>
 								</div>
 								<div class="col-12 mb-30">
 									<label>Street address <span>*</span></label> <input
 										id="address" name="address" placeholder="" type="text"
-										th:value="${accountResponseDto.address}" />
-						<small style="font-size: 12px;"  th:id="address-error" class="text-danger form-text error"></small>
+										th:value="${accountResponseDto.address}" /> <small
+										style="font-size: 12px;" th:id="address-error"
+										class="text-danger form-text error"></small>
 								</div>
 								<div class="col-lg-6 mb-30">
 									<label>Full Name <span>*</span></label> <input type="text"
 										id="fullName" name="fullName"
-										th:value="${accountResponseDto.fullName}" />
-				<small style="font-size: 12px;" th:id="fullName-error" class="text-danger form-text error"></small>
+										th:value="${accountResponseDto.fullName}" /> <small
+										style="font-size: 12px;" th:id="fullName-error"
+										class="text-danger form-text error"></small>
 
 								</div>
 								<div class="col-lg-6 mb-30">
 									<label> Phone <span>*</span></label> <input type="text"
-							name="phone_Number" id="phone_Number" th:value="${accountResponseDto.phone}" />
-				<small style="font-size: 12px;"  th:id="phone_Number-error" class="text-danger form-text error"></small>
+										name="phone_Number" id="phone_Number"
+										th:value="${accountResponseDto.phone}" /> <small
+										style="font-size: 12px;" th:id="phone_Number-error"
+										class="text-danger form-text error"></small>
 								</div>
 								<div class="col-lg-12 mb-30">
 									<label> Email Address <span>*</span></label> <input type="text"
-										th:value="${accountResponseDto.email}" readonly  />													
+										th:value="${accountResponseDto.email}" readonly />
 								</div>
-							<!-- 	<div class="col-lg-4 mb-30">
+								<!-- 	<div class="col-lg-4 mb-30">
 									<label>Province/City<span>*</span></label> <select
 										name="province" id="province">
 										<option value="">Select province</option>
@@ -125,7 +164,7 @@
       	 <small  th:id="ward-error" class="text-danger form-text error"></small>																
 								</div> -->
 
-								
+
 								<div class="col-12 mb-30">
 									<label>Notes <span>*</span></label>
 									<textarea placeholder="" rows="4" cols="4" id="note"
@@ -182,16 +221,17 @@
 															placeholder="Enter your coupon code" />
 														<button type="button" id="applyCouponBtn"
 															class="apply_coupon">Apply discount code</button>
-						
+
 
 													</div>
-													<small style="font-size: 14px;"  th:id="couponCode-error" class="text-danger form-text error"></small>
+													<small style="font-size: 14px;" th:id="couponCode-error"
+														class="text-danger form-text error"></small>
 												</div>
 
 											</td>
 										</tr>
 										<tr>
-											<th>Discount code</th>											
+											<th>Discount code</th>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -204,11 +244,12 @@
 											<td></td>
 											<td></td>
 											<td></td>
-											<td ><strong id="total" th:text="${total}" style="font-weight: bold;"></strong></td>
-											
+											<td><strong id="total" th:text="${total}"
+												style="font-weight: bold;"></strong></td>
+
 											<input type="hidden" th:value="${total}"
 												id="originalTotalValue" name="originalTotalValue">
-												
+
 										</tr>
 
 
@@ -235,14 +276,16 @@
 
 									<input id="payment_bank_transfer" name="check_method"
 										type="radio" checked data-target="createp_account"> <label
-										class="custom-control-label" for="credit">Payment on delivery</label>
+										class="custom-control-label" for="credit">Payment on
+										delivery</label>
 
 								</div>
 								<div class="panel-default" onclick="$('#payment_info').show()">
 									<input id="payment_bank_transfer" name="check_method"
 										type="radio" data-target="createp_account"> <label
-										class="custom-control-label" for="debit">Payment by bank transfer</label>
-								</div>								
+										class="custom-control-label" for="debit">Payment by
+										bank transfer</label>
+								</div>
 								<div class="row" id="payment_info" style="display: none;">
 									<div class="col-md-6 mb-3">
 										<label for="cc-name">
@@ -251,13 +294,14 @@
 											<div>Chi Nhánh : Quảng Nam</div>
 											<div>Chủ TK : PHAM MINH TRUNG</div>
 											<h5>
-										   <br> HOTLINE:&nbsp; 0335.247.942
+												<br> HOTLINE:&nbsp; 0335.247.942
 											</h5>
 										</label>
 									</div>
 								</div>
 								<div class="order_button">
-									<button id="checkoutButton" type="button">Proceed To Order</button>
+									<button id="checkoutButton" type="button">Proceed To
+										Order</button>
 								</div>
 							</div>
 						</form>
@@ -266,6 +310,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div th:replace="shop/fragments/footer::footer"></div>
 	<script src="/shopview/assets/js/vendor/jquery-1.12.0.min.js"></script>
 	<script src="/shopview/assets/js/popper.js"></script>
@@ -525,6 +570,110 @@
         $("#district").change(() => {
             callApiWard(host + "d/" + $("#district").val() + "?depth=2");         
         });
+
+
+        function openCenterPopup() {
+            document.getElementById('centerPopup').style.display = 'block';
+            document.removeEventListener('click', outsideClickHandler);
+        }
+
+        function closeCenterPopup() {
+            document.getElementById('centerPopup').style.display = 'none';
+            document.addEventListener('click', outsideClickHandler);
+        }
+        function copyToClipboard() {
+            const predefinedText = document.getElementById('predefinedText').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = predefinedText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Đã sao chép vocher');
+        }
+
+      ///// promotion
+      loadPromotion()
+      function loadPromotion() {
+          $.ajax({
+              url: '/promotion/getProductPage',
+              type: 'GET',
+              success: function (response) {
+                  var centerPopup = $("#centerPopup");
+
+                  //Xóa nội dung hiện có
+                  centerPopup.empty();
+
+                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
+                      // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                      $.each(response.promotionResponseDtos, function (index, promotion) {
+                      // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
+                      if (promotion.active) {
+                      	var imagesHtml = `<img src="https://cdn-icons-png.flaticon.com/512/3258/3258499.png" alt="Promotion Image">`;
+							// Giả sử bạn có hình ảnh cho mỗi chương trình khuyến mãi
+							
+                          // Lặp qua các hình ảnh quảng cáo
+                          $.each(promotion.images, function (imgIndex, image) {
+                              imagesHtml += `<img src="${image.url}" alt="Promotion Image">`;
+                          });
+
+                          // Xây dựng promotion HTML
+                                                          
+                          var promotionHtml = `
+                          	<div id="closeButton" onclick="closeCenterPopup()">X</div>
+                              <div class="voucher" id="Promotion${promotion.id}">
+                                  <div class="margin-title">
+                                      <div class="title-vocher">
+                                          <h4>Voucher ${promotion.name}</h4>
+                                      </div>
+                                      ${imagesHtml}
+                                  </div>
+                                  <div class="voucher-details">
+                                  <button class="review-button" data-promotion-id="${promotion.id}" onclick="applyPromotion('${promotion.couponCode}')">Coppy code</button>
+                                      <div class="voucher-header">Discount code ${promotion.name} applies to entire order </div>
+                                      <ul>                                                
+                                          <li>Discount Value: ${promotion.discountType === 1 ? `${promotion.discountValue}%` : `${promotion.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`}</li>
+                                          <li>Max Value: ${promotion.maxValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>                                                    
+                                          <li>Expired Date: ${promotion.expiredDate}</li>
+                                          <li >Coupon Code: ${promotion.couponCode}</li> <!-- Add this line for Coupon Code -->
+                                      </ul>
+                                  </div>
+                              </div>
+                          `;
+
+                          // Nối HTML voucher vào centerPopup
+                          centerPopup.append(promotionHtml);
+                      }
+                  });
+                  } else {
+                      // Nếu không có voucher, hiển thị ảnh full
+                      centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/2015/Tin-Tuc/ThuVTK/giam8phantram_1.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">Cùng chờ đón mùa sale lớn giáng sinh</p</div>');
+						
+                  }
+
+                  //Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                  
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                  console.error('Error loading promotion data:', errorThrown);
+              }
+          });
+      }
+
+                              
+     //Thêm chức năng này để xử lý việc sao chép mã giảm giá
+     function applyPromotion(couponCode) {
+         //Sử dụng tham số couponCode được cung cấp để sao chép vào bảng nhớ tạm
+         const textarea = document.createElement('textarea');
+         textarea.value = couponCode;
+         document.body.appendChild(textarea);
+         textarea.select();
+         document.execCommand('copy');
+         document.body.removeChild(textarea);
+
+         //Hiển thị thông báo hoặc thực hiện các hành động bổ sung
+         alert(`Coupon Code "${couponCode}" has been copied to the clipboard.`);
+   	}
     
     </script>
 
