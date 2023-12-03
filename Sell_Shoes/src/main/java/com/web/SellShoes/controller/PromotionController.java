@@ -163,6 +163,7 @@ public class PromotionController {
 	public ResponseEntity<PromotionPageResponseDto> getPromotionPage(@RequestParam(defaultValue = "8") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
 
+		keyword = "";
 		Page<Promotion> promotionPage = null;
 		if (keyword.equals("")) {
 			promotionPage = promotionService.getAllPromotion(page, size);
