@@ -84,7 +84,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/size/**",
            "/product/**",
            "/variant/**"
-           
    };
    
    private static final String[] COMMON_ROLES = {

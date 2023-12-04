@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/fragments/home.html}">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<section class="container-fluid">
+			<div class="card">
+				<div class="card-header">
+					<h2>LIST OF ACCOUNT</h2>
+				</div>
+				<div class="card-body">
+					<table id="accountTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Full name</th>
+								<th>Address</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>CreateAt</th>
+								<th>UpdateAt</th>
+								<th>Active</th>
+								<th>Role</th>
+								
+							</tr>
+						<tbody>
+							<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
+						</tbody>
+						</thead>
+					</table>
+
+					<!-- modal edit category -->
+				</div>
+				<div class="card-footer">
+					<nav class="float-right" th:id="paging"></nav>
+				</div>
+			</div>
+		</section>
+		<script>
+		$(document).ready(function() {
+		    // Gọi hàm để lấy danh sách account khi trang web được tải
+		    getlistAccounts(0, '');
+			
+		});
+		
+        function getAllAccounts() {
+            getlistAccounts(0, ''); // Lấy tất cả tài khoản
+        }
+        function getlistAccounts(page, keyword){
+        	 $.ajax({
+				  url: '/account/getAccountPage',
+				  type: 'GET',
+				  data:{
+		            page:page,
+		            keyword: keyword
+		               },
+				  success: function(response) {
+				    console.log(response);
+				    $("#accountTable tbody").empty();
+	            	   if (response && response.accountResponeseDto){
+	                       var accounts = response.accountResponeseDto;
+
+	                       for (var i = 0; i < accounts.length; i++) {
+	                           var account = accounts[i];
+	                           status = account.active ? 'Verified' : 'Not authenticated';
+	                           var row = '<tr>' +
+	                           '<td>' + (i+1) + '</td>'+
+	                           '<td>' + account.fullName + '</td>' +
+	                           '<td>' + account.address + '</td>' +
+	                           '<td>' + account.email + '</td>' +
+	                           '<td>' + account.phone + '</td>' +
+	                           '<td>' + account.createAt + '</td>' +
+	                           '<td>' + (account.updateAt ? account.updateAt : '-') + '</td>' +
+	                           '<td>' + status + '</td>' +
+	                           '<td>' + account.roleName + '</td>' +
+	                           
+	                           '</tr>';
+	                          
+	                           $("#accountTable tbody").append(row);
+	                       }
+	                	   }
+	            	   pagination = '';
+	      	         currentPage = response.currentPage;
+	      	         totalPages = response.totalPages;
+	      	         size = response.size;
+	      	        //createPagination("#paging",pagination,currentPage,totalPages,keyword);
+				  },
+				  error: function(error) {
+				    console.error('Error:', error);
+				  }
+			}); 
+         /* $ajax({
+           type:"GET",
+           url: "/account/getAccountPage",
+           data:{
+            page:page,
+            keyword: keyword
+               },
+               success:function (response){
+
+             	   $("#accountTable tbody").empty();
+            	   if (response && response.accountResponeseDto){
+                       var account = response.accountResponeseDto;
+
+                       for (var i = 0; i < accounts.length; i++) {
+                           var account = accounts[i];
+
+                           var row = '<tr>' +
+                           '<td>' + (i+1) + '</td>'+
+                           '<td>' + account.fullName + '</td>' +
+                           '<td>' + account.address + '</td>' +
+                           '<td>' + account.email + '</td>' +
+                           '<td>' + account.phone + '</td>' +
+                           '<td>' + account.createAt + '</td>' +
+                           '<td>' + (account.updateAt ? account.updateAt : '-') + '</td>' +
+                           '<td>' + account.roleName + '</td>' +
+                           '<td>' + account.active + '</td>' +
+                           '</tr>';
+                          
+                           $("#accountTable tbody").append(row);
+                       }
+                	   }
+            	   pagination = '';
+      	         currentPage = response.currentPage;
+      	         totalPages = response.totalPages;
+      	         size = response.size;
+      	        createPagination("#paging",pagination,currentPage,totalPages,keyword);
+      	     
+               },
+               error: function (error) {
+                   console.error(error);
+               }
+           }); */
+        }
+        </script>
+	</div>
+</body>
+
+</html>
