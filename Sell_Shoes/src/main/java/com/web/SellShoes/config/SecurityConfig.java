@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/logins/**",
 			"/shop/**",
 			"/cart/**",
+			"/account/**",
 	};
 	
 
