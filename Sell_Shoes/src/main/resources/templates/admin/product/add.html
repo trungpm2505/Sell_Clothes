@@ -57,8 +57,8 @@ margin-left: 10px
 					<h2 class="m-0 font-weight-bold text-primary">Product</h2>
 				</div> -->
 				<div class="card-body">
-				<div class="row justify-content-between">
-					<div class="col-5">
+				<div class="row ">
+					<div class="col-4 justify-content-between">
 						<h2>Add Product</h2>
 						<div id="addProductForm">
 							<div class="form-group">
@@ -121,62 +121,62 @@ margin-left: 10px
 						</div>
 					</div>
 					
-					<div class="col-7">
-					<div class="row">
-					<div class="col-7"></div>
-						<div class="col-md-5">
-									<div class="input-group">
-										<input id="key" type="text" name="keyword5" value="" class="form-control"
-											placeholder="Search by title">
-										<div class="input-group-append">
-											<button id="searchButton" class="btn btn-secondary">
-												<i class="fas fa-search"></i>
-											</button>
+					<div class="col-8">
+						<div class="row">
+							<div class="col-7"></div>
+							<div class="col-md-5">
+										<div class="input-group">
+											<input id="key" type="text" name="keyword5" value="" class="form-control"
+												placeholder="Search by title">
+											<div class="input-group-append">
+												<button id="searchButton" class="btn btn-secondary">
+													<i class="fas fa-search"></i>
+												</button>
+											</div>
 										</div>
-									</div>
 							</div>
-						<table class="table table-striped" th:id="product-table">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Image</th>
-									<th scope="col">Title</th>
-									<th scope="col">Category</th>
-									<th scope="col">Brand</th>
-									<th scope="col">Description</th>
-									<th scope="col">CreateAt</th>
-									<th scope="col">UpdateAt</th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>1</th>
-									<td class="text-center"><img class="pic"
-										src="https://www.freepnglogos.com/uploads/shoes-png/dance-shoes-png-transparent-dance-shoes-images-5.png"
-										alt=""></td>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td>
-										<button type="button" class="btn btn-primary"
-											data-toggle="modal" data-target="#variantModal">Add
-											Variant</button></td>
-										<td><button class="btn btn-warning">Edit</button></td>
-										<td><button class="btn btn-danger">Delete</button></td>
-									
-								</tr>
-							</tbody>
-						
-						</table>
-						</div>
+							<div class="table-responsive">
+								<table class="table table-striped" th:id="product-table">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Image</th>
+											<th scope="col">Title</th>
+											<th scope="col">Category</th>
+											<th scope="col">Brand</th>
+											<th scope="col">Description</th>
+											<th scope="col">CreateAt</th>
+											<th scope="col">UpdateAt</th>
+											<th scope="col"> Add variant</th>
+											<th scope="col"> Edit</th>
+											<th scope="col"> Delete</th>
+										</tr>
+									 </thead>
+									 <tbody>
+											<tr>
+												<th>1</th>
+												<td class="text-center"><img class="pic"
+													src="https://www.freepnglogos.com/uploads/shoes-png/dance-shoes-png-transparent-dance-shoes-images-5.png"
+													alt=""></td>
+												<td>Mark</td>
+												<td>Otto</td>
+												<td>@mdo</td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>
+													<button type="button" class="btn btn-primary"
+														data-toggle="modal" data-target="#variantModal">Add
+														Variant</button></td>
+													<td><button class="btn btn-warning">Edit</button></td>
+													<td><button class="btn btn-danger">Delete</button></td>
+												
+											</tr>
+										</tbody>
+								
+									</table>
+								</div>
+							</div>
 						<nav class="float-right" th:id="paging"></nav>
 					</div>
 					

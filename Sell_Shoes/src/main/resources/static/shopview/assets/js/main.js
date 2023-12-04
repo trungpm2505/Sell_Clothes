@@ -1,5 +1,5 @@
 (function($) {
-    "use strict";
+    <!-- "use strict"; -->
     
     /*----------------------------
        stickey menu
@@ -47,30 +47,6 @@
 	});
     
     
-    /* product activation */
-    $('.product_active').owlCarousel({
-        animateOut: 'fadeOut',
-		loop: true,
-        nav: true,
-        autoplay: false,
-        autoplayTimeout: 8000,
-        items: 3,
-        dots:true,
-        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
-        responsiveClass:true,
-		responsive:{
-			0:{
-				items:1,
-			},
-            576:{
-				items:2,
-			},
-            1200:{
-				items:3,
-			},
-
-		  }
-    });
     
      /* brand activation */
     $('.brand_active').owlCarousel({

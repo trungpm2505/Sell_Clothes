@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "product")
+@RequestMapping(value = "/product")
 public class ProductUserController {
 	private final Mapper mapper;
 	private final ProductService productService;
@@ -96,7 +96,14 @@ public class ProductUserController {
 
 	@GetMapping(value = "/all-product")
 	public String getAllProduct(HttpSession session, Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "shop/shopcontent/shop1";
+	}
+	
+	@GetMapping(value = "/index")
+	public String getIndex(HttpSession session, Model model) {
+		model.addAttribute("fullName",session.getAttribute("fullName"));
+		return "shop/shopcontent/trangchu";
 	}
 
 	@GetMapping(value = "/details")
@@ -132,9 +139,4 @@ public class ProductUserController {
 
 	}
 
-	@GetMapping("/all-product1")
-	public String checkout() {
-		// test từng trang thay đường dẫn
-		return "user/product/demo";
-	}
 }

@@ -45,4 +45,30 @@ public class MailerSericeImpl implements MailerService {
 		send(mailInfoDto);
 	}
 
+	@Override
+	public void sendEmailToResetPassword(Account account) {
+		ConfirmationToken confirmationToken = new ConfirmationToken(String.valueOf(random.nextInt(900000) + 100000),account,LocalDateTime.now().plusMinutes(2));
+		confirmationTokenService.save(confirmationToken);
+		MailInfoDto mailInfoDto = new MailInfoDto(account.getEmail(), "ADELA-Reset Your Password",
+				"Dear "+account.getFullName()+",\r\n"
+				+ "\r\n"
+				+ "You have requested to reset the password for your account. Below is the confirmation code to complete the password reset process:\r\n"
+				+ "\r\n"
+				+ "Confirmation Code:" + confirmationToken.getToken()
+				+ "\r\n"
+				+"Please enter this confirmation code on the password reset page to proceed with the process.\r\n"
+				+ "\r\n"
+				+ "If you did not request a password reset, please disregard this email. Your account will not be affected.\r\n"
+				+ "\r\n"
+				+ "Thank you for your attention.\r\n"
+				+ "\r\n"
+				+ "Sincerely,\r\n"
+				+ " ADELA"
+				)
+				
+				;
+		
+		send(mailInfoDto);
+	}
+
 }

@@ -1,6 +1,6 @@
 package com.web.SellShoes.config;
 
-import javax.servlet.Filter;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,38 +30,62 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
-			"/orderDetails/**",
-			"/order/**",
-			"/promotion/**",
-			"/variant/**",
-			"/color/**",
-			"/size/**",
-			"/category/**",
-			"/brand/**",
-			"/product/**",
-			"/login/**",
+			"/category/getAll",
+			"/brand/getAll",
+			"/color/getAll",
+			"/size/getAll",
+			"/product/getProductView",
+			"/product/details",
+			"/product/get",
+			"/product/all-product",
+			"/product/index",
+			"/response/**",
+			"/rate/getRateProductPage",
+			"/variant/getVariant",
+			"/password/**",
+			
+			
+			"/login/checkLogin",
 			"/register/**",
+			"/userfeedback/**",
+			"/feedback/saveUserfeedback",
+			"/logins/**",
+			"/registers/**",
 			"/image/**",
 			"/upload/**",
 			"/plugins/**" ,
 			"/adminview/**",
-			"/shopview/**",
-			"/registers/**",
-			"/logins/**",
-			"/shop/**",
-			"/cart/**",
-			"/account/**",
+			"/shopview/**"
+			
+			
 	};
 	
 
 	 private static final String[] ROLE_USER = {
-			
+			 "/cart/**",
+			 "/userOrder/**",
+			 "/order/user/all-order",
+			 "/order/user/getOrderPage",
+			 "/order/user/all-order",
+			 "/rate/**",
+			 "/order/updateStatus",
 	 };
 	    
 	 
    private static final String[] ROLE_ADMIN = {
-
-          
+		   
+		   "/promotion/admin",
+		   "/promotion/getProductPage",
+		   "/order/getOrderPage/**",
+           "/order/admin/all",
+           "/category/**",
+           "/brand/**",
+           "/color/**",
+           "/feedback/**",
+           "/size/**",
+           "/product/**",
+           "/variant/**"
+			 
            
    };
  
@@ -95,37 +119,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            .and()
-            .cors().and()
-            .authorizeRequests()
+       .csrf()
+       .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+       .and()
+       .cors().and()
+                .authorizeRequests()
                 .antMatchers(NO_LOG_IN).permitAll()
-                .antMatchers(ROLE_USER).hasAuthority("USER") // Thêm role cho các đường dẫn trong ROLE_USER
-                .antMatchers(ROLE_ADMIN).hasAuthority("ADMIN") // Thêm role cho các đường dẫn trong ROLE_ADMIN
-                .anyRequest().authenticated() // Tất cả các request còn lại yêu cầu xác thực
-            .and()
-            .formLogin()
+                .and()
+                .authorizeRequests()
+                .antMatchers(ROLE_USER).hasAuthority("USER")
+                .and()
+                .authorizeRequests()
+                .antMatchers(ROLE_ADMIN).hasAuthority("ADMIN")
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                //.permitAll()
+                .authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
                 .permitAll()
-            .and()
-            .rememberMe()
-            .key("lodaaaaaa") 
-            .tokenValiditySeconds(86400)
-            .userDetailsService(userService)
-            .and()
-            .logout()
-                .logoutUrl("/logout")
+                .and()
+                .logout()
+                .logoutUrl("/logout") // Url của trang logout.
+                
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+                
+                //.logoutSuccessUrl("/login")
                 .permitAll()
                 .logoutSuccessHandler((request, response, authentication) -> {
-                   // HttpSession session = request.getSession(false);
+                    HttpSession session = request.getSession(false);
+                    if (session != null) {
+                        session.removeAttribute("email");
+                        session.removeAttribute("fullName");
+                    }
                 });
+                ;
         // Thêm một lớp Filter kiểm tra jwt
-        http.addFilterBefore((Filter) jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+       // http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
+    }
 	
 	
 }

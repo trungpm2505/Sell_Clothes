@@ -4,9 +4,12 @@
 	layout:decorate="~{shop/fragments/index.html}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
+
 	<div layout:fragment="content">
+		
 		<div class="breadcrumbs_area">
 			<div class="row">
 				<div class="col-12">
@@ -23,8 +26,12 @@
 		</div>
 		<!--breadcrumbs area end-->
 
+		<!--voucher  -->
+
+		<!--voucher end  -->
 		<!--shopping cart area start -->
 		<div class="shopping_cart_area">
+
 			<form action="#">
 				<div class="row">
 					<div class="col-12">
@@ -58,7 +65,7 @@
 										<div class="coupon_inner">
 
 											<div class="cart_subtotal">
-											
+
 												<p class="cart_amount">
 													<span id="selectedProducts"></span>
 												</p>
@@ -66,7 +73,8 @@
 
 											<div class="cart_subtotal">
 												<div class="text-danger" id="totalCostDisplay"
-													style="font-weight: bold; font-size: 1.5em;">Total Money:</div>
+													style="font-weight: bold; font-size: 1.5em;">Total
+													Money:</div>
 												<p class="cart_amount">
 													<span class="text-danger" id="totalCostAmount">0</span>
 												</p>
@@ -76,7 +84,7 @@
 
 									</div>
 								</div>
-							</div> 
+							</div>
 
 
 							<div class="cart_submit">
@@ -84,9 +92,13 @@
 								<button onclick="deleteAllCart()">Delete All Cart</button>
 								<!-- <button id="selectAllItemsButton" onclick="selectAllItems()">Select
 									All</button> -->
-									
+
 								<!-- Thêm nút để xóa các mục đã chọn -->
-								<button class="checkout_btn" onclick="">Checkout</button>
+								<!-- Trong phần HTML của bạn -->
+<!-- ... -->
+<a class="checkout_btn" href="javascript:void(0);" onclick="checkoutSelectedItems()">Checkout</a>
+<!-- ... -->
+
 
 							</div>
 						</div>
@@ -108,6 +120,9 @@
 					</div>
 				</div>
 			</div>
+
+
+
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -282,8 +297,9 @@
                 	 
 
                 	 
-                	
+                	 var csrfToken;
                   function updateQuantity(cartId, quantity) {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	    $.ajax({
                 	        url: '/cart/updateQuantity',
                 	        type: 'POST',
@@ -291,6 +307,9 @@
                 	            cartId: cartId,
                 	            quantity: quantity
                 	        },
+                	        headers: {
+    					        'X-XSRF-TOKEN': csrfToken
+    					      },
                 	        success: function (response) {
                 	            loadCartData();
                 	        },
@@ -302,6 +321,7 @@
                 	} 
 
                   function deleteCartItem(cartId) {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	    Swal.fire({
                 	        title: 'Are you sure you want to delete?',
                 	        text: 'This action cannot be undone!',
@@ -317,6 +337,9 @@
                 	                data: {
                 	                    cartId: cartId
                 	                },
+                	                headers: {
+            					        'X-XSRF-TOKEN': csrfToken
+            					      },
                 	                success: function (response) {
                 	                    console.log(response);
                 	                    // Refresh your cart data or update the UI as needed
@@ -338,6 +361,7 @@
                 	}
                   
                   function deleteAllCart() {
+                	  csrfToken = Cookies.get('XSRF-TOKEN');
                 	   Swal.fire({
                	        title: 'Are you sure you want to delete all cart?',
                	        text: 'This action cannot be undone!',
@@ -350,6 +374,9 @@
                 	    $.ajax({
                 	        type: 'POST',
                 	        url: '/cart/deleteAllCart', // Đường dẫn tới endpoint xóa tất cả giỏ hàng
+                	        headers: {
+    					        'X-XSRF-TOKEN': csrfToken
+    					      },
                 	        success: function (response) {
                 	            console.log(response);
                 	            loadCartData();
@@ -369,11 +396,154 @@
         	    });
                 	}
 
+                  function openCenterPopup() {
+                      document.getElementById('centerPopup').style.display = 'block';
+                      document.removeEventListener('click', outsideClickHandler);
+                  }
 
-                 
+                  function closeCenterPopup() {
+                      document.getElementById('centerPopup').style.display = 'none';
+                      document.addEventListener('click', outsideClickHandler);
+                  }
+                  function copyToClipboard() {
+                      const predefinedText = document.getElementById('predefinedText').innerText;
+                      const textarea = document.createElement('textarea');
+                      textarea.value = predefinedText;
+                      document.body.appendChild(textarea);
+                      textarea.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(textarea);
+                      alert('Đã sao chép vocher');
+                  }
+
+                ///// promotion
+                loadPromotion()
+                function loadPromotion() {
+                    $.ajax({
+                        url: '/promotion/getProductPage',
+                        type: 'GET',
+                        success: function (response) {
+                            var centerPopup = $("#centerPopup");
+
+                            //Xóa nội dung hiện có
+                            centerPopup.empty();
+
+                            if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
+                                // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                                $.each(response.promotionResponseDtos, function (index, promotion) {
+                                // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
+                                if (promotion.active) {
+                                	var imagesHtml = `<img src="https://cdn-icons-png.flaticon.com/512/3258/3258499.png" alt="Promotion Image">`;
+ 									// Giả sử bạn có hình ảnh cho mỗi chương trình khuyến mãi
+ 									
+                                    // Lặp qua các hình ảnh quảng cáo
+                                    $.each(promotion.images, function (imgIndex, image) {
+                                        imagesHtml += `<img src="${image.url}" alt="Promotion Image">`;
+                                    });
+
+                                    // Xây dựng promotion HTML
+                                                                    
+                                    var promotionHtml = `
+                                    	<div id="closeButton" onclick="closeCenterPopup()">X</div>
+                                        <div class="voucher" id="Promotion${promotion.id}">
+                                            <div class="margin-title">
+                                                <div class="title-vocher">
+                                                    <h4>Voucher ${promotion.name}</h4>
+                                                </div>
+                                                ${imagesHtml}
+                                            </div>
+                                            <div class="voucher-details">
+                                            <button class="review-button" data-promotion-id="${promotion.id}" onclick="applyPromotion('${promotion.couponCode}')">Coppy code</button>
+                                                <div class="voucher-header">Discount code ${promotion.name} applies to entire order </div>
+                                                <ul>                                                
+                                                    <li>Discount Value: ${promotion.discountType === 1 ? `${promotion.discountValue}%` : `${promotion.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`}</li>
+                                                    <li>Max Value: ${promotion.maxValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>                                                    
+                                                    <li>Expired Date: ${promotion.expiredDate}</li>
+                                                    <li >Coupon Code: ${promotion.couponCode}</li> <!-- Add this line for Coupon Code -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    `;
+
+                                    // Nối HTML voucher vào centerPopup
+                                    centerPopup.append(promotionHtml);
+                                }
+                            });
+                            } else {
+                                // Nếu không có voucher, hiển thị ảnh full
+                                centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/2015/Tin-Tuc/ThuVTK/giam8phantram_1.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">Cùng chờ đón mùa sale lớn giáng sinh</p</div>');
+								
+                            }
+
+                            //Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error loading promotion data:', errorThrown);
+                        }
+                    });
+                }
+
+                                        
+               //Thêm chức năng này để xử lý việc sao chép mã giảm giá
+               function applyPromotion(couponCode) {
+                   //Sử dụng tham số couponCode được cung cấp để sao chép vào bảng nhớ tạm
+                   const textarea = document.createElement('textarea');
+                   textarea.value = couponCode;
+                   document.body.appendChild(textarea);
+                   textarea.select();
+                   document.execCommand('copy');
+                   document.body.removeChild(textarea);
+
+                   //Hiển thị thông báo hoặc thực hiện các hành động bổ sung
+                   alert(`Coupon Code "${couponCode}" has been copied to the clipboard.`);
+             	}
 
 
-         
+                  function checkoutSelectedItems() {
+                	    var selectedCartIds = [];
+                	    var checkboxes = document.querySelectorAll('.itemCheckbox:checked');
+
+                	    checkboxes.forEach(function(checkbox) {
+                	        selectedCartIds.push(checkbox.getAttribute('data-cart-id'));
+                	    });
+
+                	    if (selectedCartIds.length > 0) {
+                	        // Chuyển hướng đến trang thanh toán, truyền danh sách cartIds được chọn
+                	        var checkoutUrl = '/userOrder/checkout?cartIdList=' + selectedCartIds.join(',');
+                	        window.location.href = checkoutUrl;
+                	    } else {
+                	        // Nếu không có mục nào được chọn, hiển thị thông báo hoặc thực hiện hành động khác
+                	        alert('Please select items before checkout.');
+                	    }
+                	}
+                  var csrfToken = null;
+          		document.getElementById("logout-form").addEventListener("submit", function(event) {
+          		  // Gửi yêu cầu AJAX
+          		  var xhr = new XMLHttpRequest();
+          		  xhr.open("POST", "/logout", true);
+          		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          		  if (Cookies.get('XSRF-TOKEN')) {
+          			  csrfToken = Cookies.get('XSRF-TOKEN');
+          			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+          			}
+          		  
+          			
+          		  xhr.onload = function() {
+          		     if (xhr.status === 200) {
+          				 
+          			      // Đăng xuất thành công, ẩn class "user"
+          			      //var userElement = document.getElementsByClassName("ht-user")[0];
+          			      //var userName = document.getElementsByClassName("userName")[0];
+          			      
+          			      //userElement.classList.add("hide");
+          			      //userName.classList.add("hide");
+          			   
+          			    } 
+          		  };
+          		
+          		  xhr.send(new FormData(event.target));
+          		});
 
       </script>
 

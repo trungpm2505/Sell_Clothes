@@ -23,13 +23,13 @@ public class Brand {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false, length = 200)
+	@Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
 	private String name;
 	
 	@Column(nullable = false, length = 200)
 	private String thumbnail;
 
-	@Column(nullable = true, length = 200)
+	@Column(nullable = true, length = 200, columnDefinition = "NVARCHAR(200)")
 	private String description;
 	
 	@Column(nullable = false)

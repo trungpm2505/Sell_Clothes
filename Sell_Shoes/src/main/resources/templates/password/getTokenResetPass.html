@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+<link type="text/css" rel="stylesheet" th:href="@{/logins/css/login.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+	    <div th:id="userLogin" class="user" >
+	      <h2 style="margin-bottom: 50px">Reset Password</h2>
+	      <div class="input-field">
+	        <input type="text" id="mailInput" th:id="token" >
+	        <label>Enter your code</label>
+	      </div>
+	      <small th:id="token-error" id="helpId"></small>
+	      <div class="forget">
+	        <label for="rememberMe">
+	        </label>
+	        <a href="/login">Login</a>
+	      </div>
+	      <button type="submit" onclick="checkToken()">Confirm</button>
+	      <button th:id="resent" class="btn btn-lg btn-primary w-49 fs-6" onclick="resent()">Resent</button>
+	      <div class="register">
+	        <p>Don't have an account? <a href="/register"><u>Register</u></a></p>
+	      </div>
+	    </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+	  var input = document.getElementById("token");
+	  var error = document.getElementById('token-error');
+	  input.addEventListener("focus", function() {
+		 error.textContent = '';
+	  });
+		
+		
+		var email = localStorage.getItem('email');
+		function checkToken() {
+			var token = document.getElementById('token').value.trim();
+		     
+			var checkTokenResetPass = {
+				  email:email, 
+				  token: token
+				};
+		    $.ajax({
+		        url: "/password/checkTokenReset",
+		        type: "POST",
+		        contentType: 'application/json',
+		        data: JSON.stringify(checkTokenResetPass),
+		        dataType: 'json',
+		        success: function(data) {
+		        	window.location.href = '/password/setNewPassView';
+		        },
+		        error: function(jqXHR, textStatus, errorMessage) {
+					if (jqXHR.status === 400) {
+			      	       var errors = jqXHR.responseJSON;
+							$("#token-error").text(errors.message);	        
+			      	}
+					 
+			      	}
+		    	});
+		}
+		
+		function resent() {
+			
+		    $.ajax({
+		        url: "/password/sentEmail",
+		        type: "POST",
+		        contentType: 'application/json',
+		        processData: false,
+		        data: JSON.stringify(email),
+		        dataType: 'json',
+		        success: function(data) {
+		        	
+		        },
+		        error: function(jqXHR, textStatus, errorMessage) {
+						alert("The system has problem!")
+			      	}
+		    	});
+		}
+  </script>
+</body>
+</html>

@@ -22,6 +22,7 @@ public interface VariantRepository extends JpaRepository<Variant, Integer> {
 	
 	@Query("SELECT p FROM Variant p WHERE p.deleteAt is null AND p.id = :variantId")
 	public Optional<Variant> getVariantById(Integer variantId);
+	
 
 	@Query("SELECT p FROM Variant p WHERE p.deleteAt is null AND p.id = :variantId")
 	public List<Variant> getListVariantById(Integer variantId);

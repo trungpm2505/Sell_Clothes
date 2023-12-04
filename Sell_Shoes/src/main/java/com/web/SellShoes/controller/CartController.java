@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +23,14 @@ import com.web.SellShoes.dto.requestDto.CartRequestDto;
 import com.web.SellShoes.dto.responseDto.CartResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Cart;
+import com.web.SellShoes.entity.Order;
+import com.web.SellShoes.entity.OrderDetail;
 import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.mapper.Mapper;
 import com.web.SellShoes.service.AccountService;
 import com.web.SellShoes.service.CartService;
+import com.web.SellShoes.service.OrderDetailService;
+import com.web.SellShoes.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,10 +40,14 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
 	private final CartService cartService;
 	private final AccountService accountService;
+	private final OrderService orderService;
 	private final Mapper mapper;
+	private final OrderDetailService orderDetailService;
 
 	@GetMapping()
-	public String view() {
+	public String view(HttpSession session, Model model) {
+		
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "/shop/shopcontent/cart";
 	}
 
@@ -61,7 +70,7 @@ public class CartController {
 	public ResponseEntity<List<CartResponseDto>> findAllByUser(HttpSession session) {
 
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		Optional<Account> account = accountService.findUserByEmail(email);
 
 		List<Cart> findByUser = cartService.findCartByAccount(account.get());
 		List<CartResponseDto> cartResponseDtos = new ArrayList<>();
@@ -113,6 +122,25 @@ public class CartController {
 	public ResponseEntity<?> deleteAllCart() {
 		cartService.deleteAllCart();
 		return ResponseEntity.ok("All carts deleted successfully");
+	}
+	
+	@PostMapping(value="/addByOrder" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+	//@ResponseBody
+	public ResponseEntity<String> addByOrder(@RequestParam Integer orderId ) {
+		
+		Optional<Order> order=orderService.getOrderById(orderId);
+		List<OrderDetail> orderDetailsList = orderDetailService.getOrderDtails(order.get());
+		
+		for (OrderDetail orderDetails : orderDetailsList) {
+			CartRequestDto cartRequestDto= new CartRequestDto();
+			cartRequestDto.setQuantity(orderDetails.getQuantity());
+			cartRequestDto.setVariantId(orderDetails.getVariant().getId());
+			Cart cart = mapper.cartRequestDtoToCart(cartRequestDto);
+			cartService.save(cart);
+		}
+		
+		return ResponseEntity.ok().body("Add cart success!");
+	
 	}
 
 }

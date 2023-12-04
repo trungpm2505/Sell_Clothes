@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
 	private String fullName;
 	
 	@Column(nullable = false, length = 100)
@@ -40,7 +42,7 @@ public class Account {
 	@Column(nullable = false, length = 11)
 	private String phone;
 	
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 100, columnDefinition = "NVARCHAR(100)")
 	private String address;
 	
 	@Column(nullable = false)
@@ -55,5 +57,6 @@ public class Account {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", nullable = false)
+	@Fetch(FetchMode.JOIN)
 	private Role role;
 }

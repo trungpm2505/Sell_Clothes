@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -50,8 +52,6 @@ public class OrderController {
 
 		return "admin/order/list";
 	}
-	
-	
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	LocalDate startDateParse = null;
@@ -65,7 +65,6 @@ public class OrderController {
 			@RequestParam(defaultValue = "false") boolean search, @RequestParam(required = false) String key,
 			@RequestParam(required = false) String createAt, @RequestParam(required = false) String startDate,
 			@RequestParam(required = false) String endDate, @RequestParam(required = false) String ortherTime) {
-		key = "";
 		Page<Order> orderPage = null;
 
 		if (status == 0) {
@@ -150,6 +149,7 @@ public class OrderController {
 			for (OrderDetail orderDetails : OrderDetailsList) {
 				orderDetails.getVariant()
 						.setQuantity(orderDetails.getVariant().getQuantity() - orderDetails.getQuantity());
+				orderDetails.getVariant().setBuyCount(orderDetails.getQuantity());
 				variantService.save(orderDetails.getVariant());
 			}
 		} else if (undo == true) {
@@ -158,6 +158,8 @@ public class OrderController {
 			for (OrderDetail orderDetails : OrderDetailsList) {
 				orderDetails.getVariant()
 						.setQuantity(orderDetails.getQuantity() + orderDetails.getVariant().getQuantity());
+				orderDetails.getVariant()
+						.setBuyCount(orderDetails.getVariant().getBuyCount() - orderDetails.getQuantity());
 				variantService.save(orderDetails.getVariant());
 			}
 		}
@@ -170,11 +172,13 @@ public class OrderController {
 	@ResponseBody
 	public ResponseEntity<OrderPageResponseDto> getOrderPageForUser(@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "0") int status,
-			@RequestParam(required = false) String keyWord) {
-		keyWord = "";
+			@RequestParam(required = false) String keyWord, HttpSession session, Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		Page<Order> orderPage = null;
-		//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		// Authentication authentication =
+		// SecurityContextHolder.getContext().getAuthentication();
+		String email = (String) session.getAttribute("email");
+		Optional<Account> account = accountService.findUserByEmail(email);
 
 		if (keyWord == null || keyWord.equals("")) {
 			if (status == 0) {
@@ -189,7 +193,7 @@ public class OrderController {
 		List<OrderResponseDto> orderResponseDtos = orderPage.stream()
 				.map(order -> new OrderResponseDto(order.getId(), order.getFullName(), order.getPhone_Number(),
 						order.getAdrress(), order.getOrder_date(), order.getTotalMoney(), order.getStatus(),
-						order.getNote(),rateService.getRateByOrder(order).size() != 0 ? true : false))
+						order.getNote(), rateService.getRateByOrder(order).size() != 0 ? true : false))
 				.collect(Collectors.toList());
 
 		for (int i = 0; i < orderPage.getContent().size(); i++) {
@@ -208,8 +212,8 @@ public class OrderController {
 	}
 
 	@GetMapping("/user/all-order")
-	public String getAllOrderForUser(Model model) {
-
+	public String getAllOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "shop/shopcontent/historyOrder";
 	}
 }

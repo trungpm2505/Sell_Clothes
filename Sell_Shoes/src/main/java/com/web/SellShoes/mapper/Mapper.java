@@ -113,6 +113,7 @@ public class Mapper {
 		} else {
 			cartResponseDto.setTotal(cart.getQuantity() * variant.get().getPrice());
 		}
+		cartResponseDto.setImages(imageService.getImageByProductAndDefault(product.get()));
 		return cartResponseDto;
 	}
 
@@ -151,8 +152,8 @@ public class Mapper {
 
 		Optional<Variant> variant = variantService.getVariantById(cartRequestDto.getVariantId());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		Optional<Account> account = accountService.findUserByEmail(authentication.getName());
-		Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		Optional<Account> account = accountService.findUserByEmail(authentication.getName());
+		//Optional<Account> account = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
 
 		// if product and user id is exist in cart -> update
 		Optional<Cart> cartExist = cartService.findCartByVariantAndAccount(variant.get(), account.get());

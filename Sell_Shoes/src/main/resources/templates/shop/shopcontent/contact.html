@@ -98,6 +98,35 @@
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802589282656!2d108.16738507489463!3d16.075730739264273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0xb93a05e26b3b28ff!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1697464287790!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                </div>
                     </div>
                 </div>
+                <script>
+                var csrfToken = null;
+          		document.getElementById("logout-form").addEventListener("submit", function(event) {
+          		  // Gửi yêu cầu AJAX
+          		  var xhr = new XMLHttpRequest();
+          		  xhr.open("POST", "/logout", true);
+          		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          		  if (Cookies.get('XSRF-TOKEN')) {
+          			  csrfToken = Cookies.get('XSRF-TOKEN');
+          			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+          			}
+          		  
+          			
+          		  xhr.onload = function() {
+          		     if (xhr.status === 200) {
+          				 
+          			      // Đăng xuất thành công, ẩn class "user"
+          			      //var userElement = document.getElementsByClassName("ht-user")[0];
+          			      //var userName = document.getElementsByClassName("userName")[0];
+          			      
+          			      //userElement.classList.add("hide");
+          			      //userName.classList.add("hide");
+          			   
+          			    } 
+          		  };
+          		
+          		  xhr.send(new FormData(event.target));
+          		});
+                </script>
                 </div>
 </body>
 </html>
