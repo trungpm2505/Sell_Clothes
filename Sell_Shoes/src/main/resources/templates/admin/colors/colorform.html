@@ -127,8 +127,9 @@ function searchColors() {
   function getAllColors() {
 	  getlistColors(0, ''); // Lấy tất cả danh mục
  }
-
+  var csrfToken;
  function getlistColors(page, keyword) {
+	 csrfToken = Cookies.get('XSRF-TOKEN');
      $.ajax({
          type: "GET",
          url: "/color/getColorPage", // Endpoint đã chỉnh sửa
@@ -136,6 +137,9 @@ function searchColors() {
              page: page,
              keyword: keyword
          },
+         headers: {
+			    'X-XSRF-TOKEN': csrfToken
+			  },
          success: function (response) {
              // Xóa dữ liệu cũ trong tbody
              $("#colorTable tbody").empty();
@@ -207,35 +211,6 @@ function searchColors() {
           $(navId).append(pagination);
      }
 
-
- 
-
-/*function ss() {
-	
-			var categoryName = document.getElementById("categoryName").value;
-		
-			$.ajax({
-				type : 'POST',
-				url : '/category/saveCategory',
-				data : {
-					
-					categoryName : categoryName
-				},
-				success : function(response) {
-					console.log("thanh cong")
-					  getlistCategories();
-					 document.getElementById("categoryName").value = "";
-					  $('#exampleModalCenter').modal('hide');
-					 
-				},
-				error : function(xhr, status, error) {
-					console.log(error);
-					console.log(status);
-				
-				}
-			});
-}
-*/
 function clearEditColorForm() {
 	  // Lấy tham chiếu đến các phần tử trong biểu mẫu
 	  var editColorId = document.getElementById("editColorId");
@@ -258,6 +233,7 @@ function addColor() {
  // $("#editCategoryName").val(categoryName);
     // Thiết lập sự kiện cho nút "Lưu thay đổi"
     $("#saveColorChanges").off("click").on("click", function () {
+    	csrfToken = Cookies.get('XSRF-TOKEN');
     	 var colorName = document.getElementById("editColorName").value;
         // Gửi AJAX request để cập nhật danh mục (sử dụng newCategoryId và newCategoryName)
         $.ajax({
@@ -267,6 +243,9 @@ function addColor() {
             data : JSON.stringify({
             	colorName : colorName
 			}),
+			 headers: {
+				    'X-XSRF-TOKEN': csrfToken
+				  },
             success: function (response) {
             	getlistColors(0, '');
                 toastr.success(response);
@@ -302,6 +281,7 @@ function addColor() {
 
 
 function deleteColor(id,colorName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
     // Hiển thị modal xác nhận xóa
 	$("#colorIdToDelete").text(colorName);
     // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
@@ -320,6 +300,9 @@ function deleteColor(id,colorName) {
                  data: {
                      idColor: id,
                  },
+                 headers: {
+     			    'X-XSRF-TOKEN': csrfToken
+     			  },
                  success: function (response) {
                      console.log("Xóa thành công");
                      getlistColors(0, '');
@@ -347,6 +330,7 @@ function deleteColor(id,colorName) {
 }
 
 function editColor(id, colorName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditColorForm();
     // Điền giá trị của id và categoryName vào các trường input
     // Hiển thị modal chỉnh sửa danh mục
@@ -372,6 +356,9 @@ function editColor(id, colorName) {
             	id : id ,
             	colorName : colorName
 			}),
+			headers: {
+			    'X-XSRF-TOKEN': csrfToken
+			  },
             success: function (response) {
                 console.log("Chỉnh sửa thành công");
                 console.log(colorName);

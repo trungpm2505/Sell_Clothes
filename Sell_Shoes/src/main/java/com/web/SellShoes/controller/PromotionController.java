@@ -102,13 +102,14 @@ public class PromotionController {
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 		}
-		System.out.println("promotionId: "+promotionRequestDto.getId());
-		Optional<Promotion> promotionByCoupon = promotionService.getPromotionByCouponCode(promotionRequestDto.getCouponCode());
-		
+		System.out.println("promotionId: " + promotionRequestDto.getId());
+		Optional<Promotion> promotionByCoupon = promotionService
+				.getPromotionByCouponCode(promotionRequestDto.getCouponCode());
+
 		if (promotionByCoupon.isPresent() && !promotionByCoupon.get().getId().equals(promotionRequestDto.getId())) {
 			errors.put("couponDuplicate", "Coupon Code already exists! please enter a new coupon code. ");
 		}
-		
+
 		if (promotionRequestDto.getExpiredDate() != null
 				&& promotionRequestDto.getExpiredDate().isBefore(LocalDate.now())) {
 			errors.put("expiredDate", "Promotion period has ended. Please select a future expiration date.");
@@ -140,7 +141,7 @@ public class PromotionController {
 
 		return ResponseEntity.ok().body("{\"message\": \"Update Promotion successfully\"}");
 	}
-	
+
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	@Transactional
@@ -163,9 +164,8 @@ public class PromotionController {
 	public ResponseEntity<PromotionPageResponseDto> getPromotionPage(@RequestParam(defaultValue = "8") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
 
-		keyword = "";
 		Page<Promotion> promotionPage = null;
-		if (keyword.equals("")) {
+		if (keyword == null || keyword.equals("")) {
 			promotionPage = promotionService.getAllPromotion(page, size);
 		} else {
 			promotionPage = promotionService.getPromotionByKey(page, size, keyword);

@@ -26,28 +26,32 @@
                     <thead>
                       <tr>
                         <th>STT</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn Giá</th>
-                        <th>Giá hiện tại</th>
-                        <th>Tổng tiền</th>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>CurrentPrice</th>
+                        <th>Total </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Giày</td>
-                        <td>2</td>
-                        <td>300000</td>
-                        <td>250000</td>
-                        <td>300,000đ</td>
+                      <tr th:each="orderDetail,index : ${orderDetailsResponseDtos}">
+                        <td th:text="${index.count}"></td>
+                        <td th:text="${orderDetail.variantResponseDto.title}"></td>
+                        <td th:text="${orderDetail.number}"></td>
+                        <td th:text="${orderDetail.variantResponseDto.color}"></td>
+                        <td th:text="${orderDetail.variantResponseDto.size}"></td>
+                        <td th:text="${#numbers.formatInteger(orderDetail.price,3,'POINT')}+'&#8363;'"></td>
+                        <td th:text="${#numbers.formatInteger(orderDetail.curentPrice,3,'POINT')}+'&#8363;'"></td>
+                        <td th:text="${#numbers.formatInteger(orderDetail.totalMoney,3,'POINT')}+'&#8363;'"></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-            <div class="row">
+           <!--  <div class="row">
               <div class="col-md-6">
                 <h5 class="font-weight-bold text-primary mb-3">Thông tin đơn hàng</h5>
                 <ul class="list-group">
@@ -68,7 +72,55 @@
                   <li class="list-group-item"><strong>Ghi chú:</strong> giao hàng nhanh vòa buổi trưa</li>
                 </ul>
               </div>
-            </div>
+            </div> -->
+            
+            <div class="row">
+                            <div class="col-6">
+                                <div class="card bg-light bg-gradient">
+                                    <div class="card-body row">
+                                        <h5 class="font-weight-bold text-primary mb-3 col-12 text-center">Order Information</h5><br />
+                                        <b class="col-6">Order ID</b>
+                                        <p class="col-6" th:text="${orderResponseDto.id}"> </p>
+                                        <b class="col-6">Order Date </b>
+                                        <p class="col-6" th:text="${orderResponseDto.createAt}"> </p>
+                                        <th:block th:if="${orderResponseDto.completedAt}!=null">
+                                        	<b class="col-6">Complate Date </b>
+                                        	<p class="col-6" th:text="${orderResponseDto.completedAt}"> </p>
+                                        </th:block>
+                                        <b class="col-6">Number</b>
+                                        <p class="col-6" th:text="${number}"></p>
+                                        <b class="col-6">Status</b>
+                                        <p class="col-6">
+                                        	<span th:switch="${orderResponseDto.status}">
+											    <span th:case="1">New Order</span>
+											    <span th:case="2" >Canceled Order</span>
+											    <span th:case="3" >Confirm Order</span>
+											    <span th:case="4" >Completed Order</span>
+										 	 </span>
+                                        </p>
+                                        <b class="col-6 text-danger">Total Money </b>
+                                        <p class="col-6 text-danger"  th:text="${#numbers.formatInteger(orderResponseDto.totalMoney,3,'POINT')}+'&#8363;'"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card bg-light bg-gradient">
+                                    <div class="card-body row">
+                                        <h5 class="font-weight-bold text-primary text-center mb-3 col-12">Shipment Details</h5>
+                                        <b class="col-6">FullName</b>
+                                        <p class="col-6" th:text="${orderResponseDto.fullName}"></p>
+                                        <!-- <b class="col-6">Email: </b>
+                                        <p class="col-6" th:text="${orderResponseDto.email}"></p> -->
+                                        <b class="col-6" >Phone Number</b>
+                                        <p class="col-6" th:text="${orderResponseDto.phone}"></p>
+                                        <b class="col-6">Address</b>
+                                        <p class="col-6" th:text="${orderResponseDto.address}"></p>
+                                        <b class="col-6 text-danger">Note</b>
+                                        <p class="col-6" th:text="${orderResponseDto.note}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 				</div>
 			</div>
 			

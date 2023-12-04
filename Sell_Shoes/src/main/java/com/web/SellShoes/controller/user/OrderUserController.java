@@ -55,7 +55,7 @@ public class OrderUserController {
 
 	@GetMapping()
 	public String view1(HttpSession session, Model model) {
-		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		model.addAttribute("fullName", (String) session.getAttribute("fullName"));
 		return "/shop/shopcontent/checkout";
 	}
 
@@ -64,7 +64,7 @@ public class OrderUserController {
 
 	@GetMapping(value = "/checkout")
 	public String createOrder(@RequestParam List<Integer> cartIdList, Model model, HttpSession session) {
-		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		model.addAttribute("fullName", (String) session.getAttribute("fullName"));
 		String email = (String) session.getAttribute("email");
 		Optional<Account> account = accountService.findUserByEmail(email);
 
@@ -88,20 +88,20 @@ public class OrderUserController {
 
 	@PostMapping(value = "/addOrder")
 	@ResponseBody
-	public ResponseEntity<?> addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto,
-			BindingResult bindingResult,HttpSession session) {
+	public ResponseEntity<?> addOrder(@Valid @RequestBody OrderRequestDto orderRequestDto, BindingResult bindingResult,
+			HttpSession session) {
 		Map<String, Object> errors = new HashMap<>();
 		String email = (String) session.getAttribute("email");
-		Optional<Account> account = accountService.findUserByEmail(email);	
+		Optional<Account> account = accountService.findUserByEmail(email);
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 			return ResponseEntity.badRequest().body(errors);
 		}
 
 		// Tạo một đơn hàng mới và set thông tin từ orderRequestDto
-		Order order = new Order();		
-		String address = orderRequestDto.getAddress() + ", " +  orderRequestDto.getProvince()
-	  + ", " +  orderRequestDto.getDistrict() + ", " +  orderRequestDto.getWard();
+		Order order = new Order();
+		String address = orderRequestDto.getProvince() + ", " + orderRequestDto.getDistrict() + ", "
+				+ orderRequestDto.getWard() + ", " + orderRequestDto.getAddress();
 		order.setAdrress(address);
 		order.setFullName(orderRequestDto.getFullName());
 		order.setPhone_Number(orderRequestDto.getPhone_Number());
@@ -109,13 +109,11 @@ public class OrderUserController {
 		order.setAccount(account.get());
 		order.setTotalMoney(0);
 
+		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
+		if (promotion != null) {
+			order.setPromotion(promotion);
+		}
 
-  		Promotion promotion = promotionService.getPromotionById(orderRequestDto.getPromotionId()).orElse(null);
-  		if(promotion != null) {
-  			order.setPromotion(promotion);
-  		}
-		
-		
 		orderService.save(order);
 		float totalPayment = 0;
 		// Lặp qua danh sách các sản phẩm trong đơn hàng để tạo thông tin chi tiết đơn
@@ -138,37 +136,36 @@ public class OrderUserController {
 
 			// Lưu thông tin chi tiết đơn hàng vào cơ sở dữ liệu
 			orderDetailService.save(orderDetail);
-           totalPayment += orderDetail.getTotalMoney();
+			totalPayment += orderDetail.getTotalMoney();
 
 		}
-	//	 Cập nhật tổng giá trị đơn hàng
+		// Cập nhật tổng giá trị đơn hàng
 		if (orderRequestDto.getConfirmedPrice() != null && orderRequestDto.getConfirmedPrice() > 0) {
-		    order.setTotalMoney(orderRequestDto.getConfirmedPrice()); // Sử dụng giá đã xác nhận sau khi giảm giá
+			order.setTotalMoney(orderRequestDto.getConfirmedPrice()); // Sử dụng giá đã xác nhận sau khi giảm giá
 		} else {
-		    order.setTotalMoney(totalPayment); // Sử dụng tổng thanh toán từ các mục giỏ hàng
+			order.setTotalMoney(totalPayment); // Sử dụng tổng thanh toán từ các mục giỏ hàng
 		}
 		orderService.save(order);
 		return ResponseEntity.ok().body("Đặt hàng thành công!");
 	}
 
-
 	@GetMapping("/applyPromotionByCode")
 	public ResponseEntity<?> applyPromotionByCode(@RequestParam("coupon_code") String couponCode) {
-	    Map<String, Object> errors = new HashMap<>();
-	    if (couponCode.isEmpty()) {
-	        errors.put("couponCode", "Coupon code is empty");
-	        return ResponseEntity.badRequest().body(errors);
-	    }
+		Map<String, Object> errors = new HashMap<>();
+		if (couponCode.isEmpty()) {
+			errors.put("couponCode", "Coupon code is empty");
+			return ResponseEntity.badRequest().body(errors);
+		}
 
-	    Optional<Promotion> optionalPromotion = promotionService.getPromotionByCouponCode(couponCode);
-	    if (optionalPromotion.isPresent()) {
-	        Promotion promotion = optionalPromotion.get();
-	        PromotionResponseDto promotionResponseDto = promotionToPromotionResponese(promotion);
-	        return ResponseEntity.ok(promotionResponseDto);
-	    } else {
-	        errors.put("couponCode", "Promotion not found for the provided coupon code");
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
-	    }
+		Optional<Promotion> optionalPromotion = promotionService.getPromotionByCouponCode(couponCode);
+		if (optionalPromotion.isPresent()) {
+			Promotion promotion = optionalPromotion.get();
+			PromotionResponseDto promotionResponseDto = promotionToPromotionResponese(promotion);
+			return ResponseEntity.ok(promotionResponseDto);
+		} else {
+			errors.put("couponCode", "Promotion not found for the provided coupon code");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
+		}
 	}
 
 	public PromotionResponseDto promotionToPromotionResponese(Promotion promotion) {
@@ -183,12 +180,13 @@ public class OrderUserController {
 		promotionResponseDto.setExpiredDate(promotion.getExpiredAt());
 		promotionResponseDto.setMaxValue(promotion.getMaximumDiscountValue());
 		promotionResponseDto.setName(promotion.getName());
-		promotionResponseDto.setUpdateAt(promotion.getUpdateAt());		
+		promotionResponseDto.setUpdateAt(promotion.getUpdateAt());
 		return promotionResponseDto;
 	}
+
 	@GetMapping("/order-success")
-	public String view(HttpSession session,Model model) {
-		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+	public String view(HttpSession session, Model model) {
+		model.addAttribute("fullName", (String) session.getAttribute("fullName"));
 		return "/shop/shopcontent/order-success";
 	}
 

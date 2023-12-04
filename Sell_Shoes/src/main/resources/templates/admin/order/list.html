@@ -161,14 +161,19 @@
 					}
 				});
 			}); 
+			 var csrfToken;
 			loadData(0,0,false,"",null,null,null);
 			function loadData(page, status, search, key, createAt, startDate, endDate) {
+				 csrfToken = Cookies.get('XSRF-TOKEN');
 				var table = "#order-table tbody";
 				$.ajax({
 					 url: '/order/getOrderPage',
 				     type: 'GET',
 				     dataType: 'json',
 				     data: {page : page, status: status, search:search, key:key, createAt:createAt, startDate:startDate, endDate:endDate},
+				     headers: {
+						    'X-XSRF-TOKEN': csrfToken
+						  },
 				     success: function(data) {
 						  if(data == null){
 							  return;
@@ -261,11 +266,11 @@
 	  		}
 
 			 //update status
-			 var csrfToken;
 			 var buttonText;
 			 var undo = false;
 
 			 function updateStatus(event) {
+				 csrfToken = Cookies.get('XSRF-TOKEN');
 			     // Lấy giá trị orderId từ biến địa phương hoặc data của modal
 			     var orderId = $('#orderIdRefuseModal').val();
 					console.log("OrderId:", orderId);
@@ -283,8 +288,6 @@
 			         undo = true;
 			     }
 
-			     
-
 			     $.ajax({
 			         url: '/order/updateStatus',
 			         type: 'PUT',
@@ -295,8 +298,8 @@
 			             undo: undo
 			         },
 			         headers: {
-			             'X-XSRF-TOKEN': csrfToken
-			         },
+						    'X-XSRF-TOKEN': csrfToken
+						},
 			         success: function () {
 			             $('#refuseOrder').modal('hide');
 			             $('.modal-backdrop').remove();

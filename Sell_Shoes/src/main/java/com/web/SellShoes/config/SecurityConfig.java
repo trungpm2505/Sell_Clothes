@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login/checkLogin",
 			"/register/**",
 			"/userfeedback/**",
-			
+			"/feedback/saveUserfeedback",
 			"/logins/**",
 			"/registers/**",
 			"/image/**",
@@ -65,33 +65,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/cart/**",
 			 "/userOrder/**",
 			 "/order/user/all-order",
-			 "/category/getAll",
-			 "/brand/getAll",
-			 "/color/getAll",
-			 "/feedback/userfeedback",
-			 "/feedback/saveUserfeedback",
-			 "/order/updateStatus",
 			 "/order/user/getOrderPage",
 			 "/order/user/all-order",
-			 "/promotion/getProductPage",
 			 "/rate/**",
-			 "/size/getAll",
+			 "/order/updateStatus",
 	 };
 	    
 	 
    private static final String[] ROLE_ADMIN = {
-		   
-		   	 "/order/**",
-			 "/category/**",
-			 "/brand/**",
-			 "/color/**",
-			 "/feedback/**",
-			 "/promotion/**",
-			 "/rate/**",
-			 "/size/**"
-			 
+		   "/promotion/admin",
+		   "/promotion/getProductPage",
+		   "/order/getOrderPage/**",
+           "/order/admin/all",
+           "/category/**",
+           "/brand/**",
+           "/color/**",
+           "/feedback/**",
+           "/size/**",
+           "/product/**",
+           "/variant/**"
            
    };
+   
+   private static final String[] COMMON_ROLES = {
+		   "/promotion/getProductPage",
+		   "/order/updateStatus",
+		};
  
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -131,10 +130,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(NO_LOG_IN).permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers(ROLE_USER).hasAuthority("USER")
+                .antMatchers(ROLE_USER).hasAnyAuthority("USER","ADMIN")
                 .and()
                 .authorizeRequests()
                 .antMatchers(ROLE_ADMIN).hasAuthority("ADMIN")
+                .and()
+                .authorizeRequests()
+                .antMatchers(COMMON_ROLES).hasAnyAuthority("USER", "ADMIN")
                 .and()
                 .authorizeRequests()
                 .anyRequest()

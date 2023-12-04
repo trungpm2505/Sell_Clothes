@@ -449,12 +449,16 @@ input:checked+.slider:before {
 			
 			loadData(0,"");
 			function loadData(page, keyword) {
+				csrfToken = Cookies.get('XSRF-TOKEN');
 				var table = "#promotion-table tbody";
 			    $.ajax({
 			      url: '/promotion/getProductPage',
 			      type: 'GET',
 			      dataType: 'json',
 			      data: {page : page, keyword : keyword},
+			      headers: {
+					    'X-XSRF-TOKEN': csrfToken
+					  },
 			      success: function(data) {
 			        //clear table
 			        $(table).empty();
@@ -546,7 +550,7 @@ input:checked+.slider:before {
 			 
 			 $(document).on('click', '.delete-promotion', function() {
 		           let promotionId = $(this).data("id");
-
+		           csrfToken = Cookies.get('XSRF-TOKEN');
 		           Swal.fire({
 		        	   title: 'Are you sure you want to delete?',
 		        	   text: 'This action cannot be undone!',
@@ -559,6 +563,9 @@ input:checked+.slider:before {
 		        		   $.ajax({
 						        url: '/promotion/delete?promotionId=' + promotionId,
 						        type: 'DELETE',
+						        headers: {
+								    'X-XSRF-TOKEN': csrfToken
+								  },
 						        success: function(data) {
 					        	     Swal.fire(data, '', 'success');
 						        	loadData(0,"");

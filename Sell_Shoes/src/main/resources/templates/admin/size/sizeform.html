@@ -124,8 +124,9 @@ function searchSize() {
   function getAllSizes() {
 	  getlistSizes(0, ''); // Lấy tất cả danh mục
  }
-
+  var csrfToken;
  function getlistSizes(page, keyword) {
+	 csrfToken = Cookies.get('XSRF-TOKEN');
      $.ajax({
          type: "GET",
          url: "/size/getSizePage", // Endpoint đã chỉnh sửa
@@ -133,6 +134,9 @@ function searchSize() {
              page: page,
              keyword: keyword
          },
+         headers: {
+			    'X-XSRF-TOKEN': csrfToken
+		 },
          success: function (response) {
              // Xóa dữ liệu cũ trong tbody
              $("#sizeTable tbody").empty();
@@ -205,35 +209,6 @@ function searchSize() {
           $(navId).append(pagination);
      }
 
-
- 
-
-/*function ss() {
-	
-			var categoryName = document.getElementById("categoryName").value;
-		
-			$.ajax({
-				type : 'POST',
-				url : '/category/saveCategory',
-				data : {
-					
-					categoryName : categoryName
-				},
-				success : function(response) {
-					console.log("thanh cong")
-					  getlistCategories();
-					 document.getElementById("categoryName").value = "";
-					  $('#exampleModalCenter').modal('hide');
-					 
-				},
-				error : function(xhr, status, error) {
-					console.log(error);
-					console.log(status);
-				
-				}
-			});
-}
-*/
 function clearEditSizeForm() {
 	  // Lấy tham chiếu đến các phần tử trong biểu mẫu
 	  var editSizeId = document.getElementById("editSizeId");
@@ -248,6 +223,7 @@ function clearEditSizeForm() {
 	  sizeNameError.innerText = "";
 	}
 function addSize() {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditSizeForm();
     // Hiển thị modal chỉnh sửa danh mục
     $("#editSizeModal").modal("show");
@@ -265,6 +241,9 @@ function addSize() {
             data : JSON.stringify({
             	sizeName : sizeName
 			}),
+			headers: {
+			    'X-XSRF-TOKEN': csrfToken
+		 	},
             success: function (response) {
             	getlistSizes(0, '');
                 toastr.success(response);
@@ -300,6 +279,7 @@ function addSize() {
 
 
 function deleteSize(id,sizeName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
     // Hiển thị modal xác nhận xóa
 	$("#sizeIdToDelete").text(sizeName);
     // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
@@ -318,6 +298,9 @@ function deleteSize(id,sizeName) {
                  data: {
                      idSize: id,
                  },
+                 headers: {
+     			    'X-XSRF-TOKEN': csrfToken
+     		 	},
                  success: function (response) {
                      console.log("Xóa thành công");
                      getlistSizes(0, '');
@@ -345,6 +328,7 @@ function deleteSize(id,sizeName) {
 }
 
 function editSize(id, sizeName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditSizeForm();
     // Điền giá trị của id và categoryName vào các trường input
     // Hiển thị modal chỉnh sửa danh mục
@@ -370,6 +354,9 @@ function editSize(id, sizeName) {
             	id : id ,
             	sizeName : sizeName
 			}),
+			headers: {
+			    'X-XSRF-TOKEN': csrfToken
+		 	},
             success: function (response) {
                 console.log("Chỉnh sửa thành công");
                 console.log(sizeName);

@@ -847,22 +847,22 @@ margin-top: 20px;
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Cancel order</h5>
 					<button type="button" class="close"
-						data-dismiss="modal">&times;</button>
+						data-bs-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>Bạn có chắc muốn hủy đơn hàng này?</p>
+					<p>Are you sure you want to cancel this order??</p>
 					<input type="hidden" th:id="orderIdRefuseModal" name="orderId">
 					<input type="hidden" th:id="statusRefuseModal" name="status">
 
 				</div>
 				<div class="modal-footer">
 					<button type="button"
-						class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+						class="btn btn-secondary" data-ba-dismiss="modal">Cancel</button>
 					<button type="button" data-id="" data-update-status="2"
 						class="btn btn-danger" th:id="refuse-order-modal"
-						onclick='updateStatus(event)' >Xác nhận</button>
+						onclick='updateStatus(event)' >Confirm</button>
 				</div>
 			</div>
 		</div>
@@ -1156,7 +1156,7 @@ margin-top: 20px;
 	   	  //update status
 		   var csrfToken;
 		   var buttonText;
-		   var undo =false;
+		   var undo = false;
 		   function updateStatus(event){
 				csrfToken = Cookies.get('XSRF-TOKEN');
 				var button = event.target;
@@ -1556,7 +1556,7 @@ margin-top: 20px;
 					      }
 					    });
 			    }
-			    var csrfToken = null;
+			    
           		document.getElementById("logout-form").addEventListener("submit", function(event) {
           		  // Gửi yêu cầu AJAX
           		  var xhr = new XMLHttpRequest();

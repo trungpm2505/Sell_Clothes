@@ -123,8 +123,9 @@ function searchCategories() {
   function getAllCategories() {
       getlistCategories(0, ''); // Lấy tất cả danh mục
  }
-
+  var csrfToken;
  function getlistCategories(page, keyword) {
+	 csrfToken = Cookies.get('XSRF-TOKEN');
      $.ajax({
          type: "GET",
          url: "/category/getCategoryPage", // Endpoint đã chỉnh sửa
@@ -132,6 +133,9 @@ function searchCategories() {
              page: page,
              keyword: keyword
          },
+         headers: {
+			    'X-XSRF-TOKEN': csrfToken
+		 },
          success: function (response) {
              // Xóa dữ liệu cũ trong tbody
              $("#categoryTable tbody").empty();
@@ -218,6 +222,7 @@ function clearEditCategoryForm() {
 	  categoryNameError.innerText = "";
 	}
 function addCategory() {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditCategoryForm();
     // Hiển thị modal chỉnh sửa danh mục
     $("#editCategoryModal").modal("show");
@@ -231,6 +236,9 @@ function addCategory() {
             data : JSON.stringify({
             	categoryName : categoryName
 			}),
+			headers: {
+			    'X-XSRF-TOKEN': csrfToken
+			  },
             success: function (response) {
                 getlistCategories(0, '');
                 toastr.success(response);
@@ -266,6 +274,7 @@ function addCategory() {
 
 
 function deleteCategory(id,categoryName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
     // Hiển thị modal xác nhận xóa
 	$("#categoryIdToDelete").text(categoryName);
     // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
@@ -284,6 +293,9 @@ function deleteCategory(id,categoryName) {
                  data: {
                      idCategory: id,
                  },
+                 headers: {
+					    'X-XSRF-TOKEN': csrfToken
+					  },
                  success: function (response) {
                      console.log("Xóa thành công");
                      getlistCategories(0, '');
@@ -311,6 +323,7 @@ function deleteCategory(id,categoryName) {
 }
 
 function editCategory(id, categoryName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditCategoryForm();
     // Điền giá trị của id và categoryName vào các trường input
     // Hiển thị modal chỉnh sửa danh mục
@@ -336,6 +349,9 @@ function editCategory(id, categoryName) {
             	id : id ,
             	categoryName : categoryName
 			}),
+			headers: {
+			    'X-XSRF-TOKEN': csrfToken
+			  },
             success: function (response) {
                 console.log("Chỉnh sửa thành công");
                 console.log(categoryName);
