@@ -65,7 +65,7 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			        		brands.forEach(function(brand) {
 				    			    const optionElement = document.createElement('option');
 				    			    optionElement.value = brand.id;
-				    			    optionElement.textContent = brand.name;
+				    			    optionElement.textContent = brand.brandName;
 				    			    brandSelect.appendChild(optionElement);
 				    			});
 				    		  

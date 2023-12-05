@@ -154,31 +154,32 @@ function searchBrand() {
              // Xóa dữ liệu cũ trong tbody
              $("#brandTable tbody").empty();
              if (response && response.brandResponseDtos) {
-                 var brands = response.brandResponseDtos;
-                
-                 // Duyệt qua danh sách brand và thêm chúng vào tbody
-                 for (var i = 0; i <= brands.length; i++) {
-                     var brand = brands[i];
-                     var row = '<tr>' +
-                     '<td>' + (i+1) + '</td>' +
-                     '<td>' + brand.brandName + '</td>' +
-                     '<td>' +
-                     '<img src="../upload/' + brand.thumbnail + '" alt="Mô tả ảnh" style="width: 50px;">' +
-                     '</td>' +
-                     '<td>' + brand.description + '</td>' +
-                     '<td>' + brand.createAt + '</td>' +
-                     '<td>' + (brand.updateAt ? brand.updateAt : '-') + '</td>' +
-                     '<td>' +
-                     '<span onclick="editBrand(' + brand.id + ', \'' + brand.brandName + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
-                     '</td>' +
-                     '<td>' +
-                     '<span onclick="deleteBrand(' + brand.id + ', \'' + brand.brandName + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
-                     '</td>' +
-                     '</tr>';
+            	    var brands = response.brandResponseDtos;
 
-                     $("#brandTable tbody").append(row);
-                 }
-             }
+            	    // Duyệt qua danh sách brand và thêm chúng vào tbody
+            	    for (var i = 0; i < brands.length; i++) {
+            	        var brand = brands[i];
+            	        var row = '<tr>' +
+            	            '<td>' + (i + 1) + '</td>' +
+            	            '<td>' + (brand.brandName ? brand.brandName : '-') + '</td>' +
+            	            '<td>' +
+            	            '<img src="../upload/' + (brand.thumbnail ? brand.thumbnail : '') + '" alt="" style="width: 50px;">' +
+            	            '</td>' +
+            	            '<td>' + (brand.description ? brand.description : '-') + '</td>' +
+            	            '<td>' + brand.createAt + '</td>' +
+            	            '<td>' + (brand.updateAt ? brand.updateAt : '-') + '</td>' +
+            	            '<td>' +
+            	            '<span onclick="editBrand(' + brand.id + ', \'' + (brand.brandName ? brand.brandName : '') + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
+            	            '</td>' +
+            	            '<td>' +
+            	            '<span onclick="deleteBrand(' + brand.id + ', \'' + (brand.brandName ? brand.brandName : '') + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
+            	            '</td>' +
+            	            '</tr>';
+
+            	        $("#brandTable tbody").append(row);
+            	    }
+            	}
+
 
              pagination = '';
 	         currentPage = response.currentPage;
@@ -267,8 +268,9 @@ function addBrand() {
 			  },
 	        cache: false,
             success: function (response) {
-                 getlistBrand(0, '');
+                 
                 toastr.success(response.message);
+                getlistBrand(0, '');
                 $("#brandName").val("");
                 $("#descriptionName").val("");
                 $("#thumbnailName").val("");
@@ -277,9 +279,6 @@ function addBrand() {
                 $("#editBrandModal").modal("hide"); 
             },
             error: function (jqXHR, textStatus, errorMessage) {
-                console.log(jqXHR.status);
-                console.log(errorMessage);
-                console.log(jqXHR.responseText); // Log thêm nội dung phản hồi từ máy chủ
                 if (jqXHR.status === 400) {
                     var errors = jqXHR.responseJSON;
                     if (errors.hasOwnProperty("bindingErrors")) {
@@ -310,6 +309,7 @@ function addBrand() {
 
 
 function deleteBrand(id,brandName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
     // Hiển thị modal xác nhận xóa
 	$("#brandIdToDelete").text(brandName);
     // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
@@ -323,13 +323,15 @@ function deleteBrand(id,brandName) {
       	 }).then((result) => {
       	   if (result.isConfirmed) {
       		 $.ajax({
-                 type: 'get',
-                 url: 'brand/deleteBrand',
+                 type: 'DELETE',
+                 url: '/brand/deleteBrand',
                  data: {
                      idBrand: id,
                  },
+                 headers: {
+ 				    'X-XSRF-TOKEN': csrfToken
+ 			},
                  success: function (response) {
-                     console.log("Xóa thành công");
                      getlistCategories(0, '');
                      // Đóng modal sau khi xóa thành công
                      $("#confirmDeleteModal").modal("hide");
@@ -354,45 +356,37 @@ function deleteBrand(id,brandName) {
        
 }
 
-function editBrand(id, brandName, descriptionName, thumbnailName) {
+function editBrand(id, brandName) {
+	csrfToken = Cookies.get('XSRF-TOKEN');
 	clearEditBrandForm();
     // Điền giá trị của id và categoryName vào các trường input
     // Hiển thị modal chỉnh sửa danh mục
     $("#editBrandModal").modal("show");
     $("#editBrandName-error").text("");
-    $("#editBrandId").val(id);
-    $("#editBrandName").val(brandName);
-    $("#editDescriptionName").val(descriptionName);	
-    $("#editThumbnailName").val(thumbnailName);
+    $("#editBrandName").text(brandName);
+    $("#thumbnail-error").text("")
     // Thiết lập sự kiện cho nút "Lưu thay đổi"
     $("#saveBrandChange").off("click").on("click", function () {
     	  var newIdBrand = document.getElementById("editBrandId").value;
           var brandName = document.getElementById("editBrandName").value;
           var descriptionName = document.getElementById("editDescriptionName").value;
-          var thumbnailName = document.getElementById("editThumbnailName").value;
-          
-          
-        // Lấy giá trị mới từ các trường input (nếu bạn muốn cập nhật)
-      //  var newBrandName = $("#editBrandName").val();
-       // var newIdBrand = $("#editBrandId").val();
-      
-
-        // Gửi AJAX request để cập nhật danh mục (sử dụng newBrandId và newBrandName)
+          var thumbnailFile = $("#editThumbnailName")[0].files[0];;
+          console.log(csrfToken)
         $.ajax({
-            type: 'POST',
-            url: '/brand/editBrand',
-            contentType : 'application/json',
+        	url: '/brand/editBrand',
+            type: 'PUT',
+            contentType: false,
+	        processData: false,
             data : JSON.stringify({
             	id : id ,
             	brandName : brandName , 
             	descriptionName : descriptionName,
-            	thumbnailName : thumbnailName,
+            	thumbnailFile : thumbnailFile,
 			}),
+			 headers: {
+				    'X-XSRF-TOKEN': csrfToken
+			},
             success: function (response) {
-                console.log("Chỉnh sửa thành công");
-                console.log(brandName);
-                console.log(descriptionName);
-                console.log(thumbnailName);
                 toastr.success(response);
                 getlistBrand(0, '');
                 // Đóng modal sau khi chỉnh sửa thành công
@@ -411,8 +405,12 @@ function editBrand(id, brandName, descriptionName, thumbnailName) {
                         }
                     }
                     if (errors.hasOwnProperty("nameDuplicate")) {
-                        var nameError = errors["nameDuplicate"];
-                        $("#brandName-error").text(nameError);
+                        var editnameError = errors["nameDuplicate"];
+                        $("#brandName-error").text(editnameError);
+                    }
+                    if (errors.hasOwnProperty("thumbnailFile")) {
+                        var editnameError = errors["thumbnailFile"];
+                        $("#thumbnail-error").text(editnameError);
                     }
                 } else {
                     // Hiển thị thông báo lỗi khác nếu request không thành công với mã lỗi 400.

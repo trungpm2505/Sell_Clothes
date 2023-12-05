@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +49,7 @@ import lombok.RequiredArgsConstructor;
 public class BrandController {
 	private final BrandService brandService;
 	private static String UPLOADED_FOLDER = System.getProperty("user.dir") + "//src//main//resources//static//upload//";
-	
+
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<?> getAllBrand() {
 		List<Brand> brands = brandService.getAll();
@@ -70,15 +71,15 @@ public class BrandController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {
-		keyword = "";
 		Page<Brand> brandPage = null;
 		if (keyword == null || keyword.isEmpty()) {
 			brandPage = brandService.getAllBrand(page, size);
 		} else {
 			brandPage = brandService.getBrandByKey(page, size, keyword);
 		}
-		List<BrandResponseDto> brandResponseDtos = brandPage.stream().map(brand -> new BrandResponseDto(brand.getId(),
-				brand.getName(), brand.getCreateAt(), brand.getUpdateAt(), brand.getThumbnail()))
+		List<BrandResponseDto> brandResponseDtos = brandPage.stream()
+				.map(brand -> new BrandResponseDto(brand.getId(), brand.getName(), brand.getCreateAt(),
+						brand.getUpdateAt(), brand.getThumbnail(), brand.getDescription()))
 				.collect(Collectors.toList());
 		BrandPageResponseDto brandPageResponseDto = new BrandPageResponseDto(brandPage.getTotalPages(),
 				brandPage.getNumber(), brandPage.getSize(), brandResponseDtos);
@@ -89,27 +90,26 @@ public class BrandController {
 			"application/xml" })
 	@Transactional
 	@ResponseBody
-	public ResponseEntity<?> saveBrand(@RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile,
-			@Valid @ModelAttribute BrandRequesDto brandRequesDto, BindingResult bindingResult, String filePath) {
-
-		System.out.println("img: " + thumbnailFile);
+	public ResponseEntity<?> saveBrand(
+			@RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile,
+			@Valid @ModelAttribute BrandRequesDto brandRequesDto, BindingResult bindingResult) {
 
 		Map<String, Object> errors = new HashMap<>();
+
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
-			return ResponseEntity.badRequest().body(errors);
-		}
-		
-		if (thumbnailFile == null) {
-			errors.put("thumbnailFile", "Please select a file.");
-			return ResponseEntity.badRequest().body(errors);
 		}
 
-		// Kiểm tra xem tên thương hiệu đã tồn tại chưa
 		Optional<Brand> existingBrand = brandService.findByBrandName(brandRequesDto.getBrandName());
 		if (existingBrand.isPresent()) {
-			// Nếu tên thương hiệu đã tồn tại thì trả về thông báo lỗi
 			errors.put("nameDuplicate", "Brand name already exists");
+		}
+
+		if (thumbnailFile == null) {
+			errors.put("thumbnailFile", "Please select a file.");
+		}
+
+		if (!errors.isEmpty()) {
 			return ResponseEntity.badRequest().body(errors);
 		}
 
@@ -129,11 +129,11 @@ public class BrandController {
 			}
 			Files.write(path, bytes);
 
-			// Tạo đối tượng Brand từ dữ liệu DTO
 			brand.setName(brandRequesDto.getBrandName());
-			brand.setThumbnail(filePath); // Lưu đường dẫn của file thumbnail
+			brand.setDescription(brandRequesDto.getDescriptionName());
+			brand.setThumbnail(randomFileName);
 			brandService.save(brand);
-			// Trả về một thông báo thành công
+
 			return ResponseEntity.ok().body(Map.of("message", "Brand saved successfully!"));
 
 		} catch (IOException e) {
@@ -149,9 +149,7 @@ public class BrandController {
 		if (entity.isPresent()) {
 			Brand brand = entity.get();
 
-			// Kiểm tra xem danh mục có sản phẩm nào không
 			if (brand.getProducts().isEmpty()) {
-				// Nếu không có sản phẩm liên quan, thực hiện xóa danh mục
 				brandService.delete(brand);
 				return ResponseEntity.ok("Delete successful");
 			} else {
@@ -164,36 +162,63 @@ public class BrandController {
 		return ResponseEntity.notFound().build();
 	}
 
-	/*
-	 * @PostMapping("/editBrand")
-	 * 
-	 * public ResponseEntity<?> editBrand(@Valid @RequestBody BrandRequesDto
-	 * brandRequesDto, BindingResult bindingResult) { Map<String, Object> errors =
-	 * new HashMap<>();
-	 * 
-	 * if (bindingResult.hasErrors()) { errors.put("bindingErrors",
-	 * bindingResult.getAllErrors()); return
-	 * ResponseEntity.badRequest().body(errors); }
-	 * 
-	 * Optional<Brand> existingBrand =
-	 * brandService.findByBrandName(brandRequesDto.getBrandName());
-	 * 
-	 * if (existingBrand.isPresent() &&
-	 * !existingBrand.get().getId().equals(brandRequesDto.getId())) {
-	 * errors.put("nameDuplicate",
-	 * "BrandName already exists! Please enter a new BrandName."); return
-	 * ResponseEntity.badRequest().body(errors); }
-	 * 
-	 * if (!brandService.getBrandById(brandRequesDto.getId()).isPresent()) {
-	 * errors.put("nameDuplicate", "This brand does not exist! Update failed");
-	 * return ResponseEntity.badRequest().body(errors); } Brand entity = new
-	 * Brand(); entity.setId(brandRequesDto.getId());
-	 * entity.setName(brandRequesDto.getBrandName());
-	 * entity.setDescription(brandRequesDto.getDescriptionName());
-	 * //entity.setThumbnail(brandRequesDto.getThumbnail());
-	 * entity.setUpdateAt(LocalDate.now()); brandService.save(entity);
-	 * 
-	 * return ResponseEntity.ok("Edit brand successfully"); }
-	 */
+	@PutMapping(value = "/editBrand", consumes = "multipart/form-data", produces = { "application/json",
+			"application/xml" })
+	@Transactional
+	@ResponseBody
+	public ResponseEntity<?> editBrand(
+			@RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile,
+			@Valid @ModelAttribute BrandRequesDto brandRequesDto, BindingResult bindingResult) {
+		Map<String, Object> errors = new HashMap<>();
+
+		if (bindingResult.hasErrors()) {
+			errors.put("bindingErrors", bindingResult.getAllErrors());
+		}
+
+		Optional<Brand> existingBrand = brandService.findByBrandName(brandRequesDto.getBrandName());
+		if (existingBrand.isPresent()) {
+			errors.put("nameDuplicate", "Brand name already exists");
+		}
+
+		if (thumbnailFile == null) {
+			errors.put("thumbnailFile", "Please select a file.");
+		}
+
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+
+		try {
+
+			byte[] bytes = thumbnailFile.getBytes();// Lấy dữ liệu của tệp trong dạng mảng byte.
+
+			String randomFileName = UUID.randomUUID().toString() + "."
+					+ FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
+			Path dir = Paths.get(UPLOADED_FOLDER);
+			Path path = Paths.get(UPLOADED_FOLDER + randomFileName);
+			// Tạo thư mục nếu nó chưa tồn tại.
+			if (!Files.exists(dir)) {
+
+				Files.createDirectories(dir);
+			}
+			Files.write(path, bytes);
+
+			Brand entity = new Brand();
+
+			entity.setId(brandRequesDto.getId());
+			entity.setName(brandRequesDto.getBrandName());
+			entity.setDescription(brandRequesDto.getDescriptionName());
+			entity.setThumbnail(randomFileName);
+			entity.setUpdateAt(LocalDate.now());
+			brandService.save(entity);
+
+			return ResponseEntity.ok().body(Map.of("message", "Brand Edit successfully!"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Failed to upload file.");
+		}
+
+	}
 
 }

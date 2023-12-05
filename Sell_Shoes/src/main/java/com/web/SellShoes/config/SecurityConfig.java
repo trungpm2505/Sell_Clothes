@@ -41,21 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/product/index",
 			"/response/**",
 			"/rate/getRateProductPage",
-			"/variant/getVariant",
 			"/password/**",
-			"/rate/**",
-			"/orderDetails/**",
-			"/order/**",
-			"/promotion/**",
-			"/variant/**",
-			"/color/**",
-			"/size/**",
-			"/category/**",
-			"/brand/**",
-"/brand/saveBrands",
-			"/product/**",
-			"/login/**",
-			
+			"/rate/**",	
+			"/variant/getVariant",
 			
 			"/login/checkLogin",
 			"/register/**",
@@ -68,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/upload/**",
 			"/plugins/**" ,
 			"/adminview/**",
-			"/shopview/**"
+			"/shopview/**",
 			
 			
 	};
@@ -87,18 +75,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    
 	 
    private static final String[] ROLE_ADMIN = {
+		   "/order/admin/all",
 		   "/promotion/admin",
 		   "/promotion/getProductPage",
 		   "/order/getOrderPage/**",
            "/order/admin/all",
            "/category/**",
-           "/brand/**",
            "/color/**",
            "/feedback/**",
            "/size/**",
-           "/product/**",
            "/variant/**",
-           "/account/**"
+           "/account/**",
+           "/brand/**"
    };
    
    private static final String[] COMMON_ROLES = {

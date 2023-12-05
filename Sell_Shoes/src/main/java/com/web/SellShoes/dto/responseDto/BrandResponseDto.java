@@ -15,7 +15,7 @@ public class BrandResponseDto {
 	private LocalDate createAt;
 	private LocalDate updateAt;
 	private String thumbnail;
-	
+	private String description;
 	
 
 //	private LocalDate deleteAt;
