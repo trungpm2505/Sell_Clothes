@@ -1,4 +1,4 @@
-var csrfToken = null;
+			var csrfToken = null;
           		document.getElementById("logout-form").addEventListener("submit", function(event) {
           		  // Gửi yêu cầu AJAX
           		  var xhr = new XMLHttpRequest();
@@ -9,11 +9,6 @@ var csrfToken = null;
           			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
           			}
           		  
-          			
-          		  xhr.onload = function() {
-          		     if (xhr.status === 200) {
-          				 
-          		  };
           		
           		  xhr.send(new FormData(event.target));
           		});

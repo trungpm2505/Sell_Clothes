@@ -344,8 +344,8 @@ loadCategory();
     	      
     	      
     	//////////////
-    	
-    		function createRadioList(variantList, propertyName, container, labelText, divClass) {
+    	 var ProductDetails = {
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
 	            var propertyList = $('<ul>'); // Tạo một danh sách ul
 	            var addedProperties = {};
 	
@@ -388,7 +388,7 @@ loadCategory();
 	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
 	            }
 	        }
-    	
+    	}
     	
 	    function loadData(productId) {	
 		    	globalVariantId = null;
@@ -527,10 +527,10 @@ loadCategory();
 
 
 	            	// Sử dụng hàm để tạo danh sách size
-	            	createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
 
 	            	// Sử dụng hàm để tạo danh sách color
-	            	createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
 
 	            	// Hàm để tạo danh sách radio
 
@@ -614,7 +614,7 @@ loadCategory();
 			 	                },
 			 	                success: function (response) {
 			 	                    $('.sidebar_widget.color').remove();
-			 	                    createRadioList(response, 'color', $('.product_d_right'), 'color:', '');
+			 	                    ProductDetails.createRadioList(response, 'color', $('.product_d_right'), 'color:', '');
 			 	                    restoreColorOptionsState(colorOptionsState);
 
 			 	                    
@@ -641,7 +641,7 @@ loadCategory();
 			 	                success: function (response) {
 			 	                    $('.product_d_size').remove();
 			 	                    var newSizeList = $('<div>'); 
-			 	                    createRadioList(response, 'size', newSizeList, 'size:', 'modal_size');
+			 	                    ProductDetails.createRadioList(response, 'size', newSizeList, 'size:', 'modal_size');
 			 	                    $('.sidebar_widget').before(newSizeList);
 			 	                },
 			 	                error: function (error) {
@@ -848,3 +848,31 @@ loadCategory();
 					      }
 					    });
 	 				} 
+	 		    
+	 		   var csrfToken = null;
+         		document.getElementById("logout-form").addEventListener("submit", function(event) {
+         		  // Gửi yêu cầu AJAX
+         		  var xhr = new XMLHttpRequest();
+         		  xhr.open("POST", "/logout", true);
+         		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+         		  if (Cookies.get('XSRF-TOKEN')) {
+         			  csrfToken = Cookies.get('XSRF-TOKEN');
+         			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+         			}
+         		  
+         			
+         		  xhr.onload = function() {
+         		     if (xhr.status === 200) {
+         				 
+         			      // Đăng xuất thành công, ẩn class "user"
+         			      //var userElement = document.getElementsByClassName("ht-user")[0];
+         			      //var userName = document.getElementsByClassName("userName")[0];
+         			      
+         			      //userElement.classList.add("hide");
+         			      //userName.classList.add("hide");
+         			   
+         			    } 
+         		  };
+         		
+         		  xhr.send(new FormData(event.target));
+         		});

@@ -1,132 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
-  layout:decorate="~{shop/fragments/index.html}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <div  layout:fragment="content">
-     <div class="breadcrumbs_area">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="breadcrumb_content">
-                                <ul>
-                                    <li><a href="index.html">home</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li>contact</li>
-                                </ul>
+	<div layout:fragment="content">
+		<div class="breadcrumbs_area">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<ul>
+							<li><a href="index.html">home</a></li>
+							<li><i class="fa fa-angle-right"></i></li>
+							<li>contact</li>
+						</ul>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--breadcrumbs area end-->
-                <div class="contact_area">
-                    <div class="row">
-                           
-                           <div class="col-lg-6 col-md-12">
-                            <div class="contact_message contact_info">
-                                <h3><strong>CONTACT US</strong></h3>
-                                <div class="info-item">
-                                  
-                                    <i class="fa fa-clock-o" style="font-size:36px"></i>
-                                    <div class="info-content">
-                                        <h3>Work time</h3>
-                                        <h6>8:00 - 17:00</h6>
-                                    </div>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fa fa-location-arrow" style="font-size:30px"></i>
-                                    <div class="info-content">
-                                        <h3>Address</h3>
-                                        <h6>137 Nguyễn Thị Thập, Thanh Khê Tây, Liên Chiểu, Đà Nẵng, Việt Nam</h6>
-                                    </div>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fa fa-phone"></i>
-                                    <div class="info-content">
-                                        <h3>Customer Support</h3>
-                                        <h6>1900 638083</h6>
-                                    </div>
-                                </div>
-                                <div class="info-item">
-                                    <i class="fa fa-envelope"></i>
-                                    <div class="info-content">
-                                        <h3>Happy to answer questions about the product at</h3>
-                                        <h6>mjnhtrung2003@gmail.com</h6>
-                                    </div>
-                                </div>
-                            </div> 
-                           </div>
-                           <div class="col-lg-6 col-md-12">
-                            <div class="contact_message">
-                                 <h3>Tell us your project</h3>   
-                                 <form id="contact-form" method="POST" action="assets/mail.php">
-                                     <div class="row">
-                                         <div class="col-lg-6">
-                                             <input name="name" placeholder="Name *" type="text">    
-                                         </div>
-                                         <div class="col-lg-6">
-                                             <input name="email" placeholder="Email *" type="email">    
-                                         </div>
-                                         <div class="col-lg-6">
-                                             <input name="subject" placeholder="Subject *" type="text">   
-                                         </div>
-                                          <div class="col-lg-6">
-                                             <input name="phone" placeholder="Phone *" type="text">   
-                                         </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--breadcrumbs area end-->
+		<div class="contact_area">
+			<div class="row">
 
-                                         <div class="col-12">
-                                             <div class="contact_textarea">
-                                                 <textarea placeholder="Message *" name="message" class="form-control2"></textarea>     
-                                             </div>   
-                                             <button type="submit"> Send Message </button>  
-                                         </div> 
-                                         <div class="col-12">
-                                             <p class="form-messege">
-                                         </div>
-                                     </div>
-                                 </form>    
-                             </div> 
-                        </div>
-                       
-                       </div>
-                </div>
-                 <div class="contact_map">
-                    <div class="row">
-                        <div class="col-12">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802589282656!2d108.16738507489463!3d16.075730739264273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0xb93a05e26b3b28ff!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1697464287790!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                </div>
-                    </div>
-                </div>
-                <script>
-                var csrfToken = null;
-          		document.getElementById("logout-form").addEventListener("submit", function(event) {
-          		  // Gửi yêu cầu AJAX
-          		  var xhr = new XMLHttpRequest();
-          		  xhr.open("POST", "/logout", true);
-          		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          		  if (Cookies.get('XSRF-TOKEN')) {
-          			  csrfToken = Cookies.get('XSRF-TOKEN');
-          			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
-          			}
-          		  
-          			
-          		  xhr.onload = function() {
-          		     if (xhr.status === 200) {
-          				 
-          			      // Đăng xuất thành công, ẩn class "user"
-          			      //var userElement = document.getElementsByClassName("ht-user")[0];
-          			      //var userName = document.getElementsByClassName("userName")[0];
-          			      
-          			      //userElement.classList.add("hide");
-          			      //userName.classList.add("hide");
-          			   
-          			    } 
-          		  };
-          		
-          		  xhr.send(new FormData(event.target));
-          		});
-                </script>
-                </div>
+				<div class="col-lg-6 col-md-12">
+					<div class="contact_message contact_info">
+						<h3>
+							<strong>CONTACT US</strong>
+						</h3>
+						<div class="info-item">
+
+							<i class="fa fa-clock-o" style="font-size: 36px"></i>
+							<div class="info-content">
+								<h3>Work time</h3>
+								<h6>8:00 - 17:00</h6>
+							</div>
+						</div>
+						<div class="info-item">
+							<i class="fa fa-location-arrow" style="font-size: 30px"></i>
+							<div class="info-content">
+								<h3>Address</h3>
+								<h6>137 Nguyễn Thị Thập, Thanh Khê Tây, Liên Chiểu, Đà
+									Nẵng, Việt Nam</h6>
+							</div>
+						</div>
+						<div class="info-item">
+							<i class="fa fa-phone"></i>
+							<div class="info-content">
+								<h3>Customer Support</h3>
+								<h6>1900 638083</h6>
+							</div>
+						</div>
+						<div class="info-item">
+							<i class="fa fa-envelope"></i>
+							<div class="info-content">
+								<h3>Happy to answer questions about the product at</h3>
+								<h6>mjnhtrung2003@gmail.com</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+					<div class="contact_message">
+						<h3>Tell us your project</h3>
+						<form id="contact-form" method="POST" action="assets/mail.php">
+							<div class="row">
+								<div class="col-lg-6">
+									<input name="name" placeholder="Name *" type="text">
+								</div>
+								<div class="col-lg-6">
+									<input name="email" placeholder="Email *" type="email">
+								</div>
+								<div class="col-lg-6">
+									<input name="subject" placeholder="Subject *" type="text">
+								</div>
+								<div class="col-lg-6">
+									<input name="phone" placeholder="Phone *" type="text">
+								</div>
+
+								<div class="col-12">
+									<div class="contact_textarea">
+										<textarea placeholder="Message *" name="message"
+											class="form-control2"></textarea>
+									</div>
+									<button type="submit">Send Message</button>
+								</div>
+								<div class="col-12">
+									<p class="form-messege">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="contact_map">
+			<div class="row">
+				<div class="col-12">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802589282656!2d108.16738507489463!3d16.075730739264273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0xb93a05e26b3b28ff!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1697464287790!5m2!1svi!2s"
+						width="600" height="450" style="border: 0;" allowfullscreen=""
+						loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+		</div>
+		<script>
+			var csrfToken = null;
+			document.getElementById("logout-form").addEventListener(
+					"submit",
+					function(event) {
+						// Gửi yêu cầu AJAX
+						var xhr = new XMLHttpRequest();
+						xhr.open("POST", "/logout", true);
+						xhr.setRequestHeader("Content-Type",
+								"application/x-www-form-urlencoded");
+						if (Cookies.get('XSRF-TOKEN')) {
+							csrfToken = Cookies.get('XSRF-TOKEN');
+							xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+						}
+
+						xhr.onload = function() {
+							if (xhr.status === 200) {
+
+							}
+						};
+
+						xhr.send(new FormData(event.target));
+					});
+		</script>
+	</div>
 </body>
 </html>

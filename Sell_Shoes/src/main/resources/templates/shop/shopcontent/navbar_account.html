@@ -1,58 +1,68 @@
 
 <div class="rhmIbk" th:fragment="navbar_account">
-<style>
-    .nav-item:hover,
-    .collapse-item:hover
+	<style>
+.nav-item:hover, .collapse-item:hover
     .nav-item.active {
-        background-color: #f8f9fa; /* Change to your desired hover/active background color */
-    }
+	background-color: #f8f9fa;
+	/* Change to your desired hover/active background color */
+}
 
-    .nav-link {
-        transition: background-color 0.3s ease; /* Add a smooth transition effect */
-    }
+.nav-link {
+	transition: background-color 0.3s ease;
+	/* Add a smooth transition effect */
+}
 </style>
 
-<script>
-    // Add this script after including Bootstrap JS
-    document.addEventListener("DOMContentLoaded", function () {
-        const collapseItems = document.querySelectorAll(".nav-link.collapsed");
+	<script>
+		// Add this script after including Bootstrap JS
+		document.addEventListener("DOMContentLoaded", function() {
+			const collapseItems = document
+					.querySelectorAll(".nav-link.collapsed");
 
-        collapseItems.forEach(function (item) {
-            item.addEventListener("click", function () {
-                item.closest(".nav-item").classList.toggle("active");
-            });
-        });
-    });
-</script>
-		<li class="nav-item fs-7">
-	    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCate" aria-expanded="true" aria-controls="collapseUtilities">
-	        <i class="fa fa-user-o fs-5"></i> <span>My account</span>
-	    </a>
-	    <div id="collapseCate" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
-	        <div class="bg-white py-2 collapse-inner rounded">
-	            <div class="row">
-	                <div class="col-12">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/user/accountUser">Edit profile</a>
-	                </div>
-	                <div class="col-12 mt-2">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/password/change">Change Password</a>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</li>
-	
-	<li class="nav-item fs-7">
-	    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#donmua" aria-expanded="true" aria-controls="collapseUtilities">
-	        <i class="fa fa-list-alt fs-5"></i> <span>My order</span>
-	    </a>
-	    <div id="donmua" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
-	        <div class="bg-white py-2 collapse-inner rounded">
-	            <div class="row">
-	                <div class="col-12">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="#">All order</a>
-	                </div>
-	               <!--  <div class="col-12 mt-2">
+			collapseItems.forEach(function(item) {
+				item.addEventListener("click", function() {
+					item.closest(".nav-item").classList.toggle("active");
+				});
+			});
+		});
+	</script>
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-bs-toggle="collapse" data-bs-target="#collapseCate"
+		aria-expanded="true" aria-controls="collapseUtilities"> <i
+			class="fa fa-user-o fs-5"></i> <span>My account</span>
+	</a>
+		<div id="collapseCate" class="collapse"
+			aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/user/accountUser">Edit
+							profile</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/password/change">Change
+							Password</a>
+					</div>
+				</div>
+			</div>
+		</div></li>
+
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-bs-toggle="collapse" data-bs-target="#donmua"
+		aria-expanded="true" aria-controls="collapseUtilities"> <i
+			class="fa fa-list-alt fs-5"></i> <span>My order</span>
+	</a>
+		<div id="donmua" class="collapse" aria-labelledby="headingUtilities"
+			data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="#">All order</a>
+					</div>
+					<!--  <div class="col-12 mt-2">
 	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/new-order">Đơn hàng mới</a>
 	                </div>
 	                <div class="col-12 mt-2">
@@ -64,10 +74,10 @@
 	                <div class="col-12 mt-2">
 	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/canceled-order">Đơn hàng đã hủy</a>
 	                </div> -->
-	            </div>
-	        </div>
-	    </div>
-	</li>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+				</div>
+			</div>
+		</div></li>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </div>

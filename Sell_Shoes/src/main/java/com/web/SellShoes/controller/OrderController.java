@@ -48,8 +48,8 @@ public class OrderController {
 	private final Mapper mapper;
 
 	@GetMapping("/admin/all")
-	public String viewOrder(Model model) {
-
+	public String viewOrder(HttpSession session ,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/order/list";
 	}
 

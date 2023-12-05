@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -44,8 +45,8 @@ public class CategoryController {
 	private final CategoryService categoryService;
 
 	@GetMapping()
-	public String list(Model model) {
-
+	public String list(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/categories/add";
 	}
 

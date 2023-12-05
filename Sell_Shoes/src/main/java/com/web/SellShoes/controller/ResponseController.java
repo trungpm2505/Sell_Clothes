@@ -36,8 +36,8 @@ public class ResponseController {
 	@ResponseBody
 	public ResponseEntity<?> addResponse(HttpSession session,@Valid @RequestBody ResponseRequestDto responseRequestDto) {
 		
-		String currentPrincipalName = (String) session.getAttribute("email");
-	    Optional<Account> accountByEmail = accountService.findUserByEmail("trungpmpd05907@fpt.edu.vn");
+		String email = (String) session.getAttribute("email");
+	    Optional<Account> accountByEmail = accountService.findUserByEmail(email);
 	    if(accountByEmail.isEmpty()) {
 	    	return ResponseEntity.badRequest().body("Vui lòng đăng nhập để bình luận!!");
 	    

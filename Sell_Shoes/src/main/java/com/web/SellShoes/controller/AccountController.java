@@ -3,6 +3,8 @@ package com.web.SellShoes.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,8 @@ public class AccountController {
 	private final AccountService accountService;
 
 	@GetMapping()
-	public String list(Model model) {
+	public String list(HttpSession session, Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/account/list";
 	}
 

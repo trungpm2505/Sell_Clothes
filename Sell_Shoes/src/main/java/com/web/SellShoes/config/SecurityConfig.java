@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/register/**",
 			"/userfeedback/**",
 			"/feedback/saveUserfeedback",
+			"/feedback/userfeedback",
 			"/logins/**",
 			"/registers/**",
 			"/image/**",
@@ -69,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/order/user/all-order",
 			 "/rate/**",
 			 "/order/updateStatus",
+			 
 	 };
 	    
 	 
@@ -83,7 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/feedback/**",
            "/size/**",
            "/product/**",
-           "/variant/**"
+           "/variant/**",
+           "/account/**"
    };
    
    private static final String[] COMMON_ROLES = {

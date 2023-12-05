@@ -49,8 +49,6 @@ public class LoginController {
 	public String authenticateUser(Model model) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("sss:  "+authentication);
-
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			model.addAttribute("loginRequestDto", new LoginRequestDto());
 			return "/login/login";
@@ -115,7 +113,6 @@ public class LoginController {
 				break;
 			}
 		}	
-		System.out.println("tok: "+token);
 		
 		session.setAttribute("fullName",account.get().getFullName());
 		session.setAttribute("role",role);

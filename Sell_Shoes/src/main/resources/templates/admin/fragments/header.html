@@ -50,7 +50,7 @@
                 <div class="header-right">
                     <ul class="clearfix">
                        
-                        <li class="icons dropdown d-none d-md-flex">
+                        <!-- <li class="icons dropdown d-none d-md-flex">
                             <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
                                 <span>English</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
                             </a>
@@ -62,8 +62,12 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
+                        
                         <li class="icons dropdown">
+                        <h6 class="mr-3 activity active" th:if="${fullName != null}"
+											th:text="${fullName}"
+											style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;"></h6>
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
                                 <img src="https://zero1.sg/img/accountlogin-icon.png" height="40" width="40" alt="">
@@ -72,10 +76,18 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="../account/profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="#"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
                                         <hr class="my-2">
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+									<form id="logout-form" action="/logout" method="post">
+									    <li>
+									        <button type="submit" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;">
+									            <i class="icon-key"></i>  
+									            <span>Logout</span>
+									        </button>
+									    </li>
+									</form>
+
                                     </ul>
                                 </div>
                             </div>

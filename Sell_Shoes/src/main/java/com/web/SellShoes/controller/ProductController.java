@@ -50,7 +50,7 @@ public class ProductController {
 
 	@GetMapping(value = "/admin")
 	public String getProductView(HttpSession session, Model model) {
-
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/product/add";
 	}
 

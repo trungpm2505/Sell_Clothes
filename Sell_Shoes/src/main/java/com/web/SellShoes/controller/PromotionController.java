@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -41,8 +42,8 @@ public class PromotionController {
 	private final Mapper mapper;
 
 	@GetMapping(value = "/admin")
-	public String getPromotionView(Model model) {
-
+	public String getPromotionView(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/promotion/addOrList";
 	}
 

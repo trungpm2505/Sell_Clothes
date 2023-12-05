@@ -1,750 +1,808 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
-  layout:decorate="~{shop/fragments/index.html}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{shop/fragments/index.html}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <div  layout:fragment="content">
-     <div class="breadcrumbs_area">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="breadcrumb_content">
-                                <ul>
-                                    <li><a href="index.html">home</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li>single product</li>
-                                </ul>
+	<div layout:fragment="content">
+		<div class="breadcrumbs_area">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<ul>
+							<li><a href="index.html">home</a></li>
+							<li><i class="fa fa-angle-right"></i></li>
+							<li>single product</li>
+						</ul>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--breadcrumbs area end-->
-                <!--pos home section-->
-                <!-- Start Maincontent  -->
-                <section class="main_content_area">
-                    <div class="account_dashboard">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 col-lg-3">
-                                <!-- Nav tabs -->
-                                <div class="dashboard_tab_button">
-                                    <ul role="tablist" class="nav flex-column dashboard-list">
-                                        <li><a href="#account-details" data-toggle="tab" class="nav-link">Account
-                                                details</a></li>
-                                        <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
-                                        <li><a href="#order-history" data-toggle="tab" class="nav-link">Order
-                                                history</a></li>
-                                        <li><a href="login1.html" class="nav-link">logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-9 col-lg-9">
-                                <!-- Tab panes -->
-                                <div class="tab-content dashboard_content">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--breadcrumbs area end-->
+		<!--pos home section-->
+		<!-- Start Maincontent  -->
+		<section class="main_content_area">
+			<div class="account_dashboard">
+				<div class="row">
+					<div class="col-sm-12 col-md-3 col-lg-3">
+						<!-- Nav tabs -->
+						<div class="dashboard_tab_button">
+							<ul role="tablist" class="nav flex-column dashboard-list">
+								<li><a href="#account-details" data-toggle="tab"
+									class="nav-link">Account details</a></li>
+								<li><a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
+								<li><a href="#order-history" data-toggle="tab"
+									class="nav-link">Order history</a></li>
+								<li><a href="login1.html" class="nav-link">logout</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-9 col-lg-9">
+						<!-- Tab panes -->
+						<div class="tab-content dashboard_content">
 
-                                    <div class="tab-pane fade " id="orders">
-                                        <h3>Orders</h3>
-                                        <div class="coron_table table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Order</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Total</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>May 10, 2018</td>
-                                                        <td><span class="success">Completed</span></td>
-                                                        <td>$25.00 for 1 item </td>
-                                                        <td><a href="cart.html" class="view">view</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>May 10, 2018</td>
-                                                        <td>Processing</td>
-                                                        <td>$17.00 for 1 item </td>
-                                                        <td><a href="cart.html" class="view">view</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="order-history">
-                                        <h3>Lịch sử đơn hàng</h3>
-                                        <div class="card" style="border-radius: 10px; width: 100%;">
-                                            <div class="card-body p-4">
-                                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                                    <p class="lead fw-normal mb-0" style="color: #a8729a;">Order details
-                                                    </p>
-                                                </div>
-                                                <div class="card shadow-0 border mb-4">
-                                                    <div class="card-body">
-                                                        <div class="id-order">Đơn
-                                                            hàng #67890</div>
-                                                        <div class="status">Tình trạng: Chờ xử lý</div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 40px;margin-bottom: 20px;">
-                                                        <div class="row">
-                                                            <div class="col-md-2">
-                                                                <img src="assets/img/product/a10.jpg" class="img-fluid"
-                                                                    alt="Phone">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Giày MLB Chunky Liner</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Color: White</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Size: 40</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Số lượng: 1
-                                                                </p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>$499</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-2">
-                                                                <img src="assets/img/product/a11.jpg" class="img-fluid"
-                                                                    alt="Phone">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Giày MLB Chunky Liner</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Color: White</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Size: 40</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Số lượng: 1
-                                                                </p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>$499</p>
-                                                            </div>
-                                                        </div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
-                                                        <div class="total">Tổng tiền: 150.000 VND</div><br>
-                                                        <button class="review-button" data-order-id="67890">Đánh giá sản
-                                                            phẩm</button>
-                                                        <button class="buy-again" data-order-id="67890">Mua lại</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card shadow-0 border mb-4">
-                                                    <div class="card-body">
-                                                        <div class="id-order">Đơn
-                                                            hàng #67890</div>
-                                                        <div class="status">Tình trạng: Chờ xử lý</div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 40px;margin-bottom: 20px;">
-                                                        <div class="row">
-                                                            <div class="col-md-2">
-                                                                <img src="assets/img/product/a12.jpg" class="img-fluid"
-                                                                    alt="Phone">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Giày MLB Chunky Liner</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Color: White</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Size: 40</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Số lượng: 1
-                                                                </p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>$499</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-2">
-                                                                <img src="assets/img/product/a13.jpg" class="img-fluid"
-                                                                    alt="Phone">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Giày MLB Chunky Liner</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Color: White</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Size: 40</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Số lượng: 1
-                                                                </p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>$499</p>
-                                                            </div>
-                                                        </div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
-                                                        <div class="total">Tổng tiền: 150.000 VND</div><br>
-                                                        <button class="review-button" data-order-id="67890">Đánh giá sản
-                                                            phẩm</button>
-                                                        <button class="buy-again" data-order-id="67890">Mua lại</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card shadow-0 border mb-4">
-                                                    <div class="card-body">
-                                                        <div class="id-order">Đơn
-                                                            hàng #67890</div>
-                                                        <div class="status">Tình trạng: Chờ xử lý</div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 40px;margin-bottom: 20px;">
-                                                        <div class="row">
-                                                            <div class="col-md-2">
-                                                                <img src="assets/img/product/a16.jpg" class="img-fluid"
-                                                                    alt="Phone">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Giày MLB Chunky Liner</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Color: White</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Size: 40</p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>Số lượng: 1
-                                                                </p>
-                                                            </div>
-                                                            <div
-                                                                class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p>$499</p>
-                                                            </div>
-                                                        </div>
-                                                        <hr class="mb-4"
-                                                            style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
-                                                        <div class="total">Tổng tiền: 150.000 VND</div><br>
-                                                        <button class="review-button" data-order-id="67890">Đánh giá sản
-                                                            phẩm</button>
-                                                        <button class="buy-again" data-order-id="67890">Mua lại</button>
-                                                    </div>
-                                                </div>
-                                                <!-- cac don hang khac -->
-                                                <!-- Start Pagination -->
-                                                
-                                                <!-- End Pagination -->
-                                                <div class="centerPagination">
-                                                    <div class="pagination">
-                                                    <a href="#">&laquo;</a>
-                                                    <a href="#">1</a>
-                                                    <a href="#" class="active">2</a>
-                                                    <a href="#">3</a>
-                                                    <a href="#">4</a>
-                                                    <a href="#">5</a>
-                                                    <a href="#">6</a>
-                                                    <a href="#">&raquo;</a>
-                                                    </div>
-                                                  </div>
-                                            </div>
-                                        </div>
-                                    </div>
+							<div class="tab-pane fade " id="orders">
+								<h3>Orders</h3>
+								<div class="coron_table table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Order</th>
+												<th>Date</th>
+												<th>Status</th>
+												<th>Total</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>May 10, 2018</td>
+												<td><span class="success">Completed</span></td>
+												<td>$25.00 for 1 item</td>
+												<td><a href="cart.html" class="view">view</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>May 10, 2018</td>
+												<td>Processing</td>
+												<td>$17.00 for 1 item</td>
+												<td><a href="cart.html" class="view">view</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="order-history">
+								<h3>Lịch sử đơn hàng</h3>
+								<div class="card" style="border-radius: 10px; width: 100%;">
+									<div class="card-body p-4">
+										<div
+											class="d-flex justify-content-between align-items-center mb-4">
+											<p class="lead fw-normal mb-0" style="color: #a8729a;">Order
+												details</p>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="id-order">Đơn hàng #67890</div>
+												<div class="status">Tình trạng: Chờ xử lý</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 40px; margin-bottom: 20px;">
+												<div class="row">
+													<div class="col-md-2">
+														<img src="assets/img/product/a10.jpg" class="img-fluid"
+															alt="Phone">
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Giày MLB Chunky Liner</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Color: White</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Size: 40</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Số lượng: 1</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>$499</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-2">
+														<img src="assets/img/product/a11.jpg" class="img-fluid"
+															alt="Phone">
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Giày MLB Chunky Liner</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Color: White</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Size: 40</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Số lượng: 1</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>$499</p>
+													</div>
+												</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
+												<div class="total">Tổng tiền: 150.000 VND</div>
+												<br>
+												<button class="review-button" data-order-id="67890">Đánh
+													giá sản phẩm</button>
+												<button class="buy-again" data-order-id="67890">Mua
+													lại</button>
+											</div>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="id-order">Đơn hàng #67890</div>
+												<div class="status">Tình trạng: Chờ xử lý</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 40px; margin-bottom: 20px;">
+												<div class="row">
+													<div class="col-md-2">
+														<img src="assets/img/product/a12.jpg" class="img-fluid"
+															alt="Phone">
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Giày MLB Chunky Liner</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Color: White</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Size: 40</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Số lượng: 1</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>$499</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-2">
+														<img src="assets/img/product/a13.jpg" class="img-fluid"
+															alt="Phone">
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Giày MLB Chunky Liner</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Color: White</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Size: 40</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Số lượng: 1</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>$499</p>
+													</div>
+												</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
+												<div class="total">Tổng tiền: 150.000 VND</div>
+												<br>
+												<button class="review-button" data-order-id="67890">Đánh
+													giá sản phẩm</button>
+												<button class="buy-again" data-order-id="67890">Mua
+													lại</button>
+											</div>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="id-order">Đơn hàng #67890</div>
+												<div class="status">Tình trạng: Chờ xử lý</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 40px; margin-bottom: 20px;">
+												<div class="row">
+													<div class="col-md-2">
+														<img src="assets/img/product/a16.jpg" class="img-fluid"
+															alt="Phone">
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Giày MLB Chunky Liner</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Color: White</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Size: 40</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>Số lượng: 1</p>
+													</div>
+													<div
+														class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p>$499</p>
+													</div>
+												</div>
+												<hr class="mb-4"
+													style="background-color: #e0e0e0; opacity: 1; margin-top: 20px;">
+												<div class="total">Tổng tiền: 150.000 VND</div>
+												<br>
+												<button class="review-button" data-order-id="67890">Đánh
+													giá sản phẩm</button>
+												<button class="buy-again" data-order-id="67890">Mua
+													lại</button>
+											</div>
+										</div>
+										<!-- cac don hang khac -->
+										<!-- Start Pagination -->
+
+										<!-- End Pagination -->
+										<div class="centerPagination">
+											<div class="pagination">
+												<a href="#">&laquo;</a> <a href="#">1</a> <a href="#"
+													class="active">2</a> <a href="#">3</a> <a href="#">4</a> <a
+													href="#">5</a> <a href="#">6</a> <a href="#">&raquo;</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
-                                    <div class="tab-pane fade show active" id="account-details">
-                                        <form action="" method="">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <center>
-                                                        <h3>Account Details</h3>
-                                                    </center>
-                                                </div>
-                                                <div class="card-body" style="font-size: 17px">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="username"
-                                                                    style="font-size: 16px;">FullName</label>
-                                                                <input type="text" class="form-control" name="" id=""
-                                                                    aria-describedby="" placeholder="Fullname">
-                                                                <small id="" class="form-text text-muted">Username
-                                                                    is required</small>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password"
-                                                                    style="font-size: 16px;">Password</label>
-                                                                <input type="password" class="form-control" name=""
-                                                                    id="" placeholder="Password">
-                                                                <small id="" class="form-text text-muted">Password
-                                                                    is required</small>
-                                                            </div>
+							<div class="tab-pane fade show active" id="account-details">
+								<form action="" method="">
+									<div class="card">
+										<div class="card-header">
+											<center>
+												<h3>Account Details</h3>
+											</center>
+										</div>
+										<div class="card-body" style="font-size: 17px">
+											<div class="row">
+												<div class="col">
+													<div class="form-group">
+														<label for="username" style="font-size: 16px;">FullName</label>
+														<input type="text" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Fullname"> <small
+															id="" class="form-text text-muted">Username is
+															required</small>
+													</div>
+													<div class="form-group">
+														<label for="password" style="font-size: 16px;">Password</label>
+														<input type="password" class="form-control" name="" id=""
+															placeholder="Password"> <small id=""
+															class="form-text text-muted">Password is required</small>
+													</div>
 
-                                                            <div class="form-group">
-                                                                <label for="email"
-                                                                    style="font-size: 16px;">Email</label>
-                                                                <input type="email" class="form-control" name="" id=""
-                                                                    aria-describedby="" placeholder="Email">
-                                                                <small id="" class="form-text text-muted">Email is
-                                                                    required</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="fullname"
-                                                                    style="font-size: 16px;">Addresss</label>
-                                                                <input type="text" class="form-control" name="" id=""
-                                                                    aria-describedby="" placeholder="Addresss">
-                                                                <small id="" class="form-text text-muted">Fullname
-                                                                    is required</small>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="number"
-                                                                    style="font-size: 16px;">Phone</label>
-                                                                <input type="number" class="form-control" name="" id=""
-                                                                    placeholder="Phone">
-                                                                <small id="" class="form-text text-muted">Phone is
-                                                                    required</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer text-muted">
-                                                    <button class="btn btn-success"
-                                                        style="font-size: 16px">SAVE</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+													<div class="form-group">
+														<label for="email" style="font-size: 16px;">Email</label>
+														<input type="email" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Email"> <small
+															id="" class="form-text text-muted">Email is
+															required</small>
+													</div>
+												</div>
+												<div class="col">
+													<div class="form-group">
+														<label for="fullname" style="font-size: 16px;">Addresss</label>
+														<input type="text" class="form-control" name="" id=""
+															aria-describedby="" placeholder="Addresss"> <small
+															id="" class="form-text text-muted">Fullname is
+															required</small>
+													</div>
+													<div class="form-group">
+														<label for="number" style="font-size: 16px;">Phone</label>
+														<input type="number" class="form-control" name="" id=""
+															placeholder="Phone"> <small id=""
+															class="form-text text-muted">Phone is required</small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer text-muted">
+											<button class="btn btn-success" style="font-size: 16px">SAVE</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 
-                            </div>
-                        </div>
-                </section>			
-            <!-- End Maincontent  -->
-                <!--product details end-->
+					</div>
+				</div>
+		</section>
+		<!-- End Maincontent  -->
+		<!--product details end-->
 
 
-                <!--product info start-->
-                <div class="product_d_info">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="product_d_inner">
-                                <div class="product_info_button">
-                                    <ul class="nav" role="tablist">
-                                        <li>
-                                            <a class="active" data-toggle="tab" href="#info" role="tab"
-                                                aria-controls="info" aria-selected="false">More info</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet"
-                                                aria-selected="false">Data sheet</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
-                                                aria-selected="false">Reviews</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="info" role="tabpanel">
-                                        <div class="product_info_content">
-                                            <p>Fashion has been creating well-designed collections since 2010. The brand
-                                                offers feminine designs delivering stylish separates and statement
-                                                dresses which have since evolved into a full ready-to-wear collection in
-                                                which every item is a vital part of a woman's wardrobe. The result?
-                                                Cool, easy, chic looks with youthful elegance and unmistakable signature
-                                                style. All the beautiful pieces are made in Italy and manufactured with
-                                                the greatest attention. Now Fashion extends to a range of accessories
-                                                including shoes, hats, belts and more!</p>
-                                        </div>
-                                    </div>
+		<!--product info start-->
+		<div class="product_d_info">
+			<div class="row">
+				<div class="col-12">
+					<div class="product_d_inner">
+						<div class="product_info_button">
+							<ul class="nav" role="tablist">
+								<li><a class="active" data-toggle="tab" href="#info"
+									role="tab" aria-controls="info" aria-selected="false">More
+										info</a></li>
+								<li><a data-toggle="tab" href="#sheet" role="tab"
+									aria-controls="sheet" aria-selected="false">Data sheet</a></li>
+								<li><a data-toggle="tab" href="#reviews" role="tab"
+									aria-controls="reviews" aria-selected="false">Reviews</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="info" role="tabpanel">
+								<div class="product_info_content">
+									<p>Fashion has been creating well-designed collections
+										since 2010. The brand offers feminine designs delivering
+										stylish separates and statement dresses which have since
+										evolved into a full ready-to-wear collection in which every
+										item is a vital part of a woman's wardrobe. The result? Cool,
+										easy, chic looks with youthful elegance and unmistakable
+										signature style. All the beautiful pieces are made in Italy
+										and manufactured with the greatest attention. Now Fashion
+										extends to a range of accessories including shoes, hats, belts
+										and more!</p>
+								</div>
+							</div>
 
-                                    <div class="tab-pane fade" id="sheet" role="tabpanel">
-                                        <div class="product_d_table">
-                                            <form action="#">
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="first_child">Compositions</td>
-                                                            <td>Polyester</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="first_child">Styles</td>
-                                                            <td>Girly</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="first_child">Properties</td>
-                                                            <td>Short Dress</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div class="product_info_content">
-                                            <p>Fashion has been creating well-designed collections since 2010. The brand
-                                                offers feminine designs delivering stylish separates and statement
-                                                dresses which have since evolved into a full ready-to-wear collection in
-                                                which every item is a vital part of a woman's wardrobe. The result?
-                                                Cool, easy, chic looks with youthful elegance and unmistakable signature
-                                                style. All the beautiful pieces are made in Italy and manufactured with
-                                                the greatest attention. Now Fashion extends to a range of accessories
-                                                including shoes, hats, belts and more!</p>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="reviews" role="tabpanel">
-                                        <div class="product_info_content">
-                                            <p>Fashion has been creating well-designed collections since 2010. The brand
-                                                offers feminine designs delivering stylish separates and statement
-                                                dresses which have since evolved into a full ready-to-wear collection in
-                                                which every item is a vital part of a woman's wardrobe. The result?
-                                                Cool, easy, chic looks with youthful elegance and unmistakable signature
-                                                style. All the beautiful pieces are made in Italy and manufactured with
-                                                the greatest attention. Now Fashion extends to a range of accessories
-                                                including shoes, hats, belts and more!</p>
-                                        </div>
-                                        <div class="product_info_inner">
-                                            <div class="product_ratting mb-10">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                                <strong>Posthemes</strong>
-                                                <p>09/07/2018</p>
-                                            </div>
-                                            <div class="product_demo">
-                                                <strong>demo</strong>
-                                                <p>That's OK!</p>
-                                            </div>
-                                        </div>
-                                        <div class="product_review_form">
-                                            <form action="#">
-                                                <h2>Add a review </h2>
-                                                <p>Your email address will not be published. Required fields are marked
-                                                </p>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <label for="review_comment">Your review </label>
-                                                        <textarea name="comment" id="review_comment"></textarea>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <label for="author">Name</label>
-                                                        <input id="author" type="text">
+							<div class="tab-pane fade" id="sheet" role="tabpanel">
+								<div class="product_d_table">
+									<form action="#">
+										<table>
+											<tbody>
+												<tr>
+													<td class="first_child">Compositions</td>
+													<td>Polyester</td>
+												</tr>
+												<tr>
+													<td class="first_child">Styles</td>
+													<td>Girly</td>
+												</tr>
+												<tr>
+													<td class="first_child">Properties</td>
+													<td>Short Dress</td>
+												</tr>
+											</tbody>
+										</table>
+									</form>
+								</div>
+								<div class="product_info_content">
+									<p>Fashion has been creating well-designed collections
+										since 2010. The brand offers feminine designs delivering
+										stylish separates and statement dresses which have since
+										evolved into a full ready-to-wear collection in which every
+										item is a vital part of a woman's wardrobe. The result? Cool,
+										easy, chic looks with youthful elegance and unmistakable
+										signature style. All the beautiful pieces are made in Italy
+										and manufactured with the greatest attention. Now Fashion
+										extends to a range of accessories including shoes, hats, belts
+										and more!</p>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="reviews" role="tabpanel">
+								<div class="product_info_content">
+									<p>Fashion has been creating well-designed collections
+										since 2010. The brand offers feminine designs delivering
+										stylish separates and statement dresses which have since
+										evolved into a full ready-to-wear collection in which every
+										item is a vital part of a woman's wardrobe. The result? Cool,
+										easy, chic looks with youthful elegance and unmistakable
+										signature style. All the beautiful pieces are made in Italy
+										and manufactured with the greatest attention. Now Fashion
+										extends to a range of accessories including shoes, hats, belts
+										and more!</p>
+								</div>
+								<div class="product_info_inner">
+									<div class="product_ratting mb-10">
+										<ul>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+										</ul>
+										<strong>Posthemes</strong>
+										<p>09/07/2018</p>
+									</div>
+									<div class="product_demo">
+										<strong>demo</strong>
+										<p>That's OK!</p>
+									</div>
+								</div>
+								<div class="product_review_form">
+									<form action="#">
+										<h2>Add a review</h2>
+										<p>Your email address will not be published. Required
+											fields are marked</p>
+										<div class="row">
+											<div class="col-12">
+												<label for="review_comment">Your review </label>
+												<textarea name="comment" id="review_comment"></textarea>
+											</div>
+											<div class="col-lg-6 col-md-6">
+												<label for="author">Name</label> <input id="author"
+													type="text">
 
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <label for="email">Email </label>
-                                                        <input id="email" type="text">
-                                                    </div>
-                                                </div>
-                                                <button type="submit">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--product info end-->
-
-
-                <!--new product area start-->
-                <div class="new_product_area product_page">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="block_title">
-                            <h3>  11 other products category:</h3>
-                        </div>
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div class="single_p_active owl-carousel">
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a10.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a11.jpg" alt=""></a> 
-                                       <div class="hot_img">
-                                           <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$40.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Quisque ornare dui</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a12.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$60.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Sed non turpiss</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a13.jpg" alt=""></a> 
-                                       <div class="hot_img">
-                                           <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$65.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Duis convallis</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a16.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>       
-                </div> 
-                <!--new product area start-->  
+											</div>
+											<div class="col-lg-6 col-md-6">
+												<label for="email">Email </label> <input id="email"
+													type="text">
+											</div>
+										</div>
+										<button type="submit">Submit</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--product info end-->
 
 
-                <!--new product area start-->
-                <div class="new_product_area product_page">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="block_title">
-                            <h3>    Related Products</h3>
-                        </div>
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div class="single_p_active owl-carousel">
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a17.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a18.jpg" alt=""></a> 
-                                       <div class="hot_img">
-                                           <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$40.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Quisque ornare dui</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a19.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$60.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Sed non turpiss</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a10.jpg" alt=""></a> 
-                                       <div class="hot_img">
-                                           <img src="/shopview/assets/img/cart/span-hot.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$65.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Duis convallis</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="single_product">
-                                    <div class="product_thumb">
-                                       <a href="single-product-video.html"><img src="/shopview/assets/img/product/a11.jpg" alt=""></a> 
-                                       <div class="img_icone">
-                                           <img src="/shopview/assets/img/cart/span-new.png" alt="">
-                                       </div>
-                                       <div class="product_action">
-                                           <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                       </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <span class="product_price">$50.00</span>
-                                        <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                    </div>
-                                    <div class="product_info">
-                                        <ul>
-                                            <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>      
-                </div>
-                </div>
+		<!--new product area start-->
+		<div class="new_product_area product_page">
+			<div class="row">
+				<div class="col-12">
+					<div class="block_title">
+						<h3>11 other products category:</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="single_p_active owl-carousel">
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a10.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a11.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$40.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Quisque ornare dui</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a12.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$60.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Sed non turpiss</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a13.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$65.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Duis convallis</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a16.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--new product area start-->
+
+
+		<!--new product area start-->
+		<div class="new_product_area product_page">
+			<div class="row">
+				<div class="col-12">
+					<div class="block_title">
+						<h3>Related Products</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="single_p_active owl-carousel">
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a17.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a18.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$40.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Quisque ornare dui</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a19.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$60.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Sed non turpiss</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a10.jpg" alt=""></a>
+								<div class="hot_img">
+									<img src="/shopview/assets/img/cart/span-hot.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$65.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Duis convallis</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="single_product">
+							<div class="product_thumb">
+								<a href="single-product-video.html"><img
+									src="/shopview/assets/img/product/a11.jpg" alt=""></a>
+								<div class="img_icone">
+									<img src="/shopview/assets/img/cart/span-new.png" alt="">
+								</div>
+								<div class="product_action">
+									<a href="#"> <i class="fa fa-shopping-cart"></i> Add to
+										cart
+									</a>
+								</div>
+							</div>
+							<div class="product_content">
+								<span class="product_price">$50.00</span>
+								<h3 class="product_title">
+									<a href="single-product.html">Curabitur sodales</a>
+								</h3>
+							</div>
+							<div class="product_info">
+								<ul>
+									<li><a href="#" title=" Add to Wishlist ">Add to
+											Wishlist</a></li>
+									<li><a href="#" data-toggle="modal"
+										data-target="#modal_box" title="Quick view">View Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

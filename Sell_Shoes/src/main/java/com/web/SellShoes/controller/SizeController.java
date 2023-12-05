@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -35,8 +37,8 @@ public class SizeController {
 	private final SizeService sizeService;
 
 	@GetMapping()
-	public String list(Model model) {
-
+	public String list(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		return "admin/size/sizeform";
 	}
 
