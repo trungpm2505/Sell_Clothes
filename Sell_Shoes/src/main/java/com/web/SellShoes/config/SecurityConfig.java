@@ -43,6 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/rate/getRateProductPage",
 			"/variant/getVariant",
 			"/password/**",
+			"/rate/**",
+			"/orderDetails/**",
+			"/order/**",
+			"/promotion/**",
+			"/variant/**",
+			"/color/**",
+			"/size/**",
+			"/category/**",
+			"/brand/**",
+"/brand/saveBrands",
+			"/product/**",
+			"/login/**",
 			
 			
 			"/login/checkLogin",
