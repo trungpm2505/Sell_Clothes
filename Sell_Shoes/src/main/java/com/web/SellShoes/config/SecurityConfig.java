@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/size/**",
 			"/category/**",
 			"/brand/**",
+"/brand/saveBrands",
 			"/product/**",
 			"/login/**",
 			"/register/**",
