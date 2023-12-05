@@ -44,7 +44,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	                            Float minPrice, Float maxPrice, String keyword);
 
 
-
 	@Query("SELECT c FROM Product c WHERE c.deleteAt is null")
 	List<Product> findAll();
 

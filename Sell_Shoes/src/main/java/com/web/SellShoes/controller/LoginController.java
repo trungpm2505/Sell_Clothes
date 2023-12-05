@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,7 @@ import com.web.SellShoes.dto.responseDto.AuthenticationResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.jwt.CustomUserDetails;
 import com.web.SellShoes.jwt.JwtTokenProvider;
+import com.web.SellShoes.repository.AccountRepository;
 import com.web.SellShoes.service.AccountService;
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +41,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping(value = "/login")
 public class LoginController {
-	private final AccountService accountService;
+	private final AccountRepository accountRepository;
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenProvider tokenProvider;
 
@@ -47,18 +49,18 @@ public class LoginController {
 	public String authenticateUser(Model model) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("sss:  "+authentication);
 
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			model.addAttribute("loginRequestDto", new LoginRequestDto());
-			return "login/login";
+			return "/login/login";
 		}
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
 		if (roles.contains("ADMIN")) {
-			return "redirect:/add";
+			return "redirect:/product/admin";
 		} else {
-			// Nếu đây là một người dùng bình thường, điều hướng về trang chủ.
-			return "redirect:/product/user-home";
+			return "redirect:/product/all-product";
 		}
 
 	}
@@ -73,8 +75,9 @@ public class LoginController {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
 			return ResponseEntity.badRequest().body(errors);
 		}
+		AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
 
-		Optional<Account> account = accountService.findUserByEmail(loginRequestDto.getEmail());
+		Optional<Account> account = accountRepository.findAccountByEmail(loginRequestDto.getEmail());
 		if (!account.isPresent()) {
 			errors.put("EmailErrors", "The account with email is not exist");
 			return ResponseEntity.badRequest().body(errors);
@@ -83,6 +86,9 @@ public class LoginController {
 		if (account.isPresent() && !account.get().isActive()) {
 			errors.put("accountError",
 					"The account has not been verified, please check your email to verify your account before logging in");
+			authenticationResponseDto.setMessage(
+					"The account has not been verified, please check your email to verify your account before logging in");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(authenticationResponseDto);
 		}
 
 		Authentication authentication = null;
@@ -96,8 +102,6 @@ public class LoginController {
 
 		// cho phép Spring Security biết rằng người dùng đã được xác thực.
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		// generate token
-		AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
 		String token = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
 		// get role
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -111,8 +115,16 @@ public class LoginController {
 				break;
 			}
 		}	
+		System.out.println("tok: "+token);
+		
+		session.setAttribute("fullName",account.get().getFullName());
+		session.setAttribute("role",role);
+		session.setAttribute("email",account.get().getEmail());
+		model.addAttribute("fullName", (String) session.getAttribute("fullName"));
+		model.addAttribute("role", (String) session.getAttribute("role"));
 		authenticationResponseDto.setToken(token);
 		authenticationResponseDto.setRole(role);
+		
 		return ResponseEntity.ok(authenticationResponseDto);
 	}
 }

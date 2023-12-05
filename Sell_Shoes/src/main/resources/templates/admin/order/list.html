@@ -197,7 +197,13 @@
 						 }else if(order.status==3){
 								row.append($('<td>').append($('<span>').text("Order has been confirm.").addClass('badge badge-warning')));
 								row.append($('<td>').html("<button data-id="+order.id+" onclick='getOrderDetails(event)' class='btn btn-outline-primary' type='button'>Details</button>"));
-								row.append($('<td>').addClass('text-danger').html('<button onclick="updateStatus(event)" data-id='+order.id+' data-update-status="4" class="btn btn-sm btn-success" type="button">Complete</button> <button data-id='+order.id+' data-update-status="2" data-toggle="modal" data-target ="#refuseOrder"  class="btn btn-sm btn-danger" type="button">Cancle</button>'));
+								row.append(
+									    $('<td>').addClass('text-danger').html(
+									        '<button onclick="updateStatus(event)" data-id=' + order.id + ' data-update-status="4" class="btn btn-sm btn-success" type="button">Complete</button>' +
+									        '<button data-id=' + order.id + ' onclick="showCancel(' + order.id + ')" data-update-status="2" class="btn btn-sm btn-danger" type="button">Cancel</button>'
+									    )
+									);
+
 				            	
 						 }else if(order.status==4){
 								row.append($('<td>').append($('<span>').text("Completed").addClass('badge badge-success')));
@@ -261,7 +267,14 @@
 
 			 function updateStatus(event) {
 			     // Lấy giá trị orderId từ biến địa phương hoặc data của modal
-			       var orderId = $('#orderIdRefuseModal').val();
+			     var orderId = $('#orderIdRefuseModal').val();
+					console.log("OrderId:", orderId);
+					
+					if (orderId == null || orderId === "") {
+					    orderId = event.target.getAttribute('data-id');
+					} else {
+					    // Bạn có thể giữ nguyên giá trị orderId nếu nó đã được đặt trước đó
+					}
 
 			     csrfToken = Cookies.get('XSRF-TOKEN');
 			     var button = event.target;
@@ -270,7 +283,7 @@
 			         undo = true;
 			     }
 
-			     console.log("OrderId:", orderId);
+			     
 
 			     $.ajax({
 			         url: '/order/updateStatus',

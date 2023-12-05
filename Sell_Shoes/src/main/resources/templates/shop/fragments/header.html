@@ -7,52 +7,11 @@
 </head>
 <body>
 	<div th:fragment="header">
-		<header>
+		<header class="container-fluid">
 
 			<div class="header-top">
 
-				<div class="container">
-
-					<ul class="header-social-container">
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-facebook"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-twitter"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-instagram"></ion-icon>
-						</a></li>
-
-						<li><a href="#" class="social-link"> <ion-icon
-									name="logo-linkedin"></ion-icon>
-						</a></li>
-
-					</ul>
-
-
-
-					<div class="header-top-actions">
-
-						<select name="currency">
-
-							<option value="usd">USD &dollar;</option>
-							<option value="eur">EUR &euro;</option>
-
-						</select> <select name="language">
-
-							<option value="en-US">English</option>
-							<option value="es-ES">Espa&ntilde;ol</option>
-							<option value="fr">Fran&ccedil;ais</option>
-
-						</select>
-
-					</div>
-
-				</div>
+				<div class="container"></div>
 
 			</div>
 
@@ -82,36 +41,47 @@
 
 								<li class="icons dropdown">
 									<div class="header-user-actions" data-toggle="dropdown">
-										<span class="activity active"></span>
-										<button class="action-btn" href="login.html">
+										<h6 class="activity active" th:if="${fullName != null}"
+											th:text="${fullName}"
+											style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;"></h6>
+										<button class="action-btn" href="/login">
 											<ion-icon name="person-outline"></ion-icon>
 										</button>
 									</div>
 									<div
 										class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 										<div class="dropdown-content-body">
-											<ul>
+											<ul th:if="${fullName != null}">
 												<li><a href="page-lock.html"><ion-icon
 															name="person"></ion-icon> <span>Profile</span></a></li>
-												<li><a href="page-lock.html"><ion-icon name="mail"></ion-icon>
-														<span>Inbox</span></a></li>
-
-
-
-												<li><a href="page-login.html"><ion-icon
-															name="log-out"></ion-icon> <span>Logout</span></a></li>
+												<li><a href="/order/user/all-order"><ion-icon
+															name="mail"></ion-icon> <span>Purchase</span></a></li>
+												
+												<form id="logout-form" action="/logout" method="post">
+												    <li><button type="submit"><ion-icon
+															name="log-out"></ion-icon> <span>Logout</span></button></li>
+												</form>
+											</ul>
+											<ul th:if="${fullName == null}">
+												<li><a href="/login"><ion-icon name="log-out"></ion-icon>
+														<span>Login</span></a></li>
+												<li><a href="/register"><ion-icon name="log-out"></ion-icon>
+														<span>Register</span></a></li>
 											</ul>
 										</div>
 									</div>
 								</li>
+								<!-- 
 								<button class="action-btn">
 									<ion-icon name="heart-outline"></ion-icon>
 									<span class="count">0</span>
-								</button>
+								</button> -->
 
 								<button class="action-btn">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-									<span class="count">0</span>
+
+									<a href="/cart"><ion-icon name="bag-handle-outline"></ion-icon></a>
+
+
 								</button>
 							</ul>
 						</div>
@@ -125,22 +95,21 @@
 
 			</div>
 
-			<nav class="navbar-expand-lg navbar-light bg-light center" style="padding: 0.5rem 1rem">
+			<nav class="navbar-expand-lg navbar-light bg-light center"
+				style="padding: 0.5rem 1rem">
 
 				<div class="container">
 
 					<ul class="desktop-menu-category-list">
 
-						<li class="menu-category"><a href="/shop/index"
+						<li class="menu-category"><a href="/product/index"
 							class="menu-title">Home</a></li>
 
 
 
 
-						<li class="menu-category"><a href="/shop/shop"
-							class="menu-title">Shop</a>
-
-							<ul class="dropdown-list">
+						<li class="menu-category"><a href="/product/all-product"
+							class="menu-title">Shop</a> <!-- <ul class="dropdown-list">
 
 								<li class="dropdown-item"><a href="/shop/checkout">Checkout</a>
 								</li>
@@ -151,8 +120,8 @@
 
 								<li class="dropdown-item"><a href="#">Bracelets</a></li>
 
-							</ul></li>
-
+							</ul> --></li>
+						<!-- 
 						<li class="menu-category"><a href="#" class="menu-title">Perfume</a>
 
 							<ul class="dropdown-list">
@@ -166,15 +135,12 @@
 
 								<li class="dropdown-item"><a href="#">Air Freshener</a></li>
 
-							</ul></li>
+							</ul></li> -->
 
-						<li class="menu-category"><a
-							href="shop/shopcontent/my-account1.html" class="menu-title">Account</a>
+						<li class="menu-category"><a href="#" class="menu-title">Account</a>
 						</li>
 
-						<li class="menu-category"><a href="wishlist1.html"
-							class="menu-title">WishList</a></li>
-						<li class="menu-category"><a href="/shop/contact"
+						<li class="menu-category"><a href="/feedback/userfeedback"
 							class="menu-title">Contact</a></li>
 
 					</ul>

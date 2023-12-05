@@ -129,7 +129,18 @@
     border-radius: 5px; /* Bo tròn góc */
 }
 
-
+.modal-content button.close {
+	position: relative;
+	left: 94%;
+	width: 30px;
+	height: 30px;
+	display: block;
+	border: 1px solid #555;
+	top: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 9;
+}
 </style>
 <!--
     - favicon
@@ -332,7 +343,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="product_slider_container">
+                                        <div class="product_slider_container" style="margin-top: 5px; max-height: 200px">
                                             <div class="owl-carousel owl-theme product_slider imageSmall">
                                                 <!-- Danh sách ảnh nhỏ -->
                                                 <div class="owl-item product_slider_item">
@@ -1280,40 +1291,65 @@
 	 	        var quantity;
 	 			var csrfToken;
 	 		    function addToCartInSingleProduct(event) {
-	 					 var quantity = document.getElementById("quantity-single-product").value;
-	 					  csrfToken = Cookies.get('XSRF-TOKEN');
-	 					  
-	 					  // Kiểm tra xem token có tồn tại hay không
-	 					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
-	 					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
-	 					        return;
-	 					   }
-	 					  $('.error-text.text-danger').text("");
-	 					    // Tạo đối tượng dữ liệu để gửi qua Ajax
-	 					    var data = {
-	 					      variantId: globalVariantId,
-	 					      quantity : quantity
-	 					    }
-	 					    // Gửi Ajax request
-	 					    $.ajax({
-	 					      url: '/cart/save',
-	 					      type: 'POST',
-	 					      contentType: "application/json",
-	 					      data: JSON.stringify(data),
-	 					      headers: {
-	 					        'X-XSRF-TOKEN': csrfToken
-	 					      },
-	 					      success: function(response,textStatus, jqXHR) {
-	 					    	  toastr.success(response);
-	 						    var contentType = jqXHR.getResponseHeader("Content-Type");
-	 					      },
-	 					      error: function(xhr, status, error) {
-	 						       alert("The system has errors!");
-	 					      }
-	 					    });
-	 					  } 
+					 var quantity = document.getElementById("quantity-single-product").value;
+					  csrfToken = Cookies.get('XSRF-TOKEN');
+					  
+					  // Kiểm tra xem token có tồn tại hay không
+					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
+					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
+					        return;
+					   }
+					  $('.error-text.text-danger').text("");
+					    // Tạo đối tượng dữ liệu để gửi qua Ajax
+					    var data = {
+					      variantId: globalVariantId,
+					      quantity : quantity
+					    }
+					    // Gửi Ajax request
+					    $.ajax({
+					      url: '/cart/save',
+					      type: 'POST',
+					      contentType: "application/json",
+					      data: JSON.stringify(data),
+					      headers: {
+					        'X-XSRF-TOKEN': csrfToken
+					      },
+					      success: function(response,textStatus, jqXHR) {
+					    	  toastr.success(response);
+					      },
+					      error: function(xhr, status, error) {
+						       alert("The system has errors!");
+					      }
+					    });
+	 				} 
 	 		    
-	 		   
+	 		   var csrfToken = null;
+         		document.getElementById("logout-form").addEventListener("submit", function(event) {
+         		  // Gửi yêu cầu AJAX
+         		  var xhr = new XMLHttpRequest();
+         		  xhr.open("POST", "/logout", true);
+         		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+         		  if (Cookies.get('XSRF-TOKEN')) {
+         			  csrfToken = Cookies.get('XSRF-TOKEN');
+         			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+         			}
+         		  
+         			
+         		  xhr.onload = function() {
+         		     if (xhr.status === 200) {
+         				 
+         			      // Đăng xuất thành công, ẩn class "user"
+         			      //var userElement = document.getElementsByClassName("ht-user")[0];
+         			      //var userName = document.getElementsByClassName("userName")[0];
+         			      
+         			      //userElement.classList.add("hide");
+         			      //userName.classList.add("hide");
+         			   
+         			    } 
+         		  };
+         		
+         		  xhr.send(new FormData(event.target));
+         		});
 
   </script>
 </body>

@@ -985,13 +985,13 @@ margin-top: 20px;
   					KmBIg2.href='#';
   					var message;
   					if(order.status==1){
-  						message="Đơn hàng đang đợi xác nhận.";
+  						message="Order is awaiting confirmation..";
   					}else if(order.status==2){
-  						message="Đơn hàng đã bị hủy.";
+  						message="The order has been cancelled.";
   					}else if(order.status==3){
-  						message="Đơn hàng đã được xác nhận.";
+  						message="Order has been confirmed.";
   					}else if(order.status==4){
-  						message="Đơn hàng đã được giao thành công.";
+  						message="The order has been delivered successfully.";
   					}
   					var nkmfr2 = $('<span>').addClass('nkmfr2 text-success');
   					//nkmfr2.append($('<i>').addClass('fa fa-truck').attr('aria-hidden', true));
@@ -1556,7 +1556,33 @@ margin-top: 20px;
 					      }
 					    });
 			    }
-			
+			    var csrfToken = null;
+          		document.getElementById("logout-form").addEventListener("submit", function(event) {
+          		  // Gửi yêu cầu AJAX
+          		  var xhr = new XMLHttpRequest();
+          		  xhr.open("POST", "/logout", true);
+          		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          		  if (Cookies.get('XSRF-TOKEN')) {
+          			  csrfToken = Cookies.get('XSRF-TOKEN');
+          			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+          			}
+          		  
+          			
+          		  xhr.onload = function() {
+          		     if (xhr.status === 200) {
+          				 
+          			      // Đăng xuất thành công, ẩn class "user"
+          			      //var userElement = document.getElementsByClassName("ht-user")[0];
+          			      //var userName = document.getElementsByClassName("userName")[0];
+          			      
+          			      //userElement.classList.add("hide");
+          			      //userName.classList.add("hide");
+          			   
+          			    } 
+          		  };
+          		
+          		  xhr.send(new FormData(event.target));
+          		});
 		</script>
 	</div>
 </body>

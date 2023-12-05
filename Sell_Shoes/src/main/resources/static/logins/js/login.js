@@ -49,13 +49,29 @@ if (loginForm) {
             if (response.ok) {
                 const data = await response.json();
                 const role = data.role;
-                console.log(role);
-                
-                if (role === 'USER') {
-                    window.location.href = "/product/all-product";
-                } else if (role === 'ADMIN') {
-                    window.location.href = '/product/admin';
-                }
+                const token = data.token;
+                const homeResponse = await fetch('/product/all-product', {
+			        headers: {
+			          'Authorization': 'Bearer ' + token
+			        }
+			      });
+			      
+			      const homeAdminResponse = await fetch('/order/admin/all', {
+				        headers: {
+				          'Authorization': 'Bearer ' + token
+				        }
+				      });
+				  
+                if (homeResponse.ok) {
+			        if (role === 'USER') {
+			          window.location.href = "/product/all-product";
+			          
+			        } else if (role === 'ADMIN') {
+			          window.location.href = '/order/admin/all';
+			        }
+			      } else {
+			        alert('Log in failed!');
+			      }
             } else {
                 const errors = await response.json();
                 for (const key in errors) {
