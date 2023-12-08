@@ -1,10 +1,12 @@
 package com.web.SellShoes.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
+import com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Order;
 
@@ -21,12 +23,17 @@ public interface OrderService {
 	public void save(Order order);
 
 	public void updateOrderStatus(Order order, int status);
-	
-	public Page<Order> findOrderForReport(int pageNumber, int szie,LocalDate completedAt,LocalDate startDate,LocalDate endDate,String key);
+
+	public Page<Order> findOrderForReport(int pageNumber, int szie, LocalDate completedAt, LocalDate startDate,
+			LocalDate endDate, String key);
 
 	public Page<Order> getOrderPageByAccount(int pageNumber, int size, Account account);
 
 	public Page<Order> getOrderPageByStatusAndAccount(int pageNumber, int size, int status, Account account);
 
 	public Page<Order> getOrderPageByKeywordAndAccount(int pageNumber, int size, String keyWord, Account account);
+
+	public Double calculateTotalRevenue();
+
+	List<OrderRevenueResponseDto> calculateRevenueByMonth(int year);
 }

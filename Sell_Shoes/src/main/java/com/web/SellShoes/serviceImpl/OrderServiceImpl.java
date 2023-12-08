@@ -1,6 +1,10 @@
 package com.web.SellShoes.serviceImpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.repository.OrderRepository;
@@ -90,5 +95,29 @@ public class OrderServiceImpl implements OrderService {
 				Sort.by(Direction.DESC, "fullName").and(Sort.by(Direction.DESC, "id")));
 		return orderRepository.findByKeywordForAccount(orderPageable, account, keyWord);
 	}
+
+	@Override
+	public Double calculateTotalRevenue() {
+		return orderRepository.calculateTotalRevenue();
+	}
+
+	@Override
+    public List<OrderRevenueResponseDto> calculateRevenueByMonth(int year) {
+        List<OrderRevenueResponseDto> revenueByMonth = orderRepository.calculateRevenueByMonth(year);
+
+        // Tạo một Map để lưu trữ dữ liệu doanh thu theo tháng
+        Map<Integer, Double> revenueMap = new HashMap<>();
+        for (OrderRevenueResponseDto dto : revenueByMonth) {
+            revenueMap.put(dto.getMonthId(), dto.getRevenue());
+        }
+
+        // Tạo danh sách kết quả với tất cả các tháng và doanh thu tương ứng
+        List<OrderRevenueResponseDto> result = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            result.add(new OrderRevenueResponseDto(i, revenueMap.getOrDefault(i, 0.0)));
+        }
+
+        return result;
+    }
 
 }

@@ -11,4 +11,8 @@ public interface OrderDetailService {
 	<S extends OrderDetail> S save(S entity);
 
 	public int getNumberOfProductInOrder(Order order);
+	
+	public List<OrderDetail> getAllOrderDetails();
+	
+	
 }

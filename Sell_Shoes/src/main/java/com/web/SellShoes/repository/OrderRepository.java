@@ -1,14 +1,18 @@
 package com.web.SellShoes.repository;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto;
 import com.web.SellShoes.entity.Account;
 import com.web.SellShoes.entity.Order;
 
@@ -32,4 +36,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	@Query("SELECT o FROM Order o WHERE (:completedAt IS NULL OR o.completedAt = :completedAt) AND (:startDate IS NULL OR o.completedAt >= :startDate) AND (:endDate IS NULL OR o.completedAt <= :endDate) AND (:keyword IS NULL OR o.account.fullName LIKE %:keyword% OR o.fullName LIKE %:keyword% OR o.phone_Number LIKE %:keyword% OR o.adrress LIKE %:keyword% OR o.note LIKE %:keyword% OR o.id LIKE %:keyword% OR o.note LIKE %:keyword%) AND (o.status = 4)")
 	Page<Order> findOrderForReport(Pageable pageable, LocalDate completedAt, LocalDate startDate, LocalDate endDate,
 			String keyword);
+
+	@Query("SELECT COALESCE(SUM(o.totalMoney), 0) FROM Order o WHERE o.status = 4")
+	public Double calculateTotalRevenue();
+	
+	@Query("SELECT new com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto(MONTH(o.order_date), COALESCE(SUM(o.totalMoney), 0)) FROM Order o WHERE YEAR(o.order_date) = :year AND MONTH(o.order_date) BETWEEN 1 AND 12 GROUP BY MONTH(o.order_date) ORDER BY MONTH(o.order_date)")
+	List<OrderRevenueResponseDto> calculateRevenueByMonth(@Param("year") int year);
+
+
+
+
+
 }

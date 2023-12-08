@@ -15,4 +15,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 	
 	@Query("SELECT count(*) FROM OrderDetail o WHERE o.order = :order")
 	public int getNumberOfProductInOrder(Order order); 
+	
+	@Query("SELECT o FROM OrderDetail o WHERE o.order.status = 4")
+	public List<OrderDetail> findAll();
 }
