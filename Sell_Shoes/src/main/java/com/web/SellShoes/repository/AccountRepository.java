@@ -22,6 +22,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
 	@Query("SELECT c FROM Account c " )
 	public Page<Account> findAccountPage(PageRequest accountPageable);
 	
-	@Query("SELECT c FROM Account c WHERE  c.fullName LIKE :keyword or c.phone LIKE :keyword or c.address LIKE :keyWord" )
+	@Query("SELECT c FROM Account c WHERE  c.fullName LIKE %:keyword% or c.phone LIKE %:keyword% or c.address LIKE %:keyword%" )
 	public Page<Account> findByKeyWord(PageRequest accountPageable, String keyword);
 }

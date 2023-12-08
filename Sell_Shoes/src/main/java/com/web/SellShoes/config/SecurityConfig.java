@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/adminview/**",
 			"/shopview/**",
 			
-			
+			"/account/**",
 	};
 	
 
@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/feedback/**",
            "/size/**",
            "/variant/**",
-           "/account/**",
+           
            "/brand/**"
    };
    
