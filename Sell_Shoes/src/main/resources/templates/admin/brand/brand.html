@@ -10,126 +10,121 @@
 
 	<div layout:fragment="content">
 		<section class="container-fluid">
-				<div class="card">
-					<div class="card-header">
-						<h2>LIST OF BRAND</h2>
-					</div>
+			<div class="card">
+				<div class="card-header">
+					<h2>LIST OF BRAND</h2>
+				</div>
 
-					<div class="card-body">
-						<div class="row mt-2 mb-2">
-							<div class="col">
-								<form action="" id="searchForm">
-									<div class="form-inline float-right">
-										<label for="searchBrandName">Search by brand
-											name:</label> <input type="text" class="form-control ml-2"
-											name="brandName" id="searchbrandName"
-											placeholder="SeacrhBrand">
-											
-										<button class="btn btn-outline-info ml-2" type="button"
-											onclick="searchBrand()">
-											<i class="fa fa-search"></i> Search
-										</button>
-										<button class="btn btn-outline-secondary ml-2" type="button"
-											onclick="getAllBrand()">
-											<i class="fa fa-list"></i> All brand
-										</button>
-									</div>
-								</form>
-								<button type="button" class="btn btn-outline-info float-left"
-									onclick="addBrand()">
-									<i class="fa fa-plus-square-o"></i> Add new brand
-								</button>
+				<div class="card-body">
+					<div class="row mt-2 mb-2">
+						<div class="col">
+							<form action="" id="searchForm">
+								<div class="form-inline float-right">
+									<label for="searchBrandName">Search by brand name:</label> <input
+										type="text" class="form-control ml-2" name="brandName"
+										id="searchbrandName" placeholder="SeacrhBrand">
 
-							</div>
+									<button class="btn btn-outline-info ml-2" type="button"
+										onclick="searchBrand()">
+										<i class="fa fa-search"></i> Search
+									</button>
+									<button class="btn btn-outline-secondary ml-2" type="button"
+										onclick="getAllBrand()">
+										<i class="fa fa-list"></i> All brand
+									</button>
+								</div>
+							</form>
+							<button type="button" class="btn btn-outline-info float-left"
+								onclick="addBrand()">
+								<i class="fa fa-plus-square-o"></i> Add new brand
+							</button>
+
 						</div>
-						<table id="brandTable" class="table table-striped">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Tên Nhãn Hiệu</th>
-									<th>Ảnh Nhãn Hiệu</th>
-									<th>Mô Tả</th>
-									<th>Ngày tạo danh mục</th>
-									<th>Ngày sửa danh mục</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
-							</tbody>
-						</table>
+					</div>
+					<table id="brandTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Brand Name</th>
+								<th>Brand Photo</th>
+								<th>Description</th>
+								<th>Catalog creation date</th>
+								<th>Edit date</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
+						</tbody>
+					</table>
 
-						<!-- modal edit category -->
-						<div class="modal fade" id="editBrandModal" tabindex="-1"
-							role="dialog" aria-labelledby="editBrandModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="editBrandModalLabel"> Thêm
-									 danh mục</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
-										<form id="editBrandForm">
-											<div class="form-group d-none">
-												<label for="editBrandId">ID:</label> <input type="text"
-													class="form-control" id="editBrandId" name="idBrand"
-													readonly>
-											</div>
-											<div class="form-group">
-												<label for="editBrandName">Brand Name:</label> <input
-													type="text" class="form-control" id="editBrandName"
-													name="brandName">
-													<div th:id="brandName-error"
-													class="text-danger form-text "></div>
-													
-												<label for="editDescripitonName">Mô Tả:</label><input
-													type="text" class="form-control" id="editDescriptionName"
-													name="descsriptionName"> 
-													
-													<label for="editThumbnailName">Ảnh nhãn hiệu:</label>	
-													 <input
-													type="file" class="form-control" id="editThumbnailName"
-													name="thumbnailName">
-													<div th:id="thumbnail-error"
-													class="text-danger form-text "></div>
-													
-											
+					<!-- modal edit category -->
+					<div class="modal fade" id="editBrandModal" tabindex="-1"
+						role="dialog" aria-labelledby="editBrandModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="editBrandModalLabel">Thêm danh
+										mục</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<!-- Form chỉnh sửa danh mục sẽ được thêm vào đây -->
+									<form id="editBrandForm">
+										<div class="form-group d-none">
+											<label for="editBrandId">ID:</label> <input type="text"
+												class="form-control" id="editBrandId" name="idBrand"
+												readonly>
+										</div>
+										<div class="form-group">
+											<label for="editBrandName">Brand Name:</label> <input
+												type="text" class="form-control" id="editBrandName"
+												name="brandName">
+											<div th:id="brandName-error" class="text-danger form-text "></div>
 
-											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary"
-											id="saveBrandChange">Save changes</button>
-									</div>
+											<label for="editDescripitonName">Mô Tả:</label><input
+												type="text" class="form-control" id="editDescriptionName"
+												name="descsriptionName"> <label
+												for="editThumbnailName">Ảnh nhãn hiệu:</label> <input
+												type="file" class="form-control" id="editThumbnailName"
+												name="thumbnailName" onchange="displaySelectedImage(event)" >
+											<div th:id="thumbnail-error" class="text-danger form-text "></div>
+											<input id="imgPath" value="" hidden>
+									<img alt="" src="" id="imgBrand" width="100px" height="100px">
+ 											
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary"
+										id="saveBrandChange">Save changes</button>
 								</div>
 							</div>
 						</div>
-
 					</div>
-
-					<div class="card-footer">
-						<nav class="float-right" th:id="paging"></nav>
-					</div>
-
-
 
 				</div>
+
+				<div class="card-footer">
+					<nav class="float-right" th:id="paging"></nav>
+				</div>
+
+
+
+			</div>
 		</section>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
 		<script>
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Gọi hàm để lấy danh sách categories khi trang web được tải
+    // Gọi hàm để lấy danh sách brand khi trang web được tải
     getlistBrand(0, '');
 });
 
@@ -161,18 +156,19 @@ function searchBrand() {
             	        var brand = brands[i];
             	        var row = '<tr>' +
             	            '<td>' + (i + 1) + '</td>' +
-            	            '<td>' + (brand.brandName ? brand.brandName : '-') + '</td>' +
+            	            '<td class="id" style="display: none;">' + brand.id + '</td>' +
+            	            '<td class="brandName">' + (brand.brandName ? brand.brandName : '-') + '</td>' +
             	            '<td>' +
-            	            '<img src="../upload/' + (brand.thumbnail ? brand.thumbnail : '') + '" alt="" style="width: 50px;">' +
+            	            '<img class="img" src="../upload/' + (brand.thumbnail ? brand.thumbnail : '') + '" alt="" style="width:70px;height:70px;">' +
             	            '</td>' +
-            	            '<td>' + (brand.description ? brand.description : '-') + '</td>' +
+            	            '<td class="description">' + (brand.description ? brand.description : '-') + '</td>' +
             	            '<td>' + brand.createAt + '</td>' +
             	            '<td>' + (brand.updateAt ? brand.updateAt : '-') + '</td>' +
             	            '<td>' +
-            	            '<span onclick="editBrand(' + brand.id + ', \'' + (brand.brandName ? brand.brandName : '') + '\')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
+            	            '<span onclick="editBrand(' + brand.id + ')" ><i class="fas fa-pencil-alt"></i>Edit</span>' +
             	            '</td>' +
             	            '<td>' +
-            	            '<span onclick="deleteBrand(' + brand.id + ', \'' + (brand.brandName ? brand.brandName : '') + '\')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
+            	            '<span onclick="deleteBrand(' + brand.id + ')"  style="color: red;"><i class="fas fa-trash"></i> Delete</span>' +
             	            '</td>' +
             	            '</tr>';
 
@@ -225,22 +221,27 @@ function searchBrand() {
           $(navId).append(pagination);
      }
 
-function clearEditBrandForm() {
+ function clearEditBrandForm() {
 	  // Lấy tham chiếu đến các phần tử trong biểu mẫu
 	  var editBrandId = document.getElementById("editBrandId");
 	  var editBrandName = document.getElementById("editBrandName");
 	  var editDescription = document.getElementById("editdescriptionName");
 	  var editThumbnail = document.getElementById("editthumbnailName");
+	  var editThumbnailError=document.getElementById("thumbnail-error");
 	  var brandNameError = document.getElementById("brandName-error");
-	  
-
+	  var imgBrand = document.getElementById("imgBrand");
 	  // Xóa giá trị trong các trường nhập liệu
+	  editThumbnailError.innerText = "";
 	  editBrandId.value = "";
 	  editBrandName.value = "";
 	  editDescriptionName.value = "";
 	  // Xóa bất kỳ thông báo lỗi nào
 	  brandNameError.innerText = "";
-	}
+	  //ảnh trắng 
+	    imgBrand.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+
+
+	} 
 var csrfToken;
 function addBrand() {
 	csrfToken = Cookies.get('XSRF-TOKEN');
@@ -298,7 +299,7 @@ function addBrand() {
                         $("#thumbnail-error").text(editnameError);
                     }
                 } else {
-                    alert("Sorry! The system has errors!"); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
+                    alert("Sorry! The system has errors!" , textStatus); // Hiển thị thông báo lỗi nếu request không thành công với mã lỗi khác 400.
                 }
             }
 
@@ -308,118 +309,166 @@ function addBrand() {
 
 
 
-function deleteBrand(id,brandName) {
+function deleteBrand(id) {
 	csrfToken = Cookies.get('XSRF-TOKEN');
-    // Hiển thị modal xác nhận xóa
-	$("#brandIdToDelete").text(brandName);
-    // Thiết lập sự kiện cho nút "Xóa" trong modal xác nhận
-    	 Swal.fire({
-      	   title: 'Are you sure you want to delete?',
-      	   text: 'This action cannot be undone!',
-      	   icon: 'warning',
-      	   showCancelButton: true,
-      	   confirmButtonText: 'Yes',
-      	   cancelButtonText: 'No'
-      	 }).then((result) => {
-      	   if (result.isConfirmed) {
+	 Swal.fire({
+	        title: 'Are you sure you want to delete?',
+	        text: 'This action cannot be undone!',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonText: 'Yes',
+	        cancelButtonText: 'No'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
       		 $.ajax({
-                 type: 'DELETE',
+                 type: 'GET',
                  url: '/brand/deleteBrand',
                  data: {
                      idBrand: id,
                  },
                  headers: {
- 				    'X-XSRF-TOKEN': csrfToken
- 			},
-                 success: function (response) {
-                     getlistCategories(0, '');
-                     // Đóng modal sau khi xóa thành công
-                     $("#confirmDeleteModal").modal("hide");
-                     toastr.success(response);
-                 },
-                 error: function(jqXHR, textStatus, errorThrown){
-     	            if (jqXHR.status === 400) {
-     	                var error = jqXHR.responseJSON || jqXHR.responseText;
-     	                $("#confirmDeleteModal").modal("hide");
-     	                toastr.warning(error);
-     	                
-     	            }
-     	        }
-              
-             });
-      	   } else if (result.dismiss === Swal.DismissReason.cancel) {
-      	     Swal.fire('Canceled!', '', 'error');
-      	   }
-      	 });
-    	
-    	
-       
+				        'X-XSRF-TOKEN': csrfToken
+				      },
+	                success: function (response) {
+	                    console.log(response);
+	                    getlistBrand(0, ''); 
+	                    Swal.fire('Deleted!', 'Your brand has been deleted.', 'success');
+	                  
+	                },
+	                error: function (jqXHR, textStatus, errorThrown) {
+	                    if (jqXHR.status === 400) {
+	                        var error = jqXHR.responseJSON || jqXHR.responseText;
+	                        Swal.fire('Error!', error, 'error');
+	                    }
+	                }
+	            });
+	        } else if (result.dismiss === Swal.DismissReason.cancel) {
+	            Swal.fire('Canceled!', '', 'error');
+	        }
+	    });
+	}
+
+const inputName = $("#editBrandName");
+inputName.on('input', function(event) {
+    console.log("0000");
+    $("#brandName-error").html('');
+    $("#thumbnail-error").html('');// Xóa nội dung lỗi trong thẻ có ID là 'brandName-error'
+});
+
+
+
+function editBrand(brandId) {
+	clearEditBrandForm();
+	var brandRow = $('tr').find('.id:contains(' + brandId + ')').closest('tr');
+    var brandName = brandRow.find('.brandName').text();
+    var imageURL = brandRow.find('.img').attr('src');
+    var description = brandRow.find('.description').text();
+    $("#editBrandId").val(brandId);
+    $("#editBrandName").val(brandName);
+    $("#editDescriptionName").val(description);
+    $("#imgBrand").attr('src', imageURL);
+    var trimmedURL = imageURL.replace("../upload/", "");
+
+   $("#imgPath").val(trimmedURL)
+    
+    console.log("Brand Name:", brandName);
+    console.log("Description:", description);
+    console.log("Image URL:", imageURL);
+    $("#editBrandModal").modal("show");
+    const csrfToken = Cookies.get('XSRF-TOKEN');
+    $("#saveBrandChange").off("click").on("click", function () {
+    	   var brandName = $("#editBrandName").val();
+           var descriptionName = $("#editDescriptionName").val();
+           var formData = new FormData();
+           formData.append('id', brandId);
+           formData.append('brandName', brandName);
+           formData.append('descriptionName', descriptionName);
+           
+           var thumbnailFileInput = $("#editThumbnailName");
+           if (thumbnailFileInput[0].files.length > 0) {
+               var thumbnailFile = thumbnailFileInput[0].files[0];
+               if (thumbnailFile) {
+                   formData.append('thumbnailFile', thumbnailFile);
+               }
+               else {
+                   // Nếu không chọn tệp mới, gửi đường dẫn hình ảnh hiện tại hoặc giá trị placeholder
+                   formData.append('imageUrlEdit', trimmedURL);
+                   console.log(trimmedURL + ":íae")
+
+               }
+           } else {
+               // Nếu không chọn tệp mới, gửi đường dẫn hình ảnh hiện tại hoặc giá trị placeholder
+               formData.append('imageUrlEdit', trimmedURL);
+               console.log(trimmedURL + ":íae")
+
+           }
+
+         
+
+         $.ajax({
+         	url: '/brand/editBrand',
+             type: 'PUT',
+           contentType: false,
+ 	        processData: false,
+ 	        data: formData,
+ 	        headers: {
+ 			    'X-XSRF-TOKEN': csrfToken
+ 			  },
+ 	        cache: false,
+             success: function (response) {
+            
+                 toastr.success(response.message);
+                 getlistBrand(0, '');
+                 // Đóng modal sau khi chỉnh sửa thành công
+                 $("#editBrandModal").modal("hide");
+             },
+             error: function(jqXHR, textStatus, errorMessage) {
+                 console.log(jqXHR.status);
+                 if (jqXHR.status === 400) {
+                     var errors = jqXHR.responseJSON;
+                     if (errors.hasOwnProperty("bindingErrors")) {
+                         var bindingErrors = errors["bindingErrors"];
+                         for (var i = 0; i < bindingErrors.length; i++) {
+                             var error = bindingErrors[i];
+                             // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
+                             $("#" + error.field + "-error").text(error.defaultMessage);
+                         }
+                     }
+                     if (errors.hasOwnProperty("nameDuplicate")) {
+                         var editnameError = errors["nameDuplicate"];
+                         $("#brandName-error").text(editnameError);
+                     }
+                     if (errors.hasOwnProperty("thumbnailFile")) {
+                         var editnameError = errors["thumbnailFile"];
+                         $("#thumbnail-error").text(editnameError);
+                     }
+                 } else {
+                     // Hiển thị thông báo lỗi khác nếu request không thành công với mã lỗi 400.
+                     alert("Sorry! The system has errors!");
+                 }
+             }
+         });
+     });
+  }
+
+
+
+
+//tự động đọc ảnh
+function displaySelectedImage(event) {
+    var selectedFile = event.target.files[0]; // Lấy file được chọn
+
+    if (selectedFile) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var imageUrl = event.target.result;
+            $('#imgBrand').attr('src', imageUrl); // Hiển thị hình ảnh đã chọn lên thẻ <img>
+        };
+        reader.readAsDataURL(selectedFile); // Chuyển đổi file thành URL Data
+    }
 }
 
-function editBrand(id, brandName) {
-	csrfToken = Cookies.get('XSRF-TOKEN');
-	clearEditBrandForm();
-    // Điền giá trị của id và categoryName vào các trường input
-    // Hiển thị modal chỉnh sửa danh mục
-    $("#editBrandModal").modal("show");
-    $("#editBrandName-error").text("");
-    $("#editBrandName").text(brandName);
-    $("#thumbnail-error").text("")
-    // Thiết lập sự kiện cho nút "Lưu thay đổi"
-    $("#saveBrandChange").off("click").on("click", function () {
-    	  var newIdBrand = document.getElementById("editBrandId").value;
-          var brandName = document.getElementById("editBrandName").value;
-          var descriptionName = document.getElementById("editDescriptionName").value;
-          var thumbnailFile = $("#editThumbnailName")[0].files[0];;
-          console.log(csrfToken)
-        $.ajax({
-        	url: '/brand/editBrand',
-            type: 'PUT',
-            contentType: false,
-	        processData: false,
-            data : JSON.stringify({
-            	id : id ,
-            	brandName : brandName , 
-            	descriptionName : descriptionName,
-            	thumbnailFile : thumbnailFile,
-			}),
-			 headers: {
-				    'X-XSRF-TOKEN': csrfToken
-			},
-            success: function (response) {
-                toastr.success(response);
-                getlistBrand(0, '');
-                // Đóng modal sau khi chỉnh sửa thành công
-                $("#editBrandModal").modal("hide");
-            },
-            error: function(jqXHR, textStatus, errorMessage) {
-                console.log(jqXHR.status);
-                if (jqXHR.status === 400) {
-                    var errors = jqXHR.responseJSON;
-                    if (errors.hasOwnProperty("bindingErrors")) {
-                        var bindingErrors = errors["bindingErrors"];
-                        for (var i = 0; i < bindingErrors.length; i++) {
-                            var error = bindingErrors[i];
-                            // Hiển thị thông báo lỗi trong các thẻ có ID đã tạo trước đó.
-                            $("#" + error.field + "-error").text(error.defaultMessage);
-                        }
-                    }
-                    if (errors.hasOwnProperty("nameDuplicate")) {
-                        var editnameError = errors["nameDuplicate"];
-                        $("#brandName-error").text(editnameError);
-                    }
-                    if (errors.hasOwnProperty("thumbnailFile")) {
-                        var editnameError = errors["thumbnailFile"];
-                        $("#thumbnail-error").text(editnameError);
-                    }
-                } else {
-                    // Hiển thị thông báo lỗi khác nếu request không thành công với mã lỗi 400.
-                    alert("Sorry! The system has errors!");
-                }
-            }
-        });
-    });
-}
 
 
 
