@@ -514,6 +514,9 @@ var ProductDetails = {
 			    data: {page : page, productId : productId, rateScore : rating},
 			    success: function(data) {
 			    	 $(productContainer).empty();
+			    	 if (data.rateResponseDto.length === 0) {
+				         $(productContainer).append($('<h5>').addClass('text-center').text('No comments yet.'));
+				    }
 			    	 $.each(data.rateResponseDto, function(index, rate) {
 			    		 //avatar
 			    		 var thumnailRate = $('<div>').addClass('shopee-product-rating');
@@ -534,9 +537,9 @@ var ProductDetails = {
 						for(var i = 1; i <= 5; i++){
 							
 							if(i <= rate.rating){
-								ratingUl.append($('<li>').append($('<i>').addClass('fas fa-star yellowStar')))
+								ratingUl.append($('<li>').append($('<i>').addClass('fa fa-star yellowStar')))
 							}else{
-								ratingUl.append($('<li>').append($('<i>').addClass('fas fa-star grayStar')))
+								ratingUl.append($('<li>').append($('<i>').addClass('fa fa-star grayStar')))
 							}
 							
 						}

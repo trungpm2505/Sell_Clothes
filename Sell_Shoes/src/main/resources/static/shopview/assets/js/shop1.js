@@ -278,33 +278,7 @@ loadCategory();
     	    });
     		
     	    
-    	     /* brand activation */
-    	    $('.brand_active').owlCarousel({
-    	        animateOut: 'fadeOut',
-    			loop: true,
-    	        nav: true,
-    	        autoplay: false,
-    	        autoplayTimeout: 8000,
-    	        items: 6,
-    	        dots:true,
-    	        navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
-    	        responsiveClass:true,
-    			responsive:{
-    				0:{
-    					items:1,
-    				},
-    	            480:{
-    					items:3,
-    				},
-    	            992:{
-    					items:4,
-    				},
-    	            1200:{
-    					items:6,
-    				},
-
-    			  }
-    	    });
+    	    
     	    
     	    
     	    $("#slider-range").slider({
@@ -342,6 +316,84 @@ loadCategory();
     			  loadAllProduct(0, categoryId, 0, selectedSizeId, selectedColorId, minPrice,maxPrice, key);
     		  }
     	      
+    	      function brandImageClick(brandId) {
+    	      console.log("brId: ",brandId);
+			    var key = "";
+			    var categoryId = document.getElementById("category").value;
+			    loadAllProduct(0, categoryId, brandId, selectedSizeId, selectedColorId, minPrice, maxPrice, key);
+			}
+
+    	      
+    	      loadBrand();
+
+	function loadBrand() {
+	    $.ajax({
+	        url: "/brand/getAll",
+	        type: "GET",
+	        dataType: 'json',
+	        success: function (brandResponseDtos) {
+	            var brandContainer = $(".brand_active");
+	            brandContainer.empty();
+
+	            for (var i = 0; i < brandResponseDtos.length; i++) {
+	                var brand = brandResponseDtos[i];
+
+	                // Tạo một cột mới cho mỗi brand
+	                var brandCol = $("<div>", { class: "col-lg-9 brand" });
+	                var brandDiv = $("<div>", { class: "single_brand" });
+
+	                var brandLink = $("<a>", { href: "#" });
+	                var brandImage = $("<img>", { 
+					    src: "../upload/" + brand.thumbnail, 
+					    alt: brand.name
+					});
+					
+					brandImage.click((function(id) {
+					    return function() {
+					        brandImageClick(id);
+					    };
+					})(brand.id));
+
+	                brandLink.append(brandImage);
+	                brandDiv.append(brandLink);
+	                brandCol.append(brandDiv);
+
+	                brandContainer.append(brandCol);
+	            }
+
+	            /* brand activation */
+	            $('.brand_active').owlCarousel({
+	                animateOut: 'fadeOut',
+	        		loop: true,
+	                nav: true,
+	                autoplay: false,
+	                autoplayTimeout: 8000,
+	                items: 6,
+	                dots:true,
+	                navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+	                responsiveClass:true,
+	        		responsive:{
+	        			0:{
+	        				items:1,
+	        			},
+	                    480:{
+	        				items:3,
+	        			},
+	                    992:{
+	        				items:4,
+	        			},
+	                    1200:{
+	        				items:6,
+	        			},
+
+	        		  }
+	            });
+	        },
+	        error: function (jqXHR, textStatus, errorMessage) {
+	            var error = jqXHR.responseJSON || jqXHR.responseText;
+	        }
+	    });
+	}
     	      
     	//////////////
     	 var ProductDetails = {

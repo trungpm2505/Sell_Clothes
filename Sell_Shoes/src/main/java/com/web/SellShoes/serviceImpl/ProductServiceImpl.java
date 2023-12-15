@@ -1,10 +1,15 @@
 package com.web.SellShoes.serviceImpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -14,6 +19,7 @@ import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Color;
 import com.web.SellShoes.entity.Product;
 import com.web.SellShoes.entity.Size;
+import com.web.SellShoes.entity.Variant;
 import com.web.SellShoes.repository.ProductRepository;
 import com.web.SellShoes.service.ProductService;
 
@@ -76,6 +82,13 @@ public class ProductServiceImpl implements ProductService {
 		PageRequest productPageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "createAt"));
 		Page<Product> productPage = productRepository.searchProduct(productPageable, category, brand, size2, color,
 				minPrice, maxPrice, keyword);
+		return productPage;
+	}
+
+	@Override
+	public Page<Product> getProduct(int pageNumber, int size) {
+		PageRequest productPageable = PageRequest.of(pageNumber, size);
+		Page<Product> productPage = productRepository.findProductPage(productPageable);
 		return productPage;
 	}
 

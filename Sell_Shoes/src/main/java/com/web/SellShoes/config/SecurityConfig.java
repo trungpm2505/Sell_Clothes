@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/color/getAll",
 			"/size/getAll",
 			"/product/getProductView",
+			"/product/getProductViewSoft",
 			"/product/details",
 			"/product/get",
 			"/product/all-product",
@@ -57,8 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/plugins/**" ,
 			"/adminview/**",
 			"/shopview/**",
-			"/report/**",
-			
+			"/contact/**"
 			
 	};
 	
@@ -87,7 +87,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/size/**",
            "/variant/**",
            "/account/**",
-           "/brand/**"
+           "/brand/**",
+		   "/report/**",
    };
    
    private static final String[] COMMON_ROLES = {

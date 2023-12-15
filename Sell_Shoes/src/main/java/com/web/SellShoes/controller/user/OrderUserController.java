@@ -146,7 +146,7 @@ public class OrderUserController {
 			order.setTotalMoney(totalPayment); // Sử dụng tổng thanh toán từ các mục giỏ hàng
 		}
 		orderService.save(order);
-		return ResponseEntity.ok().body("Đặt hàng thành công!");
+		return ResponseEntity.ok().body("Order successfully!");
 	}
 
 	@GetMapping("/applyPromotionByCode")
@@ -158,7 +158,7 @@ public class OrderUserController {
 		}
 
 		Optional<Promotion> optionalPromotion = promotionService.getPromotionByCouponCode(couponCode);
-		if (optionalPromotion.isPresent()) {
+		if (optionalPromotion.isPresent() && optionalPromotion.get().isActive()) {
 			Promotion promotion = optionalPromotion.get();
 			PromotionResponseDto promotionResponseDto = promotionToPromotionResponese(promotion);
 			return ResponseEntity.ok(promotionResponseDto);
@@ -186,7 +186,7 @@ public class OrderUserController {
 
 	@GetMapping("/order-success")
 	public String view(HttpSession session, Model model) {
-		model.addAttribute("fullName", (String) session.getAttribute("fullName"));
+		model.addAttribute("fullName",session.getAttribute("fullName"));
 		return "/shop/shopcontent/order-success";
 	}
 

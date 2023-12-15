@@ -2,6 +2,7 @@ package com.web.SellShoes.service;
 
 import java.util.List;
 
+import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.entity.OrderDetail;
 
@@ -13,6 +14,8 @@ public interface OrderDetailService {
 	public int getNumberOfProductInOrder(Order order);
 	
 	public List<OrderDetail> getAllOrderDetails();
+	
+	public int getQuantityOfProductAndCategory(Category category); 
 	
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.entity.OrderDetail;
 
@@ -18,4 +19,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 	
 	@Query("SELECT o FROM OrderDetail o WHERE o.order.status = 4")
 	public List<OrderDetail> findAll();
+	
+	@Query("SELECT count(o.quantity) FROM OrderDetail o WHERE o.variant.product.category = :category AND o.order.status = 4")
+	public int getQuantityOfProductAndCategory(Category category);
 }

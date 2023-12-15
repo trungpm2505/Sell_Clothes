@@ -65,6 +65,10 @@ public class OrderController {
 			@RequestParam(defaultValue = "false") boolean search, @RequestParam(required = false) String key,
 			@RequestParam(required = false) String createAt, @RequestParam(required = false) String startDate,
 			@RequestParam(required = false) String endDate, @RequestParam(required = false) String ortherTime) {
+		
+		if (key != null) {
+	        key = key.trim();
+	    }
 		Page<Order> orderPage = null;
 
 		if (status == 0) {

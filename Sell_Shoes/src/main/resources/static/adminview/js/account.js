@@ -21,25 +21,27 @@ $(document).ready(function() {
 	                       var accounts = response.accountResponeseDto;  
 	                    
 	                       for (var i = 0; i < accounts.length; i++) {
-	                           var account = accounts[i];	                           		                      
-	                           status = account.active ? 'Verified' : 'Not authenticated';
-	                           var row = '<tr>' +
-	                           '<td>' + (i+1) + '</td>'+
-	                           '<td>' + account.fullName + '</td>' +
-	                           '<td>' + account.address + '</td>' +
-	                           '<td>' + account.email + '</td>' +
-	                           '<td>' + account.phone + '</td>' +
-	                           '<td>' + account.createAt + '</td>' +
-	                           '<td>' + (account.updateAt ? account.updateAt : '-') + '</td>' +
-	                           '<td>' + status + '</td>' +
-	                           '<td>' + account.roleName + '</td>' +	                         
-                              '<td>' +
-'<span onclick="updateRole(' + account.id + ', \'' + account.roleName + '\')"><i class="fas fa-pencil-alt"></i> Edit Role</span>' +
-'</td>'                          
-                                '</tr>';
-	                          
-	                           $("#accountTable tbody").append(row);
-	                       }	                 
+							    var account = accounts[i];
+							    status = account.active ? 'Verified' : 'Not authenticated';
+							    var statusClass = account.active ? 'text-success' : 'text-danger'; // Thêm class dựa trên trạng thái
+							    var row = '<tr>' +
+							        '<td>' + (i + 1) + '</td>' +
+							        '<td>' + account.fullName + '</td>' +
+							        '<td>' + account.address + '</td>' +
+							        '<td>' + account.email + '</td>' +
+							        '<td>' + account.phone + '</td>' +
+							        '<td>' + account.createAt + '</td>' +
+							        '<td>' + (account.updateAt ? account.updateAt : '-') + '</td>' +
+							        '<td class="' + statusClass + '">' + status + '</td>' + // Thêm class vào đây
+							        '<td>' + account.roleName + '</td>' +
+							        '<td>' +
+							        '<span onclick="updateRole(' + account.id + ', \'' + account.roleName + '\')"><i class="fas fa-pencil-alt"></i> Edit Role</span>' +
+							        '</td>' +
+							        '</tr>';
+							
+							    $("#accountTable tbody").append(row);
+							}
+								                 
 	                	   }
 	            	   pagination = '';
 	      	         currentPage = response.currentPage;
@@ -125,7 +127,7 @@ $(document).ready(function() {
 	 }
 
 	 function update(){
-		 console.log(accountId)
+	 csrfToken = Cookies.get('XSRF-TOKEN');
 		  var selectedRole = $('#newRole').val(); // Lấy giá trị được chọn từ dropdown
 		  var  data= {
 	    	  id: accountId,
@@ -136,11 +138,12 @@ $(document).ready(function() {
 		      type: 'POST',
 		        contentType: 'application/json', // Đảm bảo gửi dữ liệu dưới dạng JSON
 		     data : JSON.stringify(data), 
+		      headers: {
+			    'X-XSRF-TOKEN': csrfToken
+		 },
 		      success: function(response) {
 		        // Xử lý khi server trả về thành công
 		         toastr.success(response);
-		        console.log('Cập nhật vai trò thành công');
-		        //đóng modal sau khi thực hiện thành công
 		         $('#editRoleModal').modal('hide');
 		        getlistAccounts(0, '');
 		      },

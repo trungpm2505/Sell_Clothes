@@ -9,7 +9,7 @@
 <body>
 
 	<div layout:fragment="content">
-		
+
 		<div class="breadcrumbs_area">
 			<div class="row">
 				<div class="col-12">
@@ -32,7 +32,7 @@
 		<!--shopping cart area start -->
 		<div class="shopping_cart_area">
 
-			<form action="#">
+			<div >
 				<div class="row">
 					<div class="col-12">
 
@@ -63,13 +63,13 @@
 
 									<div class="col-lg-12 col-md-12">
 										<div class="coupon_inner">
-
+<!-- 
 											<div class="cart_subtotal">
 
 												<p class="cart_amount">
 													<span id="selectedProducts"></span>
 												</p>
-											</div>
+											</div> -->
 
 											<div class="cart_subtotal">
 												<div class="text-danger" id="totalCostDisplay"
@@ -88,16 +88,16 @@
 
 							<div class="cart_submit">
 
-								<button onclick="deleteAllCart()">Delete All Cart</button>>
-<!-- ... -->
-								<a class="checkout_btn" href="javascript:void(0);" onclick="checkoutSelectedItems()">Checkout</a>
-<!-- ... -->
+								<button class="btn" onclick="deleteAllCart()">Delete All Cart</button>
+								<!-- ... -->
+								<button class="btn checkout_btn" onclick="checkoutSelectedItems()">Checkout</button>
+								<!-- ... -->
 							</div>
 						</div>
 					</div>
 				</div>
 
-			</form>
+			</div>
 			<div class="row">
 				<div class="col-12">
 					<div class="wishlist-share">

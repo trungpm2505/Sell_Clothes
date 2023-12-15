@@ -59,6 +59,9 @@ public class FeedbackController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 		Page<Feedback> feedbackPage = null;
 		if (keyword == null || keyword.isEmpty()) {
 			feedbackPage = feedbackService.getAllFeedback(page, size);

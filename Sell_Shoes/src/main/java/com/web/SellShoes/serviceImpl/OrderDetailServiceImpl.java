@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.web.SellShoes.entity.Category;
 import com.web.SellShoes.entity.Order;
 import com.web.SellShoes.entity.OrderDetail;
 import com.web.SellShoes.repository.OrderDetailRepository;
@@ -34,6 +35,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Override
 	public List<OrderDetail> getAllOrderDetails() {
 		return orderDetailRepository.findAll();
+	}
+
+	@Override
+	public int getQuantityOfProductAndCategory(Category category) {
+		return orderDetailRepository.getQuantityOfProductAndCategory(category);
 	}
 
 

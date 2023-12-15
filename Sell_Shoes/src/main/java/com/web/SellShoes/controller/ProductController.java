@@ -88,6 +88,10 @@ public class ProductController {
 	@ResponseBody
 	public ResponseEntity<ProductPageResponseDto> getProductPage(@RequestParam(defaultValue = "7") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
+		
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 		Page<Product> productPage = null;
 		if (keyword.equals("")) {
 			productPage = productService.getAllProduct(page, size);

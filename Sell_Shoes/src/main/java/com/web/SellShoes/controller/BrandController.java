@@ -55,7 +55,7 @@ public class BrandController {
 		List<Brand> brands = brandService.getAll();
 
 		List<BrandResponseDto> brandResponseDtos = brands.stream()
-				.map(brand -> new BrandResponseDto(brand.getId(), brand.getName())).collect(Collectors.toList());
+				.map(brand -> new BrandResponseDto(brand.getId(), brand.getName(), brand.getThumbnail())).collect(Collectors.toList());
 
 		return ResponseEntity.ok(brandResponseDtos);
 	}

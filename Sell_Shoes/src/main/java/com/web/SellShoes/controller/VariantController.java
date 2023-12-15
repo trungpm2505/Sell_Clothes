@@ -114,7 +114,9 @@ public class VariantController {
 			@RequestParam(required = false, defaultValue = "0") Integer sizeId,
 			@RequestParam(required = false, defaultValue = "0") Integer colorId,
 			@RequestParam(required = false) String keyword) {
-
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 		Page<Variant> variantPage = null;
 		Size size2 = null;
 		Color color = null;

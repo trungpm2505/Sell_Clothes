@@ -1,6 +1,8 @@
 
 		$(document).ready(function() {
 		 loadAllProduct();
+    	 loadAllProductSoft();
+    	 
          function loadAllProduct() {
            $.ajax({
              url: '/product/getProductView',
@@ -66,6 +68,98 @@
                    });
              	/* product activation */
                 $('.product_active').owlCarousel({
+                    animateOut: 'fadeOut',
+            		loop: true,
+                    nav: true,
+                    autoplay: false,
+                    autoplayTimeout: 8000,
+                    items: 3,
+                    dots:true,
+                    navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+                    responsiveClass:true,
+            		responsive:{
+            			0:{
+            				items:1,
+            			},
+                        576:{
+            				items:2,
+            			},
+                        1200:{
+            				items:3,
+            			},
+
+            		  }
+                });
+             }
+           
+           });
+         }
+         
+         function loadAllProductSoft() {
+           $.ajax({
+             url: '/product/getProductViewSoft',
+             type: 'GET',
+             success: function (data) {
+             	$('.product_active_soft').empty();
+             	$.each(data.productResponseDtos, function (index, product) {
+                     var col = $('<div>').addClass('col-lg-3');
+                     var single_product = $('<div>').addClass('single_product');
+                     var product_thumb = $('<div>').addClass('product_thumb');
+
+                     var product_content = $('<div>').addClass('product_content');
+                     var product_info = $('<div>') .addClass( 'product_info');
+                     //image
+                     $.each(
+                         product.images,function (i,image) {
+                           if (product.images[i].isDefault == true) {
+                             product_thumb.append($('<a>',{
+                                   href: '/product/details?productId='+product.id}).append($('<img>').attr('src',"../upload/" + image.inmageForSave).addClass('card-img-top')));
+                           }
+                         });
+
+                     //variant
+                     $.each( product.variantResponseDtos,function (i,variant) {
+                           if (i === 0) {
+                             var formattedPrice = variant.price.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+
+                             if (variant.currentPrice != null) {
+                               var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+                               product_content.append($('<span>').text(formattedCurentPrice).addClass('product_price '));
+                               product_content.append($('<span>').text(formattedPrice).addClass('product_price del ml-2'));
+
+                             } else {
+                               product_content.append($('<span>').text(formattedPrice).addClass('product_price'));
+                             }
+
+                           }
+                         });
+                     product_content.append($('<div>').text(product.id).hide().addClass('id'));
+                     product_content.append($('<h3>').append($('<a>',{
+                               href: '/product/details?productId='+product.id,
+                               text: product.title
+                             }).addClass('product_title')));
+                     product_info.append($('<ul>').append(
+                     	  $('<li>').append($('<a>',{
+                                  href: '/product/details?productId='+product.id,
+                                  text: 'View Detail',
+                                })),
+                           $('<li>').append($('<a>',{
+                                   href: '#',
+                                   text: 'Add to cart',
+                                   'data-toggle': 'modal',
+                                   'data-target': '#modal_box',
+                                   onclick: 'loadData(' + product.id + ');'
+                            }))));
+
+                     single_product.append(product_thumb)
+                     single_product.append(product_content)
+                     single_product.append(product_info)
+
+                     col.append(single_product);
+                     $('.product_active_soft').append(col);
+                   });
+             	/* product activation */
+                $('.product_active_soft').owlCarousel({
                     animateOut: 'fadeOut',
             		loop: true,
                     nav: true,

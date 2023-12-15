@@ -55,6 +55,9 @@ public class AccountController {
 	public ResponseEntity<AccountPageResponseDto> getAccountPage(@RequestParam(defaultValue = "5") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
 		//keyword = "";
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 		Page<Account> accountPage = null;
 		if (keyword == null || keyword.isEmpty()) {
 			accountPage = accountService.getAllAccount(page, size);

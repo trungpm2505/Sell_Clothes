@@ -30,4 +30,6 @@ public interface VariantService {
 	public void deleteVariant(Variant variant);
 	
 	public List<Variant> getVariantsByProductIdAndSizeIdColorId(Integer productId, Size size, Color color);
+	
+	public List<Variant> getVariants();
 }

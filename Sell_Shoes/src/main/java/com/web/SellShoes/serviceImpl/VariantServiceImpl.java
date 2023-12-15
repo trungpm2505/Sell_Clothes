@@ -83,4 +83,9 @@ public class VariantServiceImpl implements VariantService {
 		List<Variant> variants = variantRepository.getListVariantById(variantId);
 		return variants;
 	}
+
+	@Override
+	public List<Variant> getVariants() {
+		return variantRepository.findAll();
+	}
 }

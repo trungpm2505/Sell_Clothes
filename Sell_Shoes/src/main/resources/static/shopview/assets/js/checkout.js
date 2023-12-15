@@ -141,20 +141,17 @@ var inputList = [ 'fullName','phone_Number','address','province'];
 		        url: '/userOrder/applyPromotionByCode',
 		        data: { coupon_code: couponCode }, // Truyền mã giảm giá qua tham số truy vấn
 		        success: function(response) {
-		            console.log('Áp dụng mã giảm giá thành công!', response);
 		            $("#couponCode-error").text("");
 		            promotionId = response.id;
 
 		            // Hiển thị giá trị giảm giá và cập nhật confirmedPrice
 		            if (response.discountType == 2) {
-		            	console.log("goc")
 		                document.getElementById("discountTypeDisplay").innerHTML = response.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 		            
 		                var discountedPrice = originalTotalValue - response.discountValue;
 		                updateConfirmedPrice(discountedPrice);
 		                updateTotalElement(discountedPrice);
 		            } else if (response.discountType === 1) {
-		            	console.log("%")
 
 		                var totalRate = parseFloat(originalTotalValue);
 		                var discountValue = parseFloat(response.discountValue);

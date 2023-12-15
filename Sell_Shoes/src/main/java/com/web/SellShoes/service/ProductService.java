@@ -28,4 +28,6 @@ public interface ProductService {
 
 	public Page<Product> searchProduct(int pageNumber, int size, Category category, Brand brand, Size size2,
 			Color color, Float minPrice, Float maxPrice, String keyword);
+	
+	public Page<Product> getProduct(int pageNumber, int size);
 }

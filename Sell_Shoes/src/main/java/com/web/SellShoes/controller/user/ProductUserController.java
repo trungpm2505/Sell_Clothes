@@ -83,7 +83,29 @@ public class ProductUserController {
 
 		for (Product product : productPage) {
 			ProductResponseDto productResponseDto = new ProductResponseDto(product.getId(), product.getTitle(),
-					product.getDiscription(), imageService.getImageByProduct(product),
+					product.getDiscription(),product.getCreateAt(), imageService.getImageByProduct(product),
+					variantService.getVariantByProduct(product));
+
+			productResponseDtos.add(productResponseDto);
+		}
+		ProductPageResponseDto productPageResponseDto = new ProductPageResponseDto(productPage.getTotalPages(),
+				productPage.getNumber(), productPage.getSize(), productResponseDtos);
+
+		return ResponseEntity.ok(productPageResponseDto);
+	}
+	
+	@GetMapping("/getProductViewSoft")
+	public ResponseEntity<ProductPageResponseDto> getProductViewSoft(@RequestParam(defaultValue = "12") int size,
+			@RequestParam(defaultValue = "0") int page) {
+		Page<Product> productPage = null;
+		
+		productPage = productService.getProduct(page, size);
+
+		List<ProductResponseDto> productResponseDtos = new ArrayList<>();
+
+		for (Product product : productPage) {
+			ProductResponseDto productResponseDto = new ProductResponseDto(product.getId(), product.getTitle(),
+					product.getDiscription(),product.getCreateAt(), imageService.getImageByProduct(product),
 					variantService.getVariantByProduct(product));
 
 			productResponseDtos.add(productResponseDto);
@@ -107,8 +129,8 @@ public class ProductUserController {
 	}
 
 	@GetMapping(value = "/details")
-	public String getProductDetailsView(@RequestParam Integer productId, Model model) {
-
+	public String getProductDetailsView(@RequestParam Integer productId, Model model, HttpSession session) {
+		model.addAttribute("fullName",session.getAttribute("fullName"));
 		Optional<Product> product = productService.getProductById(productId);
 
 		if (product.isEmpty()) {

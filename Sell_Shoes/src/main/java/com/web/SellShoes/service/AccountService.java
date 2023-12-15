@@ -16,5 +16,5 @@ public interface AccountService {
 	List<Account> findAll();
 	public Page<Account> getAllAccount(int page, int size);
 	public Page<Account> getAccountyByKey(int page, int size, String keyword);
-	
+	List<Account> getAccountUser();
 }
