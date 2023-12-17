@@ -61,7 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/plugins/**" ,
 			"/adminview/**",
 			"/shopview/**",
-			"/contact/**"
+			"/contact/**",
+			"/account/**",
+			"/about/**"
 	};
 	
 
