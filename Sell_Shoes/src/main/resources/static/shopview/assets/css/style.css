@@ -345,6 +345,14 @@
 	flex: 1005;
 	
 }
+
+.product_active_soft.owl-carousel .col-lg-3 {
+	min-width: 100%;
+	-webkit-box-flex: 1005;
+	-ms-flex: 1005;
+	flex: 1005;
+	
+}
 .product_thumb {
 	position: relative;
 	overflow: hidden;
@@ -371,6 +379,9 @@
 	opacity: 0.2;
 }
 .product_active.owl-carousel .img_icone img {
+	width: inherit;
+}
+.product_active_soft.owl-carousel .img_icone img {
 	width: inherit;
 }
 .img_icone {
@@ -483,6 +494,17 @@
 	-webkit-transition: 0.3s ease-in-out;
 	transition: 0.3s ease-in-out;
 }
+.product_active_soft.owl-carousel .owl-nav div, .brand_active.owl-carousel .owl-nav div, .single_p_active.owl-carousel .owl-nav div {
+	font-size: 20px;
+	width: 22px;
+	height: 22px;
+	background: #cccccc;
+	color: #fff;
+	text-align: center;
+	line-height: 22px;
+	-webkit-transition: 0.3s ease-in-out;
+	transition: 0.3s ease-in-out;
+}
 .brand_active {
 	padding-top: 12px;
 	margin-top: 50px;
@@ -492,7 +514,21 @@
 	right: 5px;
 	position: relative;
 }
+.product_active_soft.owl-carousel .owl-nav div.owl-prev {
+	right: 5px;
+	position: relative;
+}
 .product_active.owl-carousel .owl-nav, .brand_active.owl-carousel .owl-nav, .single_p_active.owl-carousel .owl-nav {
+	position: absolute;
+	top: -35px;
+	right: 7px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	background: #fff;
+	padding: 0px 10px;
+}
+.product_active_soft.owl-carousel .owl-nav, .brand_active.owl-carousel .owl-nav, .single_p_active.owl-carousel .owl-nav {
 	position: absolute;
 	top: -35px;
 	right: 7px;
@@ -507,10 +543,17 @@
     background-color: #333333;
     
 }
+.product_active_soft.owl-carousel .owl-nav div:hover,.brand_active.owl-carousel .owl-nav div:hover,.single_p_active.owl-carousel .owl-nav div:hover{
+    background-position: 100% 100%;
+    background-color: #333333;
+    
+}
 .product_active.owl-carousel .owl-nav div.owl-next, .brand_active.owl-carousel .owl-nav div.owl-next, .single_p_active.owl-carousel .owl-nav div.owl-next {
 	margin-left: 5px;
 }
-
+.product_active_soft.owl-carousel .owl-nav div.owl-next, .brand_active.owl-carousel .owl-nav div.owl-next, .single_p_active.owl-carousel .owl-nav div.owl-next {
+	margin-left: 5px;
+}
 
 /*new product css end*/
 
@@ -1243,6 +1286,8 @@
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	margin: auto;
+	padding-top: 3px;
 }
 .page_number ul li {
 	display: inline-block;
@@ -2057,7 +2102,7 @@
 	font-weight: 700;
 }
 .coupon_inner {
-	padding: 10px 20px 25px;
+	padding: 10px 20px 5px;
 }
 .coupon_inner p {
 	color: #999;

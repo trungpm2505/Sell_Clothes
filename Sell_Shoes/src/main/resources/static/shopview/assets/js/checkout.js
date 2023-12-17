@@ -141,20 +141,17 @@ var inputList = [ 'fullName','phone_Number','address','province'];
 		        url: '/userOrder/applyPromotionByCode',
 		        data: { coupon_code: couponCode }, // Truyền mã giảm giá qua tham số truy vấn
 		        success: function(response) {
-		            console.log('Áp dụng mã giảm giá thành công!', response);
 		            $("#couponCode-error").text("");
 		            promotionId = response.id;
 
 		            // Hiển thị giá trị giảm giá và cập nhật confirmedPrice
 		            if (response.discountType == 2) {
-		            	console.log("goc")
 		                document.getElementById("discountTypeDisplay").innerHTML = response.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 		            
 		                var discountedPrice = originalTotalValue - response.discountValue;
 		                updateConfirmedPrice(discountedPrice);
 		                updateTotalElement(discountedPrice);
 		            } else if (response.discountType === 1) {
-		            	console.log("%")
 
 		                var totalRate = parseFloat(originalTotalValue);
 		                var discountValue = parseFloat(response.discountValue);
@@ -274,7 +271,7 @@ var inputList = [ 'fullName','phone_Number','address','province'];
                   //Xóa nội dung hiện có
                   centerPopup.empty();
 
-                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
+                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0 && response.promotionResponseDtos.isPublic && response.promotionResponseDtos.isActive) {
                       // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
                       $.each(response.promotionResponseDtos, function (index, promotion) {
                       // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
@@ -314,10 +311,11 @@ var inputList = [ 'fullName','phone_Number','address','province'];
                           // Nối HTML voucher vào centerPopup
                           centerPopup.append(promotionHtml);
                       }
+
                   });
                   } else {
                       // Nếu không có voucher, hiển thị ảnh full
-                      centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/2015/Tin-Tuc/ThuVTK/giam8phantram_1.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">Cùng chờ đón mùa sale lớn giáng sinh</p</div>');
+                      centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://i.imgur.com/LDMTfhJ.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">There are currently no discount codes</p</div>');
 						
                   }
 

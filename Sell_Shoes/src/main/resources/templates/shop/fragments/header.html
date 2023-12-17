@@ -82,7 +82,6 @@
 						</ul>
 	
 					</div>
-	
 				</nav>
 	
 						<div class="header-user-actions">
@@ -95,6 +94,40 @@
 											<button class="action-btn" href="/login">
 												<ion-icon name="person-outline"></ion-icon>
 											</button>
+
+					<div class="header-user-actions">
+						<div class="header-right">
+							<ul class="clearfix">
+
+								<li class="icons dropdown">
+									<div class="header-user-actions" data-toggle="dropdown">
+										<h6 class="activity active" th:if="${fullName != null}"
+											th:text="${fullName}"
+											style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;"></h6>
+										<button class="action-btn" href="/login">
+											<ion-icon name="person-outline"></ion-icon>
+										</button>
+									</div>
+									<div
+										class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+										<div class="dropdown-content-body">
+											<ul th:if="${fullName != null}">
+												<li><a href="/account/profile"><ion-icon
+															name="person"></ion-icon> <span>Profile</span></a></li>
+												<li><a href="/order/user/all-order"><ion-icon
+															name="mail"></ion-icon> <span>Purchase</span></a></li>
+												
+												<form id="logout-form" action="/logout" method="post">
+												    <li><button type="submit"><ion-icon
+															name="log-out"></ion-icon> <span>Logout</span></button></li>
+												</form>
+											</ul>
+											<ul th:if="${fullName == null}">
+												<li><a href="/login"><ion-icon name="log-out"></ion-icon>
+														<span>Login</span></a></li>
+												<li><a href="/register"><ion-icon name="log-out"></ion-icon>
+														<span>Register</span></a></li>
+											</ul>
 										</div>
 										<div
 											class="drop-down dropdown-profile animated fadeIn dropdown-menu">

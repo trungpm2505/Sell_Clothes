@@ -96,7 +96,7 @@
 							<div class="row">
 								<div class="col-lg-4 mb-30">
 									<label>Province/City<span>*</span></label> <select
-										name="province" id="province">
+										name="province" id="province" class="">
 										<option value="">Select province</option>
 									</select> <small th:id="province-error"
 										class="text-danger form-text error"></small>
@@ -117,7 +117,7 @@
 								</div>
 								<div class="col-12 mb-30">
 									<label>Street address <span>*</span></label> <input
-										id="address" name="address" placeholder="" type="text"
+										id="address" name="address" placeholder="" type="text" 
 										th:value="${accountResponseDto.address}" /> <small
 										style="font-size: 12px;" th:id="address-error"
 										class="text-danger form-text error"></small>
@@ -141,28 +141,6 @@
 									<label> Email Address <span>*</span></label> <input type="text"
 										th:value="${accountResponseDto.email}" readonly />
 								</div>
-								<!-- 	<div class="col-lg-4 mb-30">
-									<label>Province/City<span>*</span></label> <select
-										name="province" id="province">
-										<option value="">Select province</option>
-									</select>
-				<small  th:id="province-error" class="text-danger form-text error"></small>
-									
-								</div>
-								<div class="col-lg-4 mb-30">
-									<label>District<span>*</span></label> <select id="district"
-										name="district">
-										<option value="">Select district</option>
-									</select>
-	      <small  th:id="district-error" class="text-danger form-text error"></small>								
-								</div>
-								<div class="col-lg-4 mb-30">
-									<label>Wards <span>*</span></label> <select id="ward"
-										name="ward">
-										<option value="">Select ward</option>
-									</select>
-      	 <small  th:id="ward-error" class="text-danger form-text error"></small>																
-								</div> -->
 
 
 								<div class="col-12 mb-30">
@@ -187,8 +165,8 @@
 										<tr>
 											<th>Image</th>
 											<th>Shoe name</th>
-											<th>Shoe color</th>
-											<th>Shoe size</th>
+											<th>Color</th>
+											<th>Size</th>
 											<th>Quantity</th>
 											<th>Price</th>
 										</tr>
@@ -239,7 +217,7 @@
 											<td><strong id="discountTypeDisplay">0đ</strong></td>
 										</tr>
 										<tr>
-											<th>Tổng tiền</th>
+											<th>Total money</th>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -280,7 +258,7 @@
 										delivery</label>
 
 								</div>
-								<div class="panel-default" onclick="$('#payment_info').show()">
+								<!-- <div class="panel-default" onclick="$('#payment_info').show()">
 									<input id="payment_bank_transfer" name="check_method"
 										type="radio" data-target="createp_account"> <label
 										class="custom-control-label" for="debit">Payment by
@@ -298,7 +276,7 @@
 											</h5>
 										</label>
 									</div>
-								</div>
+								</div> -->
 								<div class="order_button">
 									<button id="checkoutButton" type="button">Proceed To
 										Order</button>

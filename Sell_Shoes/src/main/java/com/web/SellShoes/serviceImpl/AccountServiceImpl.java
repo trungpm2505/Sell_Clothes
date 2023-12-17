@@ -86,4 +86,9 @@ public class AccountServiceImpl implements AccountService, UserDetailsService{
 	    return accountRepository.findByKeyWord(accountPageable, keyword);
 	}
 
+	@Override
+	public List<Account> getAccountUser() {
+		return accountRepository.getAccountUser();
+	}
+
 }

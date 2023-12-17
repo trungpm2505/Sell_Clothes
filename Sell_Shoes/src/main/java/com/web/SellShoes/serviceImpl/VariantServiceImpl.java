@@ -68,8 +68,8 @@ public class VariantServiceImpl implements VariantService {
 	}
 
 	@Override
-	public Optional<Variant> getVariantBySizeAndColor(Integer productId ,Integer sizeId, Integer colorId) {
-		Optional<Variant> variant = variantRepository.findVariantBySizeAndColor(productId,sizeId, colorId);
+	public Optional<Variant> getVariantBySizeAndColor(Integer productId, Integer sizeId, Integer colorId) {
+		Optional<Variant> variant = variantRepository.findVariantBySizeAndColor(productId, sizeId, colorId);
 		return variant;
 	}
 
@@ -78,9 +78,18 @@ public class VariantServiceImpl implements VariantService {
 		return variantRepository.findVariantBySizeIdAndColorId(productId, size, color);
 	}
 
-
 	public List<Variant> getListVariantsById(Integer variantId) {
 		List<Variant> variants = variantRepository.getListVariantById(variantId);
 		return variants;
+	}
+
+	@Override
+	public List<Variant> getVariants() {
+		return variantRepository.findAll();
+	}
+
+	@Override
+	public Float getMaxPrice() {
+		return variantRepository.getMaxPrice();
 	}
 }

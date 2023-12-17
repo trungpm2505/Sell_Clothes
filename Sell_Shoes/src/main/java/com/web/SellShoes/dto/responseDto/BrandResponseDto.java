@@ -19,10 +19,11 @@ public class BrandResponseDto {
 	
 
 //	private LocalDate deleteAt;
-	public BrandResponseDto(Integer id, String brandName) {
+	public BrandResponseDto(Integer id, String brandName, String thumbnail) {
 		super();
 		this.id = id;
 		this.brandName = brandName;
+		this.thumbnail = thumbnail;
 	}
 
 	public BrandResponseDto(Integer id, String brandName, LocalDate createAt, LocalDate updateAt) {

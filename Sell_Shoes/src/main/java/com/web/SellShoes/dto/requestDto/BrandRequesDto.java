@@ -19,5 +19,5 @@ public class BrandRequesDto {
 	@Size(min = 1, max = 50, message = "brandName cannot be empty and must not exceed 50 characters!")
 	private String brandName; 
 	
-	String descriptionName; 
+	private String descriptionName; 
 }

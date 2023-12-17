@@ -26,6 +26,9 @@ public interface VariantRepository extends JpaRepository<Variant, Integer> {
 
 	@Query("SELECT p FROM Variant p WHERE p.deleteAt is null AND p.id = :variantId")
 	public List<Variant> getListVariantById(Integer variantId);
+	
+	@Query("SELECT p FROM Variant p WHERE p.deleteAt is null")
+	public List<Variant> findAll();
 	/*
 	 * @Query("SELECT o FROM Variant o WHERE o.deleteAt is null AND (:size IS NULL OR o.size = :size) AND (:color IS NULL OR o.color = :color) AND (:keyword IS NULL OR o.price LIKE %:keyword% OR o.currentPrice LIKE %:keyword% OR o.quantity LIKE %:keyword% OR o.note LIKE %:keyword% )"
 	 * ) Page<Variant> searchVariant(Pageable pageable, Size size, Color color,
@@ -44,4 +47,6 @@ public interface VariantRepository extends JpaRepository<Variant, Integer> {
 	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product.id = :productId AND v.size.id = :sizeId AND v.color.id = :colorId")
 	public Optional<Variant> findVariantBySizeAndColor(Integer productId, Integer sizeId, Integer colorId);
 
+	@Query("SELECT MAX(v.price) FROM Variant v")
+	public Float getMaxPrice();
 }

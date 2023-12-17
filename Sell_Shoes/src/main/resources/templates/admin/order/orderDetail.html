@@ -69,8 +69,10 @@
 										<p class="col-6" th:text="${orderResponseDto.completedAt}">
 										</p>
 									</th:block>
-									<b class="col-6">Number</b>
+									<b class="col-6">Quantity</b>
 									<p class="col-6" th:text="${number}"></p>
+									<b class="col-6">Pay shipping fees</b>
+                                        <p class="col-6">30000đ</p>
 									<b class="col-6">Status</b>
 									<p class="col-6">
 										<span th:switch="${orderResponseDto.status}"> <span

@@ -25,8 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.deleteAt is null AND p.id = :productId")
 	public Optional<Product> getProductById(Integer productId);
 
-	@Query("SELECT c FROM Product c WHERE c.deleteAt is null")
+	@Query("SELECT  p FROM Product p JOIN p.variants v WHERE p.deleteAt IS NULL GROUP BY p.id, p.brand, p.category, p.createAt, p.deleteAt,p.updateAt, p.discription, p.title ORDER BY MAX(v.buyCount) DESC")
 	Page<Product> findProductPage(Pageable pageable);
+
 
 	@Query("SELECT c FROM Product c WHERE c.deleteAt is null AND c.title LIKE %:keyword%")
 	Page<Product> findByKeyword(Pageable pageable, String keyword);

@@ -56,7 +56,7 @@ if (loginForm) {
 			        }
 			      });
 			      
-			      const homeAdminResponse = await fetch('/order/admin/all', {
+			      const homeAdminResponse = await fetch('/report', {
 				        headers: {
 				          'Authorization': 'Bearer ' + token
 				        }
@@ -67,7 +67,7 @@ if (loginForm) {
 			          window.location.href = "/product/all-product";
 			          
 			        } else if (role === 'ADMIN') {
-			          window.location.href = '/order/admin/all';
+			          window.location.href = '/report';
 			        }
 			      } else {
 			        alert('Log in failed!');

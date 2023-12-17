@@ -65,6 +65,10 @@ public class CategoryController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {
+		
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 
 		Page<Category> categoryPage = null;
 		if (keyword == null || keyword.isEmpty()) {
@@ -111,7 +115,7 @@ public class CategoryController {
 	@GetMapping("/deleteCategory")
 	public ResponseEntity<String> deleteCategory(ModelMap model, @RequestParam("idCategory") int idCategory) {
 		Optional<Category> entity = categoryService.findById(idCategory);
-
+		System.out.println("caccaa: "+entity);
 		if (entity.isPresent()) {
 			Category category = entity.get();
 

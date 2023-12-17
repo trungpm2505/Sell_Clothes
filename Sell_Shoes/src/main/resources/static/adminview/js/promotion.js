@@ -248,6 +248,8 @@ function toggleDiscountInput() {
 			           row.append($('<td>').text(promotion.couponCode).addClass('couponCode'));
 			           row.append($('<td>').text(promotion.name).addClass('name'));
 			           row.append($('<td>').text(promotion.discountValue).addClass('discountValue'));
+					   row.append($('<td>').text(promotion.maxValue).addClass('maxValue'));
+
 			            
 			           var publicText = promotion.public ? 'Public' : 'Hide';
 			           var publicColorClass = promotion.public ? 'badge badge-primary' : 'badge badge-danger';

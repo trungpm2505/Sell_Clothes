@@ -1,4 +1,4 @@
-var ProductDetails = {
+		var ProductDetails = {
     		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
 	            var propertyList = $('<ul>'); // Tạo một danh sách ul
 	            var addedProperties = {};
@@ -120,12 +120,9 @@ var ProductDetails = {
 	            	    	    );
 	            	boxQuantityDiv.append('<br>');
 	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
-
+					var errorQuantity = $('<div>').addClass('errorQuantity text-danger');
 	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
 	            	
-
-	            	
-
 
 	            	// Sử dụng hàm để tạo danh sách size
 	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
@@ -136,8 +133,7 @@ var ProductDetails = {
 	            	// Hàm để tạo danh sách radio
 
 	            	product_d_right.append(boxQuantityDiv);
-	            	product_d_right.append(errorTextDiv);
-
+					
 	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
 	            	stockDiv.append(items);
 	            	stockDiv.append('<span>In stock</span>');
@@ -151,6 +147,8 @@ var ProductDetails = {
 
 	            	// Thêm product_d_right và các phần tử khác vào mảng
 	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(errorTextDiv);
+	            	elementsToAppend.push(errorQuantity);
 	            	elementsToAppend.push(boxQuantityDiv);
 	            	elementsToAppend.push(stockDiv);
 	            	elementsToAppend.push(wishlistDiv);
@@ -316,9 +314,15 @@ var ProductDetails = {
 	                },
 	                success: function (response) {
 	                    if (response.length > 0) {
+	                    	$(".error-text").text("");
 	                        var firstVariant = response[0];
 	                        var currentPrice = firstVariant.currentPrice;
 	                        quantitySelect = firstVariant.quantity;
+	                        if(quantitySelect > 0){
+	                        	$("#quantity-single-product").val(1);
+	                        	$(".errorQuantity").text("");
+	                        }
+	                        
 	                        globalVariantId = firstVariant.id;
 
 	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
@@ -396,6 +400,11 @@ var ProductDetails = {
 		    function addToCartInSingleProduct(event) {
 		        event.stopPropagation();
 					 var quantity = document.getElementById("quantity-single-product").value;
+					if (quantity == 0) {
+						$(".error-text").text("");
+					    $(".errorQuantity").text("This model is out of stock, please choose another model");
+					    return;
+					}
 					  csrfToken = Cookies.get('XSRF-TOKEN');
 					  
 					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
@@ -480,7 +489,9 @@ var ProductDetails = {
 				$('.minus').on('click', function() {
 					var currentValue = parseInt(quantityInput.val());
 					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
-					quantityInput.val(Math.max(currentValue - 1, 1));
+					if(currentValue != 0){
+						quantityInput.val(Math.max(currentValue - 1, 1));
+					}
 				});
 
 		        quantityInput.on('input', function() {
@@ -514,6 +525,9 @@ var ProductDetails = {
 			    data: {page : page, productId : productId, rateScore : rating},
 			    success: function(data) {
 			    	 $(productContainer).empty();
+			    	 if (data.rateResponseDto.length === 0) {
+				         $(productContainer).append($('<h5>').addClass('text-center').text('No comments yet.'));
+				    }
 			    	 $.each(data.rateResponseDto, function(index, rate) {
 			    		 //avatar
 			    		 var thumnailRate = $('<div>').addClass('shopee-product-rating');
@@ -534,9 +548,9 @@ var ProductDetails = {
 						for(var i = 1; i <= 5; i++){
 							
 							if(i <= rate.rating){
-								ratingUl.append($('<li>').append($('<i>').addClass('fas fa-star yellowStar')))
+								ratingUl.append($('<li>').append($('<i>').addClass('fa fa-star yellowStar')))
 							}else{
-								ratingUl.append($('<li>').append($('<i>').addClass('fas fa-star grayStar')))
+								ratingUl.append($('<li>').append($('<i>').addClass('fa fa-star grayStar')))
 							}
 							
 						}
@@ -592,7 +606,7 @@ var ProductDetails = {
 						
 						
 						 var div = ($('<div>').addClass('d-flex contain-new-response'));
-						 div.append($('<textarea>').addClass('content-response hide mt-2'));
+						 div.append($('<textarea>').addClass('content-response hide mt-2').attr('placeholder', 'Enter comment here'));
 						 div.append($('<button>').addClass('btn btn-success btn-save-response hide mt-5 ml-2').attr({'type': 'button','data-rate-id': rate.id}).text("Sent").click(function(event) {
 					      saveResponse(event);
 					     }));

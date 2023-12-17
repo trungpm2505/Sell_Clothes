@@ -25,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +56,7 @@ public class BrandController {
 		List<Brand> brands = brandService.getAll();
 
 		List<BrandResponseDto> brandResponseDtos = brands.stream()
-				.map(brand -> new BrandResponseDto(brand.getId(), brand.getName())).collect(Collectors.toList());
+				.map(brand -> new BrandResponseDto(brand.getId(), brand.getName(), brand.getThumbnail())).collect(Collectors.toList());
 
 		return ResponseEntity.ok(brandResponseDtos);
 	}
@@ -162,33 +163,39 @@ public class BrandController {
 		return ResponseEntity.notFound().build();
 	}
 
+
 	@PutMapping(value = "/editBrand", consumes = "multipart/form-data", produces = { "application/json",
 			"application/xml" })
 	@Transactional
 	@ResponseBody
 	public ResponseEntity<?> editBrand(
 			@RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile,
+			@RequestParam(value = "imageUrlEdit", required = false) String imgUrlEdit,
+
 			@Valid @ModelAttribute BrandRequesDto brandRequesDto, BindingResult bindingResult) {
 		Map<String, Object> errors = new HashMap<>();
 
 		if (bindingResult.hasErrors()) {
 			errors.put("bindingErrors", bindingResult.getAllErrors());
+			return ResponseEntity.badRequest().body(errors);
 		}
-
 		Optional<Brand> existingBrand = brandService.findByBrandName(brandRequesDto.getBrandName());
-		if (existingBrand.isPresent()) {
+		if (existingBrand.isPresent() && !existingBrand.get().getId().equals(brandRequesDto.getId())) {
 			errors.put("nameDuplicate", "Brand name already exists");
 		}
 
-		if (thumbnailFile == null) {
-			errors.put("thumbnailFile", "Please select a file.");
-		}
+     //		if (thumbnailFile == null) {
+	//	errors.put("thumbnailFile", "Please select a file.");
+	//	}
 
 		if (!errors.isEmpty()) {
 			return ResponseEntity.badRequest().body(errors);
 		}
 
 		try {
+			Brand entity = new Brand();
+
+			if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
 
 			byte[] bytes = thumbnailFile.getBytes();// Lấy dữ liệu của tệp trong dạng mảng byte.
 
@@ -201,14 +208,15 @@ public class BrandController {
 
 				Files.createDirectories(dir);
 			}
+			
 			Files.write(path, bytes);
-
-			Brand entity = new Brand();
-
+			entity.setThumbnail(randomFileName);
+			}else {
+				entity.setThumbnail(imgUrlEdit);
+			}
 			entity.setId(brandRequesDto.getId());
 			entity.setName(brandRequesDto.getBrandName());
 			entity.setDescription(brandRequesDto.getDescriptionName());
-			entity.setThumbnail(randomFileName);
 			entity.setUpdateAt(LocalDate.now());
 			brandService.save(entity);
 

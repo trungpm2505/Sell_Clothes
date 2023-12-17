@@ -25,6 +25,10 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 				$("#file-input-error").text('');
 			}
 			
+			function allProduct(){
+				loadData(0, "");
+			}
+			
 			loadCategory();
 			function loadCategory() {
 			    const categorySelect = document.getElementById('category');
@@ -686,7 +690,11 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			});
 
 			$(document).on('input', '#quantity', function(){
+				
 			    var value = numberWithCommas($(this).val());
+			    if(value == 0){
+			    	value = 1;
+			    }
 			    $(this).val(value);
 			});
 			

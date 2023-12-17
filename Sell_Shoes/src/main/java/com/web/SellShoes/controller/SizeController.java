@@ -57,6 +57,9 @@ public class SizeController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword // Đọc tham số
 																										// page từ URL
 	) {
+		if (keyword != null) {
+	        keyword = keyword.trim();
+	    }
 		Page<Size> sizePage = null;
 		if (keyword == null || keyword.isEmpty()) {
 			sizePage = sizeService.getAllSize(page, size);

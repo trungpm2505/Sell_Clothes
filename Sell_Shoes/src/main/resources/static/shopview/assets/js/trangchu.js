@@ -1,6 +1,52 @@
-
+		var ProductDetails = {
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
+	            var propertyList = $('<ul>'); // Tạo một danh sách ul
+	            var addedProperties = {};
+	
+	            $.each(variantList, function(i, variant) {
+	                // Nếu thuộc tính chưa được thêm vào danh sách
+	                if (!addedProperties[variant[propertyName]]) {
+	                    addedProperties[variant[propertyName]] = true;
+	
+	                    var id = variant[propertyName];
+	                    var listItem = $('<li>');
+	
+	                    var propertyRadio = $('<input>').attr({
+	                        type: 'radio',
+	                        name: propertyName,
+	                        value: variant[propertyName + 'Id'],
+	                        id: id,
+	                        class: propertyName + '-button' // Thêm class tại đây
+	                    });
+	
+	                    // Tạo label và thiết lập for attribute
+	                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
+	
+	                    // Thêm input radio và label vào mục li
+	                    listItem.append(propertyRadio).append(propertyLabel);
+	
+	                    // Thêm mục li vào danh sách
+	                    propertyList.append(listItem);
+	                }
+	            });
+	
+	            if (propertyName === 'size') {
+	                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
+	                propertyDiv.append(propertyList);
+	                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
+	                productDPropertyDiv.append(propertyDiv);
+	                container.append(productDPropertyDiv);
+	            } else {
+	                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
+	                container.append(propertyDiv);
+	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
+	            }
+	        }
+    	}
 		$(document).ready(function() {
 		 loadAllProduct();
+    	 loadAllProductSoft();
+    	 
          function loadAllProduct() {
            $.ajax({
              url: '/product/getProductView',
@@ -66,6 +112,98 @@
                    });
              	/* product activation */
                 $('.product_active').owlCarousel({
+                    animateOut: 'fadeOut',
+            		loop: true,
+                    nav: true,
+                    autoplay: false,
+                    autoplayTimeout: 8000,
+                    items: 3,
+                    dots:true,
+                    navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+                    responsiveClass:true,
+            		responsive:{
+            			0:{
+            				items:1,
+            			},
+                        576:{
+            				items:2,
+            			},
+                        1200:{
+            				items:3,
+            			},
+
+            		  }
+                });
+             }
+           
+           });
+         }
+         
+         function loadAllProductSoft() {
+           $.ajax({
+             url: '/product/getProductViewSoft',
+             type: 'GET',
+             success: function (data) {
+             	$('.product_active_soft').empty();
+             	$.each(data.productResponseDtos, function (index, product) {
+                     var col = $('<div>').addClass('col-lg-3');
+                     var single_product = $('<div>').addClass('single_product');
+                     var product_thumb = $('<div>').addClass('product_thumb');
+
+                     var product_content = $('<div>').addClass('product_content');
+                     var product_info = $('<div>') .addClass( 'product_info');
+                     //image
+                     $.each(
+                         product.images,function (i,image) {
+                           if (product.images[i].isDefault == true) {
+                             product_thumb.append($('<a>',{
+                                   href: '/product/details?productId='+product.id}).append($('<img>').attr('src',"../upload/" + image.inmageForSave).addClass('card-img-top')));
+                           }
+                         });
+
+                     //variant
+                     $.each( product.variantResponseDtos,function (i,variant) {
+                           if (i === 0) {
+                             var formattedPrice = variant.price.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+
+                             if (variant.currentPrice != null) {
+                               var formattedCurentPrice = variant.currentPrice.toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+                               product_content.append($('<span>').text(formattedCurentPrice).addClass('product_price '));
+                               product_content.append($('<span>').text(formattedPrice).addClass('product_price del ml-2'));
+
+                             } else {
+                               product_content.append($('<span>').text(formattedPrice).addClass('product_price'));
+                             }
+
+                           }
+                         });
+                     product_content.append($('<div>').text(product.id).hide().addClass('id'));
+                     product_content.append($('<h3>').append($('<a>',{
+                               href: '/product/details?productId='+product.id,
+                               text: product.title
+                             }).addClass('product_title')));
+                     product_info.append($('<ul>').append(
+                     	  $('<li>').append($('<a>',{
+                                  href: '/product/details?productId='+product.id,
+                                  text: 'View Detail',
+                                })),
+                           $('<li>').append($('<a>',{
+                                   href: '#',
+                                   text: 'Add to cart',
+                                   'data-toggle': 'modal',
+                                   'data-target': '#modal_box',
+                                   onclick: 'loadData(' + product.id + ');'
+                            }))));
+
+                     single_product.append(product_thumb)
+                     single_product.append(product_content)
+                     single_product.append(product_info)
+
+                     col.append(single_product);
+                     $('.product_active_soft').append(col);
+                   });
+             	/* product activation */
+                $('.product_active_soft').owlCarousel({
                     animateOut: 'fadeOut',
             		loop: true,
                     nav: true,
@@ -282,20 +420,20 @@
 
 	            	boxQuantityDiv.append('<br>');
 	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
-
+					var errorQuantity = $('<div>').addClass('errorQuantity text-danger');
 	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
 	            	
+
 	            	// Sử dụng hàm để tạo danh sách size
-	            	createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
 
 	            	// Sử dụng hàm để tạo danh sách color
-	            	createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
 
 	            	// Hàm để tạo danh sách radio
 
 	            	product_d_right.append(boxQuantityDiv);
-	            	product_d_right.append(errorTextDiv);
-
+					
 	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
 	            	stockDiv.append(items);
 	            	stockDiv.append('<span>In stock</span>');
@@ -309,6 +447,8 @@
 
 	            	// Thêm product_d_right và các phần tử khác vào mảng
 	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(errorTextDiv);
+	            	elementsToAppend.push(errorQuantity);
 	            	elementsToAppend.push(boxQuantityDiv);
 	            	elementsToAppend.push(stockDiv);
 	            	elementsToAppend.push(wishlistDiv);
@@ -346,10 +486,12 @@
 
 	  	 				// Xử lý sự kiện khi nhấn nút "minus"
 	  	 				$('.minus').on('click', function() {
-	  	 					var currentValue = parseInt(quantityInput.val());
-	  	 					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
-	  	 					quantityInput.val(Math.max(currentValue - 1, 1));
-	  	 				});
+							var currentValue = parseInt(quantityInput.val());
+							// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
+							if(currentValue != 0){
+								quantityInput.val(Math.max(currentValue - 1, 1));
+							}
+						});
 
 	  	 		        quantityInput.on('input', function() {
 	  	 		            var enteredValue = parseInt($(this).val(), 10); 
@@ -496,9 +638,14 @@
 	 	                },
 	 	                success: function (response) {
 	 	                    if (response.length > 0) {
+	 	                    	$(".error-text").text("");
 	 	                        var firstVariant = response[0];
 	 	                        var currentPrice = firstVariant.currentPrice;
 	 	                        quantitySelect = firstVariant.quantity;
+	 	                        if(quantitySelect > 0){
+		                        	$("#quantity-single-product").val(1);
+		                        	$(".errorQuantity").text("");
+		                        }
 	 	                        globalVariantId = firstVariant.id;
 
 	 	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
@@ -577,6 +724,11 @@
      	 			var csrfToken;
      	 		    function addToCartInSingleProduct(event) {
      					 var quantity = document.getElementById("quantity-single-product").value;
+     					 if (quantity == 0) {
+							$(".error-text").text("");
+						    $(".errorQuantity").text("This model is out of stock, please choose another model");
+						    return;
+						}
      					  csrfToken = Cookies.get('XSRF-TOKEN');
      					  
      					  // Kiểm tra xem token có tồn tại hay không

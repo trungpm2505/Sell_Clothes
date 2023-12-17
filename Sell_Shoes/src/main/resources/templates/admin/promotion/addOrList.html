@@ -86,66 +86,49 @@ input:checked+.slider:before {
             <h2 class="m-0 font-weight-bold text-primary">Product</h2>
           </div> -->
 				<div class="card-body">
-					<div class="row justify-content-between">
-						<div class="col-4">
-							<h2>Add Promotion</h2>
+					<div class="row justify-content-center mt-4">
+						<div class="col-md-6 bg-light border rounded p-4">
+							<h2 class="mb-4">Add Promotion</h2>
 							<div class="pad promotion-box">
 								<input th:id="id" type="text" class="d-none">
 								<div class="form-group">
-									<div>
-										<span style="color: red">(Activation code only includes
-											capital letters from A-Z and numbers from 0-9 and hyphens
-											(length from 4 - 16 characters)]</span> <br> <label
-											class="required-label" for="code">Activation code</label>
-
-									</div>
-									<input type="text" class="form-control" id="couponCode">
+									<span style="color: red">(Activation code only includes
+										capital letters from A-Z and numbers from 0-9 and hyphens
+										(length from 4 - 16 characters)]</span> <br> <label
+										class="required-label" for="code">Activation code</label> <input
+										type="text" class="form-control" id="couponCode">
 									<div th:id="couponCode-error" class="text-danger form-text "></div>
 								</div>
 								<div class="form-group">
-									<div>
-										<label class="required-label" for="name">Name of
-											promotion program</label>
-									</div>
-									<input type="text" class="form-control" id="name">
+									<label class="required-label" for="name">Name of
+										promotion program</label> <input type="text" class="form-control"
+										id="name">
 									<div th:id="name-error" class="text-danger form-text "></div>
 								</div>
-
 								<div class="form-group">
 									<label for="discount-type" class="required-label">Promotion
 										according to:</label> <select class="form-control" id="discount-type"
 										onchange="toggleDiscountInput()">
-
 										<option value="2">Direct amount</option>
 										<option value="1">Percent (%)</option>
 									</select>
 								</div>
-
 								<div class="form-group">
-									<div>
-										<label class="required-label" for="discount-value">Discount
-											level</label> <span class="invalid-feedback"
-											id="invalid-feedback-discount-value"></span>
-									</div>
-									<input type="text" min="1" class="form-control"
-										id="discountValue">
+									<label class="required-label" for="discount-value">Discount
+										level</label> <span class="invalid-feedback"
+										id="invalid-feedback-discount-value"></span> <input
+										type="text" min="1" class="form-control" id="discountValue">
 									<div th:id="discountValue-error" class="text-danger form-text "></div>
 								</div>
-
 								<div class="form-group discount-exactly">
-									<div>
-										<label class="required-label" for="max-value">Maximum
-											discount</label>
-									</div>
-									<input type="text" min="1" class="form-control" id="maxValue">
+									<label class="required-label" for="max-value">Maximum
+										discount</label> <input type="text" min="1" class="form-control"
+										id="maxValue">
 									<div th:id="maxValue-error" class="text-danger form-text "></div>
 								</div>
 								<div class="form-group">
-									<div>
-										<label class="required-label" for="expired-date">Expiration
-											date</label>
-									</div>
-									<input type="date" class="form-control" id="expiredDate">
+									<label class="required-label" for="expired-date">Expiration
+										date</label> <input type="date" class="form-control" id="expiredDate">
 									<div th:id="expiredDate-error" class="text-danger form-text "></div>
 								</div>
 								<div class="form-group">
@@ -164,24 +147,28 @@ input:checked+.slider:before {
 								<button type="button" class="btn btn-danger"
 									onclick="clearFrom()">Clear</button>
 							</div>
-
-
+							<hr />
 						</div>
+					</div>
 
-						<div class="col-8">
-							<div class="row">
-								<div class="col-7"></div>
-								<div class="col-md-5">
-									<div class="input-group">
-										<input id="key" type="text" name="keyword5" value=""
-											class="form-control" placeholder="Search by promotion name">
-										<div class="input-group-append">
-											<button id="searchButton" class="btn btn-secondary">
-												<i class="fas fa-search"></i>
-											</button>
-										</div>
-									</div>
+					<div class="row mt-4">
+						<div class="col-md-7"></div>
+						<div class="col-md-5">
+							<div class="input-group">
+								<input id="key" type="text" name="keyword5" value=""
+									class="form-control" placeholder="Search by promotion name">
+								<div class="input-group-append">
+									<button id="searchButton" class="btn btn-secondary">
+										<i class="fas fa-search"></i>
+									</button>
 								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="table-responsive">
 								<table class="table table-striped" th:id="promotion-table">
 									<thead>
 										<tr>
@@ -189,6 +176,7 @@ input:checked+.slider:before {
 											<th scope="col">Coupon_Code</th>
 											<th scope="col">Promotion Name</th>
 											<th scope="col">Discount value</th>
+											<th scope="col">Max value</th>
 											<th scope="col">Visible</th>
 											<th scope="col">Status</th>
 											<th scope="col">CreateAt</th>
@@ -200,16 +188,16 @@ input:checked+.slider:before {
 									</thead>
 									<tbody>
 										<tr>
-											
+
 										</tr>
 									</tbody>
-
 								</table>
 							</div>
 							<nav class="float-right" th:id="paging"></nav>
 						</div>
-
 					</div>
+
+
 				</div>
 			</div>
 
