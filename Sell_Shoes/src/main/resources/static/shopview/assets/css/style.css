@@ -7848,10 +7848,10 @@ li {
 	.header-alert-news b { font-weight: var(--weight-500); }
   
 	.header-main {
-     width: 118%;
+     width: 135%;
      background-color: #c2f4f4;
      height: 92px;
-     margin-left: -120px;
+     margin-left: -200px;
      padding-left: 120px    
 	 }
   
