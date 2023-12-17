@@ -32,4 +32,6 @@ public interface VariantService {
 	public List<Variant> getVariantsByProductIdAndSizeIdColorId(Integer productId, Size size, Color color);
 	
 	public List<Variant> getVariants();
+	
+	public Float getMaxPrice();
 }

@@ -115,7 +115,7 @@ public class CategoryController {
 	@GetMapping("/deleteCategory")
 	public ResponseEntity<String> deleteCategory(ModelMap model, @RequestParam("idCategory") int idCategory) {
 		Optional<Category> entity = categoryService.findById(idCategory);
-
+		System.out.println("caccaa: "+entity);
 		if (entity.isPresent()) {
 			Category category = entity.get();
 

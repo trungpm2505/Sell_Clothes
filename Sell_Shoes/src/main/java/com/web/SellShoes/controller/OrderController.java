@@ -174,11 +174,14 @@ public class OrderController {
 
 	@GetMapping(value = "/user/getOrderPage")
 	@ResponseBody
-	public ResponseEntity<OrderPageResponseDto> getOrderPageForUser(@RequestParam(defaultValue = "10") int size,
+	public ResponseEntity<OrderPageResponseDto> getOrderPageForUser(@RequestParam(defaultValue = "3") int size,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "0") int status,
 			@RequestParam(required = false) String keyWord, HttpSession session, Model model) {
 		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		Page<Order> orderPage = null;
+		if (keyWord != null) {
+			keyWord = keyWord.trim();
+	    }
 		// Authentication authentication =
 		// SecurityContextHolder.getContext().getAuthentication();
 		String email = (String) session.getAttribute("email");
@@ -218,6 +221,30 @@ public class OrderController {
 	@GetMapping("/user/all-order")
 	public String getAllOrderForUser(HttpSession session,Model model) {
 		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
-		return "shop/shopcontent/historyOrder";
+		return "shop/shopcontent/allOrder";
+	}
+	
+	@GetMapping("/user/new")
+	public String getNewOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "shop/shopcontent/newOrder";
+	}
+	
+	@GetMapping("/user/confirm")
+	public String getConfirmOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "shop/shopcontent/confirmedOrder";
+	}
+	
+	@GetMapping("/user/completed")
+	public String getCompleteOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "shop/shopcontent/completedOrder";
+	}
+	
+	@GetMapping("/user/cancel")
+	public String getCancelOrderForUser(HttpSession session,Model model) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
+		return "shop/shopcontent/cancelOrder";
 	}
 }

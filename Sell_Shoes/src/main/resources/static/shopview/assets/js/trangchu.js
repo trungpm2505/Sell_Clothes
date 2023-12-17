@@ -1,4 +1,48 @@
-
+		var ProductDetails = {
+    		createRadioList: function(variantList, propertyName, container, labelText, divClass) {
+	            var propertyList = $('<ul>'); // Tạo một danh sách ul
+	            var addedProperties = {};
+	
+	            $.each(variantList, function(i, variant) {
+	                // Nếu thuộc tính chưa được thêm vào danh sách
+	                if (!addedProperties[variant[propertyName]]) {
+	                    addedProperties[variant[propertyName]] = true;
+	
+	                    var id = variant[propertyName];
+	                    var listItem = $('<li>');
+	
+	                    var propertyRadio = $('<input>').attr({
+	                        type: 'radio',
+	                        name: propertyName,
+	                        value: variant[propertyName + 'Id'],
+	                        id: id,
+	                        class: propertyName + '-button' // Thêm class tại đây
+	                    });
+	
+	                    // Tạo label và thiết lập for attribute
+	                    var propertyLabel = $('<label>').attr('for', id).text(variant[propertyName]);
+	
+	                    // Thêm input radio và label vào mục li
+	                    listItem.append(propertyRadio).append(propertyLabel);
+	
+	                    // Thêm mục li vào danh sách
+	                    propertyList.append(listItem);
+	                }
+	            });
+	
+	            if (propertyName === 'size') {
+	                var propertyDiv = $('<div>').addClass(divClass).append($('<h2>').text(labelText));
+	                propertyDiv.append(propertyList);
+	                var productDPropertyDiv = $('<div>').addClass('product_d_' + propertyName);
+	                productDPropertyDiv.append(propertyDiv);
+	                container.append(productDPropertyDiv);
+	            } else {
+	                var propertyDiv = $('<div>').addClass('sidebar_widget color').append($('<h2>').text(labelText));
+	                container.append(propertyDiv);
+	                propertyDiv.append($('<div>').addClass('widget_color').append(propertyList));
+	            }
+	        }
+    	}
 		$(document).ready(function() {
 		 loadAllProduct();
     	 loadAllProductSoft();
@@ -376,20 +420,20 @@
 
 	            	boxQuantityDiv.append('<br>');
 	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
-
+					var errorQuantity = $('<div>').addClass('errorQuantity text-danger');
 	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
 	            	
+
 	            	// Sử dụng hàm để tạo danh sách size
-	            	createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
 
 	            	// Sử dụng hàm để tạo danh sách color
-	            	createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
+	            	ProductDetails.createRadioList(data.variantResponseDtos, 'color', product_d_right, 'color:', '');
 
 	            	// Hàm để tạo danh sách radio
 
 	            	product_d_right.append(boxQuantityDiv);
-	            	product_d_right.append(errorTextDiv);
-
+					
 	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
 	            	stockDiv.append(items);
 	            	stockDiv.append('<span>In stock</span>');
@@ -403,6 +447,8 @@
 
 	            	// Thêm product_d_right và các phần tử khác vào mảng
 	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(errorTextDiv);
+	            	elementsToAppend.push(errorQuantity);
 	            	elementsToAppend.push(boxQuantityDiv);
 	            	elementsToAppend.push(stockDiv);
 	            	elementsToAppend.push(wishlistDiv);
@@ -440,10 +486,12 @@
 
 	  	 				// Xử lý sự kiện khi nhấn nút "minus"
 	  	 				$('.minus').on('click', function() {
-	  	 					var currentValue = parseInt(quantityInput.val());
-	  	 					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
-	  	 					quantityInput.val(Math.max(currentValue - 1, 1));
-	  	 				});
+							var currentValue = parseInt(quantityInput.val());
+							// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
+							if(currentValue != 0){
+								quantityInput.val(Math.max(currentValue - 1, 1));
+							}
+						});
 
 	  	 		        quantityInput.on('input', function() {
 	  	 		            var enteredValue = parseInt($(this).val(), 10); 
@@ -590,9 +638,14 @@
 	 	                },
 	 	                success: function (response) {
 	 	                    if (response.length > 0) {
+	 	                    	$(".error-text").text("");
 	 	                        var firstVariant = response[0];
 	 	                        var currentPrice = firstVariant.currentPrice;
 	 	                        quantitySelect = firstVariant.quantity;
+	 	                        if(quantitySelect > 0){
+		                        	$("#quantity-single-product").val(1);
+		                        	$(".errorQuantity").text("");
+		                        }
 	 	                        globalVariantId = firstVariant.id;
 
 	 	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
@@ -671,6 +724,11 @@
      	 			var csrfToken;
      	 		    function addToCartInSingleProduct(event) {
      					 var quantity = document.getElementById("quantity-single-product").value;
+     					 if (quantity == 0) {
+							$(".error-text").text("");
+						    $(".errorQuantity").text("This model is out of stock, please choose another model");
+						    return;
+						}
      					  csrfToken = Cookies.get('XSRF-TOKEN');
      					  
      					  // Kiểm tra xem token có tồn tại hay không

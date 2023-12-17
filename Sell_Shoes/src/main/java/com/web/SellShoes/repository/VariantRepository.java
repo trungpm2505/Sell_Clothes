@@ -47,4 +47,6 @@ public interface VariantRepository extends JpaRepository<Variant, Integer> {
 	@Query("SELECT v FROM Variant v WHERE v.deleteAt is null AND v.product.id = :productId AND v.size.id = :sizeId AND v.color.id = :colorId")
 	public Optional<Variant> findVariantBySizeAndColor(Integer productId, Integer sizeId, Integer colorId);
 
+	@Query("SELECT MAX(v.price) FROM Variant v")
+	public Float getMaxPrice();
 }

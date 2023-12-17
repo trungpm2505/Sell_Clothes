@@ -63,12 +63,16 @@ public class ProductUserController {
 		Brand brand = null;
 		Size size2 = null;
 		Color color = null;
+		System.out.println("idđ: "+brandId);
+		System.out.println("ca: "+categoryId);
 		
 		if (categoryId != 0) {
 			category = categoryService.getCategoryById(categoryId).get();
+			System.out.println("ca: "+ category.getCategoryName());
 		}
 		if (brandId != 0) {
 			brand = brandService.getBrand(brandId).get();
+			System.out.println("br: "+ brand);
 		}
 		if (sizeId != 0) {
 			size2 = sizeService.getSize(sizeId).get();

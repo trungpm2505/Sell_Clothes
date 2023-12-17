@@ -247,7 +247,9 @@ function toggleDiscountInput() {
 					  }));
 			           row.append($('<td>').text(promotion.couponCode).addClass('couponCode'));
 			           row.append($('<td>').text(promotion.name).addClass('name'));
-			           row.append($('<td>').text(promotion.discountValue).addClass('discountValue'));
+			           row.append($('<td>').text(promotion.discountValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })).addClass('discountValue'));
+					   row.append($('<td>').text(promotion.maxValue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })).addClass('maxValue'));
+
 			            
 			           var publicText = promotion.public ? 'Public' : 'Hide';
 			           var publicColorClass = promotion.public ? 'badge badge-primary' : 'badge badge-danger';

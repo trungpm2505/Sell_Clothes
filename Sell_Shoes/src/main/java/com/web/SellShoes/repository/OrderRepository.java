@@ -30,7 +30,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 	Page<Order> findOrderByStatusAndAccount(Pageable pageable, int status, Account account);
 
-	@Query("SELECT o FROM Order o WHERE (o.account = :account) AND (:keyword IS NULL OR o.account.fullName LIKE %:keyword% OR o.id LIKE %:keyword% )")
+	@Query("SELECT o FROM Order o WHERE (o.account = :account) AND (:keyword IS NULL OR o.account.fullName LIKE %:keyword% OR o.id LIKE %:keyword% OR o.fullName LIKE %:keyword% OR o.phone_Number LIKE %:keyword% OR o.adrress LIKE %:keyword% OR o.order_date LIKE %:keyword% )")
 	Page<Order> findByKeywordForAccount(Pageable pageable, Account account, String keyword);
 
 	@Query("SELECT o FROM Order o WHERE (:completedAt IS NULL OR o.completedAt = :completedAt) AND (:startDate IS NULL OR o.completedAt >= :startDate) AND (:endDate IS NULL OR o.completedAt <= :endDate) AND (:keyword IS NULL OR o.account.fullName LIKE %:keyword% OR o.fullName LIKE %:keyword% OR o.phone_Number LIKE %:keyword% OR o.adrress LIKE %:keyword% OR o.note LIKE %:keyword% OR o.id LIKE %:keyword% OR o.note LIKE %:keyword%) AND (o.status = 4)")
@@ -40,7 +40,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	@Query("SELECT COALESCE(SUM(o.totalMoney), 0) FROM Order o WHERE o.status = 4")
 	public Double calculateTotalRevenue();
 	
-	@Query("SELECT new com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto(MONTH(o.order_date), COALESCE(SUM(o.totalMoney), 0)) FROM Order o WHERE YEAR(o.order_date) = :year AND MONTH(o.order_date) BETWEEN 1 AND 12 GROUP BY MONTH(o.order_date) ORDER BY MONTH(o.order_date)")
+	@Query("SELECT new com.web.SellShoes.dto.responseDto.OrderRevenueResponseDto(MONTH(o.order_date), COALESCE(SUM(o.totalMoney), 0)) FROM Order o WHERE o.status = 4 AND YEAR(o.order_date) = :year AND MONTH(o.order_date) BETWEEN 1 AND 12 GROUP BY MONTH(o.order_date) ORDER BY MONTH(o.order_date)")
 	List<OrderRevenueResponseDto> calculateRevenueByMonth(@Param("year") int year);
 
 

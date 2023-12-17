@@ -278,33 +278,51 @@ loadCategory();
     	    });
     		
     	    
-    	    
-    	    
-    	    
-    	    $("#slider-range").slider({
-    	        range: true,
-    	        min: 0,
-    	        max: 2000000,
-    	        step: 10000,
-    	        values: [0, 1000000],
-    	        slide: function (event, ui) {
-    	        	minPrice = ui.values[0];
-    	            maxPrice = ui.values[1];
-    	            $("#amount").val(ui.values[0].toLocaleString('vi-VN') + "đ" + " - " + ui.values[1].toLocaleString('vi-VN') + "đ");
-    	        },
-    	        change: function(event, ui) {
-    	            searchButtonClick();
-    	        }
-    	    });
+			    var maxPrice1;
+			    
+			    // Hàm thực hiện mã Ajax
+			    function performAjax() {
+			        $.ajax({
+			            url: '/variant/getMaxPrice',
+			            type: 'GET',
+			            dataType: 'json',
+			            success: function(response) {
+			                maxPrice1 = response;
+			                
+			                $("#slider-range").slider({
+			                    range: true,
+			                    min: 0,
+			                    max: maxPrice1,
+			                    step: 10000,
+			                    values: [0, maxPrice1],
+			                    slide: function (event, ui) {
+			                        minPrice = ui.values[0];
+			                        maxPrice = ui.values[1];
+			                        $("#amount").val(ui.values[0].toLocaleString('vi-VN') + "đ" + " - " + ui.values[1].toLocaleString('vi-VN') + "đ");
+			                    },
+			                    change: function(event, ui) {
+			                        searchButtonClick();
+			                    }
+			                });
+			
+			                // Đặt giá trị mặc định của input khi trang web được tải
+			                $("#amount").val(
+			                    $( "#slider-range" ).slider("values", 0).toLocaleString('vi-VN') + "đ" +
+			                    " - " +
+			                    $( "#slider-range" ).slider("values", 1).toLocaleString('vi-VN') + "đ"
+			                );
+			            },
+			            error: function(error) {
+			                // Xử lý lỗi nếu có
+			                console.error('Error:', error);
+			            }
+			        });
+			    }
+			    
+			
+			    // Gọi hàm khi trang web được tải
+			    performAjax();
 
-    	    // Đặt giá trị mặc định của input khi trang web được tải
-    	    $("#amount").val(
-    	        $( "#slider-range" ).slider("values", 0).toLocaleString('vi-VN') + "đ" +
-    	        " - " +
-    	        $( "#slider-range" ).slider("values", 1).toLocaleString('vi-VN') + "đ"
-    	    );
-
-    	      
 
     	     var selectedColorId;
     		  var selectedSizeId;
@@ -317,10 +335,10 @@ loadCategory();
     		  }
     	      
     	      function brandImageClick(brandId) {
-    	      console.log("brId: ",brandId);
+    	      console.log("brI2d: ",brandId);
 			    var key = "";
 			    var categoryId = document.getElementById("category").value;
-			    loadAllProduct(0, categoryId, brandId, selectedSizeId, selectedColorId, minPrice, maxPrice, key);
+			    loadAllProduct(0, 0, brandId, selectedSizeId, selectedColorId, minPrice, maxPrice, key);
 			}
 
     	      
@@ -342,7 +360,7 @@ loadCategory();
 	                var brandCol = $("<div>", { class: "col-lg-9 brand" });
 	                var brandDiv = $("<div>", { class: "single_brand" });
 
-	                var brandLink = $("<a>", { href: "#" });
+	                var brandLink = $("<div>");
 	                var brandImage = $("<img>", { 
 					    src: "../upload/" + brand.thumbnail, 
 					    alt: brand.name
@@ -571,12 +589,9 @@ loadCategory();
 
 	            	boxQuantityDiv.append('<br>');
 	            	var errorTextDiv = $('<div>').addClass('error-text text-danger');
-
+					var errorQuantity = $('<div>').addClass('errorQuantity text-danger');
 	            	// Thêm thẻ chữ báo lỗi vào boxQuantityDiv
 	            	
-
-	            	
-
 
 	            	// Sử dụng hàm để tạo danh sách size
 	            	ProductDetails.createRadioList(data.variantResponseDtos, 'size', product_d_right, 'size:', 'modal_size');
@@ -587,8 +602,7 @@ loadCategory();
 	            	// Hàm để tạo danh sách radio
 
 	            	product_d_right.append(boxQuantityDiv);
-	            	product_d_right.append(errorTextDiv);
-
+					
 	            	var stockDiv = $('<div>').addClass('product_stock mb-20');
 	            	stockDiv.append(items);
 	            	stockDiv.append('<span>In stock</span>');
@@ -602,6 +616,8 @@ loadCategory();
 
 	            	// Thêm product_d_right và các phần tử khác vào mảng
 	            	elementsToAppend.push(product_d_right);
+	            	elementsToAppend.push(errorTextDiv);
+	            	elementsToAppend.push(errorQuantity);
 	            	elementsToAppend.push(boxQuantityDiv);
 	            	elementsToAppend.push(stockDiv);
 	            	elementsToAppend.push(wishlistDiv);
@@ -639,10 +655,12 @@ loadCategory();
 
 	  	 				// Xử lý sự kiện khi nhấn nút "minus"
 	  	 				$('.minus').on('click', function() {
-	  	 					var currentValue = parseInt(quantityInput.val());
-	  	 					// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
-	  	 					quantityInput.val(Math.max(currentValue - 1, 1));
-	  	 				});
+							var currentValue = parseInt(quantityInput.val());
+							// Giảm giá trị số lượng xuống 1, nhưng không cho phép nhỏ hơn 1
+							if(currentValue != 0){
+								quantityInput.val(Math.max(currentValue - 1, 1));
+							}
+						});
 
 	  	 		        quantityInput.on('input', function() {
 	  	 		            var enteredValue = parseInt($(this).val(), 10); 
@@ -789,9 +807,14 @@ loadCategory();
 	 	                },
 	 	                success: function (response) {
 	 	                    if (response.length > 0) {
+	 	                    	$(".error-text").text("");
 	 	                        var firstVariant = response[0];
 	 	                        var currentPrice = firstVariant.currentPrice;
 	 	                        quantitySelect = firstVariant.quantity;
+	 	                        if(quantitySelect > 0){
+		                        	$("#quantity-single-product").val(1);
+		                        	$(".errorQuantity").text("");
+		                        }
 	 	                        globalVariantId = firstVariant.id;
 
 	 	                        var formattedPrice = firstVariant.price ? firstVariant.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
@@ -867,18 +890,23 @@ loadCategory();
 
 	 	        
 	 	        var quantity;
-	 			var csrfToken;
-	 		    function addToCartInSingleProduct(event) {
+			var csrfToken;
+		    function addToCartInSingleProduct(event) {
 					 var quantity = document.getElementById("quantity-single-product").value;
+					if (quantity == 0) {
+						$(".error-text").text("");
+					    $(".errorQuantity").text("This model is out of stock, please choose another model");
+					    return;
+					}
 					  csrfToken = Cookies.get('XSRF-TOKEN');
 					  
-					  // Kiểm tra xem token có tồn tại hay không
 					  if (typeof globalVariantId === 'undefined' || globalVariantId === null) {
 					        $('.error-text.text-danger').text("Please select size and color before adding to cart.");
 					        return;
 					   }
 					  $('.error-text.text-danger').text("");
 					    // Tạo đối tượng dữ liệu để gửi qua Ajax
+					   if (csrfToken) {
 					    var data = {
 					      variantId: globalVariantId,
 					      quantity : quantity
@@ -893,13 +921,34 @@ loadCategory();
 					        'X-XSRF-TOKEN': csrfToken
 					      },
 					      success: function(response,textStatus, jqXHR) {
-					    	  toastr.success(response);
+					    	  
+						    var contentType = jqXHR.getResponseHeader("Content-Type");
+						    if (contentType.includes("text/html")) {
+						    	Swal.fire({
+						    		  icon: 'error',
+						    		  title: 'Error!',
+						    		  text: 'Please log in',
+						    		  showCancelButton: true,
+						    		  confirmButtonText: 'Login',
+						    		  cancelButtonText: 'Cancel',
+						    		}).then((result) => {
+						    		  if (result.isConfirmed) {
+						    		    window.location.href = '/login'; 
+						    		  }
+						    		});
+
+							    } else{
+							    	toastr.success(response);
+								}
 					      },
 					      error: function(xhr, status, error) {
 						       alert("The system has errors!");
 					      }
 					    });
-	 				} 
+					   }
+					  } 
+		    
+		     $("#add-to-cart-single").click(addToCartInSingleProduct);
 	 		    
 	 		   var csrfToken = null;
          		document.getElementById("logout-form").addEventListener("submit", function(event) {

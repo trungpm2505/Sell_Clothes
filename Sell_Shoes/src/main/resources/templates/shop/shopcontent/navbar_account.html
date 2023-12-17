@@ -1,17 +1,33 @@
 
 <div class="rhmIbk" th:fragment="navbar_account">
 	<style>
-.nav-item:hover, .collapse-item:hover
-    .nav-item.active {
-	background-color: #f8f9fa;
-	/* Change to your desired hover/active background color */
-}
+    .nav-item {
+        transition: background-color 0.3s ease;
+        background-color: #bfc8cb;
+        font-weight: bold;
+        border-radius: 4px
+    }
 
-.nav-link {
-	transition: background-color 0.3s ease;
-	/* Add a smooth transition effect */
-}
+    .nav-item:hover, .collapse-item:hover,
+    .nav-item.active {
+        background-color: #e1e8f0; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link {
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-item:active {
+        background-color: #d4dce3; 
+    }
+
+    .nav-link i {
+        margin-right: 10px;
+    }
 </style>
+
+
 
 	<script>
 		// Add this script after including Bootstrap JS
@@ -60,20 +76,20 @@
 				<div class="row">
 					<div class="col-12">
 						<a class="collapse-item text-decoration-none"
-							style="margin-left: 40px;" href="#">All order</a>
+							style="margin-left: 40px;" href="/order/user/all-order">All order</a>
 					</div>
-					<!--  <div class="col-12 mt-2">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/new-order">Đơn hàng mới</a>
+					  <div class="col-12 mt-2 ">
+	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/user/new">New order</a>
 	                </div>
 	                <div class="col-12 mt-2">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/confirmed-order">Đơn hàng đã xác nhận</a>
+	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/user/confirm">Confirm order</a>
 	                </div>
 	                <div class="col-12 mt-2">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/completed-order">Đơn hàng đã hoàn thành</a>
+	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/user/completed">Completed order</a>
 	                </div>
 	                <div class="col-12 mt-2">
-	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/canceled-order">Đơn hàng đã hủy</a>
-	                </div> -->
+	                    <a class="collapse-item text-decoration-none" style="margin-left: 40px;" href="/order/user/cancel">Cancel order</a>
+	                </div> 
 				</div>
 			</div>
 		</div></li>

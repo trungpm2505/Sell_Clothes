@@ -124,7 +124,8 @@ public class OrderUserController {
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setQuantity(cart.get().getQuantity());
 			if (cart.get().getVariant().getCurrentPrice() != null) {
-				orderDetail.setPrice(cart.get().getVariant().getCurrentPrice());
+				orderDetail.setPrice(cart.get().getVariant().getPrice());
+				orderDetail.setCurentPrice(cart.get().getVariant().getCurrentPrice());
 				orderDetail.setTotalMoney(cart.get().getQuantity() * cart.get().getVariant().getCurrentPrice());
 			} else {
 				orderDetail.setPrice(cart.get().getVariant().getPrice());
@@ -132,7 +133,7 @@ public class OrderUserController {
 			}
 			orderDetail.setVariant(cart.get().getVariant());
 			orderDetail.setOrder(order);
-			orderDetail.setCurentPrice(cart.get().getVariant().getCurrentPrice());
+			
 
 			// Lưu thông tin chi tiết đơn hàng vào cơ sở dữ liệu
 			orderDetailService.save(orderDetail);
@@ -145,7 +146,12 @@ public class OrderUserController {
 		} else {
 			order.setTotalMoney(totalPayment); // Sử dụng tổng thanh toán từ các mục giỏ hàng
 		}
+		totalPayment += 30000;
+		order.setTotalMoney(totalPayment);
 		orderService.save(order);
+		for (Integer id : orderRequestDto.getCartIds()) {
+			cartService.deleteCart(id);
+		}
 		return ResponseEntity.ok().body("Order successfully!");
 	}
 
@@ -186,7 +192,7 @@ public class OrderUserController {
 
 	@GetMapping("/order-success")
 	public String view(HttpSession session, Model model) {
-		model.addAttribute("fullName",session.getAttribute("fullName"));
+		model.addAttribute("fullName", session.getAttribute("fullName"));
 		return "/shop/shopcontent/order-success";
 	}
 
