@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-	<style>
+		<style>
 .del {
 	text-decoration: line-through;
 	opacity: 0.7;
@@ -17,51 +17,50 @@
 	margin-right: 10px; /* Đặt khoảng cách 10px giữa hai thẻ */
 }
 
-.modal_size, .sidebar_widget{
-    display: flex;
-    align-items: center;
+.modal_size, .sidebar_widget {
+	display: flex;
+	align-items: center;
 }
 
 .modal_size h2, .sidebar_widget h2 {
-    margin-right: 10px; 
+	margin-right: 10px;
 }
 
 .box_quantity {
-    display: inline-flex;
-    align-items: center;
+	display: inline-flex;
+	align-items: center;
 }
 
-.box_quantity .minus,
-.box_quantity .plus {
-    cursor: pointer;
-    padding: 5px;
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    user-select: none;
-    border-radius: 2px;
+.box_quantity .minus, .box_quantity .plus {
+	cursor: pointer;
+	padding: 5px;
+	background-color: #f1f1f1;
+	border: 1px solid #ddd;
+	user-select: none;
+	border-radius: 2px;
 }
 
 .box_quantity input {
-    width: 60px; 
+	width: 60px;
 }
-.box_quantity .minus:hover,
-.box_quantity .plus:hover {
-  background-color: #ff0000;
+
+.box_quantity .minus:hover, .box_quantity .plus:hover {
+	background-color: #ff0000;
 }
 
 .error-text {
-    display: block;
-    clear: both; /* Đảm bảo rằng phần tử sẽ xuống dòng mới */
-    margin-top: 5px; /* Khoảng cách giữa chữ báo lỗi và input quantity */
+	display: block;
+	clear: both; /* Đảm bảo rằng phần tử sẽ xuống dòng mới */
+	margin-top: 5px; /* Khoảng cách giữa chữ báo lỗi và input quantity */
 }
 
 #category option:hover {
 	cursor: pointer;
 	background-color: #f0f0f0; /* Màu nền khi hover */
 	background-color: #f0f0f0;
-    border: 1px solid #ddd; /* Đường viền khi hover */
-    border-radius: 5px; /* Bo tròn góc */
-    padding: 10px;
+	border: 1px solid #ddd; /* Đường viền khi hover */
+	border-radius: 5px; /* Bo tròn góc */
+	padding: 10px;
 }
 
 #category option {
@@ -70,44 +69,46 @@
 }
 
 .layere_categorie {
-    border: 1px solid #ddd; /* Đặt đường viền */
-    border-radius: 5px; /* Bo tròn góc */
-    padding: 10px; /* Khoảng cách nội dung từ mép */
+	border: 1px solid #ddd; /* Đặt đường viền */
+	border-radius: 5px; /* Bo tròn góc */
+	padding: 10px; /* Khoảng cách nội dung từ mép */
 }
+
 #category option:checked {
-    background-color: #15a7b4; /* Màu nền khi được chọn */
-    font-weight: bold; /* In đậm khi được chọn */
+	background-color: #15a7b4; /* Màu nền khi được chọn */
+	font-weight: bold; /* In đậm khi được chọn */
 }
+
 .layere_categorie ul {
-    list-style: none; /* Ẩn dấu hiệu danh sách */
-    padding: 0;
+	list-style: none; /* Ẩn dấu hiệu danh sách */
+	padding: 0;
 }
 
 .layere_categorie li {
-    margin-bottom: 5px; /* Khoảng cách giữa mỗi mục danh sách */
+	margin-bottom: 5px; /* Khoảng cách giữa mỗi mục danh sách */
 }
 
 .layere_categorie input[type="radio"] {
-    appearance: none; /* Ẩn giao diện mặc định của radio button */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 20px; /* Độ rộng mong muốn của radio button */
-    height: 20px; /* Chiều cao mong muốn của radio button */
-    border: 1px solid #ddd; /* Đường viền */
-    border-radius: 5px; /* Bo tròn góc */
-    outline: none; /* Ẩn đường viền khi được focus */
-    margin-right: 5px; /* Khoảng cách giữa mỗi radio button */
+	appearance: none; /* Ẩn giao diện mặc định của radio button */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 20px; /* Độ rộng mong muốn của radio button */
+	height: 20px; /* Chiều cao mong muốn của radio button */
+	border: 1px solid #ddd; /* Đường viền */
+	border-radius: 5px; /* Bo tròn góc */
+	outline: none; /* Ẩn đường viền khi được focus */
+	margin-right: 5px; /* Khoảng cách giữa mỗi radio button */
 }
 
 .layere_categorie input[type="radio"]:checked {
-    background-color: #15a7b4; /* Màu nền khi được chọn */
+	background-color: #15a7b4; /* Màu nền khi được chọn */
 }
 
 .layere_categorie h4 {
-    background-color: #15a7b4; /* Màu nền */
-    color: #fff; /* Màu chữ */
-    padding: 10px; /* Khoảng cách với nội dung */
-    border-radius: 5px; /* Bo tròn góc */
+	background-color: #15a7b4; /* Màu nền */
+	color: #fff; /* Màu chữ */
+	padding: 10px; /* Khoảng cách với nội dung */
+	border-radius: 5px; /* Bo tròn góc */
 }
 
 .modal-content button.close {
@@ -121,6 +122,50 @@
 	border-radius: 5px;
 	cursor: pointer;
 	z-index: 9;
+}
+
+.slider-container {
+	position: relative;
+	max-width: 120%;
+	margin: auto;
+	overflow: hidden;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 60px
+}
+
+.slides {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+	width: 320px;
+	height: 450px;
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+	padding: 10px 10px 10px 10px;
+	border-radius: 20px
+}
+
+.slides img.active {
+	opacity: 1;
+}
+
+.product_thumb img {
+	border-radius: 10px;
+}
+
+.product_thumb img:hover {
+	border-radius: 10px;
+}
+
+.single_product:hover {
+	border-radius: 10px;
+}
+
+.product_thumb:hover {
+	border-radius: 10px;
 }
 </style>
 		<!--pos home section-->
@@ -153,11 +198,10 @@
 
 					<!--categorie menu start-->
 					<div>
-						<iframe width="300" height="380" autoplay
-							style="margin-top: 60px;"
+						<iframe width="300" height="450" autoplay
+							style="margin-top: 40px; border-radius: 10px;"
 							src="https://www.youtube.com/embed/GdlSWFyYA8s?si=UYhxyfIy-pQ5Ffbf"
-							title="YouTube video player" >
-                           </iframe>
+							title="YouTube video player"> </iframe>
 					</div>
 					<!--categorie menu end-->
 
@@ -167,8 +211,8 @@
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.8025892826463!2d108.16738507468429!3d16.07573073926476!
                                         2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b509a30cfb%3A0xb93a05e26b3b28ff!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCB
                                         Qb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1697426098224!5m2!1svi!2s"
-							width="300" height="500"
-							style="border: 2px solid; margin-top: 15px;" ></iframe>
+							width="300" height="450"
+							style="border: 2px solid; margin-top: 40px; border-radius: 10px;"></iframe>
 					</div>
 					<!--wishlist block end-->
 
@@ -192,7 +236,7 @@
 									<div class="slider_content_inner">
 										<h1>Adela shop</h1>
 										<p>Bringing the latest products and good quality.</p>
-										<a href="#">shop now</a>
+										<a href="/product/all-product">shop now</a>
 									</div>
 								</div>
 							</div>
@@ -202,7 +246,7 @@
 									<div class="slider_content_inner">
 										<h1>Adela shop</h1>
 										<p>Many attractive offers and big discounts.</p>
-										<a href="#">shop now</a>
+										<a href="/product/all-product">shop now</a>
 									</div>
 								</div>
 							</div>
@@ -212,12 +256,13 @@
 									<div class="slider_content_inner">
 										<h1>Adela shop</h1>
 										<p>Detailed and dedicated consultation.</p>
-										<a href="#">shop now</a>
+										<a href="/product/all-product">shop now</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 					<!--banner slider start-->
 
 					<!--new product area start-->
@@ -253,7 +298,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -403,64 +448,102 @@
 					</div>
 					<!--featured product end-->
 
-
-
 					<!--brand logo strat-->
-					<div class="brand_logo mb-60">
+					<div style="margin-left: -325px; margin-bottom: -30px"
+						class="brand_logo mb-60">
 						<div class="block_title">
-							<h3>Brands</h3>
-						</div>
-						<div class="row">
-							<div class="brand_active owl-carousel">
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand11.jpg" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand1.png" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand2.png" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand3.png" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand4.png" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand10.png" alt=""></a>
-									</div>
-								</div>
-								<div class="col-lg-9">
-									<div class="single_brand">
-										<a href="#"><img
-											src="/shopview/assets/img/brand/brand9.png" alt=""></a>
-									</div>
-								</div>
-							</div>
+							<h3>CHECK IN</h3>
 						</div>
 					</div>
 					<!--brand logo end-->
 				</div>
 			</div>
 		</div>
+		<br>
+		<div>
+			<div class="slider-container">
+				<div class="slides">
+					<img src="/shopview/assets/img/brand/D1.png" alt="Slide 1">
+					<img src="/shopview/assets/img/brand/D2.png" alt="Slide 2"> <img
+						src="/shopview/assets/img/brand/D3.png" alt="Slide 3"> <img
+						src="/shopview/assets/img/brand/D4.png" alt="Slide 4"> <img
+						src="/shopview/assets/img/brand/D5.png" alt="Slide 5"> <img
+						src="/shopview/assets/img/brand/D6.png" alt="Slide 6"> <img
+						src="/shopview/assets/img/brand/D7.png" alt="Slide 7"> <img
+						src="/shopview/assets/img/brand/D1.png" alt="Slide 8"> <img
+						src="/shopview/assets/img/brand/D2.png" alt="Slide 9"> <img
+						src="/shopview/assets/img/brand/D3.png" alt="Slide 10">
+				</div>
+			</div>
+		</div>
+		<div
+			style="border-radius: 10px; background-color: cyan; padding: 10px 10px 10px 10px; width: 97%; height: 90px; margin-left: 20px; margin-bottom: 60px">
+			<section class="section awe-section-2 section-section_policies">
+				<div style="display: flex;" class="policies-body">
+
+					<div
+						style="display: flex; margin-right: 80px; margin-top: 10px; margin-left: 70px"
+						class="policies-item">
+						<div style="height: auto; margin-top: 10px; margin-right: 10px;"
+							class="policies-image">
+							<img
+								src="//theme.hstatic.net/200000544093/1000906509/14/policies_icon_1.png?v=2968"
+								alt="policies_icon_1.png" width="30" height="30"
+								class="img-fluid">
+						</div>
+						<div class="policies-info">
+							<h6>FREE SHIP</h6>
+							<div class="policies-desc">For orders from 1 million</div>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-right: 80px; margin-top: 10px"
+						class="policies-item">
+						<div style="height: auto; margin-top: 10px; margin-right: 10px;"
+							class="policies-image">
+							<img
+								src="//theme.hstatic.net/200000544093/1000906509/14/policies_icon_2.png?v=2968"
+								alt="policies_icon_2.png" width="30" height="30"
+								class="img-fluid">
+						</div>
+						<div class="policies-info">
+							<h6>SHIP NATIONWIDE</h6>
+							<div class="policies-desc">Same price 30K</div>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-right: 80px; margin-top: 10px"
+						class="policies-item">
+						<div style="height: auto; margin-top: 10px; margin-right: 10px;"
+							class="policies-image">
+							<img
+								src="//theme.hstatic.net/200000544093/1000906509/14/policies_icon_3.png?v=2968"
+								alt="policies_icon_3.png" width="30" height="30"
+								class="img-fluid">
+						</div>
+						<div class="policies-info">
+							<h6>PRODUCT EXCHANGE AND RETURN</h6>
+							<div class="policies-desc">15 days for full price products</div>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-top: 10px" class="policies-item">
+						<div style="height: auto; margin-top: 10px; margin-right: 10px;"
+							class="policies-image">
+							<img
+								src="//theme.hstatic.net/200000544093/1000906509/14/policies_icon_4.png?v=2968"
+								alt="policies_icon_4.png" width="30" height="30"
+								class="img-fluid">
+						</div>
+						<div class="policies-info">
+							<h6>SUPPORT 24/7</h6>
+							<div class="policies-desc">Hotline 0123456789</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<br>
 		<!--pos home section end-->
 		<div class="modal fade" id="modal_box" tabindex="-1" role="dialog"
 			aria-hidden="true">
@@ -600,7 +683,64 @@
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<script src="/shopview/assets/js/trangchu.js"></script>
-	</div>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+		<script src="/path/to/owl.carousel.min.js"></script>
 
+		<script>
+    let currentIndex = 0;
+    const totalSlides = document.querySelectorAll('.slides img').length;
+    const slides = document.querySelector('.slides');
+    const visibleSlides = 4;
+
+function changeSlide(direction) {
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+        currentIndex = totalSlides - visibleSlides;
+    } else if (currentIndex >= totalSlides - visibleSlides + 1) {
+        currentIndex = 0;
+    }
+
+    const translateValue = -currentIndex * (100 / visibleSlides) + '%';
+    slides.style.transition = 'transform 0.5s ease-in-out';
+    slides.style.transform = 'translateX(' + translateValue + ')';
+
+    updateActiveSlide();
+}
+
+function updateActiveSlide() {
+    const activeImage = slides.querySelector('.active');
+    if (activeImage) {
+        activeImage.classList.remove('active');
+    }
+
+    for (let i = currentIndex; i < currentIndex + visibleSlides; i++) {
+        const newActiveImage = slides.querySelector(`img:nth-child(${i + 1})`);
+        newActiveImage.classList.add('active');
+    }
+}
+
+// Auto slide
+function autoSlide() {
+    setInterval(() => {
+        changeSlide(1);
+    }, 3000); // Thay đổi hình ảnh mỗi 3 giây
+}
+
+// Bắt đầu auto slide khi trang web được tải
+autoSlide();
+
+
+//Initialize Owl Carousel
+ $(document).ready(function(){
+        $(".slider_active").owlCarousel({
+            items: 1,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            loop: true
+            // Thêm các tùy chọn khác nếu cần
+        });
+    });
+</script>
 </body>
 </html>

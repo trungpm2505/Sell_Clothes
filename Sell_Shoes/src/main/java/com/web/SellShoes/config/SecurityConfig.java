@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/shopview/**",
 			
 			"/account/**",
+			"/about/**"
 	};
 	
 
