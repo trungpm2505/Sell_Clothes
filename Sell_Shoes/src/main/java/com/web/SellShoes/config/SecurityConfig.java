@@ -99,7 +99,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
            "/adminprofile/profile",
            "/brand/**",
-           "/changepassword/change",
 
    };
    

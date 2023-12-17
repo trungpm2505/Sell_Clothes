@@ -271,7 +271,7 @@ var inputList = [ 'fullName','phone_Number','address','province'];
                   //Xóa nội dung hiện có
                   centerPopup.empty();
 
-                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
+                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0 && response.promotionResponseDtos.isPublic && response.promotionResponseDtos.isActive) {
                       // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
                       $.each(response.promotionResponseDtos, function (index, promotion) {
                       // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
