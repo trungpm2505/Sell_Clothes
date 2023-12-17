@@ -1,7 +1,6 @@
 package com.web.SellShoes.controller;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -9,35 +8,28 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.web.SellShoes.dto.requestDto.CategoryRequesDto;
-import com.web.SellShoes.dto.requestDto.PromotionRequestDto;
 import com.web.SellShoes.dto.requestDto.UserRequestDto;
 import com.web.SellShoes.entity.Account;
-import com.web.SellShoes.entity.Category;
-import com.web.SellShoes.entity.Promotion;
 import com.web.SellShoes.service.AccountService;
+import com.web.SellShoes.service.RoleService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/account")
-public class UserController {
+@RequestMapping(value = "/adminprofile")
+public class AdminController {
+	
 	private final AccountService accountService;
 
 	@GetMapping(value = "/profile")
@@ -48,7 +40,7 @@ public class UserController {
 
 		if (user != null) {
 			model.addAttribute("user", user);
-			return "/shop/shopcontent/profile";
+			return "/admin/account/profile";
 		} else {
 			return "redirect:/login"; //
 		}
@@ -88,7 +80,4 @@ public class UserController {
 	    // Tiếp tục với phần còn lại của logic cập nhật
 	    return ResponseEntity.ok().body("Cập nhật hồ sơ người dùng thành công");
 	}
-
-
-
 }

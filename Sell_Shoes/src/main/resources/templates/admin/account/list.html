@@ -12,102 +12,107 @@
 	<div layout:fragment="content">
 
 		<section class="container-fluid">
-	<!-- Modal -->
-<div class="modal fade" id="editRoleModal" tabindex="-1" role="dialog" aria-labelledby="editRoleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editRoleModalLabel">Role Change</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Form thay đổi vai trò -->
-        <form id="editRoleForm">
-          <div class="form-group">
-          <span style="display: none;" >
-    <label for="accountId">ID Tài Khoản:</label>
-    <input type="text" class="form-control" id="accountId" name="accountId" readonly>
-</span>
-    <!--      <label for="accountId">ID Tài Khoản:</label>
+			<!-- Modal -->
+			<div class="modal fade" id="editRoleModal" tabindex="-1"
+				role="dialog" aria-labelledby="editRoleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editRoleModalLabel">Role Change</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- Form thay đổi vai trò -->
+							<form id="editRoleForm">
+								<div class="form-group">
+									<span style="display: none;"> <label for="accountId">ID
+											Tài Khoản:</label> <input type="text" class="form-control"
+										id="accountId" name="accountId" readonly>
+									</span>
+									<!--      <label for="accountId">ID Tài Khoản:</label>
             <input type="text" class="form-control" id="accountId" name="accountId" readonly style="display: none;">
-         -->  </div>
-          <div class="form-group">
-            <label for="newRole">New Role:</label>
-            <select id="newRole" class="form-control" name="newRole">
-              <!-- Các lựa chọn cho vai trò mới -->
-              <option value="ADMIN">ADMIN</option>
-              <option value="USER">USER</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-primary" id="saveRoleChanges" onclick="update()">Lưu Thay Đổi</button>
-      </div>
-    </div>
-  </div>
-</div>
+         -->
+								</div>
+								<div class="form-group">
+									<label for="newRole">New Role:</label> <select id="newRole"
+										class="form-control" name="newRole">
+										<!-- Các lựa chọn cho vai trò mới -->
+										<option value="ADMIN">ADMIN</option>
+										<option value="USER">USER</option>
+									</select>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Đóng</button>
+							<button type="button" class="btn btn-primary"
+								id="saveRoleChanges" onclick="update()">Lưu Thay Đổi</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="card">
-				
+
 				<div class="card-header">
-					   <div class="row">
-            <div class="col-md-7">
-                <h2>LIST OF ACCOUNT</h2>
-            </div>
-            <div class="col-md-5 d-flex justify-content-end">
-                <div class="input-group">
-                        <label for="keyword" class="mr-2 mt-3">Enter keywords to search</label>
-                
-     <input id="keyword" type="text" name="keyword" value="" class="form-control" placeholder="Enter to search">
+					<div class="row">
+						<div class="col-md-7">
+							<h2>LIST OF ACCOUNT</h2>
+						</div>
+						<div class="col-md-5 d-flex justify-content-end">
+							<div class="input-group">
+								<label for="keyword" class="mr-2 mt-3">Enter keywords to
+									search</label> <input id="keyword" type="text" name="keyword" value=""
+									class="form-control" placeholder="Enter to search">
 								<div class="input-group-append">
 									<button id="searchButton" class="btn btn-secondary">
 										<i class="fas fa-search"></i>
 									</button>
-                </div>
-            </div>
-        </div>
-    
-				</div>
-		
-				<div class="card-body">
-				 
-					<table id="accountTable" class="table table-striped">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Full name</th>
-								<th>Address</th>
-								<th>Email</th>
-								<th>Phone</th>
-								<th>CreateAt</th>
-								<th>UpdateAt</th>
-								<th>Active</th>
-								<th>Role</th>
-								<th>Edit</th>
+								</div>
+							</div>
+						</div>
 
-							</tr>
-						<tbody>
-							<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
-						</tbody>
-						</thead>
-					</table>
+					</div>
 
-					<!-- modal edit category -->
+					<div class="card-body">
+
+						<table id="accountTable" class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Full name</th>
+									<th>Address</th>
+									<th>Email</th>
+									<th>Phone</th>
+									<th>CreateAt</th>
+									<th>UpdateAt</th>
+									<th>Active</th>
+									<th>Role</th>
+									<th>Edit</th>
+
+								</tr>
+							<tbody>
+								<!-- Dữ liệu categories sẽ được thêm vào đây bằng Ajax -->
+							</tbody>
+							</thead>
+						</table>
+
+						<!-- modal edit category -->
+					</div>
+					<div class="card-footer">
+						<nav class="float-right" th:id="paging"></nav>
+					</div>
+
 				</div>
-				<div class="card-footer">
-					<nav class="float-right" th:id="paging"></nav>
-				</div>
-				
-			</div>
-			
 		</section>
-	
+
 		<script src="/adminview/js/account.js"></script>
-		
+
 
 	</div>
 </body>
