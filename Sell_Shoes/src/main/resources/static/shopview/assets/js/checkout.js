@@ -311,10 +311,11 @@ var inputList = [ 'fullName','phone_Number','address','province'];
                           // Nối HTML voucher vào centerPopup
                           centerPopup.append(promotionHtml);
                       }
+
                   });
                   } else {
                       // Nếu không có voucher, hiển thị ảnh full
-                      centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/2015/Tin-Tuc/ThuVTK/giam8phantram_1.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">Cùng chờ đón mùa sale lớn giáng sinh</p</div>');
+                      centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://i.imgur.com/LDMTfhJ.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">There are currently no discount codes</p</div>');
 						
                   }
 

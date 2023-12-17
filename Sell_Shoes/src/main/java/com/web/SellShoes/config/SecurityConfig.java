@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	 
 	private static final String[] NO_LOG_IN = {
+			
+			
 			"/category/getAll",
 			"/brand/getAll",
 			"/color/getAll",
@@ -60,7 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/adminview/**",
 			"/shopview/**",
 			"/contact/**"
-			
 	};
 	
 
@@ -72,7 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/order/user/all-order",
 			 "/rate/**",
 			 "/order/updateStatus",
-			 
+			 "/profile/**",
+			 "/account/profile",
+			 "/account/editAccount",
+			 "/changepassword/change",
+			 "/changepassword/checkChangePass",
 	 };
 	    
 	 
@@ -88,8 +93,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/size/**",
            "/variant/**",
            "/account/**",
+
            "/brand/**",
 		   "/report/**",
+
+           "/adminprofile/profile",
+           "/brand/**",
+           "/changepassword/change",
+
    };
    
    private static final String[] COMMON_ROLES = {
