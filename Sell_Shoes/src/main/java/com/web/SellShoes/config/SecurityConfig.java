@@ -93,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            "/variant/**",
            "/account/**",
            "/adminprofile/profile",
-           "/brand/**"
+           "/brand/**",
+           "/changepassword/change",
    };
    
    private static final String[] COMMON_ROLES = {
