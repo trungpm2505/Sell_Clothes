@@ -1,141 +1,91 @@
-	<!DOCTYPE html>
-	<html lang="en" xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous">
-	</head>
-	<body>
-		<div th:fragment="header" style="height: 90px" >
-			<header  class="container-fluid" >
-	
-				<div class="header-top" id="hideheader">
-					
-					<h6 style="margin-right: 10px"><i class="fa fa-phone-square" aria-hidden="true">
-					</i> Hotline:<b> 0123456789</b></h6>
-	                   <h5>&#124;</h2> 
-					<h6 style="margin-left: 10px; margin-right: 20px"><i class="fa fa-envelope" aria-hidden="true">
-					</i> Email: <b>adelashoes@gmail.com</b></h6>
-					
-					<h6 style="margin-left: 530px">Hello: <h6 class="activity active" 
-					th:if="${fullName != null}" th:text="${fullName}"
-					style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; margin-left: 5px"></h6></h6>
-					
-	                </div> 
-	
-	
-				<div class="header-main" id="myHeader">
-	
-					<div class="container">
-	
-						<a href="#" class="header-logo"> <img
-							src="/shopview/assets/img/logo/logo.png" alt="Anon's logo">
-						</a>
-	
-						<nav class="navbar-expand-lg navbar-light bg-light center"
-					style="padding: 0.5rem 1rem; border-radius: 10px; margin-bottom: -30px; margin-top: 20px">
-	
-					<div class="container">
-	
-						<ul class="desktop-menu-category-list">
-	
-							<li class="menu-category"><a href="/product/index"
-								class="menu-title">Home</a></li>
-	
-	
-	
-	
-							<li class="menu-category"><a href="/product/all-product"
-								class="menu-title">Shop</a> <!-- <ul class="dropdown-list">
-	
-									<li class="dropdown-item"><a href="/shop/checkout">Checkout</a>
-									</li>
-	
-									<li class="dropdown-item"><a href="#">Couple Rings</a></li>
-	
-									<li class="dropdown-item"><a href="#">Necklace</a></li>
-	
-									<li class="dropdown-item"><a href="#">Bracelets</a></li>
-	
-								</ul> --></li>
-							<!-- 
-							<li class="menu-category"><a href="#" class="menu-title">Perfume</a>
-	
-								<ul class="dropdown-list">
-	
-									<li class="dropdown-item"><a href="#">Clothes Perfume</a></li>
-	
-									<li class="dropdown-item"><a href="#">Deodorant</a></li>
-	
-									<li class="dropdown-item"><a href="#">Flower Fragrance</a>
-									</li>
-	
-									<li class="dropdown-item"><a href="#">Air Freshener</a></li>
-	
-								</ul></li> -->
-	
-							<li class="menu-category"><a href="/feedback/userfeedback"
-								class="menu-title">Contact</a></li>
-	                        <li class="menu-category"><a href="/feedback/userfeedback"
-								class="menu-title">About</a></li>
-						</ul>
-	
-					</div>
 
-					<div class="header-user-actions">
-						<div class="header-right">
-							<ul class="clearfix">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	integrity="sha512-xxx" crossorigin="anonymous">
+</head>
+<body>
+	<div th:fragment="header" style="height: 90px">
+		<header class="container-fluid">
 
-								<li class="icons dropdown">
-									<div class="header-user-actions" data-toggle="dropdown">
-									</div>
-									<div
-										class="drop-down dropdown-profile animated fadeIn dropdown-menu">
-										<div class="dropdown-content-body">
-											<ul th:if="${fullName != null}">
-												<li><a href="/account/profile"><ion-icon
-															name="person"></ion-icon> <span>Profile</span></a></li>
-												<li><a href="/order/user/all-order"><ion-icon
-															name="mail"></ion-icon> <span>Purchase</span></a></li>
-												
-												<form id="logout-form" action="/logout" method="post">
-												    <li><button type="submit"><ion-icon
-															name="log-out"></ion-icon> <span>Logout</span></button></li>
-												</form>
-											</ul>
-											<ul th:if="${fullName == null}">
-												<li><a href="/login"><ion-icon name="log-out"></ion-icon>
-														<span>Login</span></a></li>
-												<li><a href="/register"><ion-icon name="log-out"></ion-icon>
-														<span>Register</span></a></li>
-											</ul>
-	
-				</nav>
-	
+			<div class="header-top" id="hideheader">
+
+				<h6 style="margin-right: 10px">
+					<i class="fa fa-phone-square" aria-hidden="true"> </i> Hotline:<b>
+						0123456789</b>
+				</h6>
+				<h5>
+					&#124;
+					</h2>
+					<h6 style="margin-left: 10px; margin-right: 20px">
+						<i class="fa fa-envelope" aria-hidden="true"> </i> Email: <b>adelashoes@gmail.com</b>
+					</h6>
+
+					<h6 style="margin-left: 530px">
+						<h6 class="activity active" th:if="${fullName != null}"
+							th:text="'Hello: '+${fullName}"
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; margin-left: 5px"></h6>
+					</h6>
+			</div>
+
+
+			<div class="header-main" id="myHeader">
+
+				<div class="container">
+
+					<a href="#" class="header-logo"> <img
+						src="/shopview/assets/img/logo/logo.png" alt="Anon's logo">
+					</a>
+
+					<nav class="navbar-expand-lg navbar-light bg-light center"
+						style="padding: 0.5rem 1rem; border-radius: 10px; margin-bottom: -30px; margin-top: 20px">
+
+						<div class="container">
+
+							<ul class="desktop-menu-category-list">
+
+								<li class="menu-category"><a href="/product/index"
+									class="menu-title">Home</a></li>
+
+
+
+
+								<li class="menu-category"><a href="/product/all-product"
+									class="menu-title">Shop</a>
+								<li class="menu-category"><a href="/feedback/userfeedback"
+									class="menu-title">Contact</a></li>
+								<li class="menu-category"><a href="/about/aboutMe"
+									class="menu-title">About</a></li>
+							</ul>
+
+						</div>
+<!-- 
 						<div class="header-user-actions">
 							<div class="header-right">
 								<ul class="clearfix">
-	
+
 									<li class="icons dropdown">
 										<div class="header-user-actions" data-toggle="dropdown">
-											
-											<button class="action-btn" href="/login">
-												<ion-icon name="person-outline"></ion-icon>
-											</button>
 										</div>
 										<div
 											class="drop-down dropdown-profile animated fadeIn dropdown-menu">
 											<div class="dropdown-content-body">
 												<ul th:if="${fullName != null}">
-													<li><a href="page-lock.html"><ion-icon
+													<li><a href="/account/profile"><ion-icon
 																name="person"></ion-icon> <span>Profile</span></a></li>
 													<li><a href="/order/user/all-order"><ion-icon
 																name="mail"></ion-icon> <span>Purchase</span></a></li>
-													
+
 													<form id="logout-form" action="/logout" method="post">
-													    <li><button type="submit"><ion-icon
-																name="log-out"></ion-icon> <span>Logout</span></button></li>
+														<li><button type="submit">
+																<ion-icon name="log-out"></ion-icon>
+																<span>Logout</span>
+															</button></li>
 													</form>
 												</ul>
 												<ul th:if="${fullName == null}">
@@ -147,270 +97,67 @@
 											</div>
 										</div>
 									</li>
-									<!-- 
-									<button class="action-btn">
-										<ion-icon name="heart-outline"></ion-icon>
-										<span class="count">0</span>
-									</button> -->
-	
-									<button class="action-btn">
-	
-										<a href="/cart"><ion-icon name="bag-handle-outline"></ion-icon></a>
-	
-	
-									</button>
 								</ul>
 							</div>
-	
-	
-	
-	
+						</div> -->
+					</nav>
+
+
+					<div class="header-user-actions">
+						<div class="header-right">
+							<ul class="clearfix">
+
+								<li class="icons dropdown">
+									<div class="header-user-actions" data-toggle="dropdown">
+
+										<button class="action-btn" href="/login">
+											<ion-icon name="person-outline"></ion-icon>
+										</button>
+									</div>
+									<div
+										class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+										<div class="dropdown-content-body">
+											<ul th:if="${fullName != null}">
+												<li><a href="/account/profile"><ion-icon
+															name="person"></ion-icon> <span>Profile</span></a></li>
+												<li><a href="/order/user/all-order"><ion-icon
+															name="mail"></ion-icon> <span>Purchase</span></a></li>
+
+												<form id="logout-form" action="/logout" method="post">
+													<li><button type="submit">
+															<ion-icon name="log-out"></ion-icon>
+															<span>Logout</span>
+														</button></li>
+												</form>
+											</ul>
+											<ul th:if="${fullName == null}">
+												<li><a href="/login"><ion-icon name="log-out"></ion-icon>
+														<span>Login</span></a></li>
+												<li><a href="/register"><ion-icon name="log-out"></ion-icon>
+														<span>Register</span></a></li>
+											</ul>
+										</div>
+									</div>
+								</li>
+
+								<button class="action-btn">
+
+									<a href="/cart"><ion-icon name="bag-handle-outline"></ion-icon></a>
+
+								</button>
+							</ul>
 						</div>
-	
+
 					</div>
-	
+
 				</div>
-	
-				
-	
-				<div class="mobile-bottom-navigation">
-	
-					<button class="action-btn" data-mobile-menu-open-btn>
-						<ion-icon name="menu-outline"></ion-icon>
-					</button>
-	
-					<button class="action-btn">
-						<ion-icon name="bag-handle-outline"></ion-icon>
-	
-						<span class="count">0</span>
-					</button>
-	
-					<button class="action-btn">
-						<ion-icon name="home-outline"></ion-icon>
-					</button>
-	
-					<button class="action-btn">
-						<ion-icon name="heart-outline"></ion-icon>
-	
-						<span class="count">0</span>
-					</button>
-	
-					<button class="action-btn" data-mobile-menu-open-btn>
-						<ion-icon name="grid-outline"></ion-icon>
-					</button>
-	
-				</div>
-	
-				<nav class="mobile-navigation-menu  has-scrollbar" data-mobile-menu>
-	
-					<div class="menu-top">
-						<h2 class="menu-title">Menu</h2>
-	
-						<button class="menu-close-btn" data-mobile-menu-close-btn>
-							<ion-icon name="close-outline"></ion-icon>
-						</button>
-					</div>
-	
-					<ul class="mobile-menu-category-list">
-	
-						<li class="menu-category"><a href="#" class="menu-title">Home</a>
-						</li>
-	
-						<li class="menu-category">
-	
-							<button class="accordion-menu" data-accordion-btn>
-								<p class="menu-title">Men's</p>
-	
-								<div>
-									<ion-icon name="add-outline" class="add-icon"></ion-icon>
-									<ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-								</div>
-							</button>
-	
-							<ul class="submenu-category-list" data-accordion>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Shirt</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Shorts & Jeans</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Safety Shoes</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Wallet</a></li>
-	
-							</ul>
-	
-						</li>
-	
-						<li class="menu-category">
-	
-							<button class="accordion-menu" data-accordion-btn>
-								<p class="menu-title">Women's</p>
-	
-								<div>
-									<ion-icon name="add-outline" class="add-icon"></ion-icon>
-									<ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-								</div>
-							</button>
-	
-							<ul class="submenu-category-list" data-accordion>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Dress & Frock</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Earrings</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Necklace</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Makeup Kit</a></li>
-	
-							</ul>
-	
-						</li>
-	
-						<li class="menu-category">
-	
-							<button class="accordion-menu" data-accordion-btn>
-								<p class="menu-title">Jewelry</p>
-	
-								<div>
-									<ion-icon name="add-outline" class="add-icon"></ion-icon>
-									<ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-								</div>
-							</button>
-	
-							<ul class="submenu-category-list" data-accordion>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Earrings</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Couple Rings</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Necklace</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Bracelets</a></li>
-	
-							</ul>
-	
-						</li>
-	
-						<li class="menu-category">
-	
-							<button class="accordion-menu" data-accordion-btn>
-								<p class="menu-title">Perfume</p>
-	
-								<div>
-									<ion-icon name="add-outline" class="add-icon"></ion-icon>
-									<ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-								</div>
-							</button>
-	
-							<ul class="submenu-category-list" data-accordion>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Clothes Perfume</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Deodorant</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Flower Fragrance</a></li>
-	
-								<li class="submenu-category"><a href="#"
-									class="submenu-title">Air Freshener</a></li>
-	
-							</ul>
-	
-						</li>
-	
-						<li class="menu-category"><a href="#" class="menu-title">Blog</a>
-						</li>
-	
-						<li class="menu-category"><a href="#" class="menu-title">Hot
-								Offers</a></li>
-	
-					</ul>
-	
-					<div class="menu-bottom">
-	
-						<ul class="menu-category-list">
-	
-							<li class="menu-category">
-	
-								<button class="accordion-menu" data-accordion-btn>
-									<p class="menu-title">Language</p>
-	
-									<ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
-								</button>
-	
-								<ul class="submenu-category-list" data-accordion>
-	
-									<li class="submenu-category"><a href="#"
-										class="submenu-title">English</a></li>
-	
-									<li class="submenu-category"><a href="#"
-										class="submenu-title">Espa&ntilde;ol</a></li>
-	
-									<li class="submenu-category"><a href="#"
-										class="submenu-title">Fren&ccedil;h</a></li>
-	
-								</ul>
-	
-							</li>
-	
-							<li class="menu-category">
-								<button class="accordion-menu" data-accordion-btn>
-									<p class="menu-title">Currency</p>
-									<ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
-								</button>
-	
-								<ul class="submenu-category-list" data-accordion>
-									<li class="submenu-category"><a href="#"
-										class="submenu-title">USD &dollar;</a></li>
-	
-									<li class="submenu-category"><a href="#"
-										class="submenu-title">EUR &euro;</a></li>
-								</ul>
-							</li>
-	
-						</ul>
-	
-						<ul class="menu-social-container">
-	
-							<li><a href="#" class="social-link"> <ion-icon
-										name="logo-facebook"></ion-icon>
-							</a></li>
-	
-							<li><a href="#" class="social-link"> <ion-icon
-										name="logo-twitter"></ion-icon>
-							</a></li>
-	
-							<li><a href="#" class="social-link"> <ion-icon
-										name="logo-instagram"></ion-icon>
-							</a></li>
-	
-							<li><a href="#" class="social-link"> <ion-icon
-										name="logo-linkedin"></ion-icon>
-							</a></li>
-	
-						</ul>
-	
-					</div>
-	
-				</nav>
-	
-			</header>
-		</div>
-		<!--header end -->
-        
-	</body>
-	</html>
+
+			</div>
+
+
+		</header>
+	</div>
+	<!--header end -->
+
+</body>
+</html>

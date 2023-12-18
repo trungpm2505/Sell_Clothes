@@ -98,7 +98,6 @@ public class ChangepwController {
 	public ResponseEntity<String> checkTokenReset(@Valid @RequestBody CheckTokenResetPass checkTokenResetPass,
 			BindingResult bindingResult) {
 
-		System.out.println("email: " + checkTokenResetPass.getEmail());
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("{\"message\": \"Code has 6 digits.\"}");
 		}
@@ -135,7 +134,9 @@ public class ChangepwController {
 	@PutMapping("/checkChangePass")
 	@ResponseBody
 	public ResponseEntity<?> setNewPass(@Valid @ModelAttribute ChangePasswordRequestDto changePassRequestDto,
-	        BindingResult bindingResult) {
+	        BindingResult bindingResult, HttpSession session) {
+		
+		String email = (String) session.getAttribute("email"); 
 	    Map<String, Object> errors = new HashMap<>();
 
 	    if (bindingResult.hasErrors()) {
@@ -143,7 +144,7 @@ public class ChangepwController {
 	        errors.put("bindingErrors", bindingResult.getAllErrors());
 	    }
 
-	    Optional<Account> accountByEmail = accountService.findUserByEmail(changePassRequestDto.getEmail());
+	    Optional<Account> accountByEmail = accountService.findUserByEmail(email);
 
 	    // Kiểm tra mật khẩu hiện tại
 	    if (!passwordEncoder.matches(changePassRequestDto.getCurrentPassword(), accountByEmail.get().getPassword())) {

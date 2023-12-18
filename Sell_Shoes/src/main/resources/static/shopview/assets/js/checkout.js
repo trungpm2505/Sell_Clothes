@@ -270,12 +270,12 @@ var inputList = [ 'fullName','phone_Number','address','province'];
 
                   //Xóa nội dung hiện có
                   centerPopup.empty();
-
-                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0 && response.promotionResponseDtos.isPublic && response.promotionResponseDtos.isActive) {
+					console.log("dhdh: ",response.promotionResponseDtos);
+                  if (response.promotionResponseDtos && response.promotionResponseDtos.length > 0) {
                       // Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
                       $.each(response.promotionResponseDtos, function (index, promotion) {
                       // Kiểm tra xem chương trình khuyến mãi có đang hoạt động không
-                      if (promotion.active) {
+                      if (promotion.active && promotion.public) {
                       	var imagesHtml = `<img src="https://cdn-icons-png.flaticon.com/512/3258/3258499.png" alt="Promotion Image">`;
 							// Giả sử bạn có hình ảnh cho mỗi chương trình khuyến mãi
 							
@@ -311,13 +311,14 @@ var inputList = [ 'fullName','phone_Number','address','province'];
                           // Nối HTML voucher vào centerPopup
                           centerPopup.append(promotionHtml);
                       }
-
-                  });
-                  } else {
+                      else {
                       // Nếu không có voucher, hiển thị ảnh full
                       centerPopup.html('<div id="closeButton" onclick="closeCenterPopup()">X</div><img src="https://i.imgur.com/LDMTfhJ.png" alt="Chưa có voucher nào"><div><p style="font-size:20px; text-align: center;font-weight: bold;">There are currently no discount codes</p</div>');
 						
                   }
+
+                  });
+                  } 
 
                   //Lặp lại dữ liệu khuyến mãi và thêm vào centerPopup
                   
@@ -342,31 +343,26 @@ var inputList = [ 'fullName','phone_Number','address','province'];
          //Hiển thị thông báo hoặc thực hiện các hành động bổ sung
          alert(`Coupon Code "${couponCode}" has been copied to the clipboard.`);
    	}
-     var csrfToken = null;
-		document.getElementById("logout-form").addEventListener("submit", function(event) {
-		  // Gửi yêu cầu AJAX
-		  var xhr = new XMLHttpRequest();
-		  xhr.open("POST", "/logout", true);
-		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		  if (Cookies.get('XSRF-TOKEN')) {
-			  csrfToken = Cookies.get('XSRF-TOKEN');
-			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
-			}
-		  
-			
-		  xhr.onload = function() {
-		     if (xhr.status === 200) {
-				 
-			      // Đăng xuất thành công, ẩn class "user"
-			      //var userElement = document.getElementsByClassName("ht-user")[0];
-			      //var userName = document.getElementsByClassName("userName")[0];
-			      
-			      //userElement.classList.add("hide");
-			      //userName.classList.add("hide");
-			   
-			    } 
-		  };
-		
-		  xhr.send(new FormData(event.target));
-		});
+    var csrfToken = null;
+	document.getElementById("logout-form").addEventListener("submit", function(event) {
+	    // Gửi yêu cầu AJAX
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("POST", "/logout", true);
+	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	    
+	    if (Cookies.get('XSRF-TOKEN')) {
+	        csrfToken = Cookies.get('XSRF-TOKEN');
+	        xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+	    }
+	    
+	    xhr.onload = function() {
+	        if (xhr.status === 200) {
+	            // Chuyển hướng người dùng về trang chủ sau khi đăng xuất thành công
+	            window.location.href = "/product/index";
+	        } 
+	    };
+	    
+	    xhr.send(new FormData(event.target));
+	    event.preventDefault(); // Ngăn chặn sự kiện mặc định của form
+	});
     

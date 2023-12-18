@@ -1,5 +1,6 @@
 package com.web.SellShoes.controller.user;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,7 +165,8 @@ public class OrderUserController {
 		}
 
 		Optional<Promotion> optionalPromotion = promotionService.getPromotionByCouponCode(couponCode);
-		if (optionalPromotion.isPresent() && optionalPromotion.get().isActive()) {
+		if (optionalPromotion.isPresent() && optionalPromotion.get().isActive()
+		        && !optionalPromotion.get().getExpiredAt().isBefore(LocalDate.now())) {
 			Promotion promotion = optionalPromotion.get();
 			PromotionResponseDto promotionResponseDto = promotionToPromotionResponese(promotion);
 			return ResponseEntity.ok(promotionResponseDto);

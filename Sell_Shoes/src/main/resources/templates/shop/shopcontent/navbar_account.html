@@ -26,22 +26,7 @@
 }
 </style>
 
-
-
-	<script>
-		// Add this script after including Bootstrap JS
-		document.addEventListener("DOMContentLoaded", function() {
-			const collapseItems = document
-					.querySelectorAll(".nav-link.collapsed");
-
-			collapseItems.forEach(function(item) {
-				item.addEventListener("click", function() {
-					item.closest(".nav-item").classList.toggle("active");
-				});
-			});
-		});
-	</script>
-	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+	<li class="nav-item fs-7 active"><a class="nav-link" href="#"
 		data-bs-toggle="collapse" data-bs-target="#collapseCate"
 		aria-expanded="true" aria-controls="collapseUtilities"> <i
 			class="fa fa-user-o fs-5"></i> <span>My account</span>
@@ -64,8 +49,8 @@
 			</div>
 		</div></li>
 
-	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
-		data-bs-toggle="collapse" data-bs-target="#donmua"
+	<li class="nav-item fs-7 active"><a class="nav-link collapsed"
+		href="#" data-bs-toggle="collapse" data-bs-target="#donmua"
 		aria-expanded="true" aria-controls="collapseUtilities"> <i
 			class="fa fa-list-alt fs-5"></i> <span>My order</span>
 	</a>
@@ -81,22 +66,23 @@
 					<div class="col-12 mt-2 ">
 						<a class="collapse-item text-decoration-none"
 							style="margin-left: 40px;" href="/order/user/new">New order</a>
-						<div class="col-12 mt-2">
-							<a class="collapse-item text-decoration-none"
-								style="margin-left: 40px;" href="/order/user/confirm">Confirm
-								order</a>
-						</div>
-						<div class="col-12 mt-2">
-							<a class="collapse-item text-decoration-none"
-								style="margin-left: 40px;" href="/order/user/completed">Completed
-								order</a>
-						</div>
-						<div class="col-12 mt-2">
-							<a class="collapse-item text-decoration-none"
-								style="margin-left: 40px;" href="/order/user/cancel">Cancel
-								order</a> 
-						</div>
 					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/user/confirm">Confirm
+							order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/user/completed">Completed
+							order</a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/user/cancel">Cancel
+							order</a>
+					</div>
+
 				</div>
 			</div></li>
 

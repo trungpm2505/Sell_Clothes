@@ -18,7 +18,4 @@ public class ChangePasswordRequestDto {
 	@Size(min = 1, message = "Please enter new pasword again.")
 	private String confirmNewPassword;
 	
-	@Size(min=1,max = 100,message="Email cannot be empty and must not exceed 100 characters")
-	@Email(message="Email should be valid")
-	private String email;
 }

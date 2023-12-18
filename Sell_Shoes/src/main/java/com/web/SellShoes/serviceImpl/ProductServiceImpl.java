@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 		PageRequest productPageable = PageRequest.of(pageNumber, size, Sort.by(Sort.Direction.ASC, "title"));
 
 		// lấy danh sách
-		Page<Product> productPage = productRepository.findProductPage(productPageable);
+		Page<Product> productPage = productRepository.getProductPage(productPageable);
 
 		return productPage;
 	}

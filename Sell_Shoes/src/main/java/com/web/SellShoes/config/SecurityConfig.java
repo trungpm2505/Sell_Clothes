@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/adminview/**",
 			"/shopview/**",
 			"/contact/**",
-			"/account/**",
+			
 			"/about/**"
 	};
 	
@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/account/editAccount",
 			 "/changepassword/change",
 			 "/changepassword/checkChangePass",
+			 "/account/**",
 	 };
 	    
 	 

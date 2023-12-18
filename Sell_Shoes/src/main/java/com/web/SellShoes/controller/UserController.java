@@ -42,6 +42,7 @@ public class UserController {
 
 	@GetMapping(value = "/profile")
 	public String showUserProfile(Model model, HttpSession session) {
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		String email = (String) session.getAttribute("email");
 
 		Optional<Account> user = accountService.findUserByEmail(email);

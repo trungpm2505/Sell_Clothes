@@ -40,7 +40,7 @@ public class ReportController {
 
 	@GetMapping()
 	public String viewReport(Model model, HttpSession session) {
-		//totalRevenue
+		model.addAttribute("fullName",(String) session.getAttribute("fullName"));
 		Double totalRevenue = orderService.calculateTotalRevenue();
 		model.addAttribute("totalRevenue", totalRevenue);
 

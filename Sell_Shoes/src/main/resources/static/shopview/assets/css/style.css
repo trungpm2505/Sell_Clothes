@@ -1424,6 +1424,7 @@
 }
 .product_desc p {
 	font-size: 16px;
+	width: 100%;
 	color: #555;
 	padding: 10px 0;
 	line-height: 24px;
@@ -7848,11 +7849,11 @@ li {
 	.header-alert-news b { font-weight: var(--weight-500); }
   
 	.header-main {
-     width: 135%;
+     width: 149.4%;
      background-color: #c2f4f4;
      height: 92px;
-     margin-left: -200px;
-     padding-left: 120px    
+     margin-left: -330px;
+     padding-left: 0px    
 	 }
   
 	.mobile-bottom-navigation {

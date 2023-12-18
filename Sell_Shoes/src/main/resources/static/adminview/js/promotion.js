@@ -187,14 +187,14 @@ function toggleDiscountInput() {
 			    var name = promotionRow.find('.name').text();
 			    var discountValue = promotionRow.find('.discountValue').text();
 			    
-			    // Äá»c giÃ¡ trá» boolean cho tráº¡ng thÃ¡i vÃ  cÃ´ng khai tá»« Ã´ báº£ng
 			    var ispublic = promotionRow.find('.public').text() === 'true';
 			    var active = promotionRow.find('.active').text() === 'true';
-
+	
 			    var discountType = parseInt(promotionRow.find('.discountType').text());
 			    var maxValue = promotionRow.find('.maxValue').text();
 			    var expiredDate = promotionRow.find('.expiredDate').text();
 			    
+			    console.log(maxValue);
 			    console.log(active);
 			    console.log(ispublic);
 
@@ -271,7 +271,6 @@ function toggleDiscountInput() {
 			           row.append($('<td>').text(promotion.public).addClass('public d-none'));
 			           row.append($('<td>').text(promotion.active).addClass('active d-none'));
 			           row.append($('<td>').text(promotion.discountType).addClass('discountType d-none'));
-			           row.append($('<td>').text(promotion.maxValue).addClass('maxValue d-none'));
 			            row.append($('<td>').text(promotion.createAt).addClass('createAt'));
 			            row.append($('<td>').text(promotion.updateAt).addClass('updateAt'));
 			            row.append($('<td>').text(promotion.expiredDate).addClass('expiredDate'));

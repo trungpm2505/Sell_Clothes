@@ -55,9 +55,9 @@ public class LoginController {
 		}
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		if (roles.contains("ADMIN")) {
-			return "redirect:/product/admin";
+			return "redirect:/report";
 		} else {
-			return "redirect:/product/all-product";
+			return "redirect:/product/index";
 		}
 
 	}

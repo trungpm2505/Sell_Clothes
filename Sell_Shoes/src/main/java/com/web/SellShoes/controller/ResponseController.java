@@ -39,11 +39,11 @@ public class ResponseController {
 		String email = (String) session.getAttribute("email");
 	    Optional<Account> accountByEmail = accountService.findUserByEmail(email);
 	    if(accountByEmail.isEmpty()) {
-	    	return ResponseEntity.badRequest().body("Vui lòng đăng nhập để bình luận!!");
+	    	return ResponseEntity.badRequest().body("Please log in to comment!!");
 	    
 	    }
 	    if (responseRequestDto.getContent() == null || responseRequestDto.getContent().isEmpty()) {
-	    	return ResponseEntity.badRequest().body("Vui lòng nhập content!!");
+	    	return ResponseEntity.badRequest().body("Please enter a comment!!");
 		}
 		ResponseRate responseRate = new ResponseRate();
 		responseRate.setRate(rateService.getRateById(responseRequestDto.getRateId()));

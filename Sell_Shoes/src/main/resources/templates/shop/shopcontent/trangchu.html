@@ -309,9 +309,7 @@
 							<h3>Hot Products</h3>
 						</div>
 						<div class="row">
-							<div class="product_active_soft owl-carousel">
-								
-							</div>
+							<div class="product_active_soft owl-carousel"></div>
 						</div>
 					</div>
 					<!--featured product end-->
@@ -331,8 +329,8 @@
 		<div>
 			<div class="slider-container">
 				<div class="slides">
-					<img src="/shopview/assets/img/brand/D1.png" alt="Slide 1">
-					<img src="/shopview/assets/img/brand/D2.png" alt="Slide 2"> <img
+					<img src="/shopview/assets/img/brand/D1.png" alt="Slide 1"> <img
+						src="/shopview/assets/img/brand/D2.png" alt="Slide 2"> <img
 						src="/shopview/assets/img/brand/D3.png" alt="Slide 3"> <img
 						src="/shopview/assets/img/brand/D4.png" alt="Slide 4"> <img
 						src="/shopview/assets/img/brand/D5.png" alt="Slide 5"> <img
@@ -346,7 +344,7 @@
 		</div>
 		<div
 			style="border-radius: 10px; background-color: cyan; padding: 10px 10px 10px 10px; width: 97%; height: 90px; margin-left: 20px; margin-bottom: 60px">
-			<section class="section awe-section-2 section-section_policies">
+			<div class="section awe-section-2 section-section_policies">
 				<div style="display: flex;" class="policies-body">
 
 					<div
@@ -409,7 +407,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
 		</div>
 		<br>
 		<!--pos home section end-->
@@ -553,62 +551,6 @@
 		<script src="/shopview/assets/js/trangchu.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<script src="/path/to/owl.carousel.min.js"></script>
-
-		<script>
-    let currentIndex = 0;
-    const totalSlides = document.querySelectorAll('.slides img').length;
-    const slides = document.querySelector('.slides');
-    const visibleSlides = 4;
-
-function changeSlide(direction) {
-    currentIndex += direction;
-
-    if (currentIndex < 0) {
-        currentIndex = totalSlides - visibleSlides;
-    } else if (currentIndex >= totalSlides - visibleSlides + 1) {
-        currentIndex = 0;
-    }
-
-    const translateValue = -currentIndex * (100 / visibleSlides) + '%';
-    slides.style.transition = 'transform 0.5s ease-in-out';
-    slides.style.transform = 'translateX(' + translateValue + ')';
-
-    updateActiveSlide();
-}
-
-function updateActiveSlide() {
-    const activeImage = slides.querySelector('.active');
-    if (activeImage) {
-        activeImage.classList.remove('active');
-    }
-
-    for (let i = currentIndex; i < currentIndex + visibleSlides; i++) {
-        const newActiveImage = slides.querySelector(`img:nth-child(${i + 1})`);
-        newActiveImage.classList.add('active');
-    }
-}
-
-// Auto slide
-function autoSlide() {
-    setInterval(() => {
-        changeSlide(1);
-    }, 3000); // Thay đổi hình ảnh mỗi 3 giây
-}
-
-// Bắt đầu auto slide khi trang web được tải
-autoSlide();
-
-
-//Initialize Owl Carousel
- $(document).ready(function(){
-        $(".slider_active").owlCarousel({
-            items: 1,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            loop: true
-            // Thêm các tùy chọn khác nếu cần
-        });
-    });
-</script>
+	</div>
 </body>
 </html>

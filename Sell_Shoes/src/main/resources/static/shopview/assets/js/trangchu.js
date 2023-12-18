@@ -776,31 +776,81 @@
      					      }
      					    });
      	 				} 
-     	 		    
-     	 		  var csrfToken = null;
-            		document.getElementById("logout-form").addEventListener("submit", function(event) {
-            		  // Gửi yêu cầu AJAX
-            		  var xhr = new XMLHttpRequest();
-            		  xhr.open("POST", "/logout", true);
-            		  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            		  if (Cookies.get('XSRF-TOKEN')) {
-            			  csrfToken = Cookies.get('XSRF-TOKEN');
-            			  xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
-            			}
-            		  
-            			
-            		  xhr.onload = function() {
-            		     if (xhr.status === 200) {
-            				 
-            			      // Đăng xuất thành công, ẩn class "user"
-            			      //var userElement = document.getElementsByClassName("ht-user")[0];
-            			      //var userName = document.getElementsByClassName("userName")[0];
-            			      
-            			      //userElement.classList.add("hide");
-            			      //userName.classList.add("hide");
-            			   
-            			    } 
-            		  };
-            		
-            		  xhr.send(new FormData(event.target));
-            		});
+     	 				
+     	 				let currentIndex = 0;
+					    const totalSlides = document.querySelectorAll('.slides img').length;
+					    const slides = document.querySelector('.slides');
+					    const visibleSlides = 4;
+					
+					function changeSlide(direction) {
+					    currentIndex += direction;
+					
+					    if (currentIndex < 0) {
+					        currentIndex = totalSlides - visibleSlides;
+					    } else if (currentIndex >= totalSlides - visibleSlides + 1) {
+					        currentIndex = 0;
+					    }
+					
+					    const translateValue = -currentIndex * (100 / visibleSlides) + '%';
+					    slides.style.transition = 'transform 0.5s ease-in-out';
+					    slides.style.transform = 'translateX(' + translateValue + ')';
+					
+					    updateActiveSlide();
+					}
+					
+					function updateActiveSlide() {
+					    const activeImage = slides.querySelector('.active');
+					    if (activeImage) {
+					        activeImage.classList.remove('active');
+					    }
+					
+					    for (let i = currentIndex; i < currentIndex + visibleSlides; i++) {
+					        const newActiveImage = slides.querySelector(`img:nth-child(${i + 1})`);
+					        newActiveImage.classList.add('active');
+					    }
+					}
+					
+					// Auto slide
+					function autoSlide() {
+					    setInterval(() => {
+					        changeSlide(1);
+					    }, 3000); // Thay đổi hình ảnh mỗi 3 giây
+					}
+					
+					// Bắt đầu auto slide khi trang web được tải
+					autoSlide();
+					
+					
+					//Initialize Owl Carousel
+					 $(document).ready(function(){
+					        $(".slider_active").owlCarousel({
+					            items: 1,
+					            autoplay: true,
+					            autoplayTimeout: 5000,
+					            loop: true
+					            // Thêm các tùy chọn khác nếu cần
+					        });
+					    });
+     	 				
+     	 		 var csrfToken = null;
+					document.getElementById("logout-form").addEventListener("submit", function(event) {
+					    // Gửi yêu cầu AJAX
+					    var xhr = new XMLHttpRequest();
+					    xhr.open("POST", "/logout", true);
+					    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					    
+					    if (Cookies.get('XSRF-TOKEN')) {
+					        csrfToken = Cookies.get('XSRF-TOKEN');
+					        xhr.setRequestHeader("X-XSRF-TOKEN", csrfToken);
+					    }
+					    
+					    xhr.onload = function() {
+					        if (xhr.status === 200) {
+					            // Chuyển hướng người dùng về trang chủ sau khi đăng xuất thành công
+					            window.location.href = "/product/index";
+					        } 
+					    };
+					    
+					    xhr.send(new FormData(event.target));
+					    event.preventDefault(); // Ngăn chặn sự kiện mặc định của form
+					});

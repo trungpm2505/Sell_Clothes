@@ -348,12 +348,12 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			      },
 			      error: function(){}})
 			  } 
-			
+			var csrfToken;
 			$(function() {
 				$(document).on('click', '.edit-button', function() {
 			    	console.log("edit");
 			        clearFrom();
-			    
+			    csrfToken = Cookies.get('XSRF-TOKEN');
 			    	 var productId = parseInt($(this).data('id'), 10);
 
 			    	// Kiểm tra xem productId có tồn tại không
@@ -366,6 +366,9 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			    	            url: "/product/getProduct", 
 			    	            type: "GET",  
 			    	            data: { id: productId },
+			    	            headers: {
+								    'X-XSRF-TOKEN': csrfToken
+								  },
 			    	            success: function(response) {
 			    	            	document.getElementById('id').value = productId;
 			    	            	document.getElementById('title').value = response.title;
@@ -439,7 +442,7 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			
 			$(document).on('click', '.delete-product', function() {
 		           let productId = $(this).data("id");
-
+					 csrfToken = Cookies.get('XSRF-TOKEN');
 		           Swal.fire({
 		        	   title: 'Are you sure you want to delete?',
 		        	   text: 'This action cannot be undone!',
@@ -452,6 +455,9 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 		        		   $.ajax({
 		        			   url: '/product/delete?productId=' + productId,
 						        type: 'DELETE',
+						        headers: {
+								    'X-XSRF-TOKEN': csrfToken
+								  },
 						        success: function(data) {
 					        	     Swal.fire(data, '', 'success');
 					        	     loadData(0, "");
@@ -776,7 +782,7 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 			            clearFromVariant(); 
 			            // close modal
 				        $('#variantModal').modal('hide');
-				        $('#pills-profile-tab').tab('show')
+				        //$('#pills-profile-tab').tab('show')
 				        loadDataVariant(0,0,0,"");
 			        },
 			        error: function(jqXHR, textStatus, errorMessage) {
@@ -805,7 +811,7 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 						
 			$(document).on('click', '.delete-variant', function() {
 	           let variantId = $(this).data("id");
-
+				csrfToken = Cookies.get('XSRF-TOKEN');
 	           Swal.fire({
 	        	   title: 'Are you sure you want to delete?',
 	        	   text: 'This action cannot be undone!',
@@ -818,6 +824,9 @@ var inputList = [ 'title', 'category', 'brand', 'discription', 'file-input' ];
 	        		   $.ajax({
 					        url: '/variant/delete?variantId=' + variantId,
 					        type: 'DELETE',
+					        headers: {
+								    'X-XSRF-TOKEN': csrfToken
+								  },
 					        success: function(data) {
 				        	     Swal.fire(data, '', 'success');
 					        	loadDataVariant(0,0,0,"");

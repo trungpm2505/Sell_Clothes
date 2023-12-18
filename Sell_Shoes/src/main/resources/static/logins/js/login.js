@@ -50,7 +50,7 @@ if (loginForm) {
                 const data = await response.json();
                 const role = data.role;
                 const token = data.token;
-                const homeResponse = await fetch('/product/all-product', {
+                const homeResponse = await fetch('/product/index', {
 			        headers: {
 			          'Authorization': 'Bearer ' + token
 			        }
@@ -64,7 +64,7 @@ if (loginForm) {
 				  
                 if (homeResponse.ok) {
 			        if (role === 'USER') {
-			          window.location.href = "/product/all-product";
+			          window.location.href = "/product/index";
 			          
 			        } else if (role === 'ADMIN') {
 			          window.location.href = '/report';
